@@ -43,8 +43,7 @@ This website uses these sources:
 | [comment](https://commentit.io)                              | Post                                            | [APGL-3.0](https://www.gnu.org/licenses/agpl-3.0.html)       |
 | [404 T-rex game](https://github.com/wayou/t-rex-runner)      | 404 page                                        | from [Chromium source code](https://cs.chromium.org/chromium/src/components/neterror/resources/offline.js?q=t-rex+package), [license](https://chromium.googlesource.com/chromium/src.git/+/master/LICENSE) |
 | [Encryption](https://github.com/robinmoisson/staticrypt)     | Secret Pages                                    | [MIT](http://opensource.org/licenses/MIT)                    | |
-| [yk-liu
-](https://github.com/yk-liu/yk-liu.github.io)     | Template                                    | [MIT](http://opensource.org/licenses/MIT)                    |
+| [yk-liu](https://github.com/yk-liu/yk-liu.github.io)     | Template                                    | [MIT](http://opensource.org/licenses/MIT)                    |
 
 Additional licensing information can be found YOUR WEBSITE LINK.
 

@@ -9,19 +9,19 @@ url: "https://feizhao19.github.io/"
 # GitHub User settings
 username: Fei Zhao
 github_username: feizhao19
-user_description: user_description
-user_title: user_title
-email:
+user_description: I am currently pursuing my doctorate in Computer Science at the University of Alabama at Birmingham.
+user_title: Teaching Assistant
+email: larry5@uab.edu
 
 # Blog Author settings
-author:
-  name:
+author: Fei Zhao
+  name: Fei Zhao
   picture:
-  email:
+  email: larry5@uab.edu
   description:
   twitter:
-  facebook:
-  github:
+  facebook: https://www.facebook.com/profile.php?id=100043027852694
+  github: https://github.com/feizhao19
   linkedin:
   clustrmap:
 

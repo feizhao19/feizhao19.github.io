@@ -1,27 +1,27 @@
 # Site settings
-title: Patience is Power!
-description: Fei Zhao
+title: Website Title!!!!
+description: Website short description
 baseurl: ""
 #change the baseurl to "" if you are using it as your user GitHub Pages
-url: "https://feizhao19.github.io/"
+url: "https://yk-liu.github.io"
 
 
 # GitHub User settings
-username: Fei Zhao
-github_username: feizhao19
-user_description: I am currently pursuing my doctorate in Computer Science at the University of Alabama at Birmingham.
-user_title: Teaching Assistant
-email: larry5@uab.edu
+username: Username
+github_username: github_username
+user_description: user_description
+user_title: user_title
+email:
 
 # Blog Author settings
-author: Fei Zhao
-  name: Fei Zhao
+author:
+  name:
   picture:
-  email: larry5@uab.edu
+  email:
   description:
   twitter:
-  facebook: https://www.facebook.com/profile.php?id=100043027852694
-  github: https://github.com/feizhao19
+  facebook:
+  github:
   linkedin:
   clustrmap:
 

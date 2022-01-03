@@ -1,21 +1,21 @@
 ---
-title: Sample Post - Markdown Syntax
+title: Create the GitHub Website
 commentable: flase
-Edit: 2018-11-14
+Edit: 2021-01-01
 mathjax: true
 mermaid: true
 tags: tag1 tag2 tag3
-categories: sample post
-description: This is a sample post testing and demonstrating all the markdown syntaxes. In the description you can also use markdowns to do *A* **B** ***C*** and `D` and other stuff like a [link](https://yk-liu.github.io).
+categories: post
+description: This is a record of the creating process of my GitHub Website.
 ---
 
 This page's comment is disabled, scroll down to see.
 
 # Careful!
 
-Don't use `[]` in YAML front matter. 
+Don't use `[]` in YAML front matter.
 
-Use `\newline` instead of `\\` in inline math. 
+Use `\newline` instead of `\\` in inline math.
 
 `\substack` is a very useful command.
 
@@ -47,13 +47,13 @@ do not use `x_1` in inline math, write that as `x _ 1`. Jekyll will parse that a
 
 _This is also italic._ __This is also Bold__. _ If underscore is surrounded by spaces, it is not parsed. _
 
-~~This is strike through~~. 
+~~This is strike through~~.
 
 There is no underline in markdown. You can use html tags <u>like this to underline.</u>
 
-`This is a code block`. 
+`This is a code block`.
 
-[This is an external link](https://bit.ly). "https://" is important. This is an internal [link](#this-is-a-h2). Internal links are all lowercase with space replaced by hyphens "-". 
+[This is an external link](https://bit.ly). "https://" is important. This is an internal [link](#this-is-a-h2). Internal links are all lowercase with space replaced by hyphens "-".
 
 You can mix them like [*this*](https://bit.ly), [`this`](https://bit.ly), **[this](https://bit.ly)**, but not like `[this](https://bit.ly)`.
 
@@ -77,7 +77,7 @@ You can mix them like [*this*](https://bit.ly), [`this`](https://bit.ly), **[thi
  This is a simple code fence. You can use it to display text. The fonts are mono spaced.
 ```
 
-You can mix them as well, like 
+You can mix them as well, like
 
 > ```
 >  This
@@ -93,13 +93,13 @@ This is horizontal line
 
 This is inline math $\sum_{i=1}^{N} i $. This is display math.
 $$
-\sum_{i=1}^{N} i 
+\sum_{i=1}^{N} i
 $$
 The extra empty line matters, or you will end up with
 $$
 \sum_{i=1}^{N} i
 $$
-[Mathjax](http://docs.mathjax.org/en/latest/tex.html) syntax is like latex. You cannot use `\usepackge`, but you can use `\newcommand` like this 
+[Mathjax](http://docs.mathjax.org/en/latest/tex.html) syntax is like latex. You cannot use `\usepackge`, but you can use `\newcommand` like this
 $$
 \newcommand{\NewOp}[2]{\lbrace{#1}\mid \otimes{#2}\rbrace}
 $$
@@ -117,7 +117,7 @@ Wrap underscores with whitespaces like this $x _ 1$, $x _ 2$, $x _ {c _ 2}^{c _ 
 
 # Images
 
-Markdown uses `![caption](link)` to reference pictures, caption is optional. You cannot control the size. 
+Markdown uses `![caption](link)` to reference pictures, caption is optional. You cannot control the size.
 
 ![caption](https://raw.githubusercontent.com/yk-liu/yk-liu.github.io/master/_posts/2018-11-01-Introduction-to-Homology/assets/triangles.png)
 
@@ -260,7 +260,7 @@ The Foot notes are like this
 
 [^1]: https://yk-liu.github.io
 [^this]: https://yk-liu.github.io
-[^this-one]: 
+[^this-one]:
 
 ```
 > Blockquotes can be in a footnote.

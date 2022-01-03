@@ -1,26 +1,26 @@
 ---
-title: Build Your Blog with GitHub Pages
+title: The Introduction of GitHub Pages
 tags: Jekyll
-edit: 2019-03-26
+edit: 2021-01-01
 categories: Jekyll
 status: Paused
 mathjax: true
 highlight: true
 mermaid: true
-description: Build Your Blog with GitHub Pages. This is a sketch of how to use my theme `PointingToTheMoon` to write your blog. This theme is great for academic use, for it features simple post page with mathjax support and a side bar with toc. The main page on the other hand is somewhat fancy.
+description: A introduction of GitHub Pages.
 ---
 
 # What Do I Have to Offer
 
-There are many themes out there, yet none of them suits my need. 
+There are many themes out there, yet none of them suits my need.
 
 1. I want my post page's width to be at least 80% so the reader can simply read the post. I don't want persistent sidebars with a big picture of the blog owner
-2. I want my post to be extra readable. The font needs to be sharp and large enough. Not Consolas fonts or Comic Sans. 
+2. I want my post to be extra readable. The font needs to be sharp and large enough. Not Consolas fonts or Comic Sans.
 3. I want my blog to have the same features typora has, namely
    1. I need mathjax. Other themes seem rarely supporting it.
-   2. [mermaid diagram](https://mermaidjs.github.io/) is always a good thing to have. 
+   2. [mermaid diagram](https://mermaidjs.github.io/) is always a good thing to have.
    3. ==highlight==. This feature has to be implemented by js.
-4. I don't want to build my blog locally and push the entire website to GitHub. After I have done styling, I write in markdown (using typora) and push it, that should be **all** it needed. 
+4. I don't want to build my blog locally and push the entire website to GitHub. After I have done styling, I write in markdown (using typora) and push it, that should be **all** it needed.
 5. I want my assets in the same folder as my posts. I use the workaround as direct link it to the `raw.github` page, like this `<img src="https://raw.githubusercontent.com/yk-liu/PointingToTheMoon/master/_posts/2018-12-11-Jekyll-Build/assets/GitHub-desktop.png" width="80%">`. I consulted GitHub, and they said it's okay to do so.
 6. I want cool things, such as visitor map, tag clouds, and category clouds, commenting. I want Chinese readers to be able to comment as well. Disqus is blocked, and other sources are poorly maintained. So I chose commentit. All you need is a GitHub account or Facebook or Twitter.
 7. I have ZERO experience with front end stuff. The JavaScript is exhausting, so I avoided using JS as much as possible. It turns out a hidden sidebar can be down in pure CSS.
@@ -33,8 +33,8 @@ About the extended markdown syntaxes, you can see it [here]().
 
 1. It's simple.
 
-   1. The Domain is just `username.github.io`. You don't need to buy your own domain. PS, All domains must be registered by the owner using a personal ID. So that saves you a ton of trouble. But GitHub pages also allows you to 
-   2. GitHub pages build the website for you. This means you don't need to install `Jekyll` or `ruby`; you don't need you locally build your website and publish it. You simply commit your source code and that's all. 
+   1. The Domain is just `username.github.io`. You don't need to buy your own domain. PS, All domains must be registered by the owner using a personal ID. So that saves you a ton of trouble. But GitHub pages also allows you to
+   2. GitHub pages build the website for you. This means you don't need to install `Jekyll` or `ruby`; you don't need you locally build your website and publish it. You simply commit your source code and that's all.
    3. After properly configured, you can write in `markdown`, and `push` (a fancy name for upload) to GitHub.  Things like equations, lists, tables, mermaid-diagrams, images, or videos are automated supported. This means all you'll need is a text editor as simple as good old notepad.exe to write your post, yet I strongly recommend [`typora`](https://www.typora.io/). As the time of writing, it is free.
 
 2. You have absolute control over anything.

@@ -1,16 +1,16 @@
 # Site settings
-title: Website Title!!!!
-description: Website short description
+title: Patience is Power
+description: Fei Zhao
 baseurl: ""
 #change the baseurl to "" if you are using it as your user GitHub Pages
-url: "https://yk-liu.github.io"
+url: "https://feizhao19.github.io/"
 
 
 # GitHub User settings
-username: Username
-github_username: github_username
-user_description: user_description
-user_title: user_title
+username:
+github_username:
+user_description:
+user_title: 
 email:
 
 # Blog Author settings

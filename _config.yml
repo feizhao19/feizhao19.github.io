@@ -1,7 +1,7 @@
 # Site settings
-title: If you can't explain it simply, you don't understand it well enough.
-description: --Albert Einstein
-baseurl: ""
+title: Patience is Power
+description: Fei Zhao
+baseurl: "https://feizhao19.github.io/"
 #change the baseurl to "" if you are using it as your user GitHub Pages
 url: "https://feizhao19.github.io/"
 

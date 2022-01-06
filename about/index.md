@@ -45,8 +45,6 @@ This website uses these sources:
 | [Encryption](https://github.com/robinmoisson/staticrypt)     | Secret Pages                                    | [MIT](http://opensource.org/licenses/MIT)                    | |
 | [yk-liu](https://github.com/yk-liu/yk-liu.github.io)     | Template                                    | [MIT](http://opensource.org/licenses/MIT)                    |
 
-Additional licensing information can be found YOUR WEBSITE LINK.
-
 
 # Contact
 

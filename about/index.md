@@ -50,4 +50,4 @@ Additional licensing information can be found YOUR WEBSITE LINK.
 
 # Contact
 
-The best way to reach me is via email: $namer$ @ $web.com$
+The best way to reach me is via email: larry5@uab.edu

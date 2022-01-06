@@ -1,16 +1,10 @@
-# If you want to use this theme
+# Fei Zhao's Website
 
-Please read [this link](https://yk-liu.github.io/jekyll/Jekyll-Build.html#what-should-i-modify). 
+I am a Ph.D. student in [Computer Science](https://www.uab.edu/cas/computerscience/) at [the University of Alabama at Birmingham (UAB)](https://www.uab.edu/cas/computerscience/) working with [Professor Chengcui Zhang](https://sites.uab.edu/czhang02/). I am interested in Multimodal Deep Learning, Computer Vision, Natural Language Processing, Machine Learning, and Teaching.
 
-I **strongly** recommand that you use the other [repo](https://github.com/yk-liu/PointingToTheMoon) I specially prepared for you! It has all the features that this webiste has and has no personal information of me. You can fork that repo or leave a star if you like. 
+# References:
 
-However, you can still use this repo for some fine-tuning or hackering. But please at least use the "theme-for-fork" branch rather than the master branch.
-
-If you still want to use the master branch for some reason, please remove files/ descriptions about `yk-liu` so I don't have to pester you to clean up. Also I would appreciate if you don't fork this repo, but clone it and upload to your own, so there is no network between you and me. And if you really like this repo, maybe consider giving it a star.
-
-# About this website
-
-This website (source code [here](https://github.com/yk-liu/yk-liu.github.io)) uses these sources:
+This website is based on these sources:
 
 | Module                                                       | Mainly used in                                  | License/ TOS                                                 |
 | ------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------ |
@@ -26,4 +20,5 @@ This website (source code [here](https://github.com/yk-liu/yk-liu.github.io)) us
 | [Font size adjustment](https://codepen.io/robgolbeck/pen/yePRwa) | Post                                            | [MIT](http://opensource.org/licenses/MIT)                    |
 | [comment](https://commentit.io)                              | Post                                            | [APGL-3.0](https://www.gnu.org/licenses/agpl-3.0.html)       |
 | [404 T-rex game](https://github.com/wayou/t-rex-runner)      | 404 page                                        | from [Chromium source code](https://cs.chromium.org/chromium/src/components/neterror/resources/offline.js?q=t-rex+package), [license](https://chromium.googlesource.com/chromium/src.git/+/master/LICENSE) |
-| [Encryption](https://github.com/robinmoisson/staticrypt)     | Secret Pages                                    | [MIT](http://opensource.org/licenses/MIT)                    |
+| [Encryption](https://github.com/robinmoisson/staticrypt)     | Secret Pages                                    | [MIT](http://opensource.org/licenses/MIT)                    ||
+| [yk-liu](https://github.com/yk-liu/yk-liu.github.io)     | Template                                    | [MIT](http://opensource.org/licenses/MIT)                    |

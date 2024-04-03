@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/adapt
 authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'
 year: 2024
-date: 2024-04-01  
+date: 2024-01-15  
 venue: 'Under review'
 
 header:

@@ -7,20 +7,17 @@ redirect_from:
   - /about.html
 ---
 
-I'm currently a **fifth-year Ph.D.** student in the **Department of Computer Science** at the University of Alabama at Birmingham (UAB), under the guidance of **[Dr. Chengcui Zhang]**(https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Vision-Language Foundation Models**, and Parameter-Efficient Fine-Tuning (PEFT), aiming to advance the field of **Computer Vision and Natural Language Processing**.
+I'm currently a **fifth-year Ph.D.** student in the **Department of Computer Science** at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Vision-Language Foundation Models**, and Parameter-Efficient Fine-Tuning (PEFT), aiming to advance the field of **Computer Vision** and Natural Language Processing.
 
 Before embarking on my doctoral journey in 2019, I obtained my M.E. and B.E. degrees from the North University of China (2006 to 2013), where I had the privilege of being an **exchange graduate student at Tsinghua University** from 2011 to 2013, and then spent **6 years in the industry**, from 2013 to 2019, where I progressed from a **Senior Engineer** to a **Principal Engineer**. This practical experience not only solidified my technical foundation but also equipped me with a nuanced understanding of the challenges and opportunities in applying advanced machine learning techniques to solve real-world problems.
 
-Throughout my academic and professional career, I've been driven by a quest for knowledge and a passion for leveraging technology to address complex issues. My research has led to several publications in esteemed journals and conferences, reflecting my commitment to contributing valuable insights to the field of computer science.
+Throughout my academic and professional career, I've been driven by a quest for knowledge and a passion for leveraging technology to address complex issues. My research has led to 9 publications in **esteemed journals and conferences**, reflecting my commitment to contributing valuable insights to the field of computer science.
 
-In addition to my research pursuits, I have engaged in various teaching and professional roles (**GTA** and **GRA**) that have enriched my skills in leadership, communication, and collaboration. These experiences have prepared me for a future where I can contribute significantly to academia and industry, bridging the gap between theoretical research and practical applications.
+In addition to my research pursuits, I have engaged in various teaching and professional roles (**Graduate Teaching Assistant** and **Graduate Research Assistant**) that have enriched my skills in leadership, communication, and collaboration. These experiences have prepared me for a future where I can contribute significantly to academia and industry, bridging the gap between theoretical research and practical applications.
 
-For a more detailed overview of my projects, publications, and professional activities, please visit my **LinkedIn profile**: [Fei Zhao](https://www.linkedin.com/in/fei-zhao-6a762724a/).
-
- <!-- where I'm exploring the frontiers of Large Vision-Language Foundation Models under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on Multimodal Learning, Computer Vision and NLP.
+For a more detailed overview of my projects, publications, and professional activities, please visit my LinkedIn profile: [Fei Zhao](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 
 
-This is the front page of a website that is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! An older version of this template powers my own personal website at [stuartgeiger.com](http://stuartgeiger.com), which uses [this Github repository](https://github.com/staeiou/staeiou.github.io). -->
 
 A data-driven personal website
 ======

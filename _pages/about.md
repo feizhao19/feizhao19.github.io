@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 
-I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Vision-Language Foundation Models**, and **Parameter-Efficient Fine-Tuning (PEFT)**, with a focus on advancing Computer Vision and Natural Language Processing.
+I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Generative AI Models**, **Large Vision-Language Foundation Models**, and **Parameter-Efficient Fine-Tuning (PEFT)**, with a focus on advancing Computer Vision and Natural Language Processing.
 
 Before initiating my Ph.D. in 2019, my journey began at the North University of China, where I earned my B.E. and M.E. degrees (2006-2013) and was an exchange graduate student at Tsinghua University (2011-2013). I then applied machine learning techniques in industry for **6 years** (2013-2019), progressing from **Senior to Principal Engineer**, which sharpened my skills in tackling real-world challenges.
 
@@ -18,12 +18,15 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 
 
+
+
+
 ## Selected Publications
 <!-- ====== -->
 
 **Published**
 
-1. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, February 2024. **[Impact Factor: 16.6]**
+1. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, January 31, 2024. **[Impact Factor: 16.6]**
 
 2. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *Journal of Bone and Joint Surgery*, January 30, 2024. **[Impact Factor: 5.3]**
 

@@ -1,5 +1,5 @@
 ---
-title: "Visual Learning of Foundation Models for Post-disaster Damage Assessment"
+title: "Ballot Tabulation Using Deep Learning"
 collection: publications
 permalink: /publication/ballot
 authors:  '<strong>Fei Zhao</strong>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby'

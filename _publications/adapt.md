@@ -1,5 +1,5 @@
 ---
-title: "Parameter-Efficient Adaptation of Vision Foundation Models for Building Damage Evaluation."
+title: "Parameter-Efficient Adaptation of Vision Foundation Models for Building Damage Evaluation"
 collection: publications
 permalink: /publication/adapt
 authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'

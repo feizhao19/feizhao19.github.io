@@ -1,5 +1,5 @@
 ---
-title: "Visual Learning of Foundation Models for Post-disaster Damage Assessment"
+title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
 collection: publications
 permalink: /publication/prompt
 authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'

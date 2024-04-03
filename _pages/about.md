@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 
-I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Generative AI Models**, **Large Vision-Language Foundation Models**, and **Parameter-Efficient Fine-Tuning (PEFT)**, with a focus on advancing Computer Vision and Natural Language Processing.
+I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Generative Models**, **Large Vision-Language Foundation Models**, and **Parameter-Efficient Fine-Tuning (PEFT)**, with a focus on advancing Computer Vision and Natural Language Processing.
 
 Before initiating my Ph.D. in 2019, my journey began at the North University of China, where I earned my B.E. and M.E. degrees (2006-2013) and was an exchange graduate student at Tsinghua University (2011-2013). I then applied machine learning techniques in industry for **6 years** (2013-2019), progressing from **Senior to Principal Engineer**, which sharpened my skills in tackling real-world challenges.
 

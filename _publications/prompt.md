@@ -6,7 +6,6 @@ authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'
 year: 2024
 date: 2024-04-02  
 venue: 'Under review'
-paperurl: '/files/prompt.pdf'
 header:
   teaser: "prompt.png"
 ---

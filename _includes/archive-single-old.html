@@ -12,7 +12,7 @@
   {% assign title = post.title %}
 {% endif %}
 
-<!-- <div class="{{ include.type | default: "list" }}__item">
+<div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
@@ -61,64 +61,4 @@
     {% endif %}
 
   </article>
-</div> -->
-
-<div class="{{ include.type | default: "list" }}__item" style="display: flex; align-items: flex-start; max-width: 100%; margin-top: 20px; margin-bottom: 20px;" >
-  <!-- Check if there's a teaser image and set up the container -->
-  {% if teaser %}
-    <div class="archive__item-teaser" style="width: 350px; flex-shrink: 0; margin-right: 20px;"> <!-- Adjust the width as needed -->
-      <img src=
-        {% if teaser contains "://" %}
-          "{{ teaser }}"
-        {% else %}
-          "{{ teaser | prepend: '/images/' | prepend: base_path }}"
-        {% endif %}
-        alt="" style="width: 100%; height: auto;"> <!-- This ensures the image scales within the container -->
-    </div>
-  {% endif %}
-
-   <!-- Information about the paper -->
-   <div style="flex-grow: 1; max-width: 600px;"> <!-- Adjust the max-width as needed -->
-    <h3 class="archive__item-title" itemprop="headline">
-      <!-- {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> 
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true"></i><span class="sr-only">Permalink</span></a>
-      {% else %}
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
-      {% endif %} -->
-      {% if post.link %}
-        <a href="{{ post.link }}" title="{{ post.title }}">{{ post.title }}</a>
-      {% else %}
-        {{ post.title }}
-      {% endif %}
-    </h3>
-
-    <p class="archive__item-authors" style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ post.authors }}</p>
-    <p class="archive__item-venue-year" style="margin: 0;">{{ post.venue }}, {{ post.date | date: "%Y" }}</p>
-
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
-    {% endif %}
-    <!-- {% if post.venue %}
-      <p class="archive__item-excerpt" itemprop="description">{{ post.citation }}</p>
-    {% endif %} -->
-    
-    <div style="margin: 0;">
-      {% if post.paperurl %}
-        <a href="{{ site.baseurl }}{{ post.paperurl }}" style="margin-right: 10px;">Paper</a>
-      {% endif %}
-      {% if post.posterlink %}
-        <a href="{{ post.posterlink }}" style="margin-right: 10px;">Poster</a>
-      {% endif %}
-      {% if post.slideslink %}
-        <a href="{{ post.slideslink }}" style="margin-right: 10px;">Slides</a>
-      {% endif %}
-      {% if post.codelink %}
-        <a href="{{ post.codelink }}">Code</a>
-      {% endif %}
-    </div>
-
-   </div>
-
-
 </div>

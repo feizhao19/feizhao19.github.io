@@ -24,7 +24,7 @@ author:
   avatar           : "Fei_Zhao.jpg"
   name             : "Fei Zhao"
   pronouns         : # example: "she/her"  
-  bio              : "Ph.D. Candidate,\nDepartment of Computer Science,\nThe University of Alabama at Birmingham"
+  bio              : "Ph.D. Candidate,<br>Department of Computer Science,<br>The University of Alabama at Birmingham"
   location         : "Birmingham, AL, USA"
   # employer         : "The University of Alabama at Birmingham"
   uri              : # URL
@@ -42,7 +42,7 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "https://github.com/feizhao19"
+  github           : "feizhao19"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 

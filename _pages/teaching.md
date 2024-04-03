@@ -7,7 +7,7 @@ author_profile: true
 
 {% include base_path %}
 
-* **Teaching Assistant, the University of Alabama at Birmingham**
+* **Teaching Assistant, the University of Alabama at Birmingham (UAB)**
   * 2019 Fall: FA2019 CS 510-QL Database App Dev. Instructor: Dr. Chengcui Zhang
   * 2020 Spring: SP2020 CS 473/673/773 Computer Vision. Instructor: Dr. John K. Johnstone
   * 2020 Fall: FA2020 CS 332/532 Systems Programming. Instructor: Dr. Mahmut Unan

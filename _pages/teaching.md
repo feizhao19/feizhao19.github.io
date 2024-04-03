@@ -16,4 +16,4 @@ author_profile: true
   * 2022 Spring:  SP2022 CS 665/765-9I Deep Learning. Instructor: Dr. Chengcui Zhang
   * 2022 Fall: FA2022 CS 410-QL Database App Dev. Instructor: Dr. Chengcui Zhang
   
-(Responsibility: Led TA teams, taught lab sections, held office hours, and created/graded assignments)
+(Responsibility: **Led TA teams**, taught lab sections, held office hours, and created/graded assignments)

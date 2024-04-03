@@ -7,15 +7,13 @@ redirect_from:
   - /about.html
 ---
 
-I'm currently a **fifth-year Ph.D.** student in the **Department of Computer Science** at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Vision-Language Foundation Models**, and Parameter-Efficient Fine-Tuning (PEFT), aiming to advance the field of **Computer Vision** and Natural Language Processing.
+I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Large Vision-Language Foundation Models**, and **Parameter-Efficient Fine-Tuning (PEFT)**, with a focus on advancing Computer Vision and Natural Language Processing.
 
-Before embarking on my doctoral journey in 2019, I obtained my M.E. and B.E. degrees from the North University of China (2006 to 2013), where I had the privilege of being an **exchange graduate student at Tsinghua University** from 2011 to 2013, and then spent **6 years in the industry**, from 2013 to 2019, where I progressed from a **Senior Engineer** to a **Principal Engineer**. This practical experience not only solidified my technical foundation but also equipped me with a nuanced understanding of the challenges and opportunities in applying advanced machine learning techniques to solve real-world problems.
+My journey began at the North University of China, where I earned my B.E. and M.E. degrees (2006-2013) and was an exchange graduate student at Tsinghua University (2011-2013).I then applied machine learning in industry for **6 years**, progressing from **Senior to Principal Engineer**, which sharpened my skills in tackling real-world challenges.
 
-Throughout my academic and professional career, I've been driven by a quest for knowledge and a passion for leveraging technology to address complex issues. My research has led to 9 publications in **esteemed journals and conferences**, reflecting my commitment to contributing valuable insights to the field of computer science.
+Driven by a passion for technology and knowledge, my work has resulted in **11 esteemed publications**. My roles as a Graduate Teaching Assistant and Research Assistant have honed my leadership and collaborative abilities, preparing me to contribute meaningfully to both academia and industry.
 
-In addition to my research pursuits, I have engaged in various teaching and professional roles (**Graduate Teaching Assistant** and **Graduate Research Assistant**) that have enriched my skills in leadership, communication, and collaboration. These experiences have prepared me for a future where I can contribute significantly to academia and industry, bridging the gap between theoretical research and practical applications.
-
-For a more detailed overview of my projects, publications, and professional activities, please visit my LinkedIn profile: [Fei Zhao](https://www.linkedin.com/in/fei-zhao-6a762724a/).
+Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 
 
 

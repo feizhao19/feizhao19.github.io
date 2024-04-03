@@ -6,9 +6,9 @@ authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'
 year: 2020
 date: 2021-8-31  
 venue: 'IEEE International Conference on Information Reuse and Integration (<strong>IRI</strong>)'
-paperurl: '/files/icme.pdf'
+paperurl: '/files/iri_damage.pdf'
 header:
-  teaser: "icme.png"
+  teaser: "iri_damage.png"
 ---
 
 

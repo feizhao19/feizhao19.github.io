@@ -8,4 +8,4 @@ redirect_from:
 ---
 
 {% include base_path %}
-[Download my CV (Last Updated Apr.3, 2024)]({{base_path}}/files/.pdf)
+[Download my CV (Last Updated Apr.3, 2023)]({{base_path}}/files/.pdf)

@@ -46,6 +46,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Under Review**
 
+- **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment." MIPR 2024.
+
+
 - **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection." The 33rd USENIX Security Symposium.
 
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Journal of Healthcare Informatics Research.
@@ -53,8 +56,6 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 **Pre-prints**
 
 - **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Manuscript ready for submission.
-
-- **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Building Damage Evaluation." Manuscript ready for submission.
 
 - **Fei Zhao** and Chengcui Zhang, "Multimodal Algal Bloom Severity Evaluation Using Deep Learning: Leveraging Satellite Imagery, Elevation, Temperature, and Geolocation Data." Manuscript ready for submission.
 

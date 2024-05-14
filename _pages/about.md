@@ -46,9 +46,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Under Review**
 
+
 - **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment." MIPR 2024.
 
-
+- **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis." MIPR 2024.
 - **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection." The 33rd USENIX Security Symposium.
 
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Journal of Healthcare Informatics Research.

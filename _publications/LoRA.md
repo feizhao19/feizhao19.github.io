@@ -5,7 +5,7 @@ permalink: /publication/LoRA
 authors:  '<strong>Fei Zhao</strong>, Jiawen Chen, Bin Huang, Chengcui Zhang, etc.'
 year: 2024
 date: 2024-05-1  
-venue: 'Under review'
+venue: 'MIPR 2024 (Accepted)'
 
 header:
   teaser: "lora.png"

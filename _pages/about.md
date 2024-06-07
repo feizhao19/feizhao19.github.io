@@ -12,7 +12,7 @@ I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alab
 
 Before initiating my Ph.D. in 2019, my journey began at the North University of China, where I earned my B.E. and M.E. degrees (2006-2013) and was an exchange graduate student at Tsinghua University (2011-2013). I then applied machine learning techniques in industry for **6 years** (2013-2019), progressing from **Senior to Principal Engineer**, which sharpened my skills in tackling real-world challenges.
 
-Driven by a passion for technology and knowledge, my work has resulted in **12 esteemed publications**. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **14 esteemed publications**. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 
@@ -51,8 +51,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 12. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
 **Under Review**
+- **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (CIKM 2024).
 
-- **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Journal of Healthcare Informatics Research.
+- **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Scientific Reports Journal.
 
 **Pre-prints**
 

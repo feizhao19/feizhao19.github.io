@@ -48,7 +48,11 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 11. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
-12. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+12. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013.
+
+13. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013.
+
+14. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
 **Under Review**
 - **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (CIKM 2024).
@@ -63,6 +67,25 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm." Provisional Patent.
 
+## Teaching
+
+* **Teaching Assistant, the University of Alabama at Birmingham (UAB)**
+
+  * 2019 Fall: FA2019 CS 510-QL Database App Dev. Instructor: Dr. Chengcui Zhang
+
+  * 2020 Spring: SP2020 CS 473/673/773 Computer Vision. Instructor: Dr. John K. Johnstone
+
+  * 2020 Fall: FA2020 CS 332/532 Systems Programming. Instructor: Dr. Mahmut Unan
+
+  * 2021 Spring:  SP2021 CS 665/765 Deep Learning. Instructor: Dr. Chengcui Zhang
+
+  * 2021 Fall: FA2021 CS 410-QL/510-QL Database App Dev. Instructor: Dr. Chengcui Zhang
+
+  * 2022 Spring:  SP2022 CS 665/765-9I Deep Learning. Instructor: Dr. Chengcui Zhang
+  
+  * 2022 Fall: FA2022 CS 410-QL Database App Dev. Instructor: Dr. Chengcui Zhang
+  
+(Responsibility: **Led TA teams**, taught lab sections, held office hours, and created/graded assignments)
 
 ## Grants
 <!-- ====== -->

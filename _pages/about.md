@@ -32,7 +32,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 3. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
 
-4. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
+4. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) **[Acceptance Rate of Full Papers: 20%]**, [Accepted].
 
 5. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
 

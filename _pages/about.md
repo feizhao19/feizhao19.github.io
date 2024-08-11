@@ -36,7 +36,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 5. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
 
-6. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, January 31, 2024. **[Impact Factor: 16.6]**
+6. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, January 31, 2024. **[Impact Factor: 23.8]**
 
 7. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *Journal of Bone and Joint Surgery*, January 30, 2024. **[Impact Factor: 5.3]**
 

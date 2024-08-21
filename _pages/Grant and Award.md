@@ -23,6 +23,8 @@ author_profile: true
 
   * NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 
+  * First Prize, 2024 UAB NAS Graduate School and Global Affairs Dean's Scholarship, 2024
+
   * IEEE TCMC Student Travel Grant for IEEE MIPR24, 2024.
 
   * Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.

@@ -106,13 +106,15 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 
+- First Prize, 2024 UAB NAS Graduate School and Global Affairs Dean's Scholarship, 2024
+
 - IEEE TCMC Student Travel Grant for IEEE MIPR24, 2024.
 
 - Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.
 
-- IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
-
 - Student Travel Awards, Department of Computer Science, UAB, 2020, 2023-2024.
+
+- IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
 
 - Professional Development and Travel Award, UAB Graduate Student Government, 2023.
 

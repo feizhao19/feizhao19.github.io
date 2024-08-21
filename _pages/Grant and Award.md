@@ -25,6 +25,8 @@ author_profile: true
 
   * IEEE TCMC Student Travel Grant for IEEE MIPR24, 2024.
 
+  * Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.
+
   * IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
 
   * Professional Development and Travel Award, UAB Graduate Student Government, 2023.

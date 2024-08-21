@@ -120,6 +120,8 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2023.
 
+- Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.
+
 - Graduate Admission Scholarship, North University of China, 2010.
 
 ## Panels

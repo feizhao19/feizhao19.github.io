@@ -104,9 +104,11 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - Graduate Research/Teaching Assistantship, Department of Computer Science, UAB, 2019-Present.
 
-- Student Travel Grant to IEEE IRI, 2023.
+- NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 
-- Student Travel Grant to IEEE TCMC, 2023.
+- IEEE TCMC Student Travel Grant for IEEE MIPR24, 2024.
+
+- IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
 
 - Professional Development and Travel Award, UAB Graduate Student Government, 2023.
 

@@ -60,9 +60,13 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Under Review**
 
+
+
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Scientific Reports Journal.
 
 **Pre-prints**
+
+- **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Manuscript ready for submission.
 
 - **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Manuscript ready for submission.
 

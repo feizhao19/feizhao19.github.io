@@ -8,9 +8,8 @@ redirect_from:
 ---
 
 
-I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Generative Model**, **Multimodal Large Language Model**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
+I'm a **fifth-year Ph.D. student** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Generative Model**, **Multimodal Large Language Model**, **Multimodal Fusion**, **Vision-language Model Hallucination Mitigation**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
 
-<!-- Before initiating my Ph.D. in 2019, my journey began at the North University of China, where I earned my B.E. and M.E. degrees (2006-2013) and was an exchange graduate student at Tsinghua University (2011-2013). I then applied machine learning techniques in industry for **6 years** (2013-2019), progressing from **Senior to Principal Engineer**, which sharpened my skills in tackling real-world challenges. -->
 
 Driven by a passion for technology and knowledge, my work has resulted in **16 publications (13 as first author)** in prestigious venues such as CIKM, ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
@@ -26,15 +25,15 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Published**
 
-1. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (CIKM 2024). [Accepted].
+1. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (CIKM 2024).
 
-2. **Fei Zhao**, Sheikh Abujar and Chengcui Zhang, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IRI 2024). [Accepted].
+2. **Fei Zhao**, Sheikh Abujar and Chengcui Zhang, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IRI 2024).
 
-3. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
+3. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024).
 
-4. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) **[Acceptance Rate of Full Papers: 20%]**, [Accepted].
+4. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) **[Acceptance Rate of Full Papers: 20%]**.
 
-5. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024) [Accepted].
+5. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (MIPR 2024).
 
 6. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, January 31, 2024. **[Impact Factor: 23.8]**
 
@@ -61,12 +60,12 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 **Under Review**
 
 
+- **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Submitted to ICME 2025.
 
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Scientific Reports Journal.
 
 **Pre-prints**
 
-- **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Manuscript ready for submission.
 
 - **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Manuscript ready for submission.
 

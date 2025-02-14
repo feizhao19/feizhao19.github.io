@@ -5,7 +5,7 @@ permalink: /publication/Gencheck
 authors:  '<strong>Fei Zhao</strong>, Jiawen Chen, Bin Huang, and Chengcui Zhang'
 year: 2024
 date: 2024-05-02  
-venue: 'CIKM2024 (Accepted)'
+venue: 'ACM CIKM2024'
 header:
   teaser: "gencheck.png"
 ---

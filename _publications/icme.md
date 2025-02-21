@@ -6,7 +6,7 @@ authors:  '<strong>Fei Zhao</strong>, Chengcui Zhang, and Sheikh Abujar'
 year: 2023
 date: 2023-8-31  
 venue: 'IEEE International Conference on Multimedia and Expo (Application Track) (<strong>ICME</strong>)'
-paperurl: '/files/icme.pdf'
+paperurl: 'https://ieeexplore.ieee.org/abstract/document/10222575'
 header:
   teaser: "icme.png"
 ---

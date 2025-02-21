@@ -6,6 +6,7 @@ authors:  '<strong>Fei Zhao</strong>, Jiawen Chen, Bin Huang, Chengcui Zhang, et
 year: 2024
 date: 2024-05-1  
 venue: 'IEEE MIPR 2024'
+paperurl: 'https://ieeexplore.ieee.org/document/10707807'
 
 header:
   teaser: "lora.png"

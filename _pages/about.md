@@ -60,7 +60,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 **Under Review**
 
 
-- **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Submitted to ICME 2025.
+- **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Under review.
 
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Scientific Reports Journal.
 

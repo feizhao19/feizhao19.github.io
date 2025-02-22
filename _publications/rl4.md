@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models"
 collection: publications
 permalink: /publication/rl4
@@ -12,4 +12,4 @@ header:
   # teaser: "RL4.png"
 ---
 
-
+ -->

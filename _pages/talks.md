@@ -17,9 +17,9 @@ author_profile: true
 * **Reviewer**
 <!-- ====== -->
 
-  * **Frequent Reviewer for 14 Journals**, including ACM Computing Surveys, IEEE TGRS, IEEE TDSC, IEEE/ACM TCBB, IEEE GRSL, Knowledge-based Systems, and Expert Systems with Applications, among others.
+  * **Frequent Reviewer for 18 Journals**, including ACM Computing Surveys, IEEE TGRS, IEEE TDSC, IEEE/ACM TCBB, IEEE GRSL, Knowledge-based Systems, and Expert Systems with Applications, among others.
 
-  * Reviewer for Conferences: ICME (2020-2024), ACM Multimedia (2021-2024), ICASSP (2023, 2024)
+  * Reviewer for Conferences: ICME (2020-2024), ACM Multimedia (2021-2024), ICASSP (2023, 2024), IEEE DLCV (2025). 
 
 * **Volunteer**
 <!-- ====== -->

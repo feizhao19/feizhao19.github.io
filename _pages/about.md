@@ -107,8 +107,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Awards
 <!-- ====== -->
-
-- Graduate Research/Teaching Assistantship, Department of Computer Science, UAB, 2019-Present.
+- UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
 
 - NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 
@@ -116,11 +115,13 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - IEEE TCMC Student Travel Grant for IEEE MIPR24, 2024.
 
+- IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
+
 - Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.
 
-- Student Travel Awards, Department of Computer Science, UAB, 2020, 2023-2024.
+- Graduate Research/Teaching Assistantship, Department of Computer Science, UAB, 2019-Present.
 
-- IEEE TCMC Student Travel Grant for IEEE IRI23, 2023.
+- Student Travel Awards, Department of Computer Science, UAB, 2020, 2023-2024.
 
 - Professional Development and Travel Award, UAB Graduate Student Government, 2023.
 
@@ -146,9 +147,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Reviewer
 <!-- ====== -->
 
-- Frequent Reviewer for 14 Journals, including ACM Computing Surveys, IEEE TGRS, IEEE TDSC, IEEE/ACM TCBB, IEEE GRSL, Knowledge-based Systems, and Expert Systems with Applications, among others.
+- Frequent Reviewer for 18 Journals, including ACM Computing Surveys, IEEE TGRS, IEEE TDSC, IEEE/ACM TCBB, IEEE GRSL, Knowledge-based Systems, and Expert Systems with Applications, among others.
 
-- Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024)
+- Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025). 
 
 ## Volunteer
 <!-- ====== -->

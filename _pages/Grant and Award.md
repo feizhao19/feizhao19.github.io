@@ -19,6 +19,7 @@ author_profile: true
 * **Awards**
 <!-- ====== -->
 
+  * UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
 
   * NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 

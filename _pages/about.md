@@ -63,6 +63,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 **Under Review**
 
 
+- **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarMarkMatch: Same-Hand Stuffing Detection."  Under review.
+
+
 - **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "RL4VLM: Reinforcement Learning for Hallucination Mitigation in Vision-Language Models."  Under review.
 
 - **Fei Zhao**, Chengcui Zhang, and Katherine Dudding, "Neonatal Pain Detection using Deep Learning." Scientific Reports Journal.
@@ -107,7 +110,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Awards
 <!-- ====== -->
-- UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
+- 2025 UAB Deans Doctoral Graduate Student, the College of Arts and Sciences, UAB, 2025.
 
 - NSF National Science Foundation Student Travel Award for CIKM24, 2024.
 

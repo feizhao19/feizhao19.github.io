@@ -5,7 +5,7 @@ permalink: /publication/prompt
 authors:  '<strong>Fei Zhao</strong>, and Chengcui Zhang'
 year: 2025
 date: 2025-01-02  
-venue: 'Under review'
+venue: 'Remote Sensing (Accepted)'
 header:
   teaser: "prompt.png"
 ---

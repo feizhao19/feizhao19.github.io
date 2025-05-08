@@ -6,6 +6,8 @@ authors:  '<strong>Fei Zhao</strong>, Chengcui Zhang, Runlin Zhang, and Tianyang
 year: 2025
 date: 2025-01-02  
 venue: 'Remote Sensing (Accepted)'
+paperurl: 'https://www.mdpi.com/2072-4292/17/10/1664'
+
 header:
   teaser: "prompt.png"
 ---

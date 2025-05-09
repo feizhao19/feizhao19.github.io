@@ -1,6 +1,7 @@
 ---
+layout: archive
+title: "Home"
 permalink: /
-title: "About Me"
 author_profile: true
 redirect_from: 
   - /about/
@@ -111,7 +112,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Awards
 <!-- ====== -->
 
-- UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
+- UAB College of Arts and Sciences Dean's Award, the College of Arts and Sciences, UAB, 2025.
 
 - NSF National Science Foundation Student Travel Award for CIKM24, NSF National Science Foundation, 2024.
 

@@ -44,7 +44,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 7. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
 
-8. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *JBJS OA*, 9(1), e23:1-7, 2024. **[Impact Factor: 2.3]**
+8. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
 
 9. **Fei Zhao** and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (ACM SIGSPATIAL 2023), November 13-16, 2023, Hamburg, Germany.
 

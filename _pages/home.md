@@ -13,7 +13,7 @@ redirect_from:
 I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Reinforcement Learning**, **Large Multimodal Language Model**, **Multimodal Fusion**, **Hallucination Mitigation**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
 
 
-Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **18 publications (15 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 
@@ -27,46 +27,48 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Published**
 
-1. **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
+1. **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarMarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
 
-2. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (ACM CIKM 2024), October 21–25, 2024, Boise, Idaho, United States.
+2. **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
 
-3. **Fei Zhao**, Sheikh Abujar and Chengcui Zhang, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States.
+3. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (ACM CIKM 2024), October 21–25, 2024, Boise, Idaho, United States.
 
-4. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+4. **Fei Zhao**, Sheikh Abujar and Chengcui Zhang, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States.
+
+5. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-5. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+6. **Fei Zhao** and Chengcui Zhang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-6. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+7. **Fei Zhao**, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-7. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
+8. **Fei Zhao**, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
 
-8. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
+9. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, **Fei Zhao**, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
 
-9. **Fei Zhao** and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (ACM SIGSPATIAL 2023), November 13-16, 2023, Hamburg, Germany.
+10. **Fei Zhao** and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (ACM SIGSPATIAL 2023), November 13-16, 2023, Hamburg, Germany.
 
-10. **Fei Zhao**, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
+11. **Fei Zhao**, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
 
-11. **Fei Zhao**, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (IEEE ICME 2023), July 10-14, 2023, Brisbane, Australia.
+12. **Fei Zhao**, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (IEEE ICME 2023), July 10-14, 2023, Brisbane, Australia.
 
-12. Katherine Dudding, Allyson Sanders, Peyton Lewis, **Fei Zhao**, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
+13. Katherine Dudding, Allyson Sanders, Peyton Lewis, **Fei Zhao**, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
 
-13. **Fei Zhao** and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
+14. **Fei Zhao** and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
 
-14. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
+15. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
-15. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013.
+16. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013.
 
-16. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013.
+17. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013.
 
-17. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+18. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
 **Under Review**
 
-- **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarMarkMatch: Same-Hand Stuffing Detection."  Under review.
+
 
 - **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."  Under review.
 

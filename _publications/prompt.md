@@ -5,7 +5,7 @@ permalink: /publication/prompt
 authors:  '<strong>Fei Zhao</strong>, Chengcui Zhang, Runlin Zhang, and Tianyang Wang'
 year: 2025
 date: 2025-01-02  
-venue: 'Remote Sensing (Accepted)'
+venue: 'Remote Sensing [[<strong>IF:4.2</strong>]'
 paperurl: 'https://www.mdpi.com/2072-4292/17/10/1664'
 header:
   teaser: "prompt.png"

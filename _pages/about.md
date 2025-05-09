@@ -25,7 +25,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Published**
 
-1. **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing. Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
+1. **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
 
 2. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (ACM CIKM 2024), October 21–25, 2024, Boise, Idaho, United States.
 

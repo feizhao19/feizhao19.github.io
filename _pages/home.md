@@ -13,7 +13,7 @@ author_profile: true
 I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Reinforcement Learning**, **Large Multimodal Language Model**, **Multimodal Fusion**, **Hallucination Mitigation**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
 
 
-Driven by a passion for technology and knowledge, my work has resulted in **18 publications (15 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **19 publications (16 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 

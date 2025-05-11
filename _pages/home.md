@@ -15,7 +15,7 @@ I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Al
 
 Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
-Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
+Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
 
 
 

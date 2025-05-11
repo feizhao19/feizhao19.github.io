@@ -3,9 +3,9 @@ layout: archive
 title: "Home"
 permalink: /home/
 author_profile: true
-redirect_from:
-  - /about/
-  - /about.html
+# redirect_from:
+#   - /about/
+#   - /about.html
 ---
 
 

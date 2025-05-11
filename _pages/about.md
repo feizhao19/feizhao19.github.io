@@ -13,7 +13,7 @@ redirect_from:
 I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Reinforcement Learning**, **Large Multimodal Language Model**, **Multimodal Fusion**, **Hallucination Mitigation**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
 
 
-Driven by a passion for technology and knowledge, my work has resulted in **19 publications (16 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/).
 
@@ -63,11 +63,11 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 16. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
-17. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013.
+17. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
-18. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013.
+<!-- 18. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013.
 
-19. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+19. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013. -->
 
 **Under Review**
 

@@ -29,7 +29,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 1. **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarMarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
 
-2. **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024). [Accepted]. 
+2. **Fei Zhao**, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). [Accepted]. 
 
 
 3. **Fei Zhao** and Chengcui Zhang, "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**

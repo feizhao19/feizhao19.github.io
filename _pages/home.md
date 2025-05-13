@@ -175,6 +175,14 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025). 
 
+
+## Mentoring
+
+	•	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
+	•	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
+	•	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
+	•	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023
+
 ## Volunteer
 <!-- ====== -->
 

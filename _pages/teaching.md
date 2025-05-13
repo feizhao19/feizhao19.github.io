@@ -20,8 +20,9 @@ author_profile: true
 
 
 * **Mentoring, the University of Alabama at Birmingham (UAB)**
+<!-- ====== -->
 
-	•	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
-	•	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
-	•	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
-	•	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023
+	*	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
+	*	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
+	*	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
+	*	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023

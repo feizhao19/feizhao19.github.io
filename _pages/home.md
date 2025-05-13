@@ -154,8 +154,24 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Reviewer
 <!-- ====== -->
+-	Active peer reviewer for the following journals:
 
-- Frequent Reviewer for 18 Journals, including ACM Computing Surveys, IEEE TGRS, IEEE TDSC, IEEE/ACM TCBB, IEEE GRSL, Knowledge-based Systems, and Expert Systems with Applications, among others.
+	1.	ACM Computing Surveys (Impact Factor: 23.8)
+	2.	Knowledge and Information Systems
+	3.	IEEE Transactions on Geoscience and Remote Sensing (TGRS) (Impact Factor: 7.5)
+	4.	International Journal of Multimedia Data Engineering and Management
+	5.	IEEE/ACM Transactions on Computational Biology and Bioinformatics (TCBB) (Impact Factor: 3.702)
+	6.	Computers and Electronics in Agriculture (Impact Factor: 7.7)
+	7.	International Journal of Business Data Communications and Networking
+	8.	IEEE Transactions on Multimedia (Impact Factor: 8.4)
+	9.	IEEE Geoscience and Remote Sensing Letters (GRSL)
+	10.	IEEE Transactions on Dependable and Secure Computing (TDSC) (Impact Factor: 7.0)
+	11.	Expert Systems with Applications (Impact Factor: 8.5)
+	12.	International Journal of Semantic Computing
+	13.	Palgrave Communications
+	14.	PLOS ONE
+	15.	Knowledge-Based Systems (Impact Factor: 8.8)
+	16.	IET Image Processing
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025). 
 

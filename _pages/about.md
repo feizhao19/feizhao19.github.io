@@ -176,10 +176,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Mentoring
 <!-- ====== -->
 
-	-	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
-	-	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
-	-	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
-	-	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023
+-	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
+-	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
+-	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
+-	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023
 
 ## Volunteer
 <!-- ====== -->

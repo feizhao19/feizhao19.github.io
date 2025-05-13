@@ -6,6 +6,7 @@ authors:  '<strong>Fei Zhao</strong>, Runlin Zhang, Chengcui Zhang, and Nitesh S
 year: 2025
 date: 2025-05-04 
 venue: 'IEEE International Conference on Multimedia and Expo (ICME2023)'
+paperurl: 'https://arxiv.org/abs/2505.07032'
 header:
   teaser: "arch_encoder.png"
 ---

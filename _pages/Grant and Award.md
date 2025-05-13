@@ -21,6 +21,8 @@ author_profile: true
 
   * UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
 
+  * Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025.
+
   * NSF National Science Foundation Student Travel Award for CIKM24, NSF National Science Foundation, 2024.
 
   * First Prize, 2024 UAB NAS Graduate School and Global Affairs Dean's Scholarship, UAB, 2024

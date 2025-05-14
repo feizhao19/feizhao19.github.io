@@ -115,7 +115,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
 
-- Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025
+- Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025.
 
 - NSF National Science Foundation Student Travel Award for CIKM24, NSF National Science Foundation, 2024.
 
@@ -178,10 +178,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Mentoring
 <!-- ====== -->
 
--	Ravi Teja Challa, Master’s Student, Computer Science, UAB, Class of 2025
--	Yifan Ying, Master’s Student, Computer Science, UAB, Class of 2024
--	Jasper Shen, Master’s Student, Computer Science, UAB, Class of 2024
--	Linghuan Zeng, Master’s Student, Computer Science, UAB, Class of 2023
+-	Ravi Teja Challa, Master’s Student, Computer Science, UAB, 2025
+-	Yifan Ying, Master’s Student, Computer Science, UAB, 2024
+-	Jasper Shen, Master’s Student, Computer Science, UAB, 2024
+-	Linghuan Zeng, Master’s Student, Computer Science, UAB, 2023
 
 ## Volunteer
 <!-- ====== -->

@@ -10,7 +10,7 @@ redirect_from:
 
 
 
-I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on **Machine Learning**, **Reinforcement Learning**, **Large Multimodal Language Model**, **Multimodal Fusion**, **Hallucination Mitigation**, **Parameter-Efficient Fine-Tuning (PEFT)**, and **Cross-modal Generation** with a focus on advancing Computer Vision and Natural Language Processing.
+I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Machine Learning, Reinforcement Learning, Large Multimodal Language Model, Multimodal Fusion, Hallucination Mitigation, Parameter-Efficient Fine-Tuning (PEFT), and Cross-modal Generation with a focus on advancing Computer Vision and Natural Language Processing.
 
 
 Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
@@ -114,7 +114,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Awards
 <!-- ====== -->
 
-- UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
+- UAB College of Arts and Sciences Dean's Award, the College of Arts and Sciences, UAB, 2025.
 
 - Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025.
 
@@ -179,10 +179,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Mentoring
 <!-- ====== -->
 
--	Ravi Teja Challa, Master’s Student, Computer Science, UAB, 2025
--	Yifan Ying, Master’s Student, Computer Science, UAB, 2024
--	Jasper Shen, Master’s Student, Computer Science, UAB, 2024
--	Linghuan Zeng, Master’s Student, Computer Science, UAB, 2023
+-	Ravi Teja Challa, Master's Student, Computer Science, UAB, 2025
+-	Yifan Ying, Master's Student, Computer Science, UAB, 2024
+-	Jasper Shen, Master's Student, Computer Science, UAB, 2024
+-	Linghuan Zeng, Master's Student, Computer Science, UAB, 2023
 
 ## Volunteer
 <!-- ====== -->

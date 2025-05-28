@@ -21,7 +21,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 <!-- ====== -->
 
 ### MarkMatch: Same-Hand Stuffing Detection
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Selected Publications
 <!-- ====== -->

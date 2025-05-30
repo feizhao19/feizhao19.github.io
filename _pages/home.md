@@ -10,18 +10,18 @@ author_profile: true
 
 
 
-I'm a **fifth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Machine Learning, Reinforcement Learning, Large Multimodal Language Model, Multimodal Fusion, Hallucination Mitigation, Parameter-Efficient Fine-Tuning (PEFT), and Cross-modal Generation with a focus on advancing Computer Vision and Natural Language Processing.
+I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Multimodal Information Integration, Multimodal Data Fusion, Multimodal Information Retrieval.
 
 
 Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
 
-## Project Demo
+<!-- ## Project Demo
 <!-- ====== -->
 
-1. MarkMatch: Deep Learning-based Visual Similarity Ranking and Retrieval System for Suspicious Handwritten Patterns
-<iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!-- 1. MarkMatch: Deep Learning-based Visual Similarity Ranking and Retrieval System for Suspicious Handwritten Patterns -->
+<!-- <iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --> -->
 
 ## Selected Publications
 <!-- ====== -->

@@ -10,7 +10,7 @@ author_profile: true
 
 
 
-I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Multimodal Information Integration, Multimodal Data Fusion, Multimodal Information Retrieval.
+I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Multimodal Information Integration, Multimodal Data Fusion, and Cross-Modal Information Retrieval.
 
 
 Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
@@ -174,6 +174,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 	14.	PLOS ONE
 	15.	Knowledge-Based Systems (Impact Factor: 8.8)
 	16.	IET Image Processing
+	17.	IEEE Sensors Journal (Impact Factor: 4.93)
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025), IEEE AVSS (2025).
 

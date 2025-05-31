@@ -173,6 +173,8 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 	14.	PLOS ONE
 	15.	Knowledge-Based Systems (Impact Factor: 8.8)
 	16.	IET Image Processing
+	17.	IEEE Sensors Journal (Impact Factor: 4.93)
+	
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025), IEEE AVSS (2025).
 

@@ -21,10 +21,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 <!-- 1. MarkMatch: Deep Learning-based Visual Similarity Ranking and Retrieval System for Suspicious Handwritten Patterns -->
 <!-- <iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --> -->
-
+<!-- 
 ## Selected Publications
-<!-- ====== -->
-
+====== -->
+<!-- 
 **Published**
 
 1. **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
@@ -69,7 +69,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 19. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013. -->
 
 
-
+<!-- 
 **Under Review**
 
 
@@ -80,8 +80,8 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - **Fei Zhao** and Chengcui Zhang, "Multimodal Algal Bloom Severity Evaluation Using Deep Learning: Leveraging Satellite Imagery, Elevation, Temperature, and Geolocation Data." Manuscript ready for submission.
 
-- "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm." Provisional Patent.
-
+- "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm." Provisional Patent. --> -->
+<!-- 
 ## Teaching
 
 * **Teaching Assistant, the University of Alabama at Birmingham (UAB)**
@@ -105,11 +105,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Grants
 <!-- ====== -->
 
-
+<!-- 
 1. Chengcui Zhang (PI), Nitesh Saxena (PI), Dan Wallach (PI), NSF SaTC-2154589, "Bubble Aid: Assistive AI to Improve the Robustness and Security of Reading Hand-Marked Ballots," $1,200,000, 10/01/2022-09/30/2025. (Main contributor to preliminary work and part of the grant writing)
 
-2. Chengcui Zhang (PI), NSF DCL 22-087, "Funding for AWS, Azure, and GCP cloud access through CloudBank," $23,139, 04/26/2023-05/01/2024. (Contributed to grant writing)
-
+2. Chengcui Zhang (PI), NSF DCL 22-087, "Funding for AWS, Azure, and GCP cloud access through CloudBank," $23,139, 04/26/2023-05/01/2024. (Contributed to grant writing) --> 
 
 ## Awards
 <!-- ====== -->

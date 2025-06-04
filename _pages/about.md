@@ -10,7 +10,7 @@ redirect_from:
 
 
 
-I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Multimodal Information Integration, Multimodal Data Fusion, and Cross-Modal Information Retrieval.
+I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research interests are focused on Multimodal Information Integration, with an emphasis on search, ranking, retrieval, and anomaly detection.
 
 
 Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
@@ -23,9 +23,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 1. MarkMatch: Deep Learning-based Visual Similarity Ranking and Retrieval System for Suspicious Handwritten Patterns
 <iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --> 
 
-## Selected Publications
+<!-- ## Selected Publications -->
 <!-- ====== -->
-
+<!-- 
 **Published**
 
 1. **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
@@ -69,7 +69,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 19. **Fei Zhao**, Jijun Xiong, Xiaotang Cao, Zhaoying Zhou, and Wei Xiong, "Research on Flight Attitude Stabilization Control of UAV for Agricultural and Forestry Survey," NongJia Keji (Technology for Agriculture), 1, 195, 2013. -->
 
-
+<!-- 
 **Under Review**
 
 
@@ -80,8 +80,8 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - **Fei Zhao** and Chengcui Zhang, "Multimodal Algal Bloom Severity Evaluation Using Deep Learning: Leveraging Satellite Imagery, Elevation, Temperature, and Geolocation Data." Manuscript ready for submission.
 
-- "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm." Provisional Patent.
-
+- "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm." Provisional Patent. -->
+<!-- 
 ## Teaching
 
 * **Teaching Assistant, the University of Alabama at Birmingham (UAB)**
@@ -104,12 +104,12 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Grants
 <!-- ====== -->
-
+<!-- 
 
 1. Chengcui Zhang (PI), Nitesh Saxena (PI), Dan Wallach (PI), NSF SaTC-2154589, "Bubble Aid: Assistive AI to Improve the Robustness and Security of Reading Hand-Marked Ballots," $1,200,000, 10/01/2022-09/30/2025. (Main contributor to preliminary work and part of the grant writing)
 
 2. Chengcui Zhang (PI), NSF DCL 22-087, "Funding for AWS, Azure, and GCP cloud access through CloudBank," $23,139, 04/26/2023-05/01/2024. (Contributed to grant writing)
-
+ --> 
 
 ## Awards
 <!-- ====== -->
@@ -181,10 +181,10 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Mentoring
 <!-- ====== -->
 
--	Ravi Teja Challa, Master's Student, Computer Science, UAB, 2025
--	Yifan Ying, Master's Student, Computer Science, UAB, 2024
--	Jasper Shen, Master's Student, Computer Science, UAB, 2024
--	Linghuan Zeng, Master's Student, Computer Science, UAB, 2023
+-	Ravi Teja Challa, Master Student, Computer Science, UAB, 2025
+-	Yifan Ying, Master Student, Computer Science, UAB, 2024
+-	Jasper Shen, Master Student, Computer Science, UAB, 2024
+-	Linghuan Zeng, Master Student, Computer Science, UAB, 2023
 
 ## Volunteer
 <!-- ====== -->

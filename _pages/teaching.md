@@ -22,7 +22,7 @@ author_profile: true
 * **Mentoring, the University of Alabama at Birmingham (UAB)**
 <!-- ====== -->
 
-	*	Ravi Teja Challa, Master’s Student, Computer Science, UAB, 2025
-	*	Yifan Ying, Master’s Student, Computer Science, UAB, 2024
-	*	Jasper Shen, Master’s Student, Computer Science, UAB, 2024
-	*	Linghuan Zeng, Master’s Student, Computer Science, UAB, 2023
+	*	Ravi Teja Challa, Master Student, Computer Science, UAB, 2025
+	*	Yifan Ying, Master Student, Computer Science, UAB, 2024
+	*	Jasper Shen, Master Student, Computer Science, UAB, 2024
+	*	Linghuan Zeng, Master Student, Computer Science, UAB, 2023

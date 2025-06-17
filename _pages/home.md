@@ -99,7 +99,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 4. **Fei Zhao**, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (ACM CIKM 2024), October 21–25, 2024, Boise, Idaho, United States.
 
-5. **Fei Zhao**, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States.
+5. **Fei Zhao**, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
 
 6. **Fei Zhao**, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]

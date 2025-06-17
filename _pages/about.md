@@ -135,6 +135,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 16. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
 17. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, **Fei Zhao**, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+
+
+
 <!-- 
 18. **Fei Zhao**, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Wei Xiong, "Research on the Guidance and Control System of Agricultural Survey UAVs," Agricultural Technology and Equipment, 10, 44-45, 2013. -->
 

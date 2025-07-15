@@ -19,13 +19,13 @@ Driven by a passion for technology and knowledge, my work has resulted in **17 p
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
 
 
+
 ## Education
 
-- **Ph.D. candidate**, Computer Science, University of Alabama at Birmingham, Aug 2019 – Present
-- **Master’s Degree**, Measuring and Testing Technologies and Instruments, North University of China, Sep 2010 – Jul 2013  
+- **Ph.D. candidate**, Computer Science, University of Alabama at Birmingham, 2019 – Present
+- **Master’s Degree**, Measuring and Testing Technologies and Instruments, North University of China, 2010 – 2013  
   *Graduate Exchange: Tsinghua University, Department of Precision Instrument (2.5 years), supervised by Prof. Zhaoying Zhou*
-- **Bachelor’s Degree**, Automation, North University of China, Sep 2006 – Jul 2010
-
+- **Bachelor’s Degree**, Automation, North University of China, 2006 – 2010
 
 ## Awards
 <!-- ====== -->

@@ -24,7 +24,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - **Ph.D. candidate**, Computer Science, University of Alabama at Birmingham, 2019 – Present
 - **Master’s Degree**, Measuring and Testing Technologies and Instruments, North University of China, 2010 – 2013  
-  *Graduate Exchange: Tsinghua University, Department of Precision Instrument (2.5 years), supervised by Prof. Zhaoying Zhou*
+  <font size="2">*Graduate Exchange: Tsinghua University, Department of Precision Instrument (2.5 years), supervised by Prof. Zhaoying Zhou*</font>
 - **Bachelor’s Degree**, Automation, North University of China, 2006 – 2010
 
 ## Awards

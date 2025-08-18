@@ -6,7 +6,7 @@ authors:  'Xi Li, Shu Zhao, <strong>Fei Zhao</strong>, and Runlong Yu'
 year: 2025
 date: 2025-01-01  
 venue: 'T2FM @ ICCV'
-paperurl: '/files/iccv.pngf'
+paperurl: '/files/iccv.png'
 # pdf: 'https://ieeexplore.ieee.org/document/10707799'
 
 header:

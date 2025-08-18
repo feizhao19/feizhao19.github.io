@@ -25,7 +25,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 **Published**
 
 
-1.	Xi Li, Shu Zhao,**Fei Zhao**, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop。 [Accepted]
+1.	Xi Li, Shu Zhao,**Fei Zhao**, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop. [Accepted]
 
 2. **Fei Zhao**, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
 

@@ -129,7 +129,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 - Graduate Admission Scholarship, North University of China, 2010.
 
 
-
+<!-- 
 ## Education
 
 - **Ph.D. candidate**, Computer Science, University of Alabama at Birmingham, 2019 – Present
@@ -137,7 +137,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
   <font size="2">*Graduate Exchange: Tsinghua University, Department of Precision Instrument (2.5 years), supervised by Prof. Zhaoying Zhou*</font>
 - **Bachelor’s Degree**, Automation, North University of China, 2006 – 2010
 
-
+ -->
 
 
 ## Panels

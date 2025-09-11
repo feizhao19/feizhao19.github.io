@@ -15,7 +15,12 @@ I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Al
 
 Driven by a passion for technology and knowledge, my work has resulted in **18 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
+
+As **an INFP personality**, I am guided by **strong empathy**, which allow me to deeply understand others and foster meaningful collaboration. My **creativity and imagination** enable me to explore innovative solutions in research, while my cooperative and inclusive nature helps me **build supportive, harmonious teams**. These qualities empower me to connect authentically with colleagues and contribute positively to both academic and professional environments.
+
+
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
+
 
 
 

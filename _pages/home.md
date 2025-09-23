@@ -10,8 +10,10 @@ author_profile: true
 
 
 
-I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). I specialize in Multimodal Information Integration, with core research in search, ranking, and retrieval systems, complemented by applied innovations in remote sensing, medical imaging, audio, medical data analysis, and computer vision.
+<!-- I'm a **sixth-year Ph.D. candidate** in Computer Science at the University of Alabama at Birmingham (UAB), under the guidance of [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). I specialize in Multimodal Information Integration, with core research in search, ranking, and retrieval systems, complemented by applied innovations in remote sensing, medical imaging, audio, medical data analysis, and computer vision. -->
 
+
+I am a **sixth-year Ph.D. candidate in Computer Science** at the University of Alabama at Birmingham (UAB), advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive training** for hallucination mitigation. Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, anomaly detection, natural language processing and computer vision.
 
 Driven by a passion for technology and knowledge, my work has resulted in **18 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 

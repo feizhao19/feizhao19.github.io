@@ -104,7 +104,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 ## Awards
 <!-- ====== -->
 
-- UAB College of Arts and Sciences Dean's Doctoral Graduate Student Award, the College of Arts and Sciences, UAB, 2025.
+- Dean's Doctoral Graduate Student Award, the College of Arts and Sciences, UAB, 2025.
 
 - IEEE TCMC Student Travel Grant for IEEE MIPR25, IEEE Technical Community on Multimedia Computing, 2025.
 

@@ -30,13 +30,13 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 1.	Xi Li, Shu Zhao, <u>Fei Zhao</u>, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop. [Accepted]
 
-2.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (IEEE ICME 2025) [Accepted].
+2.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (**IEEE ICME 2025**) [Accepted].
 
 3.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). [Accepted]. 
 
 4.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang. "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
 
-5.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (ACM CIKM 2024), October 21–25, 2024, Boise, Idaho, United States.
+5.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (**ACM CIKM 2024**), October 21–25, 2024, Boise, Idaho, United States.
 
 6.  <u>Fei Zhao</u>, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
 
@@ -53,11 +53,11 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 11. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell,  <u>Fei Zhao</u>, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
 
-12.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (ACM SIGSPATIAL 2023), November 13-16, 2023, Hamburg, Germany.
+12.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (**ACM SIGSPATIAL 2023**), November 13-16, 2023, Hamburg, Germany.
 
 13.  <u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
 
-14.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (IEEE ICME 2023), July 10-14, 2023, Brisbane, Australia.
+14.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (**IEEE ICME 202**), July 10-14, 2023, Brisbane, Australia.
 
 15. Katherine Dudding, Allyson Sanders, Peyton Lewis,  <u>Fei Zhao</u>, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
 

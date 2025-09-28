@@ -182,6 +182,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025), IEEE AVSS (2025).
 
+- **Program Committee Member**: PAKDD (2026)
 
 
 ## Grants

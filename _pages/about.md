@@ -150,14 +150,13 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Conference Program Committee Member
 
-- **Program Committee Chair**: IEEE IRI Poster(2026)
+- Program Committee Chair: IEEE IRI Poster(2026)
 
-- **Program Committee Member**: PAKDD (2026), ACM Multimedia (2026)
+- Program Committee Member: PAKDD (2026), ACM Multimedia (2026)
 
 ## Reviewer
 <!-- ====== -->
 -	Active peer reviewer for the following journals:
-
 	1.	ACM Computing Surveys (Impact Factor: 23.8)
 	2.	Knowledge and Information Systems
 	3.	IEEE Transactions on Geoscience and Remote Sensing (TGRS) (Impact Factor: 7.5)

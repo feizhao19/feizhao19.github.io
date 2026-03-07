@@ -9,17 +9,31 @@ redirect_from:
 ---
 
 
-
+<!-- 
 
 I am a **sixth-year Ph.D. candidate in Computer Science** at the University of Alabama at Birmingham (UAB), advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive training** for hallucination mitigation. Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, anomaly detection, natural language processing and computer vision.
 
 
-Driven by a passion for technology and knowledge, my work has resulted in **18 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 As **an INFP personality**, I am guided by **strong empathy**, which allow me to deeply understand others and foster meaningful collaboration. My **creativity and imagination** enable me to explore innovative solutions in research, while my cooperative and inclusive nature helps me **build supportive, harmonious teams**. These qualities empower me to connect authentically with colleagues and contribute positively to both academic and professional environments.
 
 
+Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en). -->
+
+I am a **Machine Learning Research Scientist (Postdoctoral Fellow)** at the University of Alabama at Birmingham (UAB), where I received my **Ph.D. in Computer Science in December 2025**, advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive learning** for hallucination mitigation.
+
+Recently, my work has also explored **mutlmodal AI agent systems and agentic workflows in augmented reality (AR) environments**, particularly the **evaluation of multimodal AI agent pipelines** for grounding, decision reliability, and system-level performance in complex multimodal environments.
+
+Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, and anomaly detection.
+
+
+Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+
+I enjoy collaborating with diverse teams to translate research ideas into practical AI systems. I value open communication, creativity, and thoughtful problem-solving. My reflective and empathetic personality helps me build supportive collaborations and contribute positively to team environments.
+
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
+
 
 
 ## Selected Publications
@@ -27,45 +41,47 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Published**
 
+1.	Xi Li, Shu Zhao, Xiaohan Zou, <u>Fei Zhao</u>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang, “Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards
+.” ICLR 2026 Workshop Trustworthy AI. [Accepted]
 
-1.	Xi Li, Shu Zhao, <u>Fei Zhao</u>, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop. [Accepted]
+2.	Xi Li, Shu Zhao, <u>Fei Zhao</u>, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop.
 
-2.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (**IEEE ICME 2025**) [Accepted].
+3.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (**IEEE ICME 2025**) [Accepted].
 
-3.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). [Accepted]. 
+4.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). [Accepted]. 
 
-4.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang. "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
+5.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang. "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
 
-5.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (**ACM CIKM 2024**), October 21–25, 2024, Boise, Idaho, United States.
+6.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (**ACM CIKM 2024**), October 21–25, 2024, Boise, Idaho, United States.
 
-6.  <u>Fei Zhao</u>, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
+7.  <u>Fei Zhao</u>, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
 
-7.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+8.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-8.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+9.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-9.  <u>Fei Zhao</u>, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+10.  <u>Fei Zhao</u>, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-10.  <u>Fei Zhao</u>, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
+11.  <u>Fei Zhao</u>, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
 
-11. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell,  <u>Fei Zhao</u>, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
+12. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell,  <u>Fei Zhao</u>, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
 
-12.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (**ACM SIGSPATIAL 2023**), November 13-16, 2023, Hamburg, Germany.
+13.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (**ACM SIGSPATIAL 2023**), November 13-16, 2023, Hamburg, Germany.
 
-13.  <u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
+14.  <u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
 
-14.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (**IEEE ICME 202**), July 10-14, 2023, Brisbane, Australia.
+15.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (**IEEE ICME 202**), July 10-14, 2023, Brisbane, Australia.
 
-15. Katherine Dudding, Allyson Sanders, Peyton Lewis,  <u>Fei Zhao</u>, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
+16. Katherine Dudding, Allyson Sanders, Peyton Lewis,  <u>Fei Zhao</u>, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
 
-16.  <u>Fei Zhao</u> and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
+17.  <u>Fei Zhao</u> and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
 
-17.  <u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
+18.  <u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
-18. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo,  <u>Fei Zhao</u>, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+19. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo,  <u>Fei Zhao</u>, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
 
 
@@ -143,14 +159,9 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
  -->
 
 
-## Panels
-<!-- ====== -->
+- **Program Committee Chair**: IEEE IRI Poster(2026)
 
-- Panelist, "Global Awareness: International Student Insights on the Experience of Studying in the United States," UAB, 2023.
-
-- Panelist, "Orientation for International Graduate Students," UAB, Summer Semester, 2023.
-
-- Panelist, "Orientation for International Graduate Students," UAB, Fall Semester, 2023.
+- **Program Committee Member**: PAKDD (2026), ACM Multimedia (2026)
 
 ## Reviewer
 <!-- ====== -->
@@ -178,13 +189,20 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025), IEEE AVSS (2025).
 
-
-
 <!-- ## Project Demo
 <!-- ====== -->
 <!-- 
 1. MarkMatch: Deep Learning-based Visual Similarity Ranking and Retrieval System for Suspicious Handwritten Patterns
 <iframe width="280" height="157.5" src="https://www.youtube.com/embed/9-fbQ5EIPv8" title="MarkMatch Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --> 
+
+## Panels
+<!-- ====== -->
+
+- Panelist, "Global Awareness: International Student Insights on the Experience of Studying in the United States," UAB, 2023.
+
+- Panelist, "Orientation for International Graduate Students," UAB, Summer Semester, 2023.
+
+- Panelist, "Orientation for International Graduate Students," UAB, Fall Semester, 2023.
 
 
 

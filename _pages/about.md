@@ -9,20 +9,6 @@ redirect_from:
 ---
 
 
-<!-- 
-
-I am a **sixth-year Ph.D. candidate in Computer Science** at the University of Alabama at Birmingham (UAB), advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive training** for hallucination mitigation. Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, anomaly detection, natural language processing and computer vision.
-
-
-Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
-
-As **an INFP personality**, I am guided by **strong empathy**, which allow me to deeply understand others and foster meaningful collaboration. My **creativity and imagination** enable me to explore innovative solutions in research, while my cooperative and inclusive nature helps me **build supportive, harmonious teams**. These qualities empower me to connect authentically with colleagues and contribute positively to both academic and professional environments.
-
-
-Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en). -->
-
-
-
 I am a **Machine Learning Research Scientist** (Postdoctoral Fellow) at the University of Alabama at Birmingham (UAB), where I received my **Ph.D. in Computer Science in December 2025**, advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive learning** for hallucination mitigation.
 
 Recently, my work has also explored **mutlmodal AI agent systems** and agentic workflows in augmented reality (AR) environments, particularly the **evaluation of multimodal AI agent pipelines** for grounding, decision reliability, and system-level performance in complex multimodal environments.
@@ -35,6 +21,8 @@ Driven by a passion for technology and knowledge, my work has resulted in **17 p
 I enjoy collaborating with diverse teams to translate research ideas into practical AI systems. I value open communication, creativity, and thoughtful problem-solving. My reflective and empathetic personality helps me build supportive collaborations and contribute positively to team environments.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
+
+
 
 
 
@@ -231,7 +219,6 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 
 
-
 ## Mentoring
 <!-- ====== -->
 
@@ -239,13 +226,6 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 -	Yifan Ying, Master Student, Computer Science, UAB, 2024
 -	Jasper Shen, Master Student, Computer Science, UAB, 2024
 -	Linghuan Zeng, Master Student, Computer Science, UAB, 2023
-
-
-
-
-
-
-
 
 ## Volunteer
 <!-- ====== -->

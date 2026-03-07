@@ -21,9 +21,11 @@ As **an INFP personality**, I am guided by **strong empathy**, which allow me to
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en). -->
 
-I am a **Machine Learning Research Scientist (Postdoctoral Fellow)** at the University of Alabama at Birmingham (UAB), where I received my **Ph.D. in Computer Science in December 2025**, advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive learning** for hallucination mitigation.
 
-Recently, my work has also explored **mutlmodal AI agent systems and agentic workflows in augmented reality (AR) environments**, particularly the **evaluation of multimodal AI agent pipelines** for grounding, decision reliability, and system-level performance in complex multimodal environments.
+
+I am a **Machine Learning Research Scientist** (Postdoctoral Fellow) at the University of Alabama at Birmingham (UAB), where I received my **Ph.D. in Computer Science in December 2025**, advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive learning** for hallucination mitigation.
+
+Recently, my work has also explored **mutlmodal AI agent systems** and agentic workflows in augmented reality (AR) environments, particularly the **evaluation of multimodal AI agent pipelines** for grounding, decision reliability, and system-level performance in complex multimodal environments.
 
 Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, and anomaly detection.
 

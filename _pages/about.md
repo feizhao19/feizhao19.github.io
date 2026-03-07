@@ -28,7 +28,7 @@ Recently, my work has also explored **mutlmodal AI agent systems and agentic wor
 Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, and anomaly detection.
 
 
-Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as ACM CIKM, IEEE ICME, ACM SIGSPATIAL, and ACM Computing Surveys. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
+Driven by a passion for technology and knowledge, my work has resulted in **17 publications (14 as first author)** in prestigious venues such as **ACM CIKM**, **IEEE ICME**, **ACM SIGSPATIAL**, and **ACM Computing Surveys**. Throughout my Ph.D., roles as a Graduate Teaching Assistant and Research Assistant have further developed my leadership and collaboration skills, equipping me to make significant contributions to both academia and industry.
 
 I enjoy collaborating with diverse teams to translate research ideas into practical AI systems. I value open communication, creativity, and thoughtful problem-solving. My reflective and empathetic personality helps me build supportive collaborations and contribute positively to team environments.
 

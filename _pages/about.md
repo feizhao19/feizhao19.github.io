@@ -148,6 +148,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
  -->
 
+## Conference Program Committee Member
 
 - **Program Committee Chair**: IEEE IRI Poster(2026)
 

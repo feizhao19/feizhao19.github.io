@@ -18,8 +18,7 @@ author_profile: true
 
 * **Awards**
 <!-- ====== -->
-
-  * UAB College of Arts and Sciences Dean’s Award, the College of Arts and Sciences, UAB, 2025.
+  * Dean's Doctoral Graduate Student Award, the College of Arts and Sciences, UAB, 2025.
 
   * Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025.
 

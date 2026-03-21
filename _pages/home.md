@@ -32,48 +32,51 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 **Published**
 
-1.	Xi Li, Shu Zhao, Xiaohan Zou, <u>Fei Zhao</u>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang, “Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards
-.” ICLR 2026 Workshop Trustworthy AI. [Accepted]
 
-2.	Xi Li, Shu Zhao, <u>Fei Zhao</u>, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop.
 
-3.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (**IEEE ICME 2025**).
+17.  <u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang and Nitesh Saxena, "MarkMatch: Same-Hand Stuffing Detection."  IEEE International Conference on Multimedia and Expo (**IEEE ICME 2025**).
 
-4.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). 
+16.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang and Xi Li, "Mitigating Image Captioning Hallucinations in Vision-Language Models."   IEEE 8th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2025). 
 
-5.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang. "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
+15.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang. "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment." Remote Sensing, 17(10), 1664. https://doi.org/10.3390/rs17101664. **[Impact Factor: 4.2]**
 
-6.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (**ACM CIKM 2024**), October 21–25, 2024, Boise, Idaho, United States.
+14.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, and Chengcui Zhang, CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset. ACM International Conference on Information and Knowledge Management (**ACM CIKM 2024**), October 21–25, 2024, Boise, Idaho, United States.
 
-7.  <u>Fei Zhao</u>, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
+13.  <u>Fei Zhao</u>, Chengcui Zhang and Sheikh Abujar, "Deep Body Fitness," IEEE 25th International Conference on Information Reuse and Integration (IEEE IRI 2024), August 7–9, 2024, San Jose, CA, United States. [Poster]
 
-8.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+12.  <u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, and Zixi Nan, "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-9.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
+11.  <u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang and Tianyang Wang, "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
 10.  <u>Fei Zhao</u>, Chengcui Zhang, and Nitesh Saxena, "BubbleSig: Same-Hand Ballot Stuffing Detection," IEEE 7th International Conference on Multimedia Information Processing and Retrieval (IEEE MIPR 2024), August 7–9,
 2024, San Jose, CA, United States. [Acceptance Rate of Full Papers: 20%]
 
-11.  <u>Fei Zhao</u>, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
+9.  <u>Fei Zhao</u>, Chengcui Zhang, and Baocheng Geng, "Deep Multimodal Data Fusion," *ACM Computing Surveys*, 56(9), 216:1-36, 2024. **[Impact Factor: 23.8]**
 
-12. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell,  <u>Fei Zhao</u>, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
+8. Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell,  <u>Fei Zhao</u>, Narcy Amireddy, and Michael Johnson, "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student," *The Journal of Bone & Joint Surgery*, 9(1), e23:1-7, 2024. **[Impact Factor: 5.3]**
 
-13.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (**ACM SIGSPATIAL 2023**), November 13-16, 2023, Hamburg, Germany.
+7.  <u>Fei Zhao</u> and Chengcui Zhang, "Deep Learning for HABs Prediction with Multimodal Fusion," ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (**ACM SIGSPATIAL 2023**), November 13-16, 2023, Hamburg, Germany.
 
-14.  <u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
+6.  <u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, and Shahariar Rabby, "Ballot Tabulation using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2023), August 4-6, 2023, Bellevue, WA, United States. **[Acceptance Rate of Full Papers: 29%]**
 
-15.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (**IEEE ICME 202**), July 10-14, 2023, Brisbane, Australia.
+5.  <u>Fei Zhao</u>, Chengcui Zhang, and Sheikh Abujar, "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning," IEEE International Conference on Multimedia and Expo (**IEEE ICME 202**), July 10-14, 2023, Brisbane, Australia.
 
-16. Katherine Dudding, Allyson Sanders, Peyton Lewis,  <u>Fei Zhao</u>, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
+4. Katherine Dudding, Allyson Sanders, Peyton Lewis,  <u>Fei Zhao</u>, Chengcui Zhang, and Jane Carrington, "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology," Academy of Neonatal Nursing National Neonatal, Advanced Practice Conference, and Mother Baby Nurses Conferences, September 7-10, 2022, Palm Springs, CA, United States. (Poster)
 
-17.  <u>Fei Zhao</u> and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
+3.  <u>Fei Zhao</u> and Chengcui Zhang, "Building Damage Evaluation from Satellite Imagery using Deep Learning," IEEE International Conference on Information Reuse and Integration (IEEE IRI 2020), August 11-13, 2020, held virtually. **[Acceptance Rate of Full Papers: 29%]**
 
-18.  <u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
+2.  <u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, and Jiajin Liu, "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles," *Key Engineering Materials*, 562, 549-552, 2013.
 
-19. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo,  <u>Fei Zhao</u>, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
+1. Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo,  <u>Fei Zhao</u>, "MEMS-based Attitude Measurement System for Micro Aerial Vehicles," *Transducer and Microsystem Technologies*, 32(2), 122-3, 2013.
 
+**Workshop**
+
+2.	Xi Li, Shu Zhao, Xiaohan Zou, <u>Fei Zhao</u>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang, “Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards
+.” ICLR 2026 Workshop Trustworthy AI. [Accepted]
+
+1.	Xi Li, Shu Zhao, <u>Fei Zhao</u>, and Runlong Yu, “Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective.” IEEE/CVF International Conference on Computer Vision (ICCV 2025) T2FM Workshop.
 
 
 <!-- 
@@ -178,6 +181,8 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 	16.	IET Image Processing
 	17.	IEEE Sensors Journal (Impact Factor: 4.93)
 	18. The Journal of Supercomputing (Impact Factor: 3.3)
+	19. Optics and Laser Technology (Impact Factor: 5.69)
+
 
 
 - Reviewer for Conferences: ICME (2020-2025), ACM Multimedia (2021-2025), ICASSP (2023, 2024),  IEEE DLCV (2025), IEEE AVSS (2025).

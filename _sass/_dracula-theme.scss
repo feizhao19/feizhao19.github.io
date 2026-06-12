@@ -1,23 +1,18 @@
 /* ==========================================================================
-   Site theme — light slate + blue
+   Site theme — light slate + blue, unified background (no white cards)
    ========================================================================== */
 
 :root {
   --hb-bg: #fafbfd;
   --hb-fg: #64748b;
   --hb-fg-strong: #475569;
-  --hb-header-bg: transparent;
-  --hb-footer-bg: transparent;
   --hb-primary: #60a5fa;
   --hb-primary-deep: #3b82f6;
-  --hb-primary-light: #eff6ff;
-  --hb-secondary: #67e8f9;
+  --hb-primary-tint: rgba(96, 165, 250, 0.07);
   --hb-secondary-deep: #22d3ee;
-  --hb-secondary-light: #ecfeff;
+  --hb-secondary-tint: rgba(34, 211, 238, 0.07);
   --hb-muted: #94a3b8;
-  --hb-border: #eef2f7;
-  --hb-surface: rgba(255, 255, 255, 0.72);
-  --hb-surface-alt: rgba(248, 250, 252, 0.85);
+  --hb-border: rgba(148, 163, 184, 0.22);
 }
 
 /* Decorative background */
@@ -99,11 +94,9 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Masthead — same background as page, no separate bar */
+/* Masthead — fully blended */
 .masthead {
   background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   border-bottom: none;
   box-shadow: none;
 }
@@ -130,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0.5rem;
 
     &:hover {
-      background: rgba(96, 165, 250, 0.1);
+      background: var(--hb-primary-tint);
     }
 
     &:before {
@@ -140,11 +133,13 @@ h1, h2, h3, h4, h5, h6 {
 
   .hidden-links {
     border-color: var(--hb-border);
-    background: var(--hb-surface);
-    box-shadow: 0 8px 24px rgba(148, 163, 184, 0.12);
+    background: rgba(250, 251, 253, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(148, 163, 184, 0.1);
 
     a:hover {
-      background: var(--hb-primary-light);
+      background: var(--hb-primary-tint);
     }
   }
 }
@@ -154,27 +149,23 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700 !important;
 }
 
-/* Main layout regions */
 #main {
   position: relative;
 }
 
-/* Sidebar card */
+/* Sidebar — no white panel */
 .sidebar {
   @media screen and (min-width: 1024px) {
     padding: 1rem 1rem 1.5rem 0;
   }
 
-  background: var(--hb-surface);
-  border: 1px solid var(--hb-border);
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(148, 163, 184, 0.06);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 
   .author__avatar img {
-    border: 3px solid #fff;
-    box-shadow: 0 4px 20px rgba(148, 163, 184, 0.12);
+    border: 3px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 4px 20px rgba(148, 163, 184, 0.1);
     border-radius: 50%;
     padding: 0;
   }
@@ -215,23 +206,21 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Main content card */
+/* Main content — transparent, same as page bg */
 .archive,
 .page .page__inner-wrap {
-  background: var(--hb-surface);
-  border: 1px solid var(--hb-border);
-  border-radius: 1rem;
-  padding: 1.25rem 1.5rem 2rem;
-  box-shadow: 0 1px 3px rgba(148, 163, 184, 0.06);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .page .page__inner-wrap {
   margin-bottom: 2em;
 }
 
-/* Page title — blend in, not a heavy header */
 .page__title {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -243,13 +232,13 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: none;
 }
 
-/* Home intro block */
+/* Home intro — no box, flows with page */
 .home-intro {
-  padding: 1rem 1.1rem;
+  padding: 0;
   margin-bottom: 0.5rem;
-  background: var(--hb-surface-alt);
-  border: 1px solid var(--hb-border);
-  border-radius: 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 
   p:last-child {
     margin-bottom: 0;
@@ -260,27 +249,29 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Section headers — alternating tints */
+/* Section headers — very subtle tint only */
 .page__content h2,
 .archive h2 {
   margin-top: 2rem;
   margin-bottom: 0.85rem;
-  padding: 0.65rem 1rem;
+  padding: 0.55rem 0 0.55rem 0.85rem;
   border-bottom: none;
-  border-radius: 0.625rem;
+  border-radius: 0;
   font-size: 1.1rem;
 }
 
 .page__content h2:nth-of-type(odd),
 .archive h2:nth-of-type(odd) {
-  background: var(--hb-primary-light);
+  background: transparent;
   border-left: 3px solid var(--hb-primary);
+  box-shadow: inset 4rem 0 3rem -3rem var(--hb-primary-tint);
 }
 
 .page__content h2:nth-of-type(even),
 .archive h2:nth-of-type(even) {
-  background: var(--hb-secondary-light);
+  background: transparent;
   border-left: 3px solid var(--hb-secondary-deep);
+  box-shadow: inset 4rem 0 3rem -3rem var(--hb-secondary-tint);
 }
 
 .page__content strong,
@@ -288,18 +279,23 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--hb-fg-strong);
 }
 
-/* Archive / publication list */
+/* Publication list — no white cards */
 .archive__item {
-  padding: 0.85rem 1rem;
-  margin-bottom: 0.75rem;
-  background: var(--hb-surface-alt);
-  border: 1px solid var(--hb-border);
-  border-radius: 0.625rem;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  padding: 0.75rem 0;
+  margin-bottom: 0.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--hb-border);
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
-    border-color: rgba(96, 165, 250, 0.35);
-    box-shadow: 0 4px 14px rgba(148, 163, 184, 0.08);
+    border-bottom-color: rgba(96, 165, 250, 0.35);
+    box-shadow: none;
   }
 }
 
@@ -317,7 +313,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 8px rgba(148, 163, 184, 0.08);
 }
 
-/* Footer — blends with page */
 .page__footer {
   background: transparent;
   border-top: 1px solid var(--hb-border);
@@ -328,16 +323,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Code blocks */
 .highlight,
 pre {
   border-radius: 0.5rem;
   border: 1px solid var(--hb-border);
-  background: var(--hb-surface-alt);
+  background: rgba(148, 163, 184, 0.06);
 }
 
-/* Selection */
 ::selection {
-  background: var(--hb-primary-light);
+  background: rgba(96, 165, 250, 0.2);
   color: var(--hb-fg-strong);
 }

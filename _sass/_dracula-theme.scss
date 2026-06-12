@@ -3,66 +3,79 @@
    ========================================================================== */
 
 :root {
-  --hb-bg: #f8f4ed;
-  --hb-fg: #6f675c;
-  --hb-fg-strong: #4a433a;
-  --hb-primary: #c9a66b;
-  --hb-primary-deep: #a67c52;
-  --hb-primary-tint: rgba(201, 166, 107, 0.09);
-  --hb-secondary-deep: #8fad7f;
-  --hb-secondary-tint: rgba(143, 173, 127, 0.08);
-  --hb-muted: #9a9288;
-  --hb-border: rgba(120, 100, 80, 0.14);
+  --hb-bg: #fefdfb;
+  --hb-fg: #7a7368;
+  --hb-fg-strong: #5c554c;
+  --hb-primary: #d4b07a;
+  --hb-primary-deep: #b8895e;
+  --hb-primary-tint: rgba(212, 176, 122, 0.07);
+  --hb-secondary-deep: #a3b89a;
+  --hb-secondary-tint: rgba(163, 184, 154, 0.06);
+  --hb-muted: #a8a095;
+  --hb-border: rgba(120, 100, 80, 0.1);
 }
 
-/* Decorative background */
+/* Decorative background — layered translucent warm wash */
 .site-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  background-color: var(--hb-bg);
+}
+
+.site-bg__base {
+  position: absolute;
+  inset: 0;
+  background-color: #fffcf9;
+}
+
+.site-bg__wash {
+  position: absolute;
+  inset: 0;
+  background: rgba(248, 236, 220, 0.28);
 }
 
 .site-bg__gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    165deg,
-    rgba(212, 165, 116, 0.035) 0%,
-    transparent 28%,
-    transparent 72%,
-    rgba(168, 181, 160, 0.03) 100%
-  );
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 38%),
+    linear-gradient(
+      165deg,
+      rgba(212, 165, 116, 0.05) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(168, 181, 160, 0.04) 100%
+    );
 }
 
 .site-bg__orb {
   position: absolute;
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
-  filter: blur(48px);
-  opacity: 0.22;
-  animation: hb-orb-pulse 12s ease-in-out infinite;
+  filter: blur(44px);
+  opacity: 0.14;
+  animation: hb-orb-pulse 14s ease-in-out infinite;
 }
 
 .site-bg__orb--primary {
   top: 4rem;
   right: 8%;
-  background: rgba(212, 165, 116, 0.45);
+  background: rgba(212, 165, 116, 0.55);
 }
 
 .site-bg__orb--secondary {
   bottom: 12%;
   left: 6%;
-  background: rgba(168, 181, 160, 0.4);
+  background: rgba(168, 181, 160, 0.5);
   animation-delay: 3s;
 }
 
 @keyframes hb-orb-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.18; }
-  50% { transform: scale(1.04); opacity: 0.26; }
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.03); opacity: 0.16; }
 }
 
 /* Base */

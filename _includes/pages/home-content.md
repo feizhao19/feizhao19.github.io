@@ -1,5 +1,3 @@
-<div class="home-intro" markdown="1">
-
 I am a **Machine Learning Research Scientist** (Postdoctoral Fellow) at the University of Alabama at Birmingham (UAB), where I received my **Ph.D. in Computer Science in December 2025**, advised by [Dr. Chengcui Zhang](https://sites.uab.edu/czhang02/). My research focuses on **efficient multimodal learning**, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time **reinforcement learning** and **contrastive learning** for hallucination mitigation.
 
 Recently, my work has also explored **mutlmodal AI agent systems** and agentic workflows in augmented reality (AR) environments, particularly the **evaluation of multimodal AI agent pipelines** for grounding, decision reliability, and system-level performance in complex multimodal environments.
@@ -12,8 +10,6 @@ Driven by a passion for technology and knowledge, my work has resulted in **17 p
 I enjoy collaborating with diverse teams to translate research ideas into practical AI systems. I value open communication, creativity, and thoughtful problem-solving. My reflective and empathetic personality helps me build supportive collaborations and contribute positively to team environments.
 
 Explore my projects, publications, and more on my [LinkedIn](https://www.linkedin.com/in/fei-zhao-6a762724a/) and [Google Scholar](https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en).
-
-</div>
 
 
 

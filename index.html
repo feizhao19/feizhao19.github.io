@@ -1,0 +1,192 @@
+---
+layout: default
+title: Home
+---
+
+<div class="docs-section" id="bio">
+  <h4>Bio</h4>
+
+  <p>
+    I am a <strong>Machine Learning Research Scientist</strong> (Postdoctoral Fellow) at the University of Alabama at Birmingham (UAB), where I received my <strong>Ph.D. in Computer Science in December 2025</strong>, advised by <a href="https://sites.uab.edu/czhang02/">Dr. Chengcui Zhang</a>. My research focuses on <strong>efficient multimodal learning</strong>, with expertise in search, ranking, and retrieval systems. I have developed and fine-tuned large-scale vision–language models using test-time <strong>reinforcement learning</strong> and <strong>contrastive learning</strong> for hallucination mitigation.
+  </p>
+
+  <p>
+    Recently, my work has also explored <strong>multimodal AI agent systems</strong> and agentic workflows in augmented reality (AR) environments, particularly the <strong>evaluation of multimodal AI agent pipelines</strong> for grounding, decision reliability, and system-level performance in complex multimodal environments.
+  </p>
+
+  <p>
+    Beyond core research, I have applied multimodal AI to domains including remote sensing, medical imaging, audio-vision fusion, document understanding, and anomaly detection.
+  </p>
+
+  <p><strong>Research Interests:</strong> My work has resulted in <strong>17 publications (14 as first author)</strong> in prestigious venues such as <strong>ACM CIKM</strong>, <strong>IEEE ICME</strong>, <strong>ACM SIGSPATIAL</strong>, and <strong>ACM Computing Surveys</strong>. Recently, I have been exploring the following topics:</p>
+
+  <ul style="margin-left: 30px;">
+    <li>Efficient multimodal learning and vision–language models</li>
+    <li>Multimodal AI agents and agentic workflows in AR</li>
+    <li>Search, ranking, and retrieval systems</li>
+  </ul>
+
+  <p>
+    Explore my projects and publications on <a href="https://www.linkedin.com/in/fei-zhao-6a762724a/" target="_blank">LinkedIn</a> and <a href="https://scholar.google.com/citations?user=-CBzUKwAAAAJ&hl=en" target="_blank">Google Scholar</a>.
+  </p>
+</div>
+
+<div class="docs-section" id="publications">
+  <h4>Publications</h4>
+
+  <ul class="tab-nav">
+    <li><div class="button active" data-ref="#tab-conference">Conference</div></li>
+    <li><div class="button" data-ref="#tab-journal">Journal</div></li>
+    <li><div class="button" data-ref="#tab-workshop">Workshop</div></li>
+    <li><div class="button" data-ref="#tab-preprint">Pre-prints</div></li>
+  </ul>
+
+  <div class="tab-content">
+
+    <div id="tab-conference" class="tab-content tab-pane active">
+      {% assign conference_papers = site.data.publications.papers | where: "label", "C" %}
+      {% for paper in conference_papers %}
+        <div class="paper">
+          <p class="title"><b>{{ paper.title }}</b></p>
+          <p>{{ paper.authors }}</p>
+          <p><i>{{ paper.venue }}</i></p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="tab-journal" class="tab-content tab-pane">
+      {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
+      {% for paper in journal_papers %}
+        <div class="paper">
+          <p class="title"><b>{{ paper.title }}</b></p>
+          <p>{{ paper.authors }}</p>
+          <p><i>{{ paper.venue }}</i></p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="tab-workshop" class="tab-content tab-pane">
+      {% assign workshop_papers = site.data.publications.papers | where: "label", "W" %}
+      {% for paper in workshop_papers %}
+        <div class="paper">
+          <p class="title"><b>{{ paper.title }}</b></p>
+          <p>{{ paper.authors }}</p>
+          <p><i>{{ paper.venue }}</i></p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="tab-preprint" class="tab-content tab-pane">
+      {% assign preprint_papers = site.data.publications.papers | where: "label", "P" %}
+      {% for paper in preprint_papers %}
+        <div class="paper">
+          <p class="title"><b>{{ paper.title }}</b></p>
+          <p>{{ paper.authors }}</p>
+          <p><i>{{ paper.venue }}</i></p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<div class="docs-section" id="grants">
+  <h4>Grants</h4>
+  <ol>
+    <li>Chengcui Zhang (PI), Nitesh Saxena (PI), Dan Wallach (PI), NSF SaTC-2154589, "Bubble Aid: Assistive AI to Improve the Robustness and Security of Reading Hand-Marked Ballots," $1,200,000, 10/01/2022–09/30/2025. (Main contributor to preliminary work and part of the grant writing)</li>
+    <li>Chengcui Zhang (PI), NSF DCL 22-087, "Funding for AWS, Azure, and GCP cloud access through CloudBank," $23,139, 04/26/2023–05/01/2024. (Contributed to grant writing)</li>
+  </ol>
+</div>
+
+<div class="docs-section" id="awards">
+  <h4>Awards</h4>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>Dean's Doctoral Graduate Student Award, the College of Arts and Sciences, UAB, 2025.</li>
+    <li>IEEE TCMC Student Travel Grant for IEEE MIPR25, IEEE Technical Community on Multimedia Computing, 2025.</li>
+    <li>Nominated for the 2025 Samuel B. Barker Award for Excellence in Graduate Studies, UAB, 2025.</li>
+    <li>NSF National Science Foundation Student Travel Award for CIKM24, NSF National Science Foundation, 2024.</li>
+    <li>First Prize, 2024 UAB NAS Graduate School and Global Affairs Dean's Scholarship, UAB, 2024.</li>
+    <li>IEEE TCMC Student Travel Grant for IEEE MIPR24, IEEE Technical Community on Multimedia Computing, 2024.</li>
+    <li>IEEE TCMC Student Travel Grant for IEEE IRI23, IEEE Technical Community on Multimedia Computing, 2023.</li>
+    <li>Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2024.</li>
+    <li>Graduate Research/Teaching Assistantship, Department of Computer Science, UAB, 2019–Present.</li>
+    <li>Student Travel Awards, Department of Computer Science, UAB, 2020, 2023–2024.</li>
+    <li>Professional Development and Travel Award, UAB Graduate Student Government, 2023.</li>
+    <li>Tuition Scholarship, Department of Computer Science, UAB, 2019–2022.</li>
+    <li>Outstanding Student Volunteer Award, IEEE IRI, 2020–2021.</li>
+    <li>Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2020.</li>
+    <li>Barrett R. and Oceana A. Bryant Endowed Awards, Department of Computer Science, UAB, 2023.</li>
+    <li>Graduate Admission Scholarship, North University of China, 2010.</li>
+  </ul>
+</div>
+
+<div class="docs-section" id="teaching">
+  <h4>Teaching</h4>
+  <p><strong>Teaching Assistant</strong> <span style="float: right;"><strong>UAB</strong></span></p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>2019 Fall: FA2019 CS 510-QL Database App Dev. Instructor: Dr. Chengcui Zhang</li>
+    <li>2020 Spring: SP2020 CS 473/673/773 Computer Vision. Instructor: Dr. John K. Johnstone</li>
+    <li>2020 Fall: FA2020 CS 332/532 Systems Programming. Instructor: Dr. Mahmut Unan</li>
+    <li>2021 Spring: SP2021 CS 665/765 Deep Learning. Instructor: Dr. Chengcui Zhang</li>
+    <li>2021 Fall: FA2021 CS 410-QL/510-QL Database App Dev. Instructor: Dr. Chengcui Zhang</li>
+    <li>2022 Spring: SP2022 CS 665/765-9I Deep Learning. Instructor: Dr. Chengcui Zhang</li>
+    <li>2022 Fall: FA2022 CS 410-QL Database App Dev. Instructor: Dr. Chengcui Zhang</li>
+  </ul>
+  <p><em>Responsibility: Led TA teams, taught lab sections, held office hours, and created/graded assignments.</em></p>
+</div>
+
+<div class="docs-section" id="service">
+  <h4>Service</h4>
+
+  <p><strong>Conference Program Committee Member</strong></p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>Program Committee Chair: IEEE IRI Poster (2026)</li>
+    <li>Program Committee Member: PAKDD (2026), ACM Multimedia (2026)</li>
+  </ul>
+
+  <p><strong>Reviewer</strong></p>
+  <p>Active peer reviewer for the following journals:</p>
+  <ol style="margin-left: 20px;">
+    <li>ACM Computing Surveys (Impact Factor: 23.8)</li>
+    <li>Knowledge and Information Systems</li>
+    <li>IEEE Transactions on Geoscience and Remote Sensing (TGRS) (Impact Factor: 7.5)</li>
+    <li>International Journal of Multimedia Data Engineering and Management</li>
+    <li>IEEE/ACM Transactions on Computational Biology and Bioinformatics (TCBB) (Impact Factor: 3.702)</li>
+    <li>Computers and Electronics in Agriculture (Impact Factor: 7.7)</li>
+    <li>International Journal of Business Data Communications and Networking</li>
+    <li>IEEE Transactions on Multimedia (Impact Factor: 8.4)</li>
+    <li>IEEE Geoscience and Remote Sensing Letters (GRSL)</li>
+    <li>IEEE Transactions on Dependable and Secure Computing (TDSC) (Impact Factor: 7.0)</li>
+    <li>Expert Systems with Applications (Impact Factor: 8.5)</li>
+    <li>International Journal of Semantic Computing</li>
+    <li>Palgrave Communications</li>
+    <li>PLOS ONE</li>
+    <li>Knowledge-Based Systems (Impact Factor: 8.8)</li>
+    <li>IET Image Processing</li>
+    <li>IEEE Sensors Journal (Impact Factor: 4.93)</li>
+    <li>The Journal of Supercomputing (Impact Factor: 3.3)</li>
+    <li>Optics and Laser Technology (Impact Factor: 5.69)</li>
+  </ol>
+  <p>Reviewer for Conferences: ICME (2020–2025), ACM Multimedia (2021–2025), ICASSP (2023, 2024), IEEE DLCV (2025), IEEE AVSS (2025).</p>
+
+  <p><strong>Panels</strong></p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>Panelist, "Global Awareness: International Student Insights on the Experience of Studying in the United States," UAB, 2023.</li>
+    <li>Panelist, "Orientation for International Graduate Students," UAB, Summer Semester, 2023.</li>
+    <li>Panelist, "Orientation for International Graduate Students," UAB, Fall Semester, 2023.</li>
+  </ul>
+
+  <p><strong>Mentoring</strong></p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>Ravi Teja Challa, Master Student, Computer Science, UAB, 2025</li>
+    <li>Yifan Ying, Master Student, Computer Science, UAB, 2024</li>
+    <li>Jasper Shen, Master Student, Computer Science, UAB, 2024</li>
+    <li>Linghuan Zeng, Master Student, Computer Science, UAB, 2023</li>
+  </ul>
+
+  <p><strong>Volunteer</strong></p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>IT Support and Web Development: The World Games (2022), IEEE IRI (2020–2021), Birmingham Chinese Professor Association (2020–present)</li>
+    <li>United States Anti-Doping Agency (2022)</li>
+  </ul>
+</div>

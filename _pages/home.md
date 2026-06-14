@@ -1,8 +1,7 @@
 ---
-layout: archive
+layout: null
 title: "Home"
 permalink: /home/
-author_profile: true
+redirect_to: /
+sitemap: false
 ---
-
-{% include pages/render-home-content.html %}

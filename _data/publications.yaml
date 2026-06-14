@@ -1,0 +1,110 @@
+papers:
+  - label: C
+    title: "MarkMatch: Same-Hand Stuffing Detection"
+    authors: "<b>Fei Zhao</b>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
+    venue: "IEEE ICME, 2025"
+
+  - label: C
+    title: "Mitigating Image Captioning Hallucinations in Vision-Language Models"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Runlin Zhang, Tianyang Wang, Xi Li"
+    venue: "IEEE MIPR, 2025"
+
+  - label: C
+    title: "CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset"
+    authors: "<b>Fei Zhao</b>, Jiawen Chen, Bin Huang, Chengcui Zhang"
+    venue: "ACM CIKM, 2024"
+
+  - label: C
+    title: "Deep Body Fitness"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Sheikh Abujar"
+    venue: "IEEE IRI, 2024 (Poster)"
+
+  - label: C
+    title: "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis"
+    authors: "<b>Fei Zhao</b>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, Zixi Nan"
+    venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
+
+  - label: C
+    title: "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
+    venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
+
+  - label: C
+    title: "BubbleSig: Same-Hand Ballot Stuffing Detection"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Nitesh Saxena"
+    venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
+
+  - label: C
+    title: "Deep Learning for HABs Prediction with Multimodal Fusion"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang"
+    venue: "ACM SIGSPATIAL, 2023"
+
+  - label: C
+    title: "Ballot Tabulation using Deep Learning"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, Shahariar Rabby"
+    venue: "IEEE IRI, 2023 (Acceptance Rate: 29%)"
+
+  - label: C
+    title: "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Sheikh Abujar"
+    venue: "IEEE ICME, 2023"
+
+  - label: C
+    title: "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology"
+    authors: "Katherine Dudding, Allyson Sanders, Peyton Lewis, <b>Fei Zhao</b>, Chengcui Zhang, Jane Carrington"
+    venue: "Academy of Neonatal Nursing Conference, 2022 (Poster)"
+
+  - label: C
+    title: "Building Damage Evaluation from Satellite Imagery using Deep Learning"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang"
+    venue: "IEEE IRI, 2020 (Acceptance Rate: 29%)"
+
+  - label: J
+    title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
+    venue: "Remote Sensing, 2025 (Impact Factor: 4.2)"
+
+  - label: J
+    title: "Deep Multimodal Data Fusion"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Baocheng Geng"
+    venue: "ACM Computing Surveys, 2024 (Impact Factor: 23.8)"
+
+  - label: J
+    title: "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student"
+    authors: "Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, <b>Fei Zhao</b>, Narcy Amireddy, Michael Johnson"
+    venue: "The Journal of Bone & Joint Surgery, 2024 (Impact Factor: 5.3)"
+
+  - label: J
+    title: "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles"
+    authors: "<b>Fei Zhao</b>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, Jiajin Liu"
+    venue: "Key Engineering Materials, 2013"
+
+  - label: J
+    title: "MEMS-based Attitude Measurement System for Micro Aerial Vehicles"
+    authors: "Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, <b>Fei Zhao</b>"
+    venue: "Transducer and Microsystem Technologies, 2013"
+
+  - label: W
+    title: "Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards"
+    authors: "Xi Li, Shu Zhao, Xiaohan Zou, <b>Fei Zhao</b>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang"
+    venue: "ICLR 2026 Workshop on Trustworthy AI (Accepted)"
+
+  - label: W
+    title: "Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective"
+    authors: "Xi Li, Shu Zhao, <b>Fei Zhao</b>, Runlong Yu"
+    venue: "ICCV 2025 T2FM Workshop"
+
+  - label: P
+    title: "Neonatal Pain Detection using Deep Learning"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Katherine Dudding"
+    venue: "Scientific Reports (Under review)"
+
+  - label: P
+    title: "Multimodal Algal Bloom Severity Evaluation Using Deep Learning: Leveraging Satellite Imagery, Elevation, Temperature, and Geolocation Data"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang"
+    venue: "Manuscript ready for submission"
+
+  - label: P
+    title: "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm"
+    authors: "Provisional Patent"
+    venue: "Provisional Patent"

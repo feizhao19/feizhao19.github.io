@@ -43,7 +43,9 @@ title: Home
   <div class="tab-content">
 
     <div id="tab-published" class="tab-content tab-pane active">
-      {% assign published_papers = site.data.publications.papers | where_exp: "paper", "paper.label == 'C' or paper.label == 'J'" | sort: "number" | reverse %}
+      {% assign conference_papers = site.data.publications.papers | where: "label", "C" %}
+      {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
+      {% assign published_papers = conference_papers | concat: journal_papers | sort: "number" | reverse %}
       {% for paper in published_papers %}
         <div class="paper">
           <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>

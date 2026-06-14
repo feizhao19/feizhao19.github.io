@@ -47,7 +47,7 @@ title: Home
       {% assign conference_papers = site.data.publications.papers | where: "label", "C" %}
       {% for paper in conference_papers %}
         <div class="paper">
-          <p class="title"><b>{{ paper.title }}</b></p>
+          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
           <p>{{ paper.authors }}</p>
           <p><i>{{ paper.venue }}</i></p>
         </div>
@@ -58,7 +58,7 @@ title: Home
       {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
       {% for paper in journal_papers %}
         <div class="paper">
-          <p class="title"><b>{{ paper.title }}</b></p>
+          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
           <p>{{ paper.authors }}</p>
           <p><i>{{ paper.venue }}</i></p>
         </div>
@@ -69,7 +69,7 @@ title: Home
       {% assign workshop_papers = site.data.publications.papers | where: "label", "W" %}
       {% for paper in workshop_papers %}
         <div class="paper">
-          <p class="title"><b>{{ paper.title }}</b></p>
+          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
           <p>{{ paper.authors }}</p>
           <p><i>{{ paper.venue }}</i></p>
         </div>
@@ -80,7 +80,7 @@ title: Home
       {% assign preprint_papers = site.data.publications.papers | where: "label", "P" %}
       {% for paper in preprint_papers %}
         <div class="paper">
-          <p class="title"><b>{{ paper.title }}</b></p>
+          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
           <p>{{ paper.authors }}</p>
           <p><i>{{ paper.venue }}</i></p>
         </div>
@@ -139,10 +139,10 @@ title: Home
   <h4>Service</h4>
 
   <p><strong>Conference Program Committee Member</strong></p>
-  <ul style="list-style-position: inside; margin-left: 20px;">
+  <ol style="margin-left: 20px;">
     <li>Program Committee Chair: IEEE IRI Poster (2026)</li>
     <li>Program Committee Member: PAKDD (2026), ACM Multimedia (2026)</li>
-  </ul>
+  </ol>
 
   <p><strong>Reviewer</strong></p>
   <p>Active peer reviewer for the following journals:</p>

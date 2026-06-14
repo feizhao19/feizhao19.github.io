@@ -19,6 +19,11 @@ h4 {
   margin-bottom: 20px }
 .paper .title {
   /*text-transform: uppercase; */}
+.paper-number {
+  color: #2982ac;
+  font-weight: 600;
+  margin-right: 0.15em;
+}
 .paper p {
   margin-bottom: 2px }
 .paper-buttons {

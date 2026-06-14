@@ -102,22 +102,22 @@ papers:
     venue: "Transducer and Microsystem Technologies, 2013"
 
   - label: W
-    number: 2
-    title: "Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards"
-    authors: "Xi Li, Shu Zhao, Xiaohan Zou, <b>Fei Zhao</b>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang"
-    venue: "ICLR 2026 Workshop on Trustworthy AI (Accepted)"
-
-  - label: W
     number: 1
     title: "Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective"
     authors: "Xi Li, Shu Zhao, <b>Fei Zhao</b>, Runlong Yu"
     venue: "ICCV 2025 T2FM Workshop"
 
+  - label: W
+    number: 2
+    title: "Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards"
+    authors: "Xi Li, Shu Zhao, Xiaohan Zou, <b>Fei Zhao</b>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang"
+    venue: "ICLR 2026 Workshop on Trustworthy AI (Accepted)"
+
   - label: P
     number: 1
-    title: "Neonatal Pain Detection using Deep Learning"
-    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Katherine Dudding"
-    venue: "Scientific Reports (Under review)"
+    title: "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm"
+    authors: "Provisional Patent"
+    venue: "Provisional Patent"
 
   - label: P
     number: 2
@@ -127,6 +127,6 @@ papers:
 
   - label: P
     number: 3
-    title: "Augmented Communication Tools (ACTs): Pain Assessment Support Algorithm for the Individual Infant (PASAFii) for the neonatal pain algorithm"
-    authors: "Provisional Patent"
-    venue: "Provisional Patent"
+    title: "Neonatal Pain Detection using Deep Learning"
+    authors: "<b>Fei Zhao</b>, Chengcui Zhang, Katherine Dudding"
+    venue: "Scientific Reports (Under review)"

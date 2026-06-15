@@ -98,7 +98,7 @@ papers:
     number: 15
     title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
-    venue: "Remote Sensing, 2025 (Impact Factor: 4.2)"
+    venue: "Remote Sensing, 2025 [Impact Factor: 4.2]"
     image: prompt.png
     link: /files/PEFT_VPL.pdf
 
@@ -106,7 +106,7 @@ papers:
     number: 9
     title: "Deep Multimodal Data Fusion"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Baocheng Geng"
-    venue: "<b>ACM Computing Surveys</b>, 2024 (Impact Factor: 23.8)"
+    venue: "<b>ACM Computing Surveys</b>, 2024 [Impact Factor: 23.8]"
     image: deepmultimodalfusion.png
     link: /files/CSUR.pdf
 
@@ -114,7 +114,7 @@ papers:
     number: 8
     title: "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student"
     authors: "Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, <u>Fei Zhao</u>, Narcy Amireddy, Michael Johnson"
-    venue: "The Journal of Bone & Joint Surgery, 2024 (Impact Factor: 5.3)"
+    venue: "The Journal of Bone & Joint Surgery, 2024 [Impact Factor: 5.3]"
     image: medi.png
     link: https://pmc.ncbi.nlm.nih.gov/articles/PMC10817159/
 

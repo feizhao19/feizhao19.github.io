@@ -3,23 +3,6 @@
 {% assign axis_max = stats.chart_axis_max | default: 360 %}
 
 <div class="scholar-metrics">
-  <table class="scholar-metrics__table" aria-label="Google Scholar citation metrics">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">All</th>
-        <th scope="col">Since {{ stats.since_year }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Citations</th>
-        <td>{{ stats.all.citations }}</td>
-        <td>{{ stats.since.citations }}</td>
-      </tr>
-    </tbody>
-  </table>
-
   <div class="scholar-metrics__visual-row">
     {% if stats.publication_summary %}
     <div class="scholar-metrics__pub-summary">
@@ -45,24 +28,22 @@
     {% endif %}
 
     <figure class="scholar-metrics__chart scholar-metrics__chart--compact" aria-label="Citations per year">
-      <div class="scholar-metrics__chart-inner">
-        <div class="scholar-metrics__plot">
-          <div class="scholar-metrics__grid" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+      <div class="scholar-metrics__plot">
+        <div class="scholar-metrics__grid" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="scholar-metrics__bars">
+          {% for item in stats.citations_by_year %}
+          {% assign bar_height = item.count | times: 100 | divided_by: axis_max %}
+          <div class="scholar-metrics__bar-col" title="{{ item.year }}: {{ item.count }} citations">
+            <div class="scholar-metrics__bar" style="height: {{ bar_height }}%;"></div>
+            <span class="scholar-metrics__year">{{ item.year }}</span>
           </div>
-          <div class="scholar-metrics__bars">
-            {% for item in stats.citations_by_year %}
-            {% assign bar_height = item.count | times: 100 | divided_by: axis_max %}
-            <div class="scholar-metrics__bar-col" title="{{ item.year }}: {{ item.count }} citations">
-              <div class="scholar-metrics__bar" style="height: {{ bar_height }}%;"></div>
-              <span class="scholar-metrics__year">{{ item.year }}</span>
-            </div>
-            {% endfor %}
-          </div>
+          {% endfor %}
         </div>
         <div class="scholar-metrics__y-axis" aria-hidden="true">
           <span>{{ axis_max }}</span>

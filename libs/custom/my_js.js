@@ -33,7 +33,7 @@ $(document).ready(function() {
     });
 
     $lightbox.on('click', function(e) {
-      if (!$(e.target).closest('.paper-image-lightbox__img').length) {
+      if (!$(e.target).closest('.paper-image-lightbox__stage').length) {
         closePaperLightbox();
       }
     });

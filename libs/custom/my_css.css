@@ -59,6 +59,9 @@ h4 {
   height: 100px;
   display: grid;
   place-items: center;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
 }
 .paper__teaser-link {
   display: grid;
@@ -67,6 +70,7 @@ h4 {
   height: 100%;
   text-decoration: none;
   cursor: zoom-in;
+  background: #fff;
 }
 .paper__teaser-link:hover img {
   opacity: 0.88;
@@ -92,15 +96,39 @@ h4 {
 }
 .paper-image-lightbox.is-open {
   display: flex;
+  flex-direction: column;
+}
+.paper-image-lightbox__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: min(70vw, 420px);
+  max-height: 42vh;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  cursor: default;
 }
 .paper-image-lightbox__img {
-  max-width: min(80vw, 640px);
-  max-height: 60vh;
+  display: block;
+  max-width: 100%;
+  max-height: 38vh;
   width: auto;
   height: auto;
   object-fit: contain;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  cursor: default;
+}
+.paper-image-lightbox__hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  text-align: center;
 }
 .paper-image-lightbox__close {
   position: absolute;

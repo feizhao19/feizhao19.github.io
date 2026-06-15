@@ -47,33 +47,21 @@ title: Home
       {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
       {% assign published_papers = conference_papers | concat: journal_papers | sort: "number" | reverse %}
       {% for paper in published_papers %}
-        <div class="paper">
-          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
-          <p>{{ paper.authors }}</p>
-          <p><i>{{ paper.venue }}</i></p>
-        </div>
+        {% include paper-entry.html paper=paper %}
       {% endfor %}
     </div>
 
     <div id="tab-workshop" class="tab-content tab-pane">
       {% assign workshop_papers = site.data.publications.papers | where: "label", "W" | sort: "number" | reverse %}
       {% for paper in workshop_papers %}
-        <div class="paper">
-          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
-          <p>{{ paper.authors }}</p>
-          <p><i>{{ paper.venue }}</i></p>
-        </div>
+        {% include paper-entry.html paper=paper %}
       {% endfor %}
     </div>
 
     <div id="tab-preprint" class="tab-content tab-pane">
       {% assign preprint_papers = site.data.publications.papers | where: "label", "P" | sort: "number" | reverse %}
       {% for paper in preprint_papers %}
-        <div class="paper">
-          <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
-          <p>{{ paper.authors }}</p>
-          <p><i>{{ paper.venue }}</i></p>
-        </div>
+        {% include paper-entry.html paper=paper %}
       {% endfor %}
     </div>
 

@@ -17,6 +17,40 @@ $(document).ready(function() {
         "/": '&#x2F;'
       }
 
+  function initPaperImageLightbox() {
+    var $lightbox = $('#paper-image-lightbox');
+    if (!$lightbox.length) {
+      return;
+    }
+
+    $(document).on('click', '.js-paper-image-lightbox', function(e) {
+      e.preventDefault();
+      var src = $(this).attr('href');
+      var alt = $(this).find('img').attr('alt') || '';
+      $lightbox.find('.paper-image-lightbox__img').attr({ src: src, alt: alt });
+      $lightbox.addClass('is-open').attr('aria-hidden', 'false');
+      $body.addClass('paper-lightbox-open');
+    });
+
+    $lightbox.on('click', function(e) {
+      if ($(e.target).is($lightbox) || $(e.target).closest('.paper-image-lightbox__close').length) {
+        closePaperLightbox();
+      }
+    });
+
+    $(document).on('keydown', function(e) {
+      if (e.key === 'Escape' && $lightbox.hasClass('is-open')) {
+        closePaperLightbox();
+      }
+    });
+
+    function closePaperLightbox() {
+      $lightbox.removeClass('is-open').attr('aria-hidden', 'true');
+      $lightbox.find('.paper-image-lightbox__img').attr('src', '');
+      $body.removeClass('paper-lightbox-open');
+    }
+  }
+
   function init() {
     $window.on('scroll', onScroll)
     $window.on('resize', resize)
@@ -24,6 +58,7 @@ $(document).ready(function() {
     $document.on('click', closePopover)
     $('a[href^="#"]').on('click', smoothScroll)
     buildSnippets();
+    initPaperImageLightbox();
   }
 
   function smoothScroll(e) {

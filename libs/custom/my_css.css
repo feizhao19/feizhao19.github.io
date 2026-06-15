@@ -46,7 +46,31 @@ h4 {
   font-size: 22px;
   margin-top: 5px; }
 .paper {
-  margin-bottom: 20px }
+  margin-bottom: 16px;
+}
+.paper__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.paper__teaser {
+  flex: 0 0 130px;
+  max-width: 130px;
+}
+.paper__teaser img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.paper__content {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.88em;
+  line-height: 1.45;
+}
+.paper:not(.paper--with-image) .paper__content {
+  padding-right: 144px;
+}
 .paper .title {
   /*text-transform: uppercase; */}
 .paper-number {
@@ -61,7 +85,11 @@ h4 {
   margin-bottom: 0.35em;
 }
 .paper p {
-  margin-bottom: 2px }
+  margin-bottom: 2px;
+}
+.paper__content p {
+  margin-bottom: 2px;
+}
 .paper-buttons {
   margin-top: 5px }
 .paper .button {

@@ -193,6 +193,38 @@ body.paper-lightbox-open {
 .publication-citation-summary__meta a:hover {
   text-decoration: underline;
 }
+.news-list {
+  margin: 0;
+}
+.news-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 0.65rem;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+.news-item:last-child {
+  margin-bottom: 0;
+}
+.news-date {
+  flex: 0 0 5.5rem;
+  color: #2982ac;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.news-text {
+  flex: 1;
+  min-width: 0;
+  color: #333;
+}
+.news-text a {
+  color: #2982ac;
+  text-decoration: none;
+}
+.news-text a:hover {
+  text-decoration: underline;
+}
 .numbered-list {
   margin-left: 20px;
 }

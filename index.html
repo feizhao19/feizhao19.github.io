@@ -34,6 +34,16 @@ title: Home
 <div class="docs-section" id="publications">
   <h4>Publications</h4>
 
+  {% assign cites = site.data.citation_stats %}
+  {% if cites %}
+  <p class="publication-citation-summary">
+    First-authored papers: <strong>{{ cites.first_author_papers }}</strong>;
+    first-author citations: <strong>{{ cites.first_author_citations }}</strong>;
+    total citations: <strong>{{ cites.total_citations }}</strong>;
+    self-citations: <strong>{{ cites.self_citations }}</strong>.
+  </p>
+  {% endif %}
+
   <ul class="tab-nav">
     <li><div class="button active" data-ref="#tab-published">Published</div></li>
     <li><div class="button" data-ref="#tab-workshop">Workshop</div></li>

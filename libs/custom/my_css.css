@@ -172,6 +172,16 @@ body.paper-lightbox-open {
   font-weight: 600;
   margin-right: 0.15em;
 }
+.publication-citation-summary {
+  margin: -0.5rem 0 1.25rem;
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.62);
+}
+.publication-citation-summary strong {
+  font-weight: 600;
+  color: #333;
+}
 .numbered-list {
   margin-left: 20px;
 }

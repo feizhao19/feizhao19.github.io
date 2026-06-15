@@ -37,6 +37,61 @@
     </tbody>
   </table>
 
+  <div class="scholar-metrics__visual-row">
+    {% if stats.publication_summary %}
+    <div class="scholar-metrics__pub-summary">
+      <table class="scholar-metrics__summary-table" aria-label="Publication summary">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Papers</th>
+            <th scope="col">Citations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in stats.publication_summary %}
+          <tr>
+            <th scope="row">{{ row.label }}</th>
+            <td>{{ row.papers }}</td>
+            <td>{{ row.citations }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <figure class="scholar-metrics__chart scholar-metrics__chart--compact" aria-label="Citations per year">
+      <div class="scholar-metrics__chart-inner">
+        <div class="scholar-metrics__plot">
+          <div class="scholar-metrics__grid" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="scholar-metrics__bars">
+            {% for item in stats.citations_by_year %}
+            {% assign bar_height = item.count | times: 100 | divided_by: axis_max %}
+            <div class="scholar-metrics__bar-col" title="{{ item.year }}: {{ item.count }} citations">
+              <div class="scholar-metrics__bar" style="height: {{ bar_height }}%;"></div>
+              <span class="scholar-metrics__year">{{ item.year }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="scholar-metrics__y-axis" aria-hidden="true">
+          <span>{{ axis_max }}</span>
+          <span>{{ axis_max | times: 3 | divided_by: 4 }}</span>
+          <span>{{ axis_max | divided_by: 2 }}</span>
+          <span>{{ axis_max | divided_by: 4 }}</span>
+          <span>0</span>
+        </div>
+      </div>
+    </figure>
+  </div>
+
   {% if stats.first_author_papers %}
   <div class="scholar-metrics__papers">
     <p class="scholar-metrics__papers-heading">First-author papers</p>
@@ -58,36 +113,6 @@
     </table>
   </div>
   {% endif %}
-
-  <figure class="scholar-metrics__chart" aria-label="Citations per year">
-    <div class="scholar-metrics__chart-inner">
-      <div class="scholar-metrics__plot">
-        <div class="scholar-metrics__grid" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="scholar-metrics__bars">
-          {% for item in stats.citations_by_year %}
-          {% assign bar_height = item.count | times: 100 | divided_by: axis_max %}
-          <div class="scholar-metrics__bar-col" title="{{ item.year }}: {{ item.count }} citations">
-            <div class="scholar-metrics__bar" style="height: {{ bar_height }}%;"></div>
-            <span class="scholar-metrics__year">{{ item.year }}</span>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="scholar-metrics__y-axis" aria-hidden="true">
-        <span>{{ axis_max }}</span>
-        <span>{{ axis_max | times: 3 | divided_by: 4 }}</span>
-        <span>{{ axis_max | divided_by: 2 }}</span>
-        <span>{{ axis_max | divided_by: 4 }}</span>
-        <span>0</span>
-      </div>
-    </div>
-  </figure>
 
   <p class="scholar-metrics__note">
     Source:

@@ -1,25 +1,30 @@
-groups:
-  - year: 2026
-    items:
-      - month: "May"
-        text: >-
-          Paper accepted by **IEEE IRI 2027**!
+items:
+  - sort: 202605
+    month: "May"
+    year: 2026
+    text: >-
+      Paper accepted by **IEEE IRI 2027**!
 
-      - month: "Apr"
-        text: >-
-          [Paper](/files/iclr_Evolving_Safety_Landscape.pdf) presented at **ICLR 2026** Trustworthy AI Workshop.
+  - sort: 202604
+    month: "Apr"
+    year: 2026
+    text: >-
+      [Paper](/files/iclr_Evolving_Safety_Landscape.pdf) presented at **ICLR 2026** Trustworthy AI Workshop.
 
-      - month: "Mar"
-        text: >-
-          **Invited as PC Chair**, IEEE IRI Poster Track (2026).
+  - sort: 202603
+    month: "Mar"
+    year: 2026
+    text: >-
+      **Invited to serve as PC Chair**, IEEE IRI Poster Track (2026).
 
-      - month: "Feb"
-        text: >-
-          **Invited as PC Member**, PAKDD & ACM Multimedia (2026).
+  - sort: 202602
+    month: "Feb"
+    year: 2026
+    text: >-
+      **Invited to serve as PC Member**, PAKDD & ACM Multimedia (2026).
 
-  - year: 2025
-    items:
-      - month: "Dec"
-        text: >-
-          [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.
-
+  - sort: 202512
+    month: "Dec"
+    year: 2025
+    text: >-
+      [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.

@@ -1,7 +1,18 @@
 <div class="paper{% if include.paper.image %} paper--with-image{% endif %}">
   <div class="paper__row">
     <div class="paper__content">
-      <p class="title"><span class="paper-number">{{ include.paper.number }}.</span> <b>{{ include.paper.title }}</b></p>
+      <p class="title"><span class="paper-number">{{ include.paper.number }}.</span>
+        {% if include.paper.link %}
+          {% if include.paper.link contains "://" %}
+            {% assign paper_href = include.paper.link %}
+          {% else %}
+            {% assign paper_href = site.baseurl | append: include.paper.link %}
+          {% endif %}
+          <b><a href="{{ paper_href }}" target="_blank" rel="noopener noreferrer">{{ include.paper.title }}</a></b>
+        {% else %}
+          <b>{{ include.paper.title }}</b>
+        {% endif %}
+      </p>
       <p>{{ include.paper.authors }}</p>
       <p><i>{{ include.paper.venue }}</i></p>
     </div>

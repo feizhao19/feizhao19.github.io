@@ -13,8 +13,8 @@
           <b>{{ include.paper.title }}</b>
         {% endif %}
       </p>
-      <p>{{ include.paper.authors }}</p>
-      <p><i>{{ include.paper.venue }}</i></p>
+      <p>{{ include.paper.authors | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+      <p class="paper-venue"><i>{{ include.paper.venue | markdownify | remove: '<p>' | remove: '</p>' }}</i></p>
     </div>
     {% if include.paper.image %}
       <div class="paper__teaser">

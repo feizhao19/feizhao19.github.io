@@ -56,30 +56,69 @@ $(document).ready(function() {
     $window.on('resize', resize)
     $popoverLink.on('click', openPopover)
     $document.on('click', closePopover)
-    $('a[href^="#"]').on('click', smoothScroll)
+    $('a[href^="#"]').on('click', smoothScroll);
+    $('.navbar-link').on('click', smoothScroll);
     buildSnippets();
     initPaperImageLightbox();
+    scrollToHashOnLoad();
   }
 
   function getNavScrollOffset() {
     if ($window.width() < 750) {
-      return 16;
+      return 12;
     }
-    return ($nav.outerHeight() || 104) + 16;
+    return ($nav.outerHeight() || 104) + 12;
+  }
+
+  function getSectionScrollTarget($section) {
+    var $heading = $section.children('h4').first();
+    return $heading.length ? $heading : $section;
+  }
+
+  function scrollToSection($section) {
+    var $scrollTarget = getSectionScrollTarget($section);
+    $('html, body').stop().animate({
+      scrollTop: $scrollTarget.offset().top - getNavScrollOffset()
+    }, 0);
   }
 
   function smoothScroll(e) {
+    var hash = this.hash;
+    if (!hash) {
+      return;
+    }
+
+    var $target = $(hash);
+    if (!$target.length) {
+      return;
+    }
+
     e.preventDefault();
-    $(document).off("scroll");
-    var target = this.hash,
-        menu = target;
-    $target = $(target);
-    $('html, body').stop().animate({
-        'scrollTop': $target.offset().top - getNavScrollOffset()
-    }, 0, 'swing', function () {
-        window.location.hash = target;
-        $(document).on("scroll", onScroll);
-    });
+    $(document).off('scroll');
+    scrollToSection($target);
+    if (history.replaceState) {
+      history.replaceState(null, '', hash);
+    } else {
+      window.location.hash = hash;
+    }
+    $(document).on('scroll', onScroll);
+    onScroll();
+  }
+
+  function scrollToHashOnLoad() {
+    if (!window.location.hash) {
+      return;
+    }
+
+    var $target = $(window.location.hash);
+    if (!$target.length) {
+      return;
+    }
+
+    setTimeout(function() {
+      scrollToSection($target);
+      onScroll();
+    }, 0);
   }
 
   function openPopover(e) {

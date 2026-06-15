@@ -192,6 +192,17 @@ body.paper-lightbox-open {
 .publication-citation-summary a strong {
   color: inherit;
 }
+.publication-citation-summary__meta {
+  color: rgba(0, 0, 0, 0.48);
+  white-space: nowrap;
+}
+.publication-citation-summary__meta a {
+  color: #2982ac;
+  text-decoration: none;
+}
+.publication-citation-summary__meta a:hover {
+  text-decoration: underline;
+}
 .numbered-list {
   margin-left: 20px;
 }

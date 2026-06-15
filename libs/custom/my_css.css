@@ -54,13 +54,19 @@ h4 {
   gap: 14px;
 }
 .paper__teaser {
-  flex: 0 0 220px;
-  max-width: 220px;
+  flex: 0 0 180px;
+  max-width: 180px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 .paper__teaser img {
   display: block;
-  width: 100%;
+  max-height: 100px;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  object-fit: contain;
 }
 .paper__content {
   flex: 1;
@@ -69,7 +75,7 @@ h4 {
   line-height: 1.45;
 }
 .paper:not(.paper--with-image) .paper__content {
-  padding-right: 234px;
+  padding-right: 194px;
 }
 .paper .title {
   /*text-transform: uppercase; */}

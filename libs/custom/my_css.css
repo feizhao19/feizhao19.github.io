@@ -182,6 +182,16 @@ body.paper-lightbox-open {
   font-weight: 600;
   color: #333;
 }
+.publication-citation-summary a {
+  color: #2982ac;
+  text-decoration: none;
+}
+.publication-citation-summary a:hover {
+  text-decoration: underline;
+}
+.publication-citation-summary a strong {
+  color: inherit;
+}
 .numbered-list {
   margin-left: 20px;
 }

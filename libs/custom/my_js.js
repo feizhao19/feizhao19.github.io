@@ -61,6 +61,13 @@ $(document).ready(function() {
     initPaperImageLightbox();
   }
 
+  function getNavScrollOffset() {
+    if ($window.width() < 750) {
+      return 16;
+    }
+    return ($nav.outerHeight() || 104) + 16;
+  }
+
   function smoothScroll(e) {
     e.preventDefault();
     $(document).off("scroll");
@@ -68,7 +75,7 @@ $(document).ready(function() {
         menu = target;
     $target = $(target);
     $('html, body').stop().animate({
-        'scrollTop': $target.offset().top-40
+        'scrollTop': $target.offset().top - getNavScrollOffset()
     }, 0, 'swing', function () {
         window.location.hash = target;
         $(document).on("scroll", onScroll);

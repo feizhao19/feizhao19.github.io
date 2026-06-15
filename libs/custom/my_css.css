@@ -54,8 +54,8 @@ h4 {
   gap: 14px;
 }
 .paper__teaser {
-  flex: 0 0 130px;
-  max-width: 130px;
+  flex: 0 0 220px;
+  max-width: 220px;
 }
 .paper__teaser img {
   display: block;
@@ -69,10 +69,18 @@ h4 {
   line-height: 1.45;
 }
 .paper:not(.paper--with-image) .paper__content {
-  padding-right: 144px;
+  padding-right: 234px;
 }
 .paper .title {
   /*text-transform: uppercase; */}
+.paper__content .title a {
+  color: inherit;
+  text-decoration: none;
+}
+.paper__content .title a:hover {
+  color: #2982ac;
+  text-decoration: underline;
+}
 .paper-number {
   color: #2982ac;
   font-weight: 600;

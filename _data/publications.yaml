@@ -3,7 +3,7 @@ papers:
     number: 17
     title: "MarkMatch: Same-Hand Stuffing Detection"
     authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
-    venue: "IEEE <b>ICME</b>, 2025"
+    venue: "<b>IEEE ICME</b>, 2025"
     image: arch_encoder.png
     link: /files/MarkMatch.pdf
 
@@ -19,7 +19,7 @@ papers:
     number: 14
     title: "CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset"
     authors: "<u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang"
-    venue: "ACM <b>CIKM</b>, 2024"
+    venue: "<b>ACM CIKM</b>, 2024"
     image: gencheck.png
     link: /files/CheckGuard.pdf
 
@@ -59,7 +59,7 @@ papers:
     number: 7
     title: "Deep Learning for HABs Prediction with Multimodal Fusion"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang"
-    venue: "ACM <b>SIGSPATIAL</b>, 2023"
+    venue: "<b>ACM SIGSPATIAL</b>, 2023"
     image: algal_spatial.png
     link: /files/HAB_SigSpatial.pdf
 
@@ -75,7 +75,7 @@ papers:
     number: 5
     title: "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Sheikh Abujar"
-    venue: "IEEE <b>ICME</b>, 2023"
+    venue: "<b>IEEE ICME</b>, 2023"
     image: icme.png
     link: /files/HAB_ICME.pdf
 

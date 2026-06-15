@@ -1,0 +1,76 @@
+# Google Scholar metrics — update manually or via a scheduled workflow.
+since_year: 2021
+updated: "2026-06-14"
+chart_axis_max: 360
+
+all:
+  citations: 669
+  h_index: 5
+  i10_index: 3
+  first_author_citations: 638
+
+since:
+  citations: 660
+  h_index: 5
+  i10_index: 3
+
+first_author_papers:
+  - citations: 575
+    title: "Deep multimodal data fusion"
+    year: 2024
+  - citations: 28
+    title: "Building damage evaluation from satellite imagery using deep learning"
+    year: 2020
+  - citations: 8
+    title: "Visual prompt learning of foundation models for post-disaster damage evaluation"
+    year: 2025
+  - citations: 5
+    title: "Ballot tabulation using deep learning"
+    year: 2023
+  - citations: 5
+    title: "GenCheck: A LoRA-adapted multimodal large language model for check analysis"
+    year: 2024
+  - citations: 5
+    title: "Mitigating Image Captioning Hallucinations in Vision-Language Models"
+    year: 2025
+  - citations: 3
+    title: "Deep Learning for HABs Prediction with Multimodal Fusion"
+    year: 2023
+  - citations: 3
+    title: "Neonatal Pain Detection from Facial Expressions Using Deep Learning"
+    year: 2024
+  - citations: 2
+    title: "A Multimodal Approach for Evaluating Algal Bloom Severity Using Deep Learning"
+    year: 2023
+  - citations: 1
+    title: "Bubblesig: Same-hand ballot stuffing detection"
+    year: 2024
+  - citations: 1
+    title: "CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset"
+    year: 2024
+  - citations: 1
+    title: "Deep Body Fitness"
+    year: 2024
+  - citations: 1
+    title: "Parameter-Efficient Adaptation of Foundation Models for Damaged Building Assessment"
+    year: 2024
+  - citations: 0
+    title: "MarkMatch: Same-Hand Stuffing Detection"
+    year: 2025
+  - citations: 0
+    title: "Research on MEMS Based Real-Time Measurement System for Motion Information of the Vehicle"
+    year: 2013
+
+citations_by_year:
+  - year: 2021
+    count: 4
+  - year: 2022
+    count: 9
+  - year: 2023
+    count: 6
+  - year: 2024
+    count: 40
+  - year: 2025
+    count: 351
+  - year: 2026
+    count: 246

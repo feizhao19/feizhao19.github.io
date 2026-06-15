@@ -14,6 +14,17 @@ since:
   h_index: 5
   i10_index: 3
 
+publication_summary:
+  - label: "Conference"
+    papers: 12
+    citations: 52
+  - label: "Journal"
+    papers: 5
+    citations: 614
+  - label: "First-author"
+    papers: 14
+    citations: 638
+
 first_author_papers:
   - citations: 575
     title: "Deep multimodal data fusion"

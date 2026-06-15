@@ -178,8 +178,86 @@ body.paper-lightbox-open {
 .scholar-metrics__table {
   max-width: 420px;
 }
-.scholar-metrics__chart-inner {
-  max-width: 420px;
+.scholar-metrics__visual-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 1.4rem;
+  max-width: 100%;
+}
+.scholar-metrics__pub-summary {
+  flex: 0 0 auto;
+}
+.scholar-metrics__summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88em;
+}
+.scholar-metrics__summary-table th,
+.scholar-metrics__summary-table td {
+  padding: 0.3rem 0.55rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: right;
+  font-weight: 400;
+  color: #333;
+  white-space: nowrap;
+}
+.scholar-metrics__summary-table thead th {
+  border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
+  color: #555;
+  font-weight: 500;
+}
+.scholar-metrics__summary-table tbody th {
+  text-align: left;
+  font-weight: 400;
+}
+.scholar-metrics__summary-table tbody tr:last-child th,
+.scholar-metrics__summary-table tbody tr:last-child td {
+  border-bottom: 1px solid #bdbdbd;
+}
+.scholar-metrics__chart--compact {
+  flex: 1 1 240px;
+  min-width: 200px;
+  max-width: 300px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__chart-inner {
+  max-width: none;
+}
+.scholar-metrics__chart--compact .scholar-metrics__plot {
+  height: 110px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__y-axis {
+  height: 92px;
+  font-size: 0.75em;
+  min-width: 24px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__year {
+  font-size: 0.72em;
+  line-height: 16px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__bar-col {
+  padding-bottom: 16px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__grid,
+.scholar-metrics__chart--compact .scholar-metrics__bars {
+  inset: 0 0 16px 0;
+}
+.scholar-metrics__chart--compact .scholar-metrics__bars {
+  gap: 6px;
+}
+.scholar-metrics__chart--compact .scholar-metrics__bar {
+  max-width: 28px;
+}
+@media (max-width: 549px) {
+  .scholar-metrics__visual-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .scholar-metrics__chart--compact {
+    max-width: 100%;
+  }
 }
 .scholar-metrics__table {
   width: 100%;

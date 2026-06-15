@@ -37,39 +37,43 @@ title: Home
   {% assign cites = site.data.citation_stats %}
   {% if cites %}
   <p class="publication-citation-summary">
-    First-authored papers: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.first_author_papers }}</strong></a>;
-    first-author citations: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.first_author_citations }}</strong></a>;
-    total citations: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.total_citations }}</strong></a>;
-    self-citations: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.self_citations }}</strong></a>.
+    First-author papers: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.first_author_papers }}</strong></a>
+    · First-author citations: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.first_author_citations }}</strong></a>
+    · Total: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.total_citations }}</strong></a>
+    · Self-citations: <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer"><strong>{{ cites.self_citations }}</strong></a>
+    <span class="publication-citation-summary__meta">(<a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>, {{ cites.updated | date: "%b %d, %Y" }})</span>
   </p>
   {% endif %}
 
+  {% assign conference_papers = site.data.publications.papers | where: "label", "C" %}
+  {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
+  {% assign workshop_papers = site.data.publications.papers | where: "label", "W" %}
+  {% assign preprint_papers = site.data.publications.papers | where: "label", "P" %}
+  {% assign published_papers = conference_papers | concat: journal_papers | sort: "number" | reverse %}
+  {% assign workshop_papers = workshop_papers | sort: "number" | reverse %}
+  {% assign preprint_papers = preprint_papers | sort: "number" | reverse %}
+
   <ul class="tab-nav">
-    <li><div class="button active" data-ref="#tab-published">Published</div></li>
-    <li><div class="button" data-ref="#tab-workshop">Workshop</div></li>
-    <li><div class="button" data-ref="#tab-preprint">Pre-prints</div></li>
+    <li><div class="button active" data-ref="#tab-published">Published ({{ published_papers | size }})</div></li>
+    <li><div class="button" data-ref="#tab-workshop">Workshop ({{ workshop_papers | size }})</div></li>
+    <li><div class="button" data-ref="#tab-preprint">Pre-prints ({{ preprint_papers | size }})</div></li>
   </ul>
 
   <div class="tab-content">
 
     <div id="tab-published" class="tab-content tab-pane active">
-      {% assign conference_papers = site.data.publications.papers | where: "label", "C" %}
-      {% assign journal_papers = site.data.publications.papers | where: "label", "J" %}
-      {% assign published_papers = conference_papers | concat: journal_papers | sort: "number" | reverse %}
       {% for paper in published_papers %}
         {% include paper-entry.html paper=paper %}
       {% endfor %}
     </div>
 
     <div id="tab-workshop" class="tab-content tab-pane">
-      {% assign workshop_papers = site.data.publications.papers | where: "label", "W" | sort: "number" | reverse %}
       {% for paper in workshop_papers %}
         {% include paper-entry.html paper=paper %}
       {% endfor %}
     </div>
 
     <div id="tab-preprint" class="tab-content tab-pane">
-      {% assign preprint_papers = site.data.publications.papers | where: "label", "P" | sort: "number" | reverse %}
       {% for paper in preprint_papers %}
         {% include paper-entry.html paper=paper %}
       {% endfor %}

@@ -5,11 +5,17 @@ items:
     text: >-
       Paper accepted by **IEEE IRI 2027**!
 
-  - sort: 202604
+  - sort: 2026042
     month: "Apr"
     year: 2026
     text: >-
       [Paper](/files/iclr_Evolving_Safety_Landscape.pdf) presented at **ICLR 2026** Trustworthy AI Workshop.
+
+  - sort: 2026041
+    month: "Apr"
+    year: 2026
+    text: >-
+      **Invited to serve as PC Member**, ACM Multimedia (2026).
 
   - sort: 202603
     month: "Mar"
@@ -17,14 +23,14 @@ items:
     text: >-
       **Invited to serve as PC Chair**, IEEE IRI Poster Track (2026).
 
-  - sort: 202602
-    month: "Feb"
-    year: 2026
+  - sort: 202509
+    month: "Sep"
+    year: 2025
     text: >-
-      **Invited to serve as PC Member**, PAKDD & ACM Multimedia (2026).
+      **Invited to serve as PC Member**, PAKDD (2026).
 
   - sort: 202512
     month: "Dec"
     year: 2025
     text: >-
-      [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.
+      Received the [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.

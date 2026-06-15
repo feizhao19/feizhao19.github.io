@@ -84,6 +84,7 @@ papers:
     title: "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology"
     authors: "Katherine Dudding, Allyson Sanders, Peyton Lewis, <u>Fei Zhao</u>, Chengcui Zhang, Jane Carrington"
     venue: "Academy of Neonatal Nursing Conference, 2022 (Poster)"
+    image: neonatal_poster.png
 
   - label: C
     number: 3
@@ -122,6 +123,7 @@ papers:
     title: "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles"
     authors: "<u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, Jiajin Liu"
     venue: "Key Engineering Materials, 2013"
+    image: vehicle_figure.png
     link: /files/KEM.pdf
 
   - label: J
@@ -129,6 +131,7 @@ papers:
     title: "MEMS-based Attitude Measurement System for Micro Aerial Vehicles"
     authors: "Xiaotang Cao, Yunbo Shi, Zhaoying Zhou, Shaopeng Liu, Qi Guo, <u>Fei Zhao</u>"
     venue: "Transducer and Microsystem Technologies, 2013"
+    image: mems_figure.png
     link: /files/MEMS.pdf
 
   - label: W

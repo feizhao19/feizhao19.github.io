@@ -32,8 +32,8 @@ h4 {
   line-height: 0; }
 .profile-photo__image {
   display: block;
-  width: 100%;
-  max-width: 220px;
+  width: auto;
+  max-width: 160px;
   height: auto;
   margin: 0 auto;
 }
@@ -80,6 +80,19 @@ h4 {
   border-top: 1px solid #eee;
   padding: 15px 0 40px 0;
   margin-bottom: 0;}
+.footer-credit {
+  margin: 1.25rem 0 0;
+  font-size: 0.85em;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.45);
+}
+.footer-credit a {
+  color: rgba(41, 130, 172, 0.9);
+  text-decoration: none;
+}
+.footer-credit a:hover {
+  text-decoration: underline;
+}
 .navbar {
   display: none; }
 .title-subtitle h3 {

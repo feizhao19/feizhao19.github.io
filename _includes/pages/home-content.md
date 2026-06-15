@@ -139,7 +139,7 @@ Explore my projects, publications, and more on my [LinkedIn](https://www.linkedi
 
 ## Conference Program Committee Member
 
-- Program Committee Chair: IEEE IRI Poster (2026)
+- [Program Committee Chair: IEEE IRI Poster Session (2026)](https://ieee-iri.github.io/2026/committee_organizing.html)
 
 - Program Committee Member: PAKDD (2026), ACM Multimedia (2026)
 

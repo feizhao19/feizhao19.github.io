@@ -1,0 +1,98 @@
+{% assign stats = site.data.scholar_stats %}
+{% if stats %}
+{% assign axis_max = stats.chart_axis_max | default: 360 %}
+
+<div class="scholar-metrics">
+  <table class="scholar-metrics__table" aria-label="Google Scholar citation metrics">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">All</th>
+        <th scope="col">Since {{ stats.since_year }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Citations</th>
+        <td>{{ stats.all.citations }}</td>
+        <td>{{ stats.since.citations }}</td>
+      </tr>
+      <tr>
+        <th scope="row">h-index</th>
+        <td>{{ stats.all.h_index }}</td>
+        <td>{{ stats.since.h_index }}</td>
+      </tr>
+      <tr>
+        <th scope="row">i10-index</th>
+        <td>{{ stats.all.i10_index }}</td>
+        <td>{{ stats.since.i10_index }}</td>
+      </tr>
+      {% if stats.all.first_author_citations %}
+      <tr>
+        <th scope="row">First-author citations</th>
+        <td>{{ stats.all.first_author_citations }}</td>
+        <td class="scholar-metrics__na">—</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  {% if stats.first_author_papers %}
+  <div class="scholar-metrics__papers">
+    <p class="scholar-metrics__papers-heading">First-author papers</p>
+    <table class="scholar-metrics__paper-table" aria-label="First-author paper citations">
+      <thead>
+        <tr>
+          <th scope="col">Citations</th>
+          <th scope="col">Paper</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for paper in stats.first_author_papers %}
+        <tr>
+          <td>{{ paper.citations }}</td>
+          <td>{{ paper.title }}{% if paper.year %} <span class="scholar-metrics__paper-year">({{ paper.year }})</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <figure class="scholar-metrics__chart" aria-label="Citations per year">
+    <div class="scholar-metrics__chart-inner">
+      <div class="scholar-metrics__plot">
+        <div class="scholar-metrics__grid" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="scholar-metrics__bars">
+          {% for item in stats.citations_by_year %}
+          {% assign bar_height = item.count | times: 100 | divided_by: axis_max %}
+          <div class="scholar-metrics__bar-col" title="{{ item.year }}: {{ item.count }} citations">
+            <div class="scholar-metrics__bar" style="height: {{ bar_height }}%;"></div>
+            <span class="scholar-metrics__year">{{ item.year }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="scholar-metrics__y-axis" aria-hidden="true">
+        <span>{{ axis_max }}</span>
+        <span>{{ axis_max | times: 3 | divided_by: 4 }}</span>
+        <span>{{ axis_max | divided_by: 2 }}</span>
+        <span>{{ axis_max | divided_by: 4 }}</span>
+        <span>0</span>
+      </div>
+    </div>
+  </figure>
+
+  <p class="scholar-metrics__note">
+    Source:
+    <a href="{{ site.data.main_info.google_scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>.
+    {% if stats.updated %}Last updated {{ stats.updated }}.{% endif %}
+  </p>
+</div>
+{% endif %}

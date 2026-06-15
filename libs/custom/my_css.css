@@ -54,6 +54,9 @@ h4 {
   font-weight: 600;
   margin-right: 0.15em;
 }
+.numbered-list p {
+  margin-bottom: 0.35em;
+}
 .paper p {
   margin-bottom: 2px }
 .paper-buttons {

@@ -17,23 +17,6 @@
         <td>{{ stats.all.citations }}</td>
         <td>{{ stats.since.citations }}</td>
       </tr>
-      <tr>
-        <th scope="row">h-index</th>
-        <td>{{ stats.all.h_index }}</td>
-        <td>{{ stats.since.h_index }}</td>
-      </tr>
-      <tr>
-        <th scope="row">i10-index</th>
-        <td>{{ stats.all.i10_index }}</td>
-        <td>{{ stats.since.i10_index }}</td>
-      </tr>
-      {% if stats.all.first_author_citations %}
-      <tr>
-        <th scope="row">First-author citations</th>
-        <td>{{ stats.all.first_author_citations }}</td>
-        <td class="scholar-metrics__na">—</td>
-      </tr>
-      {% endif %}
     </tbody>
   </table>
 
@@ -91,28 +74,6 @@
       </div>
     </figure>
   </div>
-
-  {% if stats.first_author_papers %}
-  <div class="scholar-metrics__papers">
-    <p class="scholar-metrics__papers-heading">First-author papers</p>
-    <table class="scholar-metrics__paper-table" aria-label="First-author paper citations">
-      <thead>
-        <tr>
-          <th scope="col">Citations</th>
-          <th scope="col">Paper</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for paper in stats.first_author_papers %}
-        <tr>
-          <td>{{ paper.citations }}</td>
-          <td>{{ paper.title }}{% if paper.year %} <span class="scholar-metrics__paper-year">({{ paper.year }})</span>{% endif %}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% endif %}
 
   <p class="scholar-metrics__note">
     Source:

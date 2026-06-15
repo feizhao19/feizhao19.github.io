@@ -56,7 +56,7 @@ title: Home
     </div>
 
     <div id="tab-workshop" class="tab-content tab-pane">
-      {% assign workshop_papers = site.data.publications.papers | where: "label", "W" | sort: "number" %}
+      {% assign workshop_papers = site.data.publications.papers | where: "label", "W" | sort: "number" | reverse %}
       {% for paper in workshop_papers %}
         <div class="paper">
           <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>
@@ -67,7 +67,7 @@ title: Home
     </div>
 
     <div id="tab-preprint" class="tab-content tab-pane">
-      {% assign preprint_papers = site.data.publications.papers | where: "label", "P" | sort: "number" %}
+      {% assign preprint_papers = site.data.publications.papers | where: "label", "P" | sort: "number" | reverse %}
       {% for paper in preprint_papers %}
         <div class="paper">
           <p class="title"><span class="paper-number">{{ paper.number }}.</span> <b>{{ paper.title }}</b></p>

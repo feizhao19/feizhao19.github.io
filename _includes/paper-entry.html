@@ -1,0 +1,14 @@
+<div class="paper{% if include.paper.image %} paper--with-image{% endif %}">
+  <div class="paper__row">
+    <div class="paper__content">
+      <p class="title"><span class="paper-number">{{ include.paper.number }}.</span> <b>{{ include.paper.title }}</b></p>
+      <p>{{ include.paper.authors }}</p>
+      <p><i>{{ include.paper.venue }}</i></p>
+    </div>
+    {% if include.paper.image %}
+      <div class="paper__teaser">
+        <img src="{{ site.baseurl }}/images/{{ include.paper.image }}" alt="{{ include.paper.title }}">
+      </div>
+    {% endif %}
+  </div>
+</div>

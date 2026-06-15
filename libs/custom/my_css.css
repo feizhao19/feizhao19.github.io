@@ -54,6 +54,9 @@ h4 {
   font-weight: 600;
   margin-right: 0.15em;
 }
+.numbered-list {
+  margin-left: 20px;
+}
 .numbered-list p {
   margin-bottom: 0.35em;
 }

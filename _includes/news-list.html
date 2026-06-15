@@ -1,11 +1,15 @@
-{% if site.data.news.items %}
+{% if site.data.news.groups %}
 <div class="news-list">
-  {% assign news_items = site.data.news.items | sort: "sort" | reverse %}
-  {% for item in news_items %}
-  <p class="news-item">
-    <span class="news-date">{{ item.date }}</span>
-    <span class="news-text">{{ item.text | markdownify | remove: '<p>' | remove: '</p>' }}</span>
-  </p>
+  {% for group in site.data.news.groups %}
+  <div class="news-year-group">
+    <p class="news-year">{{ group.year }}</p>
+    {% for item in group.items %}
+    <p class="news-item">
+      <span class="news-date">[{{ item.month }} '{{ group.year | slice: 2, 2 }}]</span>
+      <span class="news-text">{{ item.text | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+    </p>
+    {% endfor %}
+  </div>
   {% endfor %}
 </div>
 {% endif %}

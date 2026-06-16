@@ -135,6 +135,15 @@ h4 {
 .paper-image-lightbox--large .paper-image-lightbox__img {
   max-height: 80vh;
 }
+.paper-image-lightbox--xlarge .paper-image-lightbox__content {
+  max-width: min(98vw, 1200px);
+}
+.paper-image-lightbox--xlarge .paper-image-lightbox__stage {
+  max-height: 92vh;
+}
+.paper-image-lightbox--xlarge .paper-image-lightbox__img {
+  max-height: 90vh;
+}
 .paper-image-lightbox__hint {
   margin: 0;
   color: rgba(255, 255, 255, 0.95);

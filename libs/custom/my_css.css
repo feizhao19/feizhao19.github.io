@@ -231,6 +231,15 @@ body.paper-lightbox-open {
   box-sizing: border-box;
   overflow: hidden;
 }
+.research-interests-figure__link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  cursor: zoom-in;
+}
+.research-interests-figure__link:hover img {
+  opacity: 0.88;
+}
 .research-interests-figure img {
   display: block;
   width: 100%;

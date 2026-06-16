@@ -28,7 +28,12 @@ $(document).ready(function() {
       var src = $(this).attr('href');
       var alt = $(this).find('img').attr('alt') || '';
       $lightbox.find('.paper-image-lightbox__img').attr({ src: src, alt: alt });
-      $lightbox.toggleClass('paper-image-lightbox--large', $(this).hasClass('js-paper-image-lightbox--large'));
+      $lightbox.removeClass('paper-image-lightbox--large paper-image-lightbox--xlarge');
+      if ($(this).hasClass('js-paper-image-lightbox--xlarge')) {
+        $lightbox.addClass('paper-image-lightbox--xlarge');
+      } else if ($(this).hasClass('js-paper-image-lightbox--large')) {
+        $lightbox.addClass('paper-image-lightbox--large');
+      }
       $lightbox.addClass('is-open').attr('aria-hidden', 'false');
       $body.addClass('paper-lightbox-open');
     });
@@ -46,7 +51,7 @@ $(document).ready(function() {
     });
 
     function closePaperLightbox() {
-      $lightbox.removeClass('is-open paper-image-lightbox--large').attr('aria-hidden', 'true');
+      $lightbox.removeClass('is-open paper-image-lightbox--large paper-image-lightbox--xlarge').attr('aria-hidden', 'true');
       $lightbox.find('.paper-image-lightbox__img').attr('src', '');
       $body.removeClass('paper-lightbox-open');
     }

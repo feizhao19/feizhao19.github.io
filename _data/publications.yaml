@@ -13,6 +13,7 @@ papers:
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang, Xi Li"
     venue: "IEEE MIPR, 2025"
     image: halu.png
+    lightbox_large: true
     link: /files/RL4VLM.pdf
 
   - label: C

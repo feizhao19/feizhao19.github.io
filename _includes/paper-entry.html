@@ -18,7 +18,7 @@
     </div>
     {% if include.paper.image %}
       <div class="paper__teaser">
-        <a class="paper__teaser-link js-paper-image-lightbox" href="{{ site.baseurl }}/images/{{ include.paper.image }}" aria-label="View larger image for {{ include.paper.title }}">
+        <a class="paper__teaser-link js-paper-image-lightbox{% if include.paper.lightbox_large %} js-paper-image-lightbox--large{% endif %}" href="{{ site.baseurl }}/images/{{ include.paper.image }}" aria-label="View larger image for {{ include.paper.title }}">
           <img src="{{ site.baseurl }}/images/{{ include.paper.image }}" alt="{{ include.paper.title }}">
         </a>
       </div>

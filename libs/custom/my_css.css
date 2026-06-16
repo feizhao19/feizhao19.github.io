@@ -3,7 +3,9 @@ h4 {
   color: #2982ac; 
   font-weight: 500;}
 .container {
-  max-width: 800px; }
+  max-width: 800px;
+  box-sizing: border-box;
+}
 .header {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -224,13 +226,18 @@ body.paper-lightbox-open {
 .research-interests-figure {
   margin: 1rem 0 1.25rem;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .research-interests-figure img {
   display: block;
   width: 100%;
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  box-sizing: border-box;
+  object-fit: contain;
 }
 .numbered-list {
   margin-left: 20px;
@@ -261,7 +268,11 @@ body.paper-lightbox-open {
 .docs-section {
   border-top: 1px solid #eee;
   padding: 4rem 0;
-  margin-bottom: 0;}
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 .footer {
   text-align: center;
   color: rgba(0, 0, 0, 0.4);

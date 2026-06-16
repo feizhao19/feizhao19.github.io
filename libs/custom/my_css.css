@@ -221,6 +221,17 @@ body.paper-lightbox-open {
 .news-text a:hover {
   text-decoration: underline;
 }
+.research-interests-figure {
+  margin: 1rem 0 1.25rem;
+  padding: 0;
+}
+.research-interests-figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
 .numbered-list {
   margin-left: 20px;
 }

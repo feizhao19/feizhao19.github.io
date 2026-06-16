@@ -242,10 +242,10 @@ body.paper-lightbox-open {
   text-decoration: underline;
 }
 .research-interests-figure {
-  margin: 1rem 0 1.25rem;
+  margin: 1rem auto 1.25rem;
   padding: 0;
-  width: 100%;
-  max-width: 100%;
+  width: 80%;
+  max-width: 80%;
   box-sizing: border-box;
   overflow: hidden;
 }

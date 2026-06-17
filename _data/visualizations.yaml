@@ -1,0 +1,13 @@
+projects:
+  - id: building-damage
+    title: Building Damage Evaluation
+    description: >-
+      Drag the slider to compare pre- and post-disaster satellite imagery (top)
+      and reveal the corresponding building damage assessment (bottom).
+    pre_image: LA-pre-disaster.png
+    post_image: LA-post-disaster.png
+    result_image: pre_damage_overlay.png
+    top_left_label: Pre-disaster
+    top_right_label: Post-disaster
+    bottom_left_label: Pre-disaster
+    bottom_right_label: Damage assessment

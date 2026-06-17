@@ -57,6 +57,61 @@ $(document).ready(function() {
     }
   }
 
+  function initSyncedSwipeCompare() {
+    var $activeSwipe = null;
+
+    function positionFromEvent($root, e) {
+      var rect = $root[0].getBoundingClientRect();
+      var clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    $('.js-synced-swipe').each(function() {
+      var $root = $(this);
+      var $layers = $root.find('.js-synced-swipe-layer');
+      var $divider = $root.find('.js-synced-swipe-divider');
+      var $input = $root.find('.js-synced-swipe-input');
+
+      function setPosition(percent) {
+        var value = Math.max(0, Math.min(100, percent));
+        $root.attr('data-position', value);
+        $layers.css('clip-path', 'inset(0 0 0 ' + value + '%)');
+        $divider.css('left', value + '%');
+        $input.val(value);
+      }
+
+      $root.data('setSwipePosition', setPosition);
+
+      $input.on('input change', function() {
+        setPosition(parseFloat(this.value));
+      });
+
+      $root.on('mousedown touchstart', function(e) {
+        if ($(e.target).closest('.synced-swipe__input').length) {
+          return;
+        }
+        $activeSwipe = $root;
+        setPosition(positionFromEvent($root, e));
+        e.preventDefault();
+      });
+
+      setPosition(parseFloat($root.attr('data-position')) || 50);
+    });
+
+    $(document).on('mousemove.syncedSwipe touchmove.syncedSwipe', function(e) {
+      if (!$activeSwipe) {
+        return;
+      }
+      var setPosition = $activeSwipe.data('setSwipePosition');
+      setPosition(positionFromEvent($activeSwipe, e));
+      e.preventDefault();
+    });
+
+    $(document).on('mouseup.syncedSwipe touchend.syncedSwipe touchcancel.syncedSwipe', function() {
+      $activeSwipe = null;
+    });
+  }
+
   function init() {
     $window.on('scroll', onScroll)
     $window.on('resize', resize)
@@ -66,6 +121,7 @@ $(document).ready(function() {
     $('.navbar-link').on('click', smoothScroll);
     buildSnippets();
     initPaperImageLightbox();
+    initSyncedSwipeCompare();
     scrollToHashOnLoad();
   }
 

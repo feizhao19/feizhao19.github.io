@@ -290,35 +290,50 @@ body.paper-lightbox-open {
   max-width: 100%;
   user-select: none;
   touch-action: none;
-  cursor: ew-resize;
 }
 .synced-swipe__stack {
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   overflow: hidden;
   background: #111;
+  cursor: ew-resize;
 }
-.synced-swipe__row + .synced-swipe__row {
+.synced-swipe__panel + .synced-swipe__panel {
   border-top: 2px solid #fff;
 }
-.swipe-pane {
+.swipe-compare {
   position: relative;
+  overflow: hidden;
   line-height: 0;
   background: #000;
 }
-.swipe-pane__base,
-.swipe-pane__layer {
+.swipe-compare__before {
   display: block;
   width: 100%;
   height: auto;
-  vertical-align: top;
+  pointer-events: none;
 }
-.swipe-pane__layer {
+.swipe-compare__after-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.swipe-compare__after {
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  pointer-events: none;
 }
-.swipe-pane__label {
+.swipe-compare__label {
   position: absolute;
   top: 8px;
   z-index: 2;
@@ -332,46 +347,50 @@ body.paper-lightbox-open {
   line-height: 1.3;
   pointer-events: none;
 }
-.swipe-pane__label--left {
+.swipe-compare__label--left {
   left: 8px;
 }
-.swipe-pane__label--right {
+.swipe-compare__label--right {
   right: 8px;
 }
-.synced-swipe__divider {
+.synced-swipe__handle {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 0;
-  transform: translateX(-50%);
-  z-index: 3;
+  z-index: 5;
+  width: 44px;
+  margin-left: -22px;
+  transform: translateX(0);
+  cursor: ew-resize;
+  pointer-events: auto;
+}
+.synced-swipe__handle-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  margin-left: -1.5px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
   pointer-events: none;
 }
-.synced-swipe__divider-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 2px;
-  margin-left: -1px;
-  background: #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
-}
-.synced-swipe__divider-knob {
+.synced-swipe__handle-knob {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
   border: 2px solid #fff;
   border-radius: 50%;
   background: #2982ac;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
 }
-.synced-swipe__divider-knob::before,
-.synced-swipe__divider-knob::after {
+.synced-swipe__handle-knob::before,
+.synced-swipe__handle-knob::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -381,23 +400,19 @@ body.paper-lightbox-open {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 }
-.synced-swipe__divider-knob::before {
-  left: 7px;
+.synced-swipe__handle-knob::before {
+  left: 8px;
   border-right: 6px solid #fff;
 }
-.synced-swipe__divider-knob::after {
-  right: 7px;
+.synced-swipe__handle-knob::after {
+  right: 8px;
   border-left: 6px solid #fff;
 }
-.synced-swipe__input {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  opacity: 0;
-  cursor: ew-resize;
-  z-index: 4;
+.synced-swipe__handle:focus {
+  outline: none;
+}
+.synced-swipe__handle:focus .synced-swipe__handle-knob {
+  box-shadow: 0 0 0 3px rgba(41, 130, 172, 0.45), 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 .numbered-list {
   margin-left: 20px;

@@ -10,37 +10,40 @@
   {% endif %}
 
   <div class="synced-swipe js-synced-swipe" data-position="50">
-    <div class="synced-swipe__stack">
-      <div class="synced-swipe__row synced-swipe__row--top">
-        <div class="swipe-pane">
-          <img class="swipe-pane__base" src="{{ pre_src }}" alt="{{ p.top_left_label }}">
-          <img class="swipe-pane__layer js-synced-swipe-layer" src="{{ post_src }}" alt="{{ p.top_right_label }}">
-          <span class="swipe-pane__label swipe-pane__label--left">{{ p.top_left_label }}</span>
-          <span class="swipe-pane__label swipe-pane__label--right">{{ p.top_right_label }}</span>
+    <div class="synced-swipe__stack js-synced-swipe-stack">
+      <div class="synced-swipe__panel synced-swipe__panel--top">
+        <div class="swipe-compare js-swipe-compare">
+          <img class="swipe-compare__before" src="{{ pre_src }}" alt="{{ p.top_left_label }}">
+          <div class="swipe-compare__after-wrap js-swipe-after-wrap">
+            <img class="swipe-compare__after" src="{{ post_src }}" alt="{{ p.top_right_label }}">
+          </div>
+          <span class="swipe-compare__label swipe-compare__label--left">{{ p.top_left_label }}</span>
+          <span class="swipe-compare__label swipe-compare__label--right">{{ p.top_right_label }}</span>
         </div>
       </div>
-      <div class="synced-swipe__row synced-swipe__row--bottom">
-        <div class="swipe-pane">
-          <img class="swipe-pane__base" src="{{ pre_src }}" alt="{{ p.bottom_left_label }}">
-          <img class="swipe-pane__layer js-synced-swipe-layer" src="{{ result_src }}" alt="{{ p.bottom_right_label }}">
-          <span class="swipe-pane__label swipe-pane__label--left">{{ p.bottom_left_label }}</span>
-          <span class="swipe-pane__label swipe-pane__label--right">{{ p.bottom_right_label }}</span>
+      <div class="synced-swipe__panel synced-swipe__panel--bottom">
+        <div class="swipe-compare js-swipe-compare">
+          <img class="swipe-compare__before" src="{{ pre_src }}" alt="{{ p.bottom_left_label }}">
+          <div class="swipe-compare__after-wrap js-swipe-after-wrap">
+            <img class="swipe-compare__after" src="{{ result_src }}" alt="{{ p.bottom_right_label }}">
+          </div>
+          <span class="swipe-compare__label swipe-compare__label--left">{{ p.bottom_left_label }}</span>
+          <span class="swipe-compare__label swipe-compare__label--right">{{ p.bottom_right_label }}</span>
         </div>
       </div>
     </div>
 
-    <div class="synced-swipe__divider js-synced-swipe-divider" aria-hidden="true">
-      <div class="synced-swipe__divider-line"></div>
-      <div class="synced-swipe__divider-knob"></div>
-    </div>
-
-    <input
-      type="range"
-      class="synced-swipe__input js-synced-swipe-input"
-      min="0"
-      max="100"
-      value="50"
+    <div
+      class="synced-swipe__handle js-synced-swipe-handle"
+      role="slider"
       aria-label="Drag to compare imagery and damage assessment"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
+      tabindex="0"
     >
+      <div class="synced-swipe__handle-line"></div>
+      <div class="synced-swipe__handle-knob"></div>
+    </div>
   </div>
 </div>

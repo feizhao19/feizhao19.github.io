@@ -6,7 +6,13 @@
 <div class="viz-project" id="viz-{{ p.id }}">
   <h5 class="viz-project__title">{{ p.title }}</h5>
   {% if p.description %}
-  <p class="viz-project__description">{{ p.description }}</p>
+  <div class="viz-project__description">{{ p.description | markdownify }}</div>
+  {% endif %}
+  {% if p.caption %}
+  <div class="viz-project__caption">{{ p.caption | markdownify }}</div>
+  {% endif %}
+  {% if p.imagery_source %}
+  <p class="viz-project__source">{{ p.imagery_source | markdownify }}</p>
   {% endif %}
 
   <div class="synced-swipe js-synced-swipe" data-position="50">

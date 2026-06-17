@@ -28,9 +28,9 @@ title: Home
   </p>
 </div>
 
-<div class="docs-section" id="visualizations">
-  <h4>Visualizations</h4>
-  {% for project in site.data.visualizations.projects %}
+<div class="docs-section" id="projects">
+  <h4>Projects</h4>
+  {% for project in site.data.projects.projects %}
     {% include synced-swipe-compare.html project=project %}
   {% endfor %}
 </div>

@@ -28,6 +28,13 @@ title: Home
   </p>
 </div>
 
+<div class="docs-section" id="visualizations">
+  <h4>Visualizations</h4>
+  {% for project in site.data.visualizations.projects %}
+    {% include synced-swipe-compare.html project=project %}
+  {% endfor %}
+</div>
+
 <div class="docs-section" id="publications">
   <h4>Publications</h4>
 

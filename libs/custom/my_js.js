@@ -61,41 +61,78 @@ $(document).ready(function() {
     var $activeSwipe = null;
 
     function positionFromEvent($root, e) {
-      var rect = $root[0].getBoundingClientRect();
+      var rect = $root.find('.js-synced-swipe-stack')[0].getBoundingClientRect();
       var clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
       return ((clientX - rect.left) / rect.width) * 100;
     }
 
+    function syncCompareLayout($root) {
+      var position = parseFloat($root.attr('data-position')) || 50;
+
+      $root.find('.js-swipe-compare').each(function() {
+        var $compare = $(this);
+        var width = $compare.width();
+        var height = $compare.height();
+        var offset = (position / 100) * width;
+
+        $compare.find('.js-swipe-after-wrap').css({
+          left: position + '%',
+          height: height + 'px'
+        });
+        $compare.find('.swipe-compare__after').css({
+          width: width + 'px',
+          marginLeft: (-offset) + 'px'
+        });
+      });
+    }
+
     $('.js-synced-swipe').each(function() {
       var $root = $(this);
-      var $layers = $root.find('.js-synced-swipe-layer');
-      var $divider = $root.find('.js-synced-swipe-divider');
-      var $input = $root.find('.js-synced-swipe-input');
+      var $handle = $root.find('.js-synced-swipe-handle');
+      var $stack = $root.find('.js-synced-swipe-stack');
 
       function setPosition(percent) {
         var value = Math.max(0, Math.min(100, percent));
         $root.attr('data-position', value);
-        $layers.css('clip-path', 'inset(0 0 0 ' + value + '%)');
-        $divider.css('left', value + '%');
-        $input.val(value);
+        $handle.css('left', value + '%');
+        $handle.attr('aria-valuenow', Math.round(value));
+        syncCompareLayout($root);
       }
 
       $root.data('setSwipePosition', setPosition);
 
-      $input.on('input change', function() {
-        setPosition(parseFloat(this.value));
-      });
-
-      $root.on('mousedown touchstart', function(e) {
-        if ($(e.target).closest('.synced-swipe__input').length) {
-          return;
-        }
+      $stack.add($handle).on('mousedown touchstart', function(e) {
         $activeSwipe = $root;
         setPosition(positionFromEvent($root, e));
         e.preventDefault();
       });
 
+      $handle.on('keydown', function(e) {
+        var step = e.shiftKey ? 10 : 2;
+        var current = parseFloat($root.attr('data-position')) || 50;
+        if (e.key === 'ArrowLeft') {
+          setPosition(current - step);
+          e.preventDefault();
+        } else if (e.key === 'ArrowRight') {
+          setPosition(current + step);
+          e.preventDefault();
+        }
+      });
+
+      $root.find('.swipe-compare__before').on('load', function() {
+        syncCompareLayout($root);
+      });
+
       setPosition(parseFloat($root.attr('data-position')) || 50);
+    });
+
+    $(window).on('resize.syncedSwipe', function() {
+      $('.js-synced-swipe').each(function() {
+        var setPosition = $(this).data('setSwipePosition');
+        if (setPosition) {
+          setPosition(parseFloat($(this).attr('data-position')) || 50);
+        }
+      });
     });
 
     $(document).on('mousemove.syncedSwipe touchmove.syncedSwipe', function(e) {

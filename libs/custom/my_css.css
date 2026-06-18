@@ -287,6 +287,17 @@ body.paper-lightbox-open {
 .viz-project__description p {
   margin: 0;
 }
+.viz-project__description a {
+  color: #2982ac;
+  text-decoration: none;
+}
+.viz-project__description a:hover {
+  text-decoration: underline;
+}
+.viz-project__demo {
+  width: 80%;
+  max-width: 100%;
+}
 .viz-project__caption,
 .viz-project__source {
   margin: 0 0 0.45rem;

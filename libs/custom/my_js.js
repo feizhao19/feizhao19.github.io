@@ -60,6 +60,11 @@ $(document).ready(function() {
   function initSyncedSwipeCompare() {
     var $activeSwipe = null;
 
+    function getSwipePosition($root) {
+      var value = parseFloat($root.attr('data-position'));
+      return isNaN(value) ? 50 : value;
+    }
+
     function positionFromEvent($root, e) {
       var rect = $root.find('.js-synced-swipe-stack')[0].getBoundingClientRect();
       var clientX = e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
@@ -67,7 +72,7 @@ $(document).ready(function() {
     }
 
     function syncCompareLayout($root) {
-      var position = parseFloat($root.attr('data-position')) || 50;
+      var position = getSwipePosition($root);
 
       $root.find('.js-swipe-compare').each(function() {
         var $compare = $(this);
@@ -109,7 +114,7 @@ $(document).ready(function() {
 
       $handle.on('keydown', function(e) {
         var step = e.shiftKey ? 10 : 2;
-        var current = parseFloat($root.attr('data-position')) || 50;
+        var current = getSwipePosition($root);
         if (e.key === 'ArrowLeft') {
           setPosition(current - step);
           e.preventDefault();
@@ -123,14 +128,14 @@ $(document).ready(function() {
         syncCompareLayout($root);
       });
 
-      setPosition(parseFloat($root.attr('data-position')) || 50);
+      setPosition(getSwipePosition($root));
     });
 
     $(window).on('resize.syncedSwipe', function() {
       $('.js-synced-swipe').each(function() {
         var setPosition = $(this).data('setSwipePosition');
         if (setPosition) {
-          setPosition(parseFloat($(this).attr('data-position')) || 50);
+          setPosition(getSwipePosition($(this)));
         }
       });
     });

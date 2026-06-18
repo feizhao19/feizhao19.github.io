@@ -319,49 +319,114 @@ body.paper-lightbox-open {
 .viz-project__demo {
   width: 100%;
   margin: 0;
-  transition: opacity 0.52s ease, filter 0.52s ease;
 }
-.viz-project.is-sample-switching .viz-project__demo,
+.viz-project.is-sample-switching .synced-swipe,
 .viz-project.is-sample-switching .viz-project__caption--below {
   opacity: 0.48;
   filter: brightness(0.86);
 }
 .viz-project__sample-nav {
+  --segment-scale: 0.6;
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --segment-duration: 0.48s;
   --segment-grow-active: 17;
   --segment-grow-idle: 3;
+  --segment-inset: calc(3px * var(--segment-scale));
+  --segment-gap: calc(2px * var(--segment-scale));
+  --segment-radius: calc(10px * var(--segment-scale));
+  --segment-btn-radius: calc(7px * var(--segment-scale));
+  --segment-trail-radius: calc(8px * var(--segment-scale));
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 2px;
+  gap: var(--segment-gap);
+  box-sizing: border-box;
   width: 100%;
-  margin-bottom: 0.5rem;
-  padding: 3px;
+  margin: 0 0 calc(0.5rem * var(--segment-scale));
+  padding: var(--segment-inset);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
+  border-radius: var(--segment-radius);
   overflow: hidden;
   background: rgba(142, 142, 147, 0.22);
   backdrop-filter: blur(20px) saturate(1.05);
   -webkit-backdrop-filter: blur(20px) saturate(1.05);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
-.viz-project__sample-slider {
+.viz-project__sample-slider-trail {
   position: absolute;
-  top: 3px;
-  left: 3px;
+  top: var(--segment-inset);
+  left: var(--segment-inset);
   width: 0;
   height: 0;
-  border-radius: 7px;
+  border-radius: var(--segment-trail-radius);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px) saturate(1.55);
+  -webkit-backdrop-filter: blur(30px) saturate(1.55);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  will-change: left, width, height, opacity;
+}
+.viz-project__sample-nav.is-sliding-right .viz-project__sample-slider-trail {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.26) 100%
+  );
+}
+.viz-project__sample-nav.is-sliding-left .viz-project__sample-slider-trail {
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.26) 100%
+  );
+}
+.viz-project__sample-slider {
+  position: absolute;
+  top: var(--segment-inset);
+  left: var(--segment-inset);
+  width: 0;
+  height: 0;
+  border-radius: var(--segment-btn-radius);
+  overflow: hidden;
   background: rgba(72, 72, 74, 0.62);
   backdrop-filter: blur(14px) saturate(1.02);
   -webkit-backdrop-filter: blur(14px) saturate(1.02);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   will-change: left, width, height;
+  transition:
+    backdrop-filter 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.viz-project__sample-nav.is-segment-switching .viz-project__sample-slider {
+  backdrop-filter: blur(26px) saturate(1.45);
+  -webkit-backdrop-filter: blur(26px) saturate(1.45);
+  background: rgba(78, 78, 82, 0.5);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+.viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after,
+.viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after {
+  background: linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
+}
+.viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
+  background: linear-gradient(270deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
 }
 .viz-project__sample-btn {
   position: relative;
@@ -373,11 +438,13 @@ body.paper-lightbox-open {
   justify-content: center;
   min-width: 0;
   margin: 0;
-  padding: 0.48rem 0.55rem;
+  padding:
+    calc(0.48rem * var(--segment-scale))
+    calc(0.55rem * var(--segment-scale));
   border: 0;
-  border-radius: 7px;
+  border-radius: var(--segment-btn-radius);
   background: transparent;
-  color: rgba(60, 60, 67, 0.62);
+  color: rgba(28, 28, 30, 0.88);
   font-family: inherit;
   cursor: pointer;
   transition:
@@ -393,7 +460,7 @@ body.paper-lightbox-open {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.66em;
+  font-size: 0.58em;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -405,14 +472,14 @@ body.paper-lightbox-open {
     letter-spacing var(--segment-duration) var(--segment-ease);
 }
 .viz-project__sample-btn:hover:not(.is-active) {
-  color: rgba(28, 28, 30, 0.78);
+  color: rgba(18, 18, 20, 0.96);
 }
 .viz-project__sample-btn.is-active {
   flex-grow: var(--segment-grow-active);
-  color: rgba(255, 255, 255, 0.96);
+  color: #fff;
 }
 .viz-project__sample-btn:not(.is-active) .viz-project__sample-btn-text {
-  opacity: 0.46;
+  opacity: 0.82;
   transform: scale(0.9);
   letter-spacing: 0.03em;
 }
@@ -456,6 +523,7 @@ body.paper-lightbox-open {
   max-width: 100%;
   user-select: none;
   touch-action: none;
+  transition: opacity 0.52s ease, filter 0.52s ease;
 }
 .synced-swipe__stack {
   position: relative;
@@ -591,7 +659,7 @@ body.paper-lightbox-open {
     width: 90%;
   }
   .viz-project__sample-btn-text {
-    font-size: 0.58em;
+    font-size: 0.52em;
     letter-spacing: 0.06em;
   }
 }

@@ -22,8 +22,10 @@
   {% endif %}
 
   <div class="viz-project__demo-wrap">
+    <div class="viz-project__demo">
     {% if p.samples %}
     <div class="viz-project__sample-nav viz-project__sample-nav--segmented" role="tablist" aria-label="Sample communities">
+      <span class="viz-project__sample-slider-trail js-sample-slider-trail" aria-hidden="true"></span>
       <span class="viz-project__sample-slider js-sample-slider" aria-hidden="true"></span>
       {% for sample in p.samples %}
       <button
@@ -40,7 +42,6 @@
     </div>
     {% endif %}
 
-    <div class="viz-project__demo">
       <div class="synced-swipe js-synced-swipe" data-position="50">
         <div class="synced-swipe__stack js-synced-swipe-stack">
           <div class="synced-swipe__panel synced-swipe__panel--top">

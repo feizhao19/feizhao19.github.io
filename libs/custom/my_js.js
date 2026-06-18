@@ -156,6 +156,61 @@ $(document).ready(function() {
 
     var segmentTransitionMs = 480;
 
+    function beginSegmentSwitch($nav, $fromBtn, $toBtn) {
+      if (!$nav.length || !$fromBtn.length || !$toBtn.length) {
+        return;
+      }
+
+      var fromIndex = $nav.find('.js-sample-btn').index($fromBtn);
+      var toIndex = $nav.find('.js-sample-btn').index($toBtn);
+      var direction = toIndex > fromIndex ? 'right' : 'left';
+
+      $nav
+        .removeClass('is-sliding-left is-sliding-right')
+        .addClass('is-segment-switching')
+        .addClass(direction === 'right' ? 'is-sliding-right' : 'is-sliding-left')
+        .data('slideFromRect', $fromBtn[0].getBoundingClientRect());
+    }
+
+    function endSegmentSwitch($nav) {
+      window.setTimeout(function() {
+        $nav.removeClass('is-segment-switching is-sliding-left is-sliding-right');
+        $nav.removeData('slideFromRect');
+        $nav.find('.js-sample-slider-trail').css({ opacity: 0 });
+      }, segmentTransitionMs + 64);
+    }
+
+    function syncSampleSliderTrail($nav) {
+      var $trail = $nav.find('.js-sample-slider-trail');
+      var fromRect = $nav.data('slideFromRect');
+
+      if (!$trail.length || !fromRect || !$nav.hasClass('is-segment-switching')) {
+        return;
+      }
+
+      var $btn = $nav.find('.js-sample-btn.is-active').first();
+      if (!$btn.length) {
+        return;
+      }
+
+      var navRect = $nav[0].getBoundingClientRect();
+      var btnRect = $btn[0].getBoundingClientRect();
+      var fromLeft = fromRect.left - navRect.left;
+      var fromRight = fromRect.right - navRect.left;
+      var toLeft = btnRect.left - navRect.left;
+      var toRight = btnRect.right - navRect.left;
+      var top = Math.min(fromRect.top - navRect.top, btnRect.top - navRect.top);
+      var bottom = Math.max(fromRect.bottom - navRect.top, btnRect.bottom - navRect.top);
+
+      $trail.css({
+        left: Math.min(fromLeft, toLeft) + 'px',
+        top: top + 'px',
+        width: Math.max(fromRight, toRight) - Math.min(fromLeft, toLeft) + 'px',
+        height: Math.max(0, bottom - top) + 'px',
+        opacity: 1
+      });
+    }
+
     function syncSampleSlider($nav) {
       var $btn = $nav.find('.js-sample-btn.is-active').first();
       var $slider = $nav.find('.js-sample-slider');
@@ -173,6 +228,8 @@ $(document).ready(function() {
         width: btnRect.width + 'px',
         height: btnRect.height + 'px'
       });
+
+      syncSampleSliderTrail($nav);
     }
 
     function runSampleSliderSync($nav) {
@@ -196,9 +253,13 @@ $(document).ready(function() {
       window.requestAnimationFrame(tick);
     }
 
-    function updateSampleSlider($nav) {
+    function updateSampleSlider($nav, isSwitching) {
       syncSampleSlider($nav);
       runSampleSliderSync($nav);
+
+      if (isSwitching) {
+        endSegmentSwitch($nav);
+      }
     }
 
     function initSampleSliders() {
@@ -236,9 +297,14 @@ $(document).ready(function() {
 
       $project.data('sampleSwitchToken', switchToken);
 
+      var $nav = $btn.closest('.viz-project__sample-nav');
+      var $fromBtn = $nav.find('.js-sample-btn.is-active').first();
+
+      beginSegmentSwitch($nav, $fromBtn, $btn);
+
       $project.find('.js-sample-btn').removeClass('is-active').attr('aria-selected', 'false');
       $btn.addClass('is-active').attr('aria-selected', 'true');
-      updateSampleSlider($btn.closest('.viz-project__sample-nav'));
+      updateSampleSlider($nav, true);
       $project.addClass('is-sample-switching');
 
       window.setTimeout(function() {

@@ -1,12 +1,10 @@
 projects:
   - id: building-damage
-    title: "Selected Project 1: Building Damage Evaluation"
+    title: "Selected Project 1: Visual Prompt Learning for Damage Evaluation"
     description: >-
-      Below is an interactive showcase of my work [ViPDE](https://github.com/feizhao19/RapidDamageAssessment) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom).
+      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom).
     caption: >-
-      The sample is from the Marquez Knolls neighborhood in Pacific Palisades, Los Angeles, California 90272 (~175 acres; [17080 Sunset Blvd, Pacific Palisades, CA 90272](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)).
-    imagery_source: >-
-      Imagery source — [NOAA Emergency Response Imagery (ERI)](https://storms.ngs.noaa.gov/)
+      The sample is from the Marquez Knolls neighborhood in Pacific Palisades, Los Angeles, California 90272 (~175 acres; [17080 Sunset Blvd, Pacific Palisades, CA 90272](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). (Imagery source — [NOAA Emergency Response Imagery (ERI)](https://storms.ngs.noaa.gov/))
     pre_image: LA-pre-disaster.png
     post_image: LA-post-disaster.png
     result_image: pre_damage_overlay.png

@@ -295,8 +295,10 @@ body.paper-lightbox-open {
   text-decoration: underline;
 }
 .viz-project__demo {
-  width: 80%;
+  width: 64%;
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .viz-project__caption,
 .viz-project__source {

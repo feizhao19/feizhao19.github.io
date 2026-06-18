@@ -81,8 +81,7 @@
     </div>
 
     {% if p.samples %}
-    <div class="viz-project__sample-name js-sample-active-label" aria-live="polite">{{ active_sample.label }}</div>
-    <div class="viz-project__caption viz-project__caption--below js-project-caption">{{ active_sample.caption | markdownify }}</div>
+    <div class="viz-project__caption viz-project__caption--below js-project-caption" aria-live="polite">{{ active_sample.caption | markdownify }}</div>
     {% elsif p.caption %}
     <div class="viz-project__caption viz-project__caption--below">{{ p.caption | markdownify }}</div>
     {% endif %}

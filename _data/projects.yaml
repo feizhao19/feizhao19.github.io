@@ -7,7 +7,7 @@ projects:
       - id: potero
         label: Potero
         caption: >-
-          **Potero Canyon, Pacific Palisades, LA, CA** (~106 acres; [George Wolfberg Park at Potero Canyon, Alma Real Dr](https://www.google.com/maps/search/?api=1&query=George+Wolfberg+Park+at+Potero+Canyon,+Alma+Real+Dr,+Pacific+Palisades,+CA+90272))
+          **Potero Canyon, Pacific Palisades, LA, CA** (~106 acres; [George Wolfberg Park at Potero Canyon, Alma Real Dr](https://www.google.com/maps/search/?api=1&query=George+Wolfberg+Park+at+Potero+Canyon,+Alma+Real+Dr,+Pacific+Palisades,+CA+90272)). Imagery from [NOAA ERI California Fire (2025)](https://storms.ngs.noaa.gov/).
         pre_image: Potero_LA_pre_disaster.png
         post_image: Potero_LA_post_disaster.png
         result_image: Potero_pre_damage_overlay_legend.png

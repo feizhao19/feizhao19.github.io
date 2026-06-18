@@ -327,8 +327,6 @@ body.paper-lightbox-open {
 }
 .viz-project__sample-nav {
   --segment-scale: 0.6;
-  --segment-height-scale: 0.6;
-  --segment-font-scale: 2;
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --segment-duration: 0.48s;
   --segment-grow-active: 17;
@@ -344,10 +342,8 @@ body.paper-lightbox-open {
   gap: var(--segment-gap);
   box-sizing: border-box;
   width: 100%;
-  margin: 0 0 calc(0.5rem * var(--segment-scale) * var(--segment-height-scale));
-  padding:
-    calc(var(--segment-inset) * var(--segment-height-scale))
-    var(--segment-inset);
+  margin: 0 0 calc(0.5rem * var(--segment-scale));
+  padding: var(--segment-inset);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--segment-radius);
   overflow: hidden;
@@ -366,34 +362,71 @@ body.paper-lightbox-open {
   opacity: 0;
   z-index: 0;
   pointer-events: none;
-  background: rgba(38, 38, 42, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(36px) saturate(1.15);
-  -webkit-backdrop-filter: blur(36px) saturate(1.15);
-  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px) saturate(1.55);
+  -webkit-backdrop-filter: blur(30px) saturate(1.55);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
   will-change: left, width, height, opacity;
 }
 .viz-project__sample-nav.is-sliding-right .viz-project__sample-slider-trail {
   background: linear-gradient(
     90deg,
-    rgba(34, 34, 38, 0.84) 0%,
-    rgba(46, 46, 50, 0.9) 42%,
-    rgba(56, 56, 60, 0.94) 100%
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.26) 100%
   );
 }
 .viz-project__sample-nav.is-sliding-left .viz-project__sample-slider-trail {
   background: linear-gradient(
     270deg,
-    rgba(34, 34, 38, 0.84) 0%,
-    rgba(46, 46, 50, 0.9) 42%,
-    rgba(56, 56, 60, 0.94) 100%
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.12) 42%,
+    rgba(255, 255, 255, 0.26) 100%
   );
 }
-.viz-project__sample-nav.is-segment-switching .viz-project__sample-slider-trail {
-  z-index: 2;
-}
 .viz-project__sample-slider {
-  display: none;
+  position: absolute;
+  top: var(--segment-inset);
+  left: var(--segment-inset);
+  width: 0;
+  height: 0;
+  border-radius: var(--segment-btn-radius);
+  overflow: hidden;
+  background: rgba(72, 72, 74, 0.62);
+  backdrop-filter: blur(14px) saturate(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(1.02);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  z-index: 1;
+  pointer-events: none;
+  will-change: left, width, height;
+  transition:
+    backdrop-filter 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.viz-project__sample-nav.is-segment-switching .viz-project__sample-slider {
+  backdrop-filter: blur(26px) saturate(1.45);
+  -webkit-backdrop-filter: blur(26px) saturate(1.45);
+  background: rgba(78, 78, 82, 0.5);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+.viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after,
+.viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after {
+  background: linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
+}
+.viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
+  background: linear-gradient(270deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
 }
 .viz-project__sample-btn {
   position: relative;
@@ -406,27 +439,17 @@ body.paper-lightbox-open {
   min-width: 0;
   margin: 0;
   padding:
-    calc(0.48rem * var(--segment-scale) * var(--segment-height-scale))
+    calc(0.48rem * var(--segment-scale))
     calc(0.55rem * var(--segment-scale));
   border: 0;
   border-radius: var(--segment-btn-radius);
+  background: transparent;
+  color: rgba(28, 28, 30, 0.88);
   font-family: inherit;
   cursor: pointer;
-  transition: flex-grow var(--segment-duration) var(--segment-ease);
-}
-.viz-project__sample-btn--light {
-  background: rgba(255, 255, 255, 0.44);
-  backdrop-filter: blur(12px) saturate(1.08);
-  -webkit-backdrop-filter: blur(12px) saturate(1.08);
-  color: rgba(28, 28, 30, 0.9);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
-}
-.viz-project__sample-btn--dark {
-  background: rgba(52, 52, 56, 0.74);
-  backdrop-filter: blur(12px) saturate(1.02);
-  -webkit-backdrop-filter: blur(12px) saturate(1.02);
-  color: rgba(255, 255, 255, 0.94);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    flex-grow var(--segment-duration) var(--segment-ease),
+    color 0.35s ease;
 }
 .viz-project__sample-btn:last-child {
   border-right: 0;
@@ -437,23 +460,34 @@ body.paper-lightbox-open {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: calc(0.58em * var(--segment-font-scale));
+  font-size: 0.58em;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
+  transform-origin: center center;
+  transition:
+    opacity 0.35s ease,
+    transform var(--segment-duration) var(--segment-ease),
+    letter-spacing var(--segment-duration) var(--segment-ease);
+}
+.viz-project__sample-btn:hover:not(.is-active) {
+  color: rgba(18, 18, 20, 0.96);
 }
 .viz-project__sample-btn.is-active {
   flex-grow: var(--segment-grow-active);
+  color: #fff;
+}
+.viz-project__sample-btn:not(.is-active) .viz-project__sample-btn-text {
+  opacity: 0.82;
+  transform: scale(0.9);
+  letter-spacing: 0.03em;
 }
 .viz-project__sample-btn:focus {
   outline: none;
 }
-.viz-project__sample-btn--light:focus-visible {
-  box-shadow: inset 0 0 0 2px rgba(60, 60, 67, 0.32);
-}
-.viz-project__sample-btn--dark:focus-visible {
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.34);
+.viz-project__sample-btn:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(99, 99, 102, 0.42);
 }
 .viz-project__caption,
 .viz-project__source {
@@ -625,7 +659,7 @@ body.paper-lightbox-open {
     width: 90%;
   }
   .viz-project__sample-btn-text {
-    font-size: calc(0.52em * var(--segment-font-scale));
+    font-size: 0.52em;
     letter-spacing: 0.06em;
   }
 }

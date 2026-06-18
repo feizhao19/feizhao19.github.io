@@ -30,7 +30,7 @@
       {% for sample in p.samples %}
       <button
         type="button"
-        class="viz-project__sample-btn js-sample-btn viz-project__sample-btn--{% if forloop.first %}light{% else %}dark{% endif %}{% if forloop.first %} is-active{% endif %}"
+        class="viz-project__sample-btn js-sample-btn{% if forloop.first %} is-active{% endif %}"
         role="tab"
         data-sample-id="{{ sample.id }}"
         data-pre="{{ '/images/' | append: sample.pre_image | prepend: site.baseurl }}"

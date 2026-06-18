@@ -152,6 +152,62 @@ $(document).ready(function() {
     $(document).on('mouseup.syncedSwipe touchend.syncedSwipe touchcancel.syncedSwipe', function() {
       $activeSwipe = null;
     });
+
+    $(document).on('click', '.js-sample-btn', function() {
+      var $btn = $(this);
+      var $project = $btn.closest('.viz-project');
+      var sampleId = $btn.attr('data-sample-id');
+      var pre = $btn.attr('data-pre');
+      var post = $btn.attr('data-post');
+      var result = $btn.attr('data-result');
+      var $swipe = $project.find('.js-synced-swipe');
+      var setPosition = $swipe.data('setSwipePosition');
+      var pendingLoads = 0;
+
+      $project.find('.js-sample-btn').removeClass('is-active').attr('aria-selected', 'false');
+      $btn.addClass('is-active').attr('aria-selected', 'true');
+
+      $project.find('.js-project-caption').html(
+        $project.find('.js-caption-template[data-sample-id="' + sampleId + '"]').html()
+      );
+
+      function onSampleImageLoad() {
+        pendingLoads -= 1;
+        if (pendingLoads <= 0 && setPosition) {
+          setPosition(getSwipePosition($swipe));
+        }
+      }
+
+      function queueImageUpdate($img, src) {
+        var img = $img[0];
+        if (!img || img.src === src) {
+          return;
+        }
+        pendingLoads += 1;
+        $img.one('load error', onSampleImageLoad);
+        img.src = src;
+        if (img.complete) {
+          $img.off('load error', onSampleImageLoad);
+          onSampleImageLoad();
+        }
+      }
+
+      $swipe.find('.js-sample-pre').each(function() {
+        queueImageUpdate($(this), pre);
+      });
+
+      $swipe.find('.js-sample-post').each(function() {
+        queueImageUpdate($(this), post);
+      });
+
+      $swipe.find('.js-sample-result').each(function() {
+        queueImageUpdate($(this), result);
+      });
+
+      if (pendingLoads === 0 && setPosition) {
+        setPosition(getSwipePosition($swipe));
+      }
+    });
   }
 
   function init() {

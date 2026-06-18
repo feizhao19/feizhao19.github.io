@@ -2,12 +2,22 @@ projects:
   - id: building-damage
     title: "Selected Project 1: Visual Prompt Learning for Damage Evaluation"
     description: >-
-      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom).
-    caption: >-
-      The sample is from the Marquez Knolls neighborhood in Pacific Palisades, Los Angeles, California 90272 (~175 acres; [17080 Sunset Blvd, Pacific Palisades, CA 90272](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). (Imagery source — [NOAA Emergency Response Imagery (ERI)](https://storms.ngs.noaa.gov/))
-    pre_image: LA-pre-disaster.png
-    post_image: LA-post-disaster.png
-    result_image: pre_damage_overlay.png
+      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
+    samples:
+      - id: marquez
+        label: Marquez
+        caption: >-
+          The sample is from the Marquez Knolls neighborhood in Pacific Palisades, Los Angeles, California 90272 (~175 acres; [17080 Sunset Blvd, Pacific Palisades, CA 90272](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). (Imagery source — [NOAA Emergency Response Imagery (ERI)](https://storms.ngs.noaa.gov/))
+        pre_image: Marquez_LA_pre_disaster.png
+        post_image: Marquez_LA_post_disaster.png
+        result_image: Marquez_post_damage_overlay.png
+      - id: potero
+        label: Potero
+        caption: >-
+          The sample is from the Potero neighborhood in Pacific Palisades, Los Angeles, California. (Imagery source — [NOAA Emergency Response Imagery (ERI)](https://storms.ngs.noaa.gov/))
+        pre_image: Potero_LA_pre_disaster.png
+        post_image: Potero_LA_post_disaster.png
+        result_image: Potero_pre_damage_overlay_legend.png
     top_left_label: Pre-disaster
     top_right_label: Post-disaster
     bottom_left_label: Pre-disaster

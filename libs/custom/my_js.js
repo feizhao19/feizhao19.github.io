@@ -154,7 +154,7 @@ $(document).ready(function() {
       $activeSwipe = null;
     });
 
-    var segmentTransitionMs = 480;
+    var segmentTransitionMs = 720;
 
     function beginSegmentSwitch($nav, $fromBtn, $toBtn) {
       if (!$nav.length || !$fromBtn.length || !$toBtn.length) {
@@ -211,6 +211,22 @@ $(document).ready(function() {
       });
     }
 
+    function syncSampleNavWidth($nav) {
+      if (!$nav.length) {
+        return;
+      }
+
+      var $figure = $nav.closest('.viz-project__figure');
+      var $stack = $figure.find('.synced-swipe__stack').first();
+
+      if (!$stack.length) {
+        return;
+      }
+
+      var stackWidth = Math.round($stack.outerWidth());
+      $nav.css('width', stackWidth + 'px');
+    }
+
     function syncSampleSlider($nav) {
       var $btn = $nav.find('.js-sample-btn.is-active').first();
       var $slider = $nav.find('.js-sample-slider');
@@ -247,6 +263,8 @@ $(document).ready(function() {
 
         if (now - startedAt < segmentTransitionMs + 48) {
           window.requestAnimationFrame(tick);
+        } else {
+          syncSampleNavWidth($nav);
         }
       }
 
@@ -254,6 +272,7 @@ $(document).ready(function() {
     }
 
     function updateSampleSlider($nav, isSwitching) {
+      syncSampleNavWidth($nav);
       syncSampleSlider($nav);
       runSampleSliderSync($nav);
 
@@ -264,7 +283,9 @@ $(document).ready(function() {
 
     function initSampleSliders() {
       $('.viz-project__sample-nav').each(function() {
-        syncSampleSlider($(this));
+        var $nav = $(this);
+        syncSampleNavWidth($nav);
+        syncSampleSlider($nav);
       });
     }
 
@@ -274,11 +295,15 @@ $(document).ready(function() {
       initSampleSliders();
     });
 
+    $(window).on('load.sampleSlider', function() {
+      initSampleSliders();
+    });
+
     $(document).on('mousedown touchstart click', '.js-sample-btn', function(e) {
       e.stopPropagation();
     });
 
-    var sampleFadeMs = 520;
+    var sampleFadeMs = 720;
 
     $(document).on('click', '.js-sample-btn', function() {
       var $btn = $(this);

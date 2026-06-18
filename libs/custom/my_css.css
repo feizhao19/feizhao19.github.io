@@ -311,6 +311,11 @@ body.paper-lightbox-open {
   text-decoration: underline;
 }
 .viz-project__demo-wrap {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+.viz-project__figure {
   width: 64%;
   max-width: 100%;
   margin-left: auto;
@@ -319,7 +324,7 @@ body.paper-lightbox-open {
 .viz-project__demo {
   width: 100%;
   margin: 0;
-  transition: opacity 0.52s ease, filter 0.52s ease;
+  transition: opacity 0.72s ease, filter 0.72s ease;
 }
 .viz-project.is-sample-switching .viz-project__demo,
 .viz-project.is-sample-switching .viz-project__caption--below {
@@ -328,22 +333,24 @@ body.paper-lightbox-open {
 }
 .viz-project__sample-nav {
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --segment-duration: 0.48s;
+  --segment-duration: 0.72s;
   --segment-grow-active: 17;
   --segment-grow-idle: 3;
   position: relative;
   display: flex;
   flex-direction: row;
   gap: 2px;
+  box-sizing: border-box;
   width: 100%;
-  margin-bottom: 0.5rem;
+  max-width: 100%;
+  margin: 0 0 0.5rem;
   padding: 3px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   overflow: hidden;
-  background: rgba(142, 142, 147, 0.22);
-  backdrop-filter: blur(20px) saturate(1.05);
-  -webkit-backdrop-filter: blur(20px) saturate(1.05);
+  background: rgba(142, 142, 147, 0.3);
+  backdrop-filter: blur(28px) saturate(1.12);
+  -webkit-backdrop-filter: blur(28px) saturate(1.12);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 .viz-project__sample-slider-trail {
@@ -356,26 +363,26 @@ body.paper-lightbox-open {
   opacity: 0;
   z-index: 0;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(30px) saturate(1.55);
-  -webkit-backdrop-filter: blur(30px) saturate(1.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(48px) saturate(1.65);
+  -webkit-backdrop-filter: blur(48px) saturate(1.65);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
   will-change: left, width, height, opacity;
 }
 .viz-project__sample-nav.is-sliding-right .viz-project__sample-slider-trail {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0.12) 42%,
-    rgba(255, 255, 255, 0.26) 100%
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.24) 42%,
+    rgba(255, 255, 255, 0.44) 100%
   );
 }
 .viz-project__sample-nav.is-sliding-left .viz-project__sample-slider-trail {
   background: linear-gradient(
     270deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0.12) 42%,
-    rgba(255, 255, 255, 0.26) 100%
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.24) 42%,
+    rgba(255, 255, 255, 0.44) 100%
   );
 }
 .viz-project__sample-slider {
@@ -386,9 +393,9 @@ body.paper-lightbox-open {
   height: 0;
   border-radius: 7px;
   overflow: hidden;
-  background: rgba(72, 72, 74, 0.62);
-  backdrop-filter: blur(14px) saturate(1.02);
-  -webkit-backdrop-filter: blur(14px) saturate(1.02);
+  background: rgba(72, 72, 74, 0.74);
+  backdrop-filter: blur(22px) saturate(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
@@ -396,17 +403,17 @@ body.paper-lightbox-open {
   pointer-events: none;
   will-change: left, width, height;
   transition:
-    backdrop-filter 0.35s ease,
-    background 0.35s ease,
-    box-shadow 0.35s ease;
+    backdrop-filter var(--segment-duration) var(--segment-ease),
+    background var(--segment-duration) var(--segment-ease),
+    box-shadow var(--segment-duration) var(--segment-ease);
 }
 .viz-project__sample-nav.is-segment-switching .viz-project__sample-slider {
-  backdrop-filter: blur(26px) saturate(1.45);
-  -webkit-backdrop-filter: blur(26px) saturate(1.45);
-  background: rgba(78, 78, 82, 0.5);
+  backdrop-filter: blur(44px) saturate(1.6);
+  -webkit-backdrop-filter: blur(44px) saturate(1.6);
+  background: rgba(78, 78, 82, 0.72);
   box-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    0 6px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after,
 .viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
@@ -417,10 +424,10 @@ body.paper-lightbox-open {
   pointer-events: none;
 }
 .viz-project__sample-nav.is-sliding-right.is-segment-switching .viz-project__sample-slider::after {
-  background: linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
+  background: linear-gradient(90deg, transparent 45%, rgba(255, 255, 255, 0.34) 100%);
 }
 .viz-project__sample-nav.is-sliding-left.is-segment-switching .viz-project__sample-slider::after {
-  background: linear-gradient(270deg, transparent 50%, rgba(255, 255, 255, 0.2) 100%);
+  background: linear-gradient(270deg, transparent 45%, rgba(255, 255, 255, 0.34) 100%);
 }
 .viz-project__sample-btn {
   position: relative;
@@ -441,7 +448,7 @@ body.paper-lightbox-open {
   cursor: pointer;
   transition:
     flex-grow var(--segment-duration) var(--segment-ease),
-    color 0.35s ease;
+    color 0.5s ease;
 }
 .viz-project__sample-btn:last-child {
   border-right: 0;
@@ -459,7 +466,7 @@ body.paper-lightbox-open {
   line-height: 1;
   transform-origin: center center;
   transition:
-    opacity 0.35s ease,
+    opacity 0.5s ease,
     transform var(--segment-duration) var(--segment-ease),
     letter-spacing var(--segment-duration) var(--segment-ease);
 }
@@ -489,9 +496,11 @@ body.paper-lightbox-open {
   color: rgba(0, 0, 0, 0.58);
 }
 .viz-project__caption--below {
-  margin: 0.35rem 0 0;
+  width: 64%;
+  max-width: 100%;
+  margin: 0.35rem auto 0;
   text-align: center;
-  transition: opacity 0.52s ease, filter 0.52s ease;
+  transition: opacity 0.72s ease, filter 0.72s ease;
 }
 .viz-project__caption p,
 .viz-project__source p {
@@ -646,7 +655,8 @@ body.paper-lightbox-open {
   box-shadow: 0 0 0 3px rgba(41, 130, 172, 0.45), 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 @media (max-width: 550px) {
-  .viz-project__demo-wrap {
+  .viz-project__figure,
+  .viz-project__caption--below {
     width: 90%;
   }
   .viz-project__sample-btn-text {

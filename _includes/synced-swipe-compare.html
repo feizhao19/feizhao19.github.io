@@ -24,6 +24,7 @@
   <div class="viz-project__demo-wrap">
     {% if p.samples %}
     <div class="viz-project__sample-nav" role="tablist" aria-label="Sample communities">
+      <span class="viz-project__sample-slider js-sample-slider" aria-hidden="true"></span>
       {% for sample in p.samples %}
       <button
         type="button"

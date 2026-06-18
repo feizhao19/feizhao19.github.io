@@ -154,19 +154,56 @@ $(document).ready(function() {
       $activeSwipe = null;
     });
 
-    function updateSampleSlider($nav, $btn) {
-      if (!$nav.length || !$btn.length) {
+    var segmentTransitionMs = 480;
+
+    function syncSampleSlider($nav) {
+      var $btn = $nav.find('.js-sample-btn.is-active').first();
+      var $slider = $nav.find('.js-sample-slider');
+
+      if (!$btn.length || !$slider.length) {
         return;
       }
 
-      var index = $nav.find('.js-sample-btn').index($btn);
-      $nav.toggleClass('is-sample-second', index === 1);
+      var navRect = $nav[0].getBoundingClientRect();
+      var btnRect = $btn[0].getBoundingClientRect();
+
+      $slider.css({
+        left: (btnRect.left - navRect.left) + 'px',
+        top: (btnRect.top - navRect.top) + 'px',
+        width: btnRect.width + 'px',
+        height: btnRect.height + 'px'
+      });
+    }
+
+    function runSampleSliderSync($nav) {
+      var syncId = ($nav.data('sliderSyncId') || 0) + 1;
+      $nav.data('sliderSyncId', syncId);
+
+      var startedAt = performance.now();
+
+      function tick(now) {
+        if ($nav.data('sliderSyncId') !== syncId) {
+          return;
+        }
+
+        syncSampleSlider($nav);
+
+        if (now - startedAt < segmentTransitionMs + 48) {
+          window.requestAnimationFrame(tick);
+        }
+      }
+
+      window.requestAnimationFrame(tick);
+    }
+
+    function updateSampleSlider($nav) {
+      syncSampleSlider($nav);
+      runSampleSliderSync($nav);
     }
 
     function initSampleSliders() {
       $('.viz-project__sample-nav').each(function() {
-        var $nav = $(this);
-        updateSampleSlider($nav, $nav.find('.js-sample-btn.is-active').first());
+        syncSampleSlider($(this));
       });
     }
 
@@ -201,7 +238,7 @@ $(document).ready(function() {
 
       $project.find('.js-sample-btn').removeClass('is-active').attr('aria-selected', 'false');
       $btn.addClass('is-active').attr('aria-selected', 'true');
-      updateSampleSlider($btn.closest('.viz-project__sample-nav'), $btn);
+      updateSampleSlider($btn.closest('.viz-project__sample-nav'));
       $project.addClass('is-sample-switching');
 
       window.setTimeout(function() {

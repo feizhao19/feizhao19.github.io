@@ -381,12 +381,22 @@ body.paper-lightbox-open {
 .viz-project__demo {
   width: 100%;
   margin: 0;
-  transition: opacity 0.72s ease, filter 0.72s ease;
+  transition: opacity 0.56s ease, filter 0.56s ease;
+}
+.viz-project__demo .js-sample-pre,
+.viz-project__demo .js-sample-post,
+.viz-project__demo .js-sample-result {
+  transition: opacity 0.56s ease;
+}
+.viz-project__demo .js-sample-pre.is-sample-image-pending,
+.viz-project__demo .js-sample-post.is-sample-image-pending,
+.viz-project__demo .js-sample-result.is-sample-image-pending {
+  opacity: 0;
 }
 .viz-project.is-sample-switching .viz-project__demo,
 .viz-project.is-sample-switching .viz-project__caption--below {
-  opacity: 0.48;
-  filter: brightness(0.86);
+  opacity: 0;
+  filter: brightness(0.92);
 }
 .viz-project__sample-nav {
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
@@ -557,7 +567,7 @@ body.paper-lightbox-open {
   max-width: 100%;
   margin: 0.35rem auto 0;
   text-align: center;
-  transition: opacity 0.72s ease, filter 0.72s ease;
+  transition: opacity 0.56s ease, filter 0.56s ease;
 }
 .viz-project__caption p,
 .viz-project__source p {

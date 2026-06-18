@@ -25,26 +25,25 @@
   {% endif %}
 
   <div class="viz-project__demo-wrap">
-    {% if p.samples %}
-    <div class="viz-project__sample-nav" role="tablist" aria-label="Sample communities">
-      {% for sample in p.samples %}
-      <button
-        type="button"
-        class="viz-project__sample-btn js-sample-btn{% if forloop.first %} is-active{% endif %}"
-        role="tab"
-        data-sample-id="{{ sample.id }}"
-        data-pre="{{ '/images/' | append: sample.pre_image | prepend: site.baseurl }}"
-        data-post="{{ '/images/' | append: sample.post_image | prepend: site.baseurl }}"
-        data-result="{{ '/images/' | append: sample.result_image | prepend: site.baseurl }}"
-        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-      >{{ sample.label }}</button>
-      {% endfor %}
-    </div>
-    {% endif %}
-
     <div class="viz-project__demo">
       <div class="synced-swipe js-synced-swipe" data-position="50">
         <div class="synced-swipe__stack js-synced-swipe-stack">
+          {% if p.samples %}
+          <div class="viz-project__sample-nav" role="tablist" aria-label="Sample communities">
+            {% for sample in p.samples %}
+            <button
+              type="button"
+              class="viz-project__sample-btn js-sample-btn{% if forloop.first %} is-active{% endif %}"
+              role="tab"
+              data-sample-id="{{ sample.id }}"
+              data-pre="{{ '/images/' | append: sample.pre_image | prepend: site.baseurl }}"
+              data-post="{{ '/images/' | append: sample.post_image | prepend: site.baseurl }}"
+              data-result="{{ '/images/' | append: sample.result_image | prepend: site.baseurl }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            ><span class="viz-project__sample-btn-text">{{ sample.label }}</span></button>
+            {% endfor %}
+          </div>
+          {% endif %}
           <div class="synced-swipe__panel synced-swipe__panel--top">
             <div class="swipe-compare js-swipe-compare">
               <img class="swipe-compare__before js-sample-pre" src="{{ pre_src }}" alt="{{ p.top_left_label }}">

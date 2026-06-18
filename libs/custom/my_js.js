@@ -153,6 +153,10 @@ $(document).ready(function() {
       $activeSwipe = null;
     });
 
+    $(document).on('mousedown touchstart click', '.js-sample-btn', function(e) {
+      e.stopPropagation();
+    });
+
     $(document).on('click', '.js-sample-btn', function() {
       var $btn = $(this);
       var $project = $btn.closest('.viz-project');

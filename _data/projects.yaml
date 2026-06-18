@@ -4,13 +4,6 @@ projects:
     description: >-
       Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
-      - id: marquez
-        label: Marquez
-        caption: >-
-          **Marquez Knolls, Pacific Palisades, LA, CA** (~175 acres; [17080 Sunset Blvd](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). Imagery from [NOAA ERI](https://storms.ngs.noaa.gov/).
-        pre_image: Marquez_LA_pre_disaster.png
-        post_image: Marquez_LA_post_disaster.png
-        result_image: Marquez_post_damage_overlay.png
       - id: potero
         label: Potero
         caption: >-
@@ -18,6 +11,13 @@ projects:
         pre_image: Potero_LA_pre_disaster.png
         post_image: Potero_LA_post_disaster.png
         result_image: Potero_pre_damage_overlay_legend.png
+      - id: marquez
+        label: Marquez
+        caption: >-
+          **Marquez Knolls, Pacific Palisades, LA, CA** (~175 acres; [17080 Sunset Blvd](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). Imagery from [NOAA ERI](https://storms.ngs.noaa.gov/).
+        pre_image: Marquez_LA_pre_disaster.png
+        post_image: Marquez_LA_post_disaster.png
+        result_image: Marquez_post_damage_overlay.png
     top_left_label: Pre-disaster
     top_right_label: Post-disaster
     bottom_left_label: Pre-disaster

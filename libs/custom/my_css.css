@@ -66,6 +66,7 @@ h4 {
   border-radius: 4px;
 }
 .paper__teaser-link {
+  position: relative;
   display: grid;
   place-items: center;
   width: 100%;
@@ -73,6 +74,23 @@ h4 {
   text-decoration: none;
   cursor: zoom-in;
   background: #fff;
+}
+.paper__teaser-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.35rem;
+  text-align: center;
+  font-size: 0.72em;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+  user-select: none;
+}
+.paper__teaser.is-error .paper__teaser-status {
+  color: rgba(0, 0, 0, 0.52);
 }
 .paper__teaser-link:hover img {
   opacity: 0.88;
@@ -85,6 +103,14 @@ h4 {
   height: auto;
   object-fit: contain;
   margin: 0 auto;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+.paper__teaser.is-loaded .paper__teaser-status {
+  display: none;
+}
+.paper__teaser.is-loaded .paper__teaser-link img {
+  opacity: 1;
 }
 .paper-image-lightbox {
   position: fixed;
@@ -250,10 +276,33 @@ body.paper-lightbox-open {
   overflow: hidden;
 }
 .research-interests-figure__link {
+  position: relative;
   display: block;
   width: 100%;
+  aspect-ratio: 2589 / 1347;
   text-decoration: none;
   cursor: zoom-in;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.research-interests-figure__status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.82em;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+  user-select: none;
+}
+.research-interests-figure.is-error .research-interests-figure__status {
+  color: rgba(0, 0, 0, 0.52);
 }
 .research-interests-figure__link:hover img {
   opacity: 0.88;
@@ -262,9 +311,17 @@ body.paper-lightbox-open {
   display: block;
   width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 100%;
   box-sizing: border-box;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+.research-interests-figure.is-loaded .research-interests-figure__status {
+  display: none;
+}
+.research-interests-figure.is-loaded img {
+  opacity: 1;
 }
 .viz-project {
   margin-bottom: 2rem;

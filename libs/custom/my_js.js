@@ -31,7 +31,30 @@ $(document).ready(function() {
         return;
       }
 
+      var $teaser = $img.closest('.js-paper-teaser');
+      var $status = $teaser.find('.js-paper-teaser-status');
+
+      function markLoaded() {
+        $teaser.addClass('is-loaded').removeClass('is-error');
+      }
+
+      function markError() {
+        $teaser.addClass('is-error').removeClass('is-loaded');
+        $status.text('Unable to load');
+      }
+
+      $img.one('load', markLoaded);
+      $img.one('error', markError);
       $img.attr('src', src);
+
+      if ($img[0].complete) {
+        $img.off('load error');
+        if ($img[0].naturalWidth) {
+          markLoaded();
+        } else {
+          markError();
+        }
+      }
     }
 
     function loadWhenIdle() {
@@ -65,6 +88,35 @@ $(document).ready(function() {
     } else {
       $(window).one('load.deferredPapers', startDeferredPublicationLoad);
     }
+  }
+
+  function initResearchInterestsFigure() {
+    $('.js-research-interests-img').each(function() {
+      var $img = $(this);
+      var $figure = $img.closest('.js-research-interests-figure');
+      var $status = $figure.find('.js-research-interests-status');
+
+      function markLoaded() {
+        $figure.addClass('is-loaded').removeClass('is-error');
+      }
+
+      function markError() {
+        $figure.addClass('is-error').removeClass('is-loaded');
+        $status.text('Unable to load');
+      }
+
+      $img.on('load', markLoaded);
+      $img.on('error', markError);
+
+      if ($img[0].complete) {
+        $img.off('load error');
+        if ($img[0].naturalWidth) {
+          markLoaded();
+        } else {
+          markError();
+        }
+      }
+    });
   }
 
   function initPaperImageLightbox() {
@@ -480,6 +532,7 @@ $(document).ready(function() {
     $('a[href^="#"]').on('click', smoothScroll);
     $('.navbar-link').on('click', smoothScroll);
     buildSnippets();
+    initResearchInterestsFigure();
     initPaperImageLightbox();
     initDeferredPublicationImages();
     initSyncedSwipeCompare();

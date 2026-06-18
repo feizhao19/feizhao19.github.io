@@ -159,19 +159,8 @@ $(document).ready(function() {
         return;
       }
 
-      var $slider = $nav.find('.js-sample-slider');
-      if (!$slider.length) {
-        return;
-      }
-
-      var inset = 3;
-      var navRect = $nav[0].getBoundingClientRect();
-      var btnRect = $btn[0].getBoundingClientRect();
-
-      $slider.css({
-        left: (btnRect.left - navRect.left + inset) + 'px',
-        width: Math.max(0, btnRect.width - inset * 2) + 'px'
-      });
+      var index = $nav.find('.js-sample-btn').index($btn);
+      $nav.toggleClass('is-sample-second', index === 1);
     }
 
     function initSampleSliders() {
@@ -191,7 +180,7 @@ $(document).ready(function() {
       e.stopPropagation();
     });
 
-    var sampleFadeMs = 360;
+    var sampleFadeMs = 520;
 
     $(document).on('click', '.js-sample-btn', function() {
       var $btn = $(this);
@@ -201,7 +190,6 @@ $(document).ready(function() {
 
       var $project = $btn.closest('.viz-project');
       var sampleId = $btn.attr('data-sample-id');
-      var sampleLabel = $.trim($btn.find('.viz-project__sample-btn-text').text() || $btn.text());
       var pre = $btn.attr('data-pre');
       var post = $btn.attr('data-post');
       var result = $btn.attr('data-result');
@@ -223,7 +211,6 @@ $(document).ready(function() {
 
         var pendingLoads = 0;
 
-        $project.find('.js-sample-active-label').text(sampleLabel);
         $project.find('.js-project-caption').html(
           $project.find('.js-caption-template[data-sample-id="' + sampleId + '"]').html()
         );

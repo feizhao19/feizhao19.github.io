@@ -154,12 +154,51 @@ $(document).ready(function() {
       $activeSwipe = null;
     });
 
+    function updateSampleSlider($nav, $btn) {
+      if (!$nav.length || !$btn.length) {
+        return;
+      }
+
+      var $slider = $nav.find('.js-sample-slider');
+      if (!$slider.length) {
+        return;
+      }
+
+      var inset = 3;
+      var navRect = $nav[0].getBoundingClientRect();
+      var btnRect = $btn[0].getBoundingClientRect();
+
+      $slider.css({
+        left: (btnRect.left - navRect.left + inset) + 'px',
+        width: Math.max(0, btnRect.width - inset * 2) + 'px'
+      });
+    }
+
+    function initSampleSliders() {
+      $('.viz-project__sample-nav').each(function() {
+        var $nav = $(this);
+        updateSampleSlider($nav, $nav.find('.js-sample-btn.is-active').first());
+      });
+    }
+
+    initSampleSliders();
+
+    $(window).on('resize.sampleSlider', function() {
+      initSampleSliders();
+    });
+
     $(document).on('mousedown touchstart click', '.js-sample-btn', function(e) {
       e.stopPropagation();
     });
 
+    var sampleFadeMs = 360;
+
     $(document).on('click', '.js-sample-btn', function() {
       var $btn = $(this);
+      if ($btn.hasClass('is-active')) {
+        return;
+      }
+
       var $project = $btn.closest('.viz-project');
       var sampleId = $btn.attr('data-sample-id');
       var sampleLabel = $.trim($btn.find('.viz-project__sample-btn-text').text() || $btn.text());
@@ -168,52 +207,83 @@ $(document).ready(function() {
       var result = $btn.attr('data-result');
       var $swipe = $project.find('.js-synced-swipe');
       var setPosition = $swipe.data('setSwipePosition');
-      var pendingLoads = 0;
+      var switchToken = ($project.data('sampleSwitchToken') || 0) + 1;
+
+      $project.data('sampleSwitchToken', switchToken);
 
       $project.find('.js-sample-btn').removeClass('is-active').attr('aria-selected', 'false');
       $btn.addClass('is-active').attr('aria-selected', 'true');
-      $project.find('.js-sample-active-label').text(sampleLabel);
+      updateSampleSlider($btn.closest('.viz-project__sample-nav'), $btn);
+      $project.addClass('is-sample-switching');
 
-      $project.find('.js-project-caption').html(
-        $project.find('.js-caption-template[data-sample-id="' + sampleId + '"]').html()
-      );
-
-      function onSampleImageLoad() {
-        pendingLoads -= 1;
-        if (pendingLoads <= 0 && setPosition) {
-          setPosition(getSwipePosition($swipe));
-        }
-      }
-
-      function queueImageUpdate($img, src) {
-        var img = $img[0];
-        if (!img || img.src === src) {
+      window.setTimeout(function() {
+        if ($project.data('sampleSwitchToken') !== switchToken) {
           return;
         }
-        pendingLoads += 1;
-        $img.one('load error', onSampleImageLoad);
-        img.src = src;
-        if (img.complete) {
-          $img.off('load error', onSampleImageLoad);
-          onSampleImageLoad();
+
+        var pendingLoads = 0;
+
+        $project.find('.js-sample-active-label').text(sampleLabel);
+        $project.find('.js-project-caption').html(
+          $project.find('.js-caption-template[data-sample-id="' + sampleId + '"]').html()
+        );
+
+        function finishSampleSwitch() {
+          if ($project.data('sampleSwitchToken') !== switchToken) {
+            return;
+          }
+
+          if (setPosition) {
+            setPosition(getSwipePosition($swipe));
+          }
+
+          window.requestAnimationFrame(function() {
+            window.requestAnimationFrame(function() {
+              if ($project.data('sampleSwitchToken') === switchToken) {
+                $project.removeClass('is-sample-switching');
+              }
+            });
+          });
         }
-      }
 
-      $swipe.find('.js-sample-pre').each(function() {
-        queueImageUpdate($(this), pre);
-      });
+        function onSampleImageLoad() {
+          pendingLoads -= 1;
+          if (pendingLoads <= 0) {
+            finishSampleSwitch();
+          }
+        }
 
-      $swipe.find('.js-sample-post').each(function() {
-        queueImageUpdate($(this), post);
-      });
+        function queueImageUpdate($img, src) {
+          var img = $img[0];
+          if (!img || img.src === src) {
+            return;
+          }
 
-      $swipe.find('.js-sample-result').each(function() {
-        queueImageUpdate($(this), result);
-      });
+          pendingLoads += 1;
+          $img.one('load error', onSampleImageLoad);
+          img.src = src;
+          if (img.complete) {
+            $img.off('load error', onSampleImageLoad);
+            onSampleImageLoad();
+          }
+        }
 
-      if (pendingLoads === 0 && setPosition) {
-        setPosition(getSwipePosition($swipe));
-      }
+        $swipe.find('.js-sample-pre').each(function() {
+          queueImageUpdate($(this), pre);
+        });
+
+        $swipe.find('.js-sample-post').each(function() {
+          queueImageUpdate($(this), post);
+        });
+
+        $swipe.find('.js-sample-result').each(function() {
+          queueImageUpdate($(this), result);
+        });
+
+        if (pendingLoads === 0) {
+          finishSampleSwitch();
+        }
+      }, sampleFadeMs);
     });
   }
 

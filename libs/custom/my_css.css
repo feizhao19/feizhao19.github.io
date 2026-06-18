@@ -319,21 +319,61 @@ body.paper-lightbox-open {
 .viz-project__demo {
   width: 100%;
   margin: 0;
+  transition: opacity 0.38s ease;
+}
+.viz-project.is-sample-switching .viz-project__demo,
+.viz-project.is-sample-switching .viz-project__caption--below,
+.viz-project.is-sample-switching .viz-project__sample-name {
+  opacity: 0.12;
 }
 .viz-project__sample-nav {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
   margin-bottom: 0.5rem;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  background: rgba(142, 142, 147, 0.22);
+  backdrop-filter: blur(20px) saturate(1.05);
+  -webkit-backdrop-filter: blur(20px) saturate(1.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+.viz-project__sample-slider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 6px);
+  border-radius: 6px;
+  background: rgba(72, 72, 74, 0.62);
+  backdrop-filter: blur(14px) saturate(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(1.02);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition:
+    left 0.42s cubic-bezier(0.34, 1.15, 0.64, 1),
+    width 0.42s cubic-bezier(0.34, 1.15, 0.64, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+.viz-project__sample-slider::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 16px;
+  height: 4px;
+  margin-left: -8px;
+  border-radius: 2px 2px 0 0;
+  background: rgba(98, 98, 100, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .viz-project__sample-btn {
+  position: relative;
+  z-index: 1;
   flex: 1 1 0;
   display: flex;
   align-items: center;
@@ -342,12 +382,12 @@ body.paper-lightbox-open {
   margin: 0;
   padding: 0.48rem 0.65rem;
   border: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.55);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
   background: transparent;
-  color: rgba(0, 0, 0, 0.62);
+  color: rgba(60, 60, 67, 0.78);
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: color 0.32s ease;
 }
 .viz-project__sample-btn:last-child {
   border-right: 0;
@@ -362,19 +402,16 @@ body.paper-lightbox-open {
   line-height: 1;
 }
 .viz-project__sample-btn:hover {
-  background: rgba(255, 255, 255, 0.72);
-  color: #2982ac;
+  color: rgba(28, 28, 30, 0.88);
 }
 .viz-project__sample-btn.is-active {
-  background: rgba(41, 130, 172, 0.78);
-  color: #fff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.96);
 }
 .viz-project__sample-btn:focus {
   outline: none;
 }
 .viz-project__sample-btn:focus-visible {
-  box-shadow: inset 0 0 0 2px rgba(41, 130, 172, 0.45);
+  box-shadow: inset 0 0 0 2px rgba(99, 99, 102, 0.42);
 }
 .viz-project__sample-name {
   margin-top: 0.42rem;
@@ -384,6 +421,7 @@ body.paper-lightbox-open {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.42);
+  transition: opacity 0.38s ease;
 }
 .viz-project__caption,
 .viz-project__source {
@@ -395,6 +433,7 @@ body.paper-lightbox-open {
 .viz-project__caption--below {
   margin: 0.35rem 0 0;
   text-align: center;
+  transition: opacity 0.38s ease;
 }
 .viz-project__caption p,
 .viz-project__source p {
@@ -421,14 +460,14 @@ body.paper-lightbox-open {
 }
 .synced-swipe__stack {
   position: relative;
-  border: 1px solid transparent;
+  border: 1px solid #e0e0e0;
   border-radius: 6px;
   overflow: hidden;
   background: transparent;
   cursor: ew-resize;
 }
 .synced-swipe__panel + .synced-swipe__panel {
-  border-top: 2px solid rgba(255, 255, 255, 0.92);
+  border-top: 2px solid #fff;
 }
 .swipe-compare {
   position: relative;
@@ -442,7 +481,7 @@ body.paper-lightbox-open {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   pointer-events: none;
 }
@@ -463,7 +502,7 @@ body.paper-lightbox-open {
   width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   pointer-events: none;
 }

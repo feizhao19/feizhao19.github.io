@@ -277,6 +277,22 @@ body.paper-lightbox-open {
   font-size: 1.05em;
   font-weight: 600;
   color: #333;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.viz-project__permalink {
+  flex: 0 0 auto;
+  font-size: 0.85em;
+  font-weight: 400;
+  color: #2982ac;
+  text-decoration: none;
+  opacity: 0.55;
+}
+.viz-project__permalink:hover,
+.viz-project__permalink:focus {
+  opacity: 1;
+  text-decoration: none;
 }
 .viz-project__description {
   margin: 0 0 0.5rem;

@@ -3,8 +3,11 @@
 {% assign post_src = '/images/' | append: p.post_image | prepend: site.baseurl %}
 {% assign result_src = '/images/' | append: p.result_image | prepend: site.baseurl %}
 
-<div class="viz-project" id="viz-{{ p.id }}">
-  <h5 class="viz-project__title">{{ p.title }}</h5>
+<div class="viz-project" id="project-{{ p.id }}">
+  <h5 class="viz-project__title">
+    <a class="viz-project__permalink" href="#project-{{ p.id }}" aria-label="Permalink to this project demo">#</a>
+    {{ p.title }}
+  </h5>
   {% if p.description %}
   <div class="viz-project__description">{{ p.description | markdownify }}</div>
   {% endif %}

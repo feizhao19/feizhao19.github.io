@@ -154,35 +154,7 @@ $(document).ready(function() {
       $activeSwipe = null;
     });
 
-    function closeSamplePickers($except) {
-      $('.js-sample-picker').not($except).each(function() {
-        $(this).find('.js-sample-picker-menu').removeClass('is-open');
-        $(this).find('.js-sample-picker-toggle').attr('aria-expanded', 'false');
-      });
-    }
-
-    $(document).on('click', '.js-sample-picker-toggle', function(e) {
-      e.stopPropagation();
-      var $picker = $(this).closest('.js-sample-picker');
-      var $menu = $picker.find('.js-sample-picker-menu');
-      var willOpen = !$menu.hasClass('is-open');
-
-      closeSamplePickers($picker);
-
-      if (willOpen) {
-        $menu.addClass('is-open');
-        $(this).attr('aria-expanded', 'true');
-      } else {
-        $menu.removeClass('is-open');
-        $(this).attr('aria-expanded', 'false');
-      }
-    });
-
-    $(document).on('click', function() {
-      closeSamplePickers();
-    });
-
-    $(document).on('mousedown touchstart click', '.js-sample-btn, .js-sample-picker-toggle', function(e) {
+    $(document).on('mousedown touchstart click', '.js-sample-btn', function(e) {
       e.stopPropagation();
     });
 
@@ -190,7 +162,7 @@ $(document).ready(function() {
       var $btn = $(this);
       var $project = $btn.closest('.viz-project');
       var sampleId = $btn.attr('data-sample-id');
-      var sampleLabel = $.trim($btn.text());
+      var sampleLabel = $.trim($btn.find('.viz-project__sample-btn-text').text() || $btn.text());
       var pre = $btn.attr('data-pre');
       var post = $btn.attr('data-post');
       var result = $btn.attr('data-result');
@@ -200,9 +172,7 @@ $(document).ready(function() {
 
       $project.find('.js-sample-btn').removeClass('is-active').attr('aria-selected', 'false');
       $btn.addClass('is-active').attr('aria-selected', 'true');
-      $project.find('.js-sample-picker-current').text(sampleLabel);
       $project.find('.js-sample-active-label').text(sampleLabel);
-      closeSamplePickers();
 
       $project.find('.js-project-caption').html(
         $project.find('.js-caption-template[data-sample-id="' + sampleId + '"]').html()

@@ -17,6 +17,56 @@ $(document).ready(function() {
         "/": '&#x2F;'
       }
 
+  function initDeferredPublicationImages() {
+    var $images = $('.js-paper-teaser-img[data-src]');
+
+    if (!$images.length) {
+      return;
+    }
+
+    function applySrc($img) {
+      var src = $img.attr('data-src');
+
+      if (!src || $img.attr('src')) {
+        return;
+      }
+
+      $img.attr('src', src);
+    }
+
+    function loadWhenIdle() {
+      var queue = $images.toArray();
+
+      function step(deadline) {
+        while (queue.length && (deadline.timeRemaining() > 0 || deadline.didTimeout)) {
+          applySrc($(queue.shift()));
+        }
+
+        if (queue.length) {
+          window.requestIdleCallback(step, { timeout: 2000 });
+        }
+      }
+
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(step, { timeout: 2000 });
+      } else {
+        $images.each(function() {
+          applySrc($(this));
+        });
+      }
+    }
+
+    function startDeferredPublicationLoad() {
+      loadWhenIdle();
+    }
+
+    if (document.readyState === 'complete') {
+      startDeferredPublicationLoad();
+    } else {
+      $(window).one('load.deferredPapers', startDeferredPublicationLoad);
+    }
+  }
+
   function initPaperImageLightbox() {
     var $lightbox = $('#paper-image-lightbox');
     if (!$lightbox.length) {
@@ -57,8 +107,28 @@ $(document).ready(function() {
     }
   }
 
+  function preloadDemoSampleImages() {
+    var seen = {};
+
+    $('.js-sample-btn').each(function() {
+      ['data-pre', 'data-post', 'data-result'].forEach(function(attr) {
+        var src = $(this).attr(attr);
+        if (!src || seen[src]) {
+          return;
+        }
+
+        seen[src] = true;
+        var img = new Image();
+        img.decoding = 'async';
+        img.src = src;
+      }, this);
+    });
+  }
+
   function initSyncedSwipeCompare() {
     var $activeSwipe = null;
+
+    preloadDemoSampleImages();
 
     function getSwipePosition($root) {
       var value = parseFloat($root.attr('data-position'));
@@ -411,6 +481,7 @@ $(document).ready(function() {
     $('.navbar-link').on('click', smoothScroll);
     buildSnippets();
     initPaperImageLightbox();
+    initDeferredPublicationImages();
     initSyncedSwipeCompare();
     scrollToHashOnLoad();
   }

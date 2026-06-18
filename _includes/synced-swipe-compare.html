@@ -47,9 +47,9 @@
         <div class="synced-swipe__stack js-synced-swipe-stack">
           <div class="synced-swipe__panel synced-swipe__panel--top">
             <div class="swipe-compare js-swipe-compare">
-              <img class="swipe-compare__before js-sample-pre" src="{{ pre_src }}" alt="{{ p.top_left_label }}">
+              <img class="swipe-compare__before js-sample-pre" src="{{ pre_src }}" alt="{{ p.top_left_label }}" loading="eager" decoding="async">
               <div class="swipe-compare__after-wrap js-swipe-after-wrap">
-                <img class="swipe-compare__after js-sample-post" src="{{ post_src }}" alt="{{ p.top_right_label }}">
+                <img class="swipe-compare__after js-sample-post" src="{{ post_src }}" alt="{{ p.top_right_label }}" loading="eager" decoding="async">
               </div>
               <span class="swipe-compare__label swipe-compare__label--left">{{ p.top_left_label }}</span>
               <span class="swipe-compare__label swipe-compare__label--right">{{ p.top_right_label }}</span>
@@ -57,9 +57,9 @@
           </div>
           <div class="synced-swipe__panel synced-swipe__panel--bottom">
             <div class="swipe-compare js-swipe-compare">
-              <img class="swipe-compare__before js-sample-pre" src="{{ pre_src }}" alt="{{ p.bottom_left_label }}">
+              <img class="swipe-compare__before js-sample-pre" src="{{ pre_src }}" alt="{{ p.bottom_left_label }}" loading="eager" decoding="async">
               <div class="swipe-compare__after-wrap js-swipe-after-wrap">
-                <img class="swipe-compare__after js-sample-result" src="{{ result_src }}" alt="{{ p.bottom_right_label }}">
+                <img class="swipe-compare__after js-sample-result" src="{{ result_src }}" alt="{{ p.bottom_right_label }}" loading="eager" decoding="async">
               </div>
               <span class="swipe-compare__label swipe-compare__label--left">{{ p.bottom_left_label }}</span>
               <span class="swipe-compare__label swipe-compare__label--right">{{ p.bottom_right_label }}</span>

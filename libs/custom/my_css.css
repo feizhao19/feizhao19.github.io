@@ -325,19 +325,9 @@ body.paper-lightbox-open {
   opacity: 0.48;
   filter: brightness(0.86);
 }
-.viz-project__sample-nav-shell {
+.viz-project__sample-nav {
   --segment-scale: 0.6;
   --segment-height-scale: 0.6;
-  width: 100%;
-  margin: 0 0 calc(0.5rem * var(--segment-scale) * var(--segment-height-scale));
-  overflow: hidden;
-}
-.viz-project__sample-nav-shell > .viz-project__sample-nav {
-  transform: scaleY(var(--segment-height-scale));
-  transform-origin: top center;
-  margin-bottom: 0;
-}
-.viz-project__sample-nav {
   --segment-font-scale: 2;
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --segment-duration: 0.48s;
@@ -354,7 +344,10 @@ body.paper-lightbox-open {
   gap: var(--segment-gap);
   box-sizing: border-box;
   width: 100%;
-  padding: var(--segment-inset);
+  margin: 0 0 calc(0.5rem * var(--segment-scale) * var(--segment-height-scale));
+  padding:
+    calc(var(--segment-inset) * var(--segment-height-scale))
+    var(--segment-inset);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--segment-radius);
   overflow: hidden;
@@ -413,7 +406,7 @@ body.paper-lightbox-open {
   min-width: 0;
   margin: 0;
   padding:
-    calc(0.48rem * var(--segment-scale))
+    calc(0.48rem * var(--segment-scale) * var(--segment-height-scale))
     calc(0.55rem * var(--segment-scale));
   border: 0;
   border-radius: var(--segment-btn-radius);

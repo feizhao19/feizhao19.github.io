@@ -260,29 +260,11 @@ $(document).ready(function() {
       if (isSwitching) {
         endSegmentSwitch($nav);
       }
-
-      syncSampleNavShell($nav);
-    }
-
-    function syncSampleNavShell($nav) {
-      var $shell = $nav.parent('.viz-project__sample-nav-shell');
-      if (!$shell.length) {
-        return;
-      }
-
-      var scale = parseFloat(window.getComputedStyle($shell).getPropertyValue('--segment-height-scale')) || 0.6;
-
-      $nav.css({ transform: 'none', transformOrigin: '' });
-      var fullHeight = $nav.outerHeight();
-      $shell.height(Math.ceil(fullHeight * scale));
-      $nav.css({ transform: '', transformOrigin: '' });
     }
 
     function initSampleSliders() {
       $('.viz-project__sample-nav').each(function() {
-        var $nav = $(this);
-        syncSampleNavShell($nav);
-        syncSampleSlider($nav);
+        syncSampleSlider($(this));
       });
     }
 

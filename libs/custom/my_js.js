@@ -177,6 +177,52 @@ $(document).ready(function() {
     });
   }
 
+  function demoSampleImages($context) {
+    return $context.find('.js-sample-pre, .js-sample-post, .js-sample-result');
+  }
+
+  function initDemoSampleImageFade() {
+    $('.viz-project').each(function() {
+      var $images = demoSampleImages($(this));
+
+      if (!$images.length) {
+        return;
+      }
+
+      var pendingLoads = 0;
+
+      function revealAll() {
+        window.requestAnimationFrame(function() {
+          window.requestAnimationFrame(function() {
+            $images.removeClass('is-sample-image-pending');
+          });
+        });
+      }
+
+      $images.each(function() {
+        if (this.complete && this.naturalWidth) {
+          return;
+        }
+
+        pendingLoads += 1;
+        $(this).addClass('is-sample-image-pending').one('load error', function() {
+          pendingLoads -= 1;
+          if (pendingLoads <= 0) {
+            revealAll();
+          }
+        });
+      });
+
+      if (pendingLoads > 0) {
+        $images.addClass('is-sample-image-pending');
+        return;
+      }
+
+      $images.addClass('is-sample-image-pending');
+      revealAll();
+    });
+  }
+
   function initSyncedSwipeCompare() {
     var $activeSwipe = null;
 
@@ -253,6 +299,8 @@ $(document).ready(function() {
 
       setPosition(getSwipePosition($root));
     });
+
+    initDemoSampleImageFade();
 
     $(window).on('resize.syncedSwipe', function() {
       $('.js-synced-swipe').each(function() {
@@ -453,6 +501,7 @@ $(document).ready(function() {
       $btn.addClass('is-active').attr('aria-selected', 'true');
       updateSampleSlider($nav, true);
       $project.addClass('is-sample-switching');
+      demoSampleImages($swipe).addClass('is-sample-image-pending');
 
       window.setTimeout(function() {
         if ($project.data('sampleSwitchToken') !== switchToken) {
@@ -475,6 +524,8 @@ $(document).ready(function() {
           }
 
           window.requestAnimationFrame(function() {
+            demoSampleImages($project).removeClass('is-sample-image-pending');
+
             window.requestAnimationFrame(function() {
               if ($project.data('sampleSwitchToken') === switchToken) {
                 $project.removeClass('is-sample-switching');

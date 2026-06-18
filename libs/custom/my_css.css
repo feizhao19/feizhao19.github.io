@@ -319,33 +319,27 @@ body.paper-lightbox-open {
 .viz-project__demo {
   width: 100%;
   margin: 0;
+  transition: opacity 0.52s ease, filter 0.52s ease;
 }
-.viz-project.is-sample-switching .synced-swipe,
+.viz-project.is-sample-switching .viz-project__demo,
 .viz-project.is-sample-switching .viz-project__caption--below {
   opacity: 0.48;
   filter: brightness(0.86);
 }
 .viz-project__sample-nav {
-  --segment-scale: 0.6;
   --segment-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --segment-duration: 0.48s;
   --segment-grow-active: 17;
   --segment-grow-idle: 3;
-  --segment-inset: calc(3px * var(--segment-scale));
-  --segment-gap: calc(2px * var(--segment-scale));
-  --segment-radius: calc(10px * var(--segment-scale));
-  --segment-btn-radius: calc(7px * var(--segment-scale));
-  --segment-trail-radius: calc(8px * var(--segment-scale));
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: var(--segment-gap);
-  box-sizing: border-box;
+  gap: 2px;
   width: 100%;
-  margin: 0 0 calc(0.5rem * var(--segment-scale));
-  padding: var(--segment-inset);
+  margin-bottom: 0.5rem;
+  padding: 3px;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--segment-radius);
+  border-radius: 10px;
   overflow: hidden;
   background: rgba(142, 142, 147, 0.22);
   backdrop-filter: blur(20px) saturate(1.05);
@@ -354,11 +348,11 @@ body.paper-lightbox-open {
 }
 .viz-project__sample-slider-trail {
   position: absolute;
-  top: var(--segment-inset);
-  left: var(--segment-inset);
+  top: 3px;
+  left: 3px;
   width: 0;
   height: 0;
-  border-radius: var(--segment-trail-radius);
+  border-radius: 8px;
   opacity: 0;
   z-index: 0;
   pointer-events: none;
@@ -386,11 +380,11 @@ body.paper-lightbox-open {
 }
 .viz-project__sample-slider {
   position: absolute;
-  top: var(--segment-inset);
-  left: var(--segment-inset);
+  top: 3px;
+  left: 3px;
   width: 0;
   height: 0;
-  border-radius: var(--segment-btn-radius);
+  border-radius: 7px;
   overflow: hidden;
   background: rgba(72, 72, 74, 0.62);
   backdrop-filter: blur(14px) saturate(1.02);
@@ -438,11 +432,9 @@ body.paper-lightbox-open {
   justify-content: center;
   min-width: 0;
   margin: 0;
-  padding:
-    calc(0.48rem * var(--segment-scale))
-    calc(0.55rem * var(--segment-scale));
+  padding: 0.48rem 0.55rem;
   border: 0;
-  border-radius: var(--segment-btn-radius);
+  border-radius: 7px;
   background: transparent;
   color: rgba(28, 28, 30, 0.88);
   font-family: inherit;
@@ -460,7 +452,7 @@ body.paper-lightbox-open {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.58em;
+  font-size: 0.66em;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -523,7 +515,6 @@ body.paper-lightbox-open {
   max-width: 100%;
   user-select: none;
   touch-action: none;
-  transition: opacity 0.52s ease, filter 0.52s ease;
 }
 .synced-swipe__stack {
   position: relative;
@@ -659,7 +650,7 @@ body.paper-lightbox-open {
     width: 90%;
   }
   .viz-project__sample-btn-text {
-    font-size: 0.52em;
+    font-size: 0.58em;
     letter-spacing: 0.06em;
   }
 }

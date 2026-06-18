@@ -7,7 +7,7 @@ projects:
       - id: marquez
         label: Marquez
         caption: >-
-          **Marquez Knolls, Pacific Palisades, LA, CA** (~175 acres; [17080 Sunset Blvd](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272))
+          **Marquez Knolls, Pacific Palisades, LA, CA** (~175 acres; [17080 Sunset Blvd](https://www.google.com/maps/search/?api=1&query=17080+Sunset+Blvd,+Pacific+Palisades,+CA+90272)). Imagery from [NOAA ERI](https://storms.ngs.noaa.gov/).
         pre_image: Marquez_LA_pre_disaster.png
         post_image: Marquez_LA_post_disaster.png
         result_image: Marquez_post_damage_overlay.png

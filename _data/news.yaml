@@ -23,14 +23,20 @@ items:
     text: >-
       **Program Committee Chair**, [IEEE IRI Poster Session (2026)](https://ieee-iri.github.io/2026/committee_organizing.html).
 
-  - sort: 202509
-    month: "Sep"
-    year: 2025
-    text: >-
-      **Invited to serve as PC Member**, PAKDD (2026).
-
   - sort: 202512
     month: "Dec"
     year: 2025
     text: >-
       Received the [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.
+
+  - sort: 202510
+    month: "Oct"
+    year: 2025
+    text: >-
+      [Paper](/files/ICCV_paper.pdf) “**Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective**” accepted at the **TrustFM Workshop @ ICCV 2025** (Hawai'i, Oct 19–23)!
+
+  - sort: 202509
+    month: "Sep"
+    year: 2025
+    text: >-
+      **Invited to serve as PC Member**, PAKDD (2026).

@@ -1,5 +1,6 @@
 {% if site.data.news.items %}
-<div class="news-list">
+<div class="news-list-wrap">
+  <div class="news-list" role="region" aria-label="News updates" tabindex="0">
   {% assign news_items = site.data.news.items | sort: "sort" | reverse %}
   {% for item in news_items %}
   <p class="news-item">
@@ -7,5 +8,6 @@
     <span class="news-text">{{ item.text | markdownify | remove: '<p>' | remove: '</p>' }}</span>
   </p>
   {% endfor %}
+  </div>
 </div>
 {% endif %}

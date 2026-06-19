@@ -239,13 +239,40 @@ body.paper-lightbox-open {
 .publication-citation-summary__meta a:hover {
   text-decoration: underline;
 }
+.news-list-wrap {
+  max-width: 100%;
+}
 .news-list {
+  max-height: 10.5rem;
   margin: 0;
+  padding: 0.15rem 0.65rem 0.35rem 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   font-size: 0.9em;
   line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(41, 130, 172, 0.45) transparent;
+}
+.news-list:focus {
+  outline: none;
+}
+.news-list:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(41, 130, 172, 0.28);
+  border-radius: 4px;
+}
+.news-list::-webkit-scrollbar {
+  width: 6px;
+}
+.news-list::-webkit-scrollbar-thumb {
+  background: rgba(41, 130, 172, 0.38);
+  border-radius: 999px;
+}
+.news-list::-webkit-scrollbar-track {
+  background: transparent;
 }
 .news-item {
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.35rem;
   color: #333;
 }
 .news-item:last-child {

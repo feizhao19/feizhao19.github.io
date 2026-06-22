@@ -1502,6 +1502,18 @@ body.demo-modal-open {
 .attitude-fusion-demo__slider.is-noise-off {
   opacity: 0.58;
 }
+.attitude-fusion-demo__slider.is-fusion-locked {
+  opacity: 0.42;
+  pointer-events: none;
+}
+.attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-label,
+.attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-value {
+  color: rgba(0, 0, 0, 0.34);
+}
+.attitude-fusion-demo__slider.is-fusion-locked input[type="checkbox"],
+.attitude-fusion-demo__slider.is-fusion-locked input[type="range"] {
+  cursor: not-allowed;
+}
 .attitude-fusion-demo__slider.is-noise-off .attitude-fusion-demo__slider-value {
   color: rgba(0, 0, 0, 0.38);
   background: rgba(255, 255, 255, 0.42);

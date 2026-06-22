@@ -646,7 +646,7 @@
     this.biasValEl = modal.querySelector('.js-af-bias-val');
 
     this.accNoise = 5;
-    this.gyroDrift = 0.05;
+    this.gyroDrift = 3;
     this.magNoise = 4;
     this.alpha = 0.98;
     this.accNoiseOn = true;
@@ -732,7 +732,7 @@
     if (this.gyroDriftInput) {
       this.gyroDriftInput.addEventListener('input', function() {
         self.gyroDrift = parseFloat(self.gyroDriftInput.value);
-        self.gyroDriftVal.textContent = self.gyroDrift.toFixed(3) + '°/s';
+        self.gyroDriftVal.textContent = self.gyroDrift.toFixed(1) + '°/s';
       });
     }
 
@@ -795,6 +795,15 @@
   };
 
   MemsSensorFusionLabDemo.prototype.getEffectiveNoise = function() {
+    if (!this.fusionEnabled) {
+      return {
+        acc: 0,
+        gyroDrift: this.gyroDriftOn ? this.gyroDrift : 0,
+        gyroWhite: this.gyroDriftOn ? 0.08 : 0,
+        mag: 0
+      };
+    }
+
     return {
       acc: this.accNoiseOn ? this.accNoise : 0,
       gyroDrift: this.gyroDriftOn ? this.gyroDrift : 0,
@@ -804,17 +813,22 @@
   };
 
   MemsSensorFusionLabDemo.prototype.updateNoiseControlUI = function() {
+    var self = this;
     var blocks = [
-      { on: this.accNoiseOn, el: this.modal.querySelector('.js-af-noise-acc') },
-      { on: this.gyroDriftOn, el: this.modal.querySelector('.js-af-noise-gyro') },
-      { on: this.magNoiseOn, el: this.modal.querySelector('.js-af-noise-mag') }
+      { on: this.accNoiseOn, el: this.modal.querySelector('.js-af-noise-acc'), fusionOnly: true },
+      { on: this.gyroDriftOn, el: this.modal.querySelector('.js-af-noise-gyro'), fusionOnly: false },
+      { on: this.magNoiseOn, el: this.modal.querySelector('.js-af-noise-mag'), fusionOnly: true }
     ];
 
     blocks.forEach(function(block) {
       if (!block.el) return;
-      block.el.classList.toggle('is-noise-off', !block.on);
+      var fusionLocked = !self.fusionEnabled && block.fusionOnly;
+      block.el.classList.toggle('is-fusion-locked', fusionLocked);
+      block.el.classList.toggle('is-noise-off', !block.on && !fusionLocked);
       var range = block.el.querySelector('input[type="range"]');
-      if (range) range.disabled = !block.on;
+      var checkbox = block.el.querySelector('input[type="checkbox"]');
+      if (range) range.disabled = fusionLocked || !block.on;
+      if (checkbox) checkbox.disabled = fusionLocked;
     });
 
     this.updateDisplays();
@@ -854,13 +868,13 @@
     if (this.fusionDescEl) {
       this.fusionDescEl.textContent = enabled
         ? 'Gyro, accelerometer, and magnetometer are fused with online gyro-bias correction.'
-        : 'Roll/pitch follow gyro integration (bias drifts). Magnetometer sets heading if enabled; accelerometer adds tilt jitter if enabled.';
+        : 'Attitude comes from gyro integration only — bias accumulates and the estimate drifts. Hold the green aircraft still to watch it diverge.';
     }
 
     if (this.instrumentsCaptionEl) {
       this.instrumentsCaptionEl.textContent = enabled
         ? 'Sensor health and calibration effect update from live MEMS errors.'
-        : 'Toggle sensor checkboxes to see gyro drift, accelerometer jitter, and magnetometer noise without fusion.';
+        : 'Accelerometer and magnetometer controls are disabled in gyro-only mode.';
     }
 
     if (this.ekfErrorValEl && this.ekfErrorValEl.parentNode && this.ekfErrorValEl.parentNode.firstChild) {
@@ -872,7 +886,7 @@
       this.alphaWrap.style.pointerEvents = enabled ? 'auto' : 'none';
     }
 
-    this.updateDisplays();
+    this.updateNoiseControlUI();
   };
 
   MemsSensorFusionLabDemo.prototype.createVehicleModel = function(color, opacity) {
@@ -1076,24 +1090,9 @@
     }
   };
 
-  MemsSensorFusionLabDemo.prototype.buildBypassEstimate = function(calTilt, magHeading) {
-    var noise = this.getEffectiveNoise();
+  MemsSensorFusionLabDemo.prototype.buildBypassEstimate = function() {
     var gyro = this.ekfFilter.gyroOnly;
-    var roll = gyro.roll;
-    var pitch = gyro.pitch;
-    var yaw = gyro.yaw;
-
-    if (this.accNoiseOn && noise.acc > 0) {
-      var accGain = 1.4 + noise.acc * 0.18;
-      roll += (calTilt.roll - this.accSmoothTilt.roll) * accGain;
-      pitch += (calTilt.pitch - this.accSmoothTilt.pitch) * accGain;
-    }
-
-    if (this.magNoiseOn) {
-      yaw = magHeading;
-    }
-
-    return { roll: roll, pitch: pitch, yaw: yaw };
+    return { roll: gyro.roll, pitch: gyro.pitch, yaw: gyro.yaw };
   };
 
   MemsSensorFusionLabDemo.prototype.getDisplayEstimate = function() {
@@ -1195,7 +1194,7 @@
     var barTop = y + 30;
     var barGap = Math.max(18, (h - 44) / 3);
 
-    this.drawBar(ctx, x + 12, barTop, w - 24, 'Gyro bias', noise.gyroDrift, 0.2, '#e67e22');
+    this.drawBar(ctx, x + 12, barTop, w - 24, 'Gyro bias', noise.gyroDrift, 5, '#e67e22');
     this.drawBar(ctx, x + 12, barTop + barGap, w - 24, 'Acc noise', noise.acc, 15, '#e74c3c');
     this.drawBar(ctx, x + 12, barTop + barGap * 2, w - 24, 'Mag noise', noise.mag, 25, '#9b59b6');
   };
@@ -1370,6 +1369,9 @@
       rawTilt.pitch += randn() * noise.acc * 0.65;
     }
 
+    // Noisy gravity vector for fusion (tilt noise above is display-only unless converted back).
+    var accMeas = gravityInBody(calTilt.roll, calTilt.pitch);
+
     this.rawSensor.roll = rawTilt.roll;
     this.rawSensor.pitch = rawTilt.pitch;
     this.calibratedSensor.roll = calTilt.roll;
@@ -1408,7 +1410,7 @@
     );
 
     if (this.fusionEnabled) {
-      this.ekfFilter.fuse(gyroMeas, accCal, dt, { useAcc: true, motionScale: accTrustScale });
+      this.ekfFilter.fuse(gyroMeas, accMeas, dt, { useAcc: true, motionScale: accTrustScale });
       if (this.isDragging || motionDeg > 35) {
         this.ekfFilter.yaw = wrap360(this.ekfFilter.yaw + gyroMeas.z / DEG * dt);
       } else {
@@ -1431,13 +1433,7 @@
       this.ekfFilter.propagateGyroOnly(gyroEuler, dt);
     }
 
-    this.uncorrectedEstimate = this.buildBypassEstimate(calTilt, magHeading);
-    if (!this.fusionEnabled && this.isDragging) {
-      var bypassTrack = clamp(dt * 4.8, 0.06, 0.28);
-      this.uncorrectedEstimate.roll += (this.groundTruth.roll - this.uncorrectedEstimate.roll) * bypassTrack;
-      this.uncorrectedEstimate.pitch += (this.groundTruth.pitch - this.uncorrectedEstimate.pitch) * bypassTrack;
-      this.uncorrectedEstimate.yaw = lerpAngle(this.uncorrectedEstimate.yaw, this.groundTruth.yaw, bypassTrack);
-    }
+    this.uncorrectedEstimate = this.buildBypassEstimate();
     this.ekfEstimate = this.ekfFilter.toAttitude(this.ekfFilter.yaw);
     this.gyroEst.roll = this.ekfFilter.gyroOnly.roll;
     this.gyroEst.pitch = this.ekfFilter.gyroOnly.pitch;

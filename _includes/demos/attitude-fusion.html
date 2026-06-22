@@ -112,7 +112,7 @@
       </div>
 
       <div class="attitude-fusion-demo__controls">
-        <p class="attitude-fusion-demo__noise-hint">Adjust sensor imperfections to compare fused estimation (ON) with gyro-only integration (OFF).</p>
+        <p class="attitude-fusion-demo__noise-hint">Fusion ON: tune all three sensors. Fusion OFF: gyro-only — acc and mag controls are disabled.</p>
         <div class="attitude-fusion-demo__sliders">
           <label class="attitude-fusion-demo__slider js-af-noise-acc">
             <span class="attitude-fusion-demo__slider-head">
@@ -127,8 +127,8 @@
               <input type="checkbox" class="js-af-gyro-drift-on" checked>
               <span class="attitude-fusion-demo__slider-label">Gyro drift (bias)</span>
             </span>
-            <input type="range" class="js-af-gyro-drift" min="0" max="0.2" step="0.005" value="0.05">
-            <span class="attitude-fusion-demo__slider-value js-af-gyro-drift-val">0.05°/s</span>
+            <input type="range" class="js-af-gyro-drift" min="0" max="5" step="0.1" value="3">
+            <span class="attitude-fusion-demo__slider-value js-af-gyro-drift-val">3.0°/s</span>
           </label>
           <label class="attitude-fusion-demo__slider js-af-noise-mag">
             <span class="attitude-fusion-demo__slider-head">

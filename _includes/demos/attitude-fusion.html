@@ -1,0 +1,146 @@
+{% assign p = include.project %}
+
+<div class="viz-project viz-project--attitude-fusion" id="project-{{ p.id }}" data-project-id="{{ p.id }}">
+  <h5 class="viz-project__title">
+    <a class="viz-project__permalink" href="#project-{{ p.id }}" aria-label="Permalink to this project demo">#</a>
+    {{ p.title }}
+  </h5>
+  {% if p.description %}
+  <div class="viz-project__description">{{ p.description | markdownify }}</div>
+  {% endif %}
+
+  <div class="viz-project__demo-wrap">
+    <div class="attitude-fusion-preview">
+      <div class="attitude-fusion-preview__visual" aria-hidden="true">
+        <div class="attitude-fusion-preview__mini-att">
+          <span>ATT</span>
+        </div>
+        <div class="attitude-fusion-preview__mini-hdg">
+          <span>HDG</span>
+        </div>
+      </div>
+      <p class="attitude-fusion-preview__hint">
+        Wind gust attitude response demo — fusion keeps the stabilizer demand smooth.
+      </p>
+      <button
+        type="button"
+        class="button button-primary attitude-fusion-preview__launch js-attitude-fusion-open"
+        data-modal-id="attitude-fusion-modal-{{ p.id }}"
+        aria-haspopup="dialog"
+      >
+        Run Interactive Demo
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="demo-modal js-attitude-fusion-modal"
+  id="attitude-fusion-modal-{{ p.id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="attitude-fusion-title-{{ p.id }}"
+  aria-hidden="true"
+  hidden
+>
+  <div class="demo-modal__backdrop js-attitude-fusion-close" aria-hidden="true"></div>
+  <div class="demo-modal__panel demo-modal__panel--wide">
+    <button type="button" class="demo-modal__close js-attitude-fusion-close" aria-label="Close demo">&times;</button>
+
+    <header class="demo-modal__header">
+      <h5 class="demo-modal__title" id="attitude-fusion-title-{{ p.id }}">Fixed-Wing UAV Attitude Fusion</h5>
+      <p class="demo-modal__subtitle">
+        Wind gusts disturb roll, pitch, and heading. ESKF-style sensor fusion gives the stabilizer a cleaner attitude estimate.
+      </p>
+    </header>
+
+    <div class="attitude-fusion-demo js-attitude-fusion-demo is-fusion-on" data-project-id="{{ p.id }}">
+      <div class="attitude-fusion-demo__fusion-bar">
+        <div class="attitude-fusion-demo__fusion-copy">
+          <strong class="js-af-fusion-label">ESKF-style attitude estimation active</strong>
+          <span class="js-af-fusion-desc">Gyro propagation corrected by accelerometer, magnetometer, and barometer observations</span>
+        </div>
+        <button
+          type="button"
+          class="button button-primary js-af-fusion-toggle"
+          aria-pressed="true"
+        >
+          Turn off fusion
+        </button>
+      </div>
+
+      <div class="attitude-fusion-demo__main">
+        <div class="attitude-fusion-demo__visual-col">
+          <div class="attitude-fusion-demo__viewport-wrap">
+            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D fixed-wing UAV attitude visualization"></canvas>
+            <p class="attitude-fusion-demo__drag-hint">Drag ↔ roll · ↕ pitch</p>
+            <div class="attitude-fusion-demo__readout" aria-live="polite">
+              <span>Roll: <strong class="js-af-roll-val">0.0°</strong></span>
+              <span>Pitch: <strong class="js-af-pitch-val">0.0°</strong></span>
+              <span>Hdg: <strong class="js-af-hdg-val">000°</strong></span>
+            </div>
+          </div>
+          <div class="attitude-fusion-demo__flight-panels">
+            <canvas class="attitude-fusion-demo__flight-panels-canvas js-attitude-fusion-flight-panels" aria-label="Wind gust attitude response and stabilizer output"></canvas>
+            <p class="attitude-fusion-demo__panels-caption js-af-instruments-caption">Gray = wind gust · Green = true attitude · Orange = estimated attitude</p>
+          </div>
+        </div>
+
+        <div class="attitude-fusion-demo__side">
+          <div class="attitude-fusion-demo__pipeline-wrap">
+            <canvas class="attitude-fusion-demo__pipeline js-attitude-fusion-pipeline" aria-label="ESKF-style state estimation pipeline"></canvas>
+          </div>
+          <div class="attitude-fusion-demo__charts">
+            <div class="attitude-fusion-demo__chart-wrap">
+              <canvas class="attitude-fusion-demo__chart js-af-chart-rp" aria-label="Roll and pitch sensor paths"></canvas>
+            </div>
+            <div class="attitude-fusion-demo__chart-wrap">
+              <canvas class="attitude-fusion-demo__chart js-af-chart-hdg" aria-label="Heading sensor paths"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attitude-fusion-demo__controls">
+        <p class="attitude-fusion-demo__noise-hint">Use sensor noise to show how a noisy attitude estimate changes stabilizer demand.</p>
+        <div class="attitude-fusion-demo__sliders">
+          <label class="attitude-fusion-demo__slider js-af-noise-acc">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-acc-noise-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Accelerometer noise</span>
+            </span>
+            <input type="range" class="js-af-acc-noise" min="0" max="15" step="0.5" value="5">
+            <span class="attitude-fusion-demo__slider-value js-af-acc-noise-val">5.0°</span>
+          </label>
+          <label class="attitude-fusion-demo__slider js-af-noise-gyro">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-gyro-drift-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Gyro drift (bias)</span>
+            </span>
+            <input type="range" class="js-af-gyro-drift" min="0" max="0.2" step="0.005" value="0.05">
+            <span class="attitude-fusion-demo__slider-value js-af-gyro-drift-val">0.05°/s</span>
+          </label>
+          <label class="attitude-fusion-demo__slider js-af-noise-mag">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-mag-noise-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Magnetometer noise</span>
+            </span>
+            <input type="range" class="js-af-mag-noise" min="0" max="25" step="0.5" value="4">
+            <span class="attitude-fusion-demo__slider-value js-af-mag-noise-val">4.0°</span>
+          </label>
+          <label class="attitude-fusion-demo__slider js-af-alpha-wrap">
+            <span class="attitude-fusion-demo__slider-label">Measurement correction strength</span>
+            <input type="range" class="js-af-alpha" min="0.005" max="0.1" step="0.005" value="0.02">
+            <span class="attitude-fusion-demo__slider-value js-af-alpha-val">2%</span>
+          </label>
+        </div>
+
+        <div class="attitude-fusion-demo__actions">
+          <button type="button" class="button js-af-reset">Reset simulation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ '/libs/custom/demos/attitude-fusion.js' | prepend: site.baseurl }}" defer></script>

@@ -22,3 +22,10 @@ projects:
     top_right_label: Post-disaster
     bottom_left_label: Pre-disaster
     bottom_right_label: Damage assessment
+
+  - id: attitude-fusion
+    type: attitude-fusion
+    title: "Selected Project 2: Fixed-Wing UAV Attitude Fusion (Interactive Demo)"
+    description: >-
+      Explore ESKF-style state estimation for fixed-wing UAVs: gyro propagation corrected by accelerometer,
+      magnetometer, and barometer observations under wind gusts and sensor noise.

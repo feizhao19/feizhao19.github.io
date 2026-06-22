@@ -1002,3 +1002,401 @@ body.paper-lightbox-open {
     border-bottom-color: #33C3F0; }
 }
 
+/* --- Interactive demo modal --- */
+body.demo-modal-open {
+  overflow: hidden;
+}
+.demo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.demo-modal[hidden] {
+  display: none !important;
+}
+.demo-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 18, 28, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.demo-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(96vw, 980px);
+  max-height: 92vh;
+  overflow: auto;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+.demo-modal__panel--wide {
+  width: min(98vw, 1120px);
+}
+.demo-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #666;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem 0.45rem;
+}
+.demo-modal__close:hover,
+.demo-modal__close:focus {
+  color: #222;
+}
+.demo-modal__header {
+  margin: 0 2rem 0.85rem 0;
+}
+.demo-modal__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: #333;
+}
+.demo-modal__subtitle {
+  margin: 0;
+  font-size: 0.88em;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.62);
+}
+
+/* --- Attitude fusion project card preview --- */
+.attitude-fusion-preview {
+  width: 64%;
+  max-width: 100%;
+  margin: 0.35rem auto 0;
+  padding: 1.1rem 1rem 1.15rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(244, 247, 250, 0.95), rgba(255, 255, 255, 0.98));
+  text-align: center;
+}
+.attitude-fusion-preview__visual {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  margin: 0 auto 0.75rem;
+  border-radius: 10px;
+  background: #0b1118;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 8px;
+}
+.attitude-fusion-preview__mini-att {
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(41,130,172,0.9) 0%, rgba(41,130,172,0.9) 50%, rgba(122,91,36,0.9) 50%, rgba(122,91,36,0.9) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.attitude-fusion-preview__mini-hdg {
+  border-radius: 8px;
+  background: radial-gradient(circle, #0d141b 0%, #0d141b 58%, #101820 58%);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dce6ef;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.attitude-fusion-preview__tile,
+.attitude-fusion-preview__tile--att,
+.attitude-fusion-preview__tile--cdi,
+.attitude-fusion-preview__horizon,
+.attitude-fusion-preview__plane {
+  display: none;
+}
+.attitude-fusion-preview__hint {
+  margin: 0 0 0.85rem;
+  font-size: 0.88em;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.62);
+}
+.attitude-fusion-preview__launch {
+  margin-bottom: 0;
+}
+
+/* --- Attitude fusion demo (inside modal) --- */
+.attitude-fusion-demo__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  align-items: stretch;
+  min-height: 360px;
+}
+.attitude-fusion-demo__visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+.attitude-fusion-demo__side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+.attitude-fusion-demo__viewport-wrap {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 210px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+.attitude-fusion-demo__flight-panels {
+  position: relative;
+  flex: 0 0 132px;
+  min-height: 132px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0b1118;
+}
+.attitude-fusion-demo__pipeline-wrap {
+  position: relative;
+  flex: 0 0 96px;
+  min-height: 96px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0b1118;
+}
+.attitude-fusion-demo__panels-caption {
+  position: absolute;
+  left: 0.55rem;
+  bottom: 0.45rem;
+  margin: 0;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.65em;
+  color: rgba(255, 255, 255, 0.58);
+  pointer-events: none;
+}
+.attitude-fusion-demo__charts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.attitude-fusion-demo__chart-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 118px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 0.3rem 0.4rem 0.2rem;
+}
+.attitude-fusion-demo__canvas {
+  display: block;
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 210px;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+.attitude-fusion-demo__canvas.is-dragging {
+  cursor: grabbing;
+}
+.attitude-fusion-demo__drag-hint {
+  position: absolute;
+  left: 0.65rem;
+  bottom: 0.55rem;
+  margin: 0;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 0.72em;
+  color: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+.attitude-fusion-demo__readout {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 0.76em;
+  color: rgba(0, 0, 0, 0.68);
+  pointer-events: none;
+}
+.attitude-fusion-demo__readout strong {
+  color: #222;
+}
+.attitude-fusion-demo__flight-panels-canvas,
+.attitude-fusion-demo__pipeline {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.attitude-fusion-demo__chart {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+}
+.attitude-fusion-demo__fusion-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(41, 130, 172, 0.22);
+  border-radius: 10px;
+  background: rgba(41, 130, 172, 0.07);
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-bar {
+  border-color: rgba(231, 76, 60, 0.28);
+  background: rgba(231, 76, 60, 0.07);
+}
+.attitude-fusion-demo__fusion-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.attitude-fusion-demo__fusion-copy strong {
+  font-size: 0.88em;
+  color: #2982ac;
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-copy strong {
+  color: #c0392b;
+}
+.attitude-fusion-demo__fusion-copy span {
+  font-size: 0.78em;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.58);
+}
+.attitude-fusion-demo__fusion-bar .button {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__viewport-wrap,
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__flight-panels,
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__pipeline-wrap {
+  box-shadow: inset 0 0 0 2px rgba(231, 76, 60, 0.35);
+}
+.attitude-fusion-demo__controls {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 0.85rem;
+}
+.attitude-fusion-demo__noise-hint {
+  margin: 0 0 0.55rem;
+  font-size: 0.78em;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.58);
+}
+.attitude-fusion-demo__sliders {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+.attitude-fusion-demo__slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  font-size: 0.78em;
+  color: rgba(0, 0, 0, 0.72);
+}
+.attitude-fusion-demo__slider-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.attitude-fusion-demo__slider-head input[type="checkbox"] {
+  margin: 0;
+  flex: 0 0 auto;
+}
+.attitude-fusion-demo__slider.is-noise-off {
+  opacity: 0.45;
+}
+.attitude-fusion-demo__slider.is-noise-off .attitude-fusion-demo__slider-value {
+  color: rgba(0, 0, 0, 0.35);
+}
+.attitude-fusion-demo__slider-label {
+  font-weight: 600;
+}
+.attitude-fusion-demo__slider input[type="range"] {
+  width: 100%;
+  margin: 0;
+}
+.attitude-fusion-demo__slider-value {
+  color: #2982ac;
+  font-weight: 600;
+  font-size: 0.95em;
+}
+.attitude-fusion-demo__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.attitude-fusion-demo__actions .button {
+  margin-bottom: 0;
+  font-size: 0.82em;
+}
+
+@media (max-width: 750px) {
+  .attitude-fusion-preview,
+  .viz-project__figure {
+    width: 100%;
+  }
+  .attitude-fusion-demo__main {
+    grid-template-columns: 1fr;
+  }
+  .attitude-fusion-demo__viewport-wrap {
+    min-height: 200px;
+  }
+  .attitude-fusion-demo__canvas {
+    min-height: 200px;
+  }
+  .attitude-fusion-demo__flight-panels {
+    flex-basis: 118px;
+    min-height: 118px;
+  }
+  .attitude-fusion-demo__pipeline-wrap {
+    flex-basis: 88px;
+    min-height: 88px;
+  }
+  .attitude-fusion-demo__sliders {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .demo-modal__panel {
+    padding: 0.95rem 0.85rem 1rem;
+  }
+}
+

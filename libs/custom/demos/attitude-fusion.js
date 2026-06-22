@@ -380,7 +380,6 @@
     this.pipelineCanvas = modal.querySelector('.js-attitude-fusion-pipeline');
     this.sensorPanelsCanvas = modal.querySelector('.js-attitude-fusion-sensor-panels');
     this.chartRpCanvas = modal.querySelector('.js-af-chart-rp');
-    this.chartHdgCanvas = modal.querySelector('.js-af-chart-hdg');
     this.rollValEl = modal.querySelector('.js-af-roll-val');
     this.pitchValEl = modal.querySelector('.js-af-pitch-val');
     this.hdgValEl = modal.querySelector('.js-af-hdg-val');
@@ -428,8 +427,7 @@
     this.magEst = createAttitudeState();
     this.fusedEst = this.ekfEstimate;
     this.gyroBias = { roll: 0.6, pitch: -0.4, yaw: 1.0 };
-    this.lastErrors = { raw: 0, calibrated: 0, ekf: 0 };
-    this.motion = { x: 0, y: 0, speed: 12, trace: 0 };
+    this.lastErrors = { raw: 0, calibrated: 0, ekf: 0, gyro: 0 };
 
     this.elapsed = 0;
     this.frameCount = 0;
@@ -443,14 +441,10 @@
     this.initialized = false;
     this.rafId = null;
 
-    this.pathHistorySize = 180;
-    this.motionPath = [];
-
     this.historySize = 180;
     this.labels = [];
     this.hist = {
-      truth: [], raw: [], calibrated: [], ekf: [],
-      heading: [], speed: [], trace: []
+      truth: [], raw: [], calibrated: [], ekf: []
     };
 
     this.trueScene = null;
@@ -462,7 +456,6 @@
     this.pipelineCtx = null;
     this.sensorPanelsCtx = null;
     this.chartRp = null;
-    this.chartHdg = null;
 
     this.onPointerDown = this.handlePointerDown.bind(this);
     this.onPointerMove = this.handlePointerMove.bind(this);
@@ -579,6 +572,12 @@
   };
 
   MemsSensorFusionLabDemo.prototype.setFusionEnabled = function(enabled) {
+    if (!enabled && this.fusionEnabled) {
+      this.gyroEst.roll = this.ekfEstimate.roll;
+      this.gyroEst.pitch = this.ekfEstimate.pitch;
+      this.gyroEst.yaw = this.ekfEstimate.yaw;
+    }
+
     this.fusionEnabled = enabled;
 
     if (this.demoRoot) {
@@ -594,19 +593,23 @@
     }
 
     if (this.fusionLabelEl) {
-      this.fusionLabelEl.textContent = enabled ? 'EKF-based attitude estimation active' : 'Raw calibrated sensors — EKF off';
+      this.fusionLabelEl.textContent = enabled ? 'EKF-based attitude estimation active' : 'Uncorrected MEMS sensors — EKF off';
     }
 
     if (this.fusionDescEl) {
       this.fusionDescEl.textContent = enabled
         ? 'Gyro propagation is corrected by accelerometer and magnetometer observations with online bias compensation.'
-        : 'The estimate follows calibrated MEMS measurements without EKF correction, so drift and noise remain visible.';
+        : 'Roll/pitch follow gyro integration (bias drifts) with accelerometer noise; heading follows the magnetometer directly (jitter).';
     }
 
     if (this.instrumentsCaptionEl) {
       this.instrumentsCaptionEl.textContent = enabled
         ? 'Sensor health and calibration effect update from live MEMS errors.'
-        : 'EKF is bypassed; charts show calibrated sensor output as the final estimate.';
+        : 'EKF is bypassed; gyro drift, accelerometer noise, and magnetometer jitter are all visible on the estimate.';
+    }
+
+    if (this.ekfErrorValEl && this.ekfErrorValEl.parentNode && this.ekfErrorValEl.parentNode.firstChild) {
+      this.ekfErrorValEl.parentNode.firstChild.textContent = enabled ? 'EKF Error: ' : 'Sensor Error: ';
     }
 
     if (this.alphaWrap) {
@@ -664,14 +667,17 @@
 
     this.trueScene = this.createAttitudeScene();
     this.estimatedScene = this.createAttitudeScene();
+    this.trueScene.background = null;
+    this.estimatedScene.background = null;
 
     this.camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 100);
     this.camera.position.set(2.35, 1.05, 2.95);
     this.camera.lookAt(0, 0.02, 0);
 
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: false });
+    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     this.renderer.setSize(width, height, false);
+    this.renderer.setClearColor(0x000000, 0);
     this.renderer.setScissorTest(true);
   };
 
@@ -747,31 +753,6 @@
         }
       }
     });
-
-    this.chartHdg = new Chart(this.chartHdgCanvas.getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: this.labels,
-        datasets: [
-          lineDataset('Heading', this.hist.heading, '#2982ac', { width: 2.0 }),
-          lineDataset('Speed', this.hist.speed, '#16a085', { dash: [4, 3] }),
-          lineDataset('Trace', this.hist.trace, '#f39c12', { dash: [5, 3], width: 1.8 })
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: false,
-        plugins: {
-          legend: { labels: { boxWidth: 8, font: { size: 9 } } },
-          title: { display: true, text: 'Vehicle Motion Recording', font: { size: 10 } }
-        },
-        scales: {
-          x: { display: false },
-          y: { ticks: { font: { size: 8 } }, grid: { color: 'rgba(0,0,0,0.06)' } }
-        }
-      }
-    });
   };
 
   MemsSensorFusionLabDemo.prototype.handleResize = function() {
@@ -789,7 +770,6 @@
     this.resizeCanvas2d(this.sensorPanelsCanvas, this.sensorPanelsCtx);
 
     if (this.chartRp) this.chartRp.resize();
-    if (this.chartHdg) this.chartHdg.resize();
   };
 
   MemsSensorFusionLabDemo.prototype.handlePointerDown = function(event) {
@@ -835,7 +815,13 @@
   };
 
   MemsSensorFusionLabDemo.prototype.getDisplayEstimate = function() {
-    return this.fusionEnabled ? this.ekfEstimate : this.calibratedSensor;
+    if (this.fusionEnabled) return this.ekfEstimate;
+    // Gyro integration carries slow bias drift; acc residual adds high-frequency tilt noise.
+    return {
+      roll: this.gyroEst.roll + (this.accEst.roll - this.calibratedSensor.roll),
+      pitch: this.gyroEst.pitch + (this.accEst.pitch - this.calibratedSensor.pitch),
+      yaw: this.magEst.yaw
+    };
   };
 
   MemsSensorFusionLabDemo.prototype.updateVehicleRotation = function(display) {
@@ -924,139 +910,6 @@
     ctx.textAlign = 'left';
   };
 
-  MemsSensorFusionLabDemo.prototype.drawMotionRecordingPanel = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Motion Recording');
-
-    var pad = 12;
-    var mapX = x + pad;
-    var mapY = y + 30;
-    var mapW = w - pad * 2;
-    var mapH = h - 44;
-    var centerY = mapY + mapH * 0.55;
-
-    ctx.save();
-
-    // Map background
-    ctx.fillStyle = THEME.mapBg;
-    ctx.strokeStyle = THEME.mapBorder;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(mapX, mapY, mapW, mapH, 7);
-    ctx.fill();
-    ctx.stroke();
-
-    // Grid
-    ctx.strokeStyle = THEME.mapGrid;
-    ctx.lineWidth = 1;
-    for (var gx = 1; gx < 4; gx += 1) {
-      ctx.beginPath();
-      ctx.moveTo(mapX + mapW * gx / 4, mapY + 4);
-      ctx.lineTo(mapX + mapW * gx / 4, mapY + mapH - 4);
-      ctx.stroke();
-    }
-    for (var gy = 1; gy < 3; gy += 1) {
-      ctx.beginPath();
-      ctx.moveTo(mapX + 4, mapY + mapH * gy / 3);
-      ctx.lineTo(mapX + mapW - 4, mapY + mapH * gy / 3);
-      ctx.stroke();
-    }
-
-    // Zero trace reference.
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.18)';
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([5, 5]);
-    ctx.beginPath();
-    ctx.moveTo(mapX + 8, centerY);
-    ctx.lineTo(mapX + mapW - 8, centerY);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    var paths = [
-      { key: 'heading', data: this.motionPath, color: 'rgba(41,130,172,0.95)', width: 1.8, dash: [4, 4] },
-      { key: 'speed', data: this.motionPath, color: 'rgba(22,160,133,0.96)', width: 2.0 },
-      { key: 'trace', data: this.motionPath, color: 'rgba(243,156,18,0.98)', width: 2.3 }
-    ];
-    var maxAbs = 12;
-
-    paths.forEach(function(path) {
-      if (!path.data.length) return;
-      path.data.forEach(function(point) {
-        maxAbs = Math.max(maxAbs, Math.abs(point[path.key] || 0));
-      });
-    });
-
-    var scale = (mapH * 0.42) / maxAbs;
-
-    paths.forEach(function(path) {
-      if (path.data.length < 2) return;
-      ctx.strokeStyle = path.color;
-      ctx.lineWidth = path.width;
-      ctx.setLineDash(path.dash || []);
-      ctx.beginPath();
-
-      path.data.forEach(function(point, index) {
-        var t = index / Math.max(1, path.data.length - 1);
-        var px = mapX + 8 + t * (mapW - 16);
-        var py = centerY - clamp((point[path.key] || 0) * scale, -mapH * 0.44, mapH * 0.44);
-        if (index === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      });
-
-      ctx.stroke();
-      ctx.setLineDash([]);
-    });
-
-    if (this.motionPath.length) {
-      var last = this.motionPath[this.motionPath.length - 1];
-      var markerX = mapX + mapW - 8;
-      var markerY = centerY - clamp((last.trace || 0) * scale, -mapH * 0.44, mapH * 0.44);
-
-      ctx.fillStyle = '#2982ac';
-      ctx.beginPath();
-      ctx.arc(markerX, markerY, 3.5, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = THEME.textMuted;
-      ctx.font = '8px Raleway, sans-serif';
-      ctx.fillText('now', markerX - 16, markerY - 6);
-    }
-
-    // Legend
-    var legendY = y + h - 10;
-    ctx.font = '9px Raleway, sans-serif';
-
-    ctx.strokeStyle = 'rgba(41,130,172,0.95)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([5, 4]);
-    ctx.beginPath();
-    ctx.moveTo(x + 10, legendY - 3);
-    ctx.lineTo(x + 26, legendY - 3);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = '#2982ac';
-    ctx.fillText('heading', x + 30, legendY);
-
-    ctx.strokeStyle = 'rgba(22,160,133,0.96)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(x + 92, legendY - 3);
-    ctx.lineTo(x + 108, legendY - 3);
-    ctx.stroke();
-    ctx.fillStyle = '#16a085';
-    ctx.fillText('speed', x + 112, legendY);
-
-    ctx.strokeStyle = 'rgba(243,156,18,0.98)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(x + 152, legendY - 3);
-    ctx.lineTo(x + 168, legendY - 3);
-    ctx.stroke();
-    ctx.fillStyle = '#d68910';
-    ctx.fillText('trace', x + 172, legendY);
-
-    ctx.restore();
-  };
-
   MemsSensorFusionLabDemo.prototype.drawSensorHealthPanel = function(ctx, x, y, w, h) {
     this.drawCard(ctx, x, y, w, h, 'Sensor Health');
     var noise = this.getEffectiveNoise();
@@ -1140,7 +993,7 @@
   };
 
   MemsSensorFusionLabDemo.prototype.updateCharts = function() {
-    if (!this.chartRp || !this.chartHdg) return;
+    if (!this.chartRp) return;
 
     var h = this.hist;
     this.chartRp.data.labels = this.labels;
@@ -1149,12 +1002,6 @@
     this.chartRp.data.datasets[2].data = h.calibrated;
     this.chartRp.data.datasets[3].data = h.ekf;
     this.chartRp.update('none');
-
-    this.chartHdg.data.labels = this.labels;
-    this.chartHdg.data.datasets[0].data = h.heading;
-    this.chartHdg.data.datasets[1].data = h.speed;
-    this.chartHdg.data.datasets[2].data = h.trace;
-    this.chartHdg.update('none');
   };
 
   MemsSensorFusionLabDemo.prototype.pushHistory = function(display) {
@@ -1163,9 +1010,6 @@
     this.hist.raw.push(this.rawSensor.roll);
     this.hist.calibrated.push(this.calibratedSensor.roll);
     this.hist.ekf.push(display.roll);
-    this.hist.heading.push(shortestAngleDiff(270, display.yaw));
-    this.hist.speed.push(this.motion.speed);
-    this.hist.trace.push(this.motion.trace);
 
     if (this.labels.length > this.historySize) {
       this.labels.shift();
@@ -1196,6 +1040,13 @@
     var trueRollRate = (this.groundTruth.roll - this.prevGroundTruth.roll) / dt + this.userRollRate;
     var truePitchRate = (this.groundTruth.pitch - this.prevGroundTruth.pitch) / dt + this.userPitchRate;
     var trueYawRate = shortestAngleDiff(this.prevGroundTruth.yaw, this.groundTruth.yaw) / dt + this.userYawRate;
+
+    if (noise.gyroDrift > 0) {
+      var biasWalk = 0.03 * dt;
+      this.gyroBias.roll = clamp(this.gyroBias.roll + randn() * biasWalk, -1.4, 1.4);
+      this.gyroBias.pitch = clamp(this.gyroBias.pitch + randn() * biasWalk, -1.4, 1.4);
+      this.gyroBias.yaw = clamp(this.gyroBias.yaw + randn() * biasWalk, -1.4, 1.4);
+    }
 
     var measuredRollRate = trueRollRate + noise.gyroWhite * randn() + noise.gyroDrift * this.gyroBias.roll;
     var measuredPitchRate = truePitchRate + noise.gyroWhite * randn() + noise.gyroDrift * this.gyroBias.pitch;
@@ -1233,18 +1084,7 @@
     this.lastErrors.raw = attitudeError(this.rawSensor, this.groundTruth);
     this.lastErrors.calibrated = attitudeError(this.calibratedSensor, this.groundTruth);
     this.lastErrors.ekf = attitudeError(this.ekfEstimate, this.groundTruth);
-
-    this.motion.speed = 12 + Math.sin(this.elapsed * 0.55) * 2.4 + Math.abs(this.groundTruth.pitch) * 0.06;
-    this.motion.x += Math.cos(this.groundTruth.yaw * DEG) * this.motion.speed * dt * 0.08;
-    this.motion.y += Math.sin(this.groundTruth.yaw * DEG) * this.motion.speed * dt * 0.08;
-    this.motion.trace = clamp(this.motion.y * 4, -24, 24);
-    this.motionPath.push({
-      heading: shortestAngleDiff(270, display.yaw) * 0.35,
-      speed: this.motion.speed - 12,
-      trace: this.motion.trace
-    });
-
-    if (this.motionPath.length > this.pathHistorySize) this.motionPath.shift();
+    this.lastErrors.gyro = attitudeError(display, this.groundTruth);
 
     if (this.frameCount % 2 === 0) {
       this.pushHistory(display);
@@ -1262,7 +1102,9 @@
     if (this.hdgValEl) this.hdgValEl.textContent = formatHeading(display.yaw);
     if (this.rawErrorValEl) this.rawErrorValEl.textContent = this.lastErrors.raw.toFixed(1) + '°';
     if (this.calibratedErrorValEl) this.calibratedErrorValEl.textContent = this.lastErrors.calibrated.toFixed(1) + '°';
-    if (this.ekfErrorValEl) this.ekfErrorValEl.textContent = this.lastErrors.ekf.toFixed(1) + '°';
+    if (this.ekfErrorValEl) {
+      this.ekfErrorValEl.textContent = (this.fusionEnabled ? this.lastErrors.ekf : this.lastErrors.gyro).toFixed(1) + '°';
+    }
 
     this.updateVehicleRotation(display);
     this.drawInstruments();
@@ -1280,14 +1122,12 @@
     this.accEst = createAttitudeState();
     this.magEst = createAttitudeState();
     this.fusedEst = this.ekfEstimate;
-    this.lastErrors = { raw: 0, calibrated: 0, ekf: 0 };
-    this.motion = { x: 0, y: 0, speed: 12, trace: 0 };
+    this.lastErrors = { raw: 0, calibrated: 0, ekf: 0, gyro: 0 };
     this.elapsed = 0;
     this.frameCount = 0;
     this.userRollRate = 0;
     this.userPitchRate = 0;
     this.userYawRate = 0;
-    this.motionPath = [];
     this.labels = [];
     Object.keys(this.hist).forEach(function(key) { this.hist[key] = []; }, this);
     this.updateCharts();
@@ -1373,7 +1213,6 @@
     window.removeEventListener('pointercancel', this.onPointerUp);
     window.removeEventListener('resize', this.onResize);
     if (this.chartRp) this.chartRp.destroy();
-    if (this.chartHdg) this.chartHdg.destroy();
     if (this.renderer) this.renderer.dispose();
   };
 

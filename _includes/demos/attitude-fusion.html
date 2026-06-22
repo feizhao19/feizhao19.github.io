@@ -77,12 +77,6 @@
       <div class="attitude-fusion-demo__main">
         <div class="attitude-fusion-demo__visual-col">
           <div class="attitude-fusion-demo__viewport-wrap">
-            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D MEMS-based aircraft attitude visualization"></canvas>
-            <div class="attitude-fusion-demo__subplot-labels" aria-hidden="true">
-              <span>Ground Truth Motion</span>
-              <span>Estimated Attitude</span>
-            </div>
-            <p class="attitude-fusion-demo__drag-hint">Drag the left green aircraft to test attitude tracking</p>
             <div class="attitude-fusion-demo__readout" aria-live="polite">
               <span>Roll: <strong class="js-af-roll-val">0.0°</strong></span>
               <span>Pitch: <strong class="js-af-pitch-val">0.0°</strong></span>
@@ -91,6 +85,12 @@
               <span>Calibrated Error: <strong class="js-af-calibrated-error-val">0.0°</strong></span>
               <span>EKF Error: <strong class="js-af-ekf-error-val">0.0°</strong></span>
             </div>
+            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D MEMS-based aircraft attitude visualization"></canvas>
+            <div class="attitude-fusion-demo__subplot-labels" aria-hidden="true">
+              <span>Ground Truth Motion</span>
+              <span>Estimated Attitude</span>
+            </div>
+            <p class="attitude-fusion-demo__drag-hint">Drag the left green aircraft to test attitude tracking</p>
           </div>
           <div class="attitude-fusion-demo__sensor-panels">
             <canvas class="attitude-fusion-demo__sensor-panels-canvas js-attitude-fusion-sensor-panels" aria-label="Sensor measurements, EKF estimates, and sensor health and calibration effect"></canvas>
@@ -105,9 +105,6 @@
           <div class="attitude-fusion-demo__charts">
             <div class="attitude-fusion-demo__chart-wrap">
               <canvas class="attitude-fusion-demo__chart js-af-chart-rp" aria-label="Raw sensor, calibrated sensor, EKF estimate, and ground truth attitude paths"></canvas>
-            </div>
-            <div class="attitude-fusion-demo__chart-wrap">
-              <canvas class="attitude-fusion-demo__chart js-af-chart-hdg" aria-label="Vehicle trace and motion recording output"></canvas>
             </div>
           </div>
         </div>

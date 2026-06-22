@@ -6,6 +6,9 @@
   var THREE_OBJ_LOADER_CDN = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js';
   var CHART_CDN = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
   var DEG = Math.PI / 180;
+  var DRAG_YAW_RATE = 0.7;
+  var DRAG_PITCH_RATE = 0.44;
+  var DRAG_ROLL_RATE = 0.24;
   var THEME = {
     bg: '#f8fafc',
     bgAlt: '#f4f7fa',
@@ -26,25 +29,138 @@
   var scriptPromises = {};
   var airplaneModelPromises = {};
   var previewInstances = [];
+  var threeDepsPromise = null;
 
   function loadScript(src) {
     if (scriptPromises[src]) return scriptPromises[src];
 
     scriptPromises[src] = new Promise(function(resolve, reject) {
-      if (document.querySelector('script[src="' + src + '"]')) {
+      var existing = document.querySelector('script[src="' + src + '"]');
+
+      function finish() {
         resolve();
+      }
+
+      function fail() {
+        reject(new Error('Failed to load ' + src));
+      }
+
+      if (existing) {
+        if (existing.dataset.loaded === 'true') {
+          finish();
+          return;
+        }
+
+        var settled = false;
+
+        function done() {
+          if (settled) return;
+          settled = true;
+          existing.dataset.loaded = 'true';
+          finish();
+        }
+
+        existing.addEventListener('load', done);
+        existing.addEventListener('error', fail);
+
+        if (existing.readyState === 'complete' || existing.readyState === 'loaded') {
+          done();
+        }
+
         return;
       }
 
       var script = document.createElement('script');
       script.src = src;
       script.async = true;
-      script.onload = function() { resolve(); };
-      script.onerror = function() { reject(new Error('Failed to load ' + src)); };
+      script.onload = function() {
+        script.dataset.loaded = 'true';
+        finish();
+      };
+      script.onerror = fail;
       document.head.appendChild(script);
     });
 
     return scriptPromises[src];
+  }
+
+  function waitForGlobal(path, maxAttempts) {
+    maxAttempts = maxAttempts || 240;
+
+    return new Promise(function(resolve, reject) {
+      var attempts = 0;
+
+      function check() {
+        var parts = path.split('.');
+        var value = window;
+        var found = true;
+
+        for (var i = 0; i < parts.length; i++) {
+          value = value[parts[i]];
+          if (value == null) {
+            found = false;
+            break;
+          }
+        }
+
+        if (found) {
+          resolve();
+          return;
+        }
+
+        if (++attempts > maxAttempts) {
+          reject(new Error(path + ' is not available'));
+          return;
+        }
+
+        window.requestAnimationFrame(check);
+      }
+
+      check();
+    });
+  }
+
+  function resetBrokenLoaderScript(src, globalPath) {
+    if (typeof THREE === 'undefined') return;
+
+    var parts = globalPath.split('.');
+    var value = window;
+    var found = true;
+
+    for (var i = 0; i < parts.length; i++) {
+      value = value[parts[i]];
+      if (value == null) {
+        found = false;
+        break;
+      }
+    }
+
+    if (found) return;
+
+    var broken = document.querySelector('script[src="' + src + '"]');
+    if (!broken || broken.dataset.loaded === 'true') return;
+
+    broken.remove();
+    delete scriptPromises[src];
+  }
+
+  function loadThreeDeps() {
+    if (threeDepsPromise) return threeDepsPromise;
+
+    threeDepsPromise = loadScript(THREE_CDN)
+      .then(function() { return waitForGlobal('THREE'); })
+      .then(function() {
+        resetBrokenLoaderScript(THREE_MTL_LOADER_CDN, 'THREE.MTLLoader');
+        return loadScript(THREE_MTL_LOADER_CDN);
+      })
+      .then(function() { return waitForGlobal('THREE.MTLLoader'); })
+      .then(function() {
+        resetBrokenLoaderScript(THREE_OBJ_LOADER_CDN, 'THREE.OBJLoader');
+        return loadScript(THREE_OBJ_LOADER_CDN);
+      })
+      .then(function() { return waitForGlobal('THREE.OBJLoader'); });
+
+    return threeDepsPromise;
   }
 
   function getSiteBaseUrl() {
@@ -126,18 +242,22 @@
 
   function createColoredAirplane(template, color, opacity) {
     var clone = template.clone(true);
-    var transparent = opacity < 1;
+    var materialOptions = {
+      color: color,
+      metalness: 0.18,
+      roughness: 0.48,
+      side: THREE.FrontSide,
+      flatShading: false
+    };
+
+    if (opacity < 1) {
+      materialOptions.transparent = true;
+      materialOptions.opacity = opacity;
+    }
 
     clone.traverse(function(child) {
       if (!child.isMesh) return;
-
-      child.material = new THREE.MeshStandardMaterial({
-        color: color,
-        metalness: 0.18,
-        roughness: 0.48,
-        transparent: transparent,
-        opacity: opacity
-      });
+      child.material = new THREE.MeshStandardMaterial(materialOptions);
     });
 
     return clone;
@@ -147,10 +267,7 @@
     objFile = objFile || 'bixler.obj';
     if (airplaneModelPromises[objFile]) return airplaneModelPromises[objFile];
 
-    airplaneModelPromises[objFile] = Promise.all([
-      loadScript(THREE_MTL_LOADER_CDN),
-      loadScript(THREE_OBJ_LOADER_CDN)
-    ]).then(function() {
+    airplaneModelPromises[objFile] = loadThreeDeps().then(function() {
       var modelBase = getAirplaneModelBase();
 
       return new Promise(function(resolve, reject) {
@@ -694,9 +811,9 @@
     this.lastPointerX = event.clientX;
     this.lastPointerY = event.clientY;
 
-    var yawDelta = dx * 0.35;
-    var pitchDelta = -dy * 0.22;
-    var rollDelta = dx * 0.12;
+    var yawDelta = dx * DRAG_YAW_RATE;
+    var pitchDelta = -dy * DRAG_PITCH_RATE;
+    var rollDelta = dx * DRAG_ROLL_RATE;
 
     this.groundTruth.yaw = wrap360(this.groundTruth.yaw + yawDelta);
     this.groundTruth.pitch = clamp(this.groundTruth.pitch + pitchDelta, -35, 35);
@@ -1263,7 +1380,7 @@
   function openModal(modal) {
     var modalId = modal.id;
 
-    Promise.all([loadScript(THREE_CDN), loadScript(CHART_CDN)]).then(function() {
+    Promise.all([loadThreeDeps(), loadScript(CHART_CDN)]).then(function() {
       document.body.classList.add('demo-modal-open');
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
@@ -1309,12 +1426,21 @@
     this.estRoll = 0;
     this.estPitch = 0;
     this.estYaw = 270;
+    this.truthRoll = 0;
+    this.truthPitch = 0;
+    this.truthYaw = 270;
+    this.isDragging = false;
+    this.lastPointerX = 0;
+    this.lastPointerY = 0;
     this.running = false;
     this.visible = false;
     this.initialized = false;
     this.initializing = false;
     this.rafId = null;
     this.onResize = this.handleResize.bind(this);
+    this.onPointerDown = this.handlePointerDown.bind(this);
+    this.onPointerMove = this.handlePointerMove.bind(this);
+    this.onPointerUp = this.handlePointerUp.bind(this);
     this.animate = this.animate.bind(this);
   }
 
@@ -1330,11 +1456,7 @@
     this.initializing = true;
     this.setLoading(true);
 
-    this._initPromise = Promise.all([
-      loadScript(THREE_CDN),
-      loadAirplaneTemplate('bixler-low.obj')
-    ]).then(function(results) {
-      var template = results[1];
+    this._initPromise = loadAirplaneTemplate('bixler.obj').then(function(template) {
       self.initThree(template);
       self.initialized = true;
       self.initializing = false;
@@ -1367,9 +1489,51 @@
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: false });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     this.renderer.setSize(width, height, false);
+    this.renderer.setClearColor(0xf8fafc, 1);
     this.renderer.setScissorTest(true);
 
+    this.canvas.addEventListener('pointerdown', this.onPointerDown);
+    window.addEventListener('pointermove', this.onPointerMove);
+    window.addEventListener('pointerup', this.onPointerUp);
+    window.addEventListener('pointercancel', this.onPointerUp);
     window.addEventListener('resize', this.onResize);
+  };
+
+  AttitudeFusionCardPreview.prototype.handlePointerDown = function(event) {
+    if (!this.initialized || !this.canvas) return;
+
+    var rect = this.canvas.getBoundingClientRect();
+    var localX = event.clientX - rect.left;
+    if (localX > rect.width / 2) return;
+
+    this.isDragging = true;
+    this.lastPointerX = event.clientX;
+    this.lastPointerY = event.clientY;
+    this.canvas.setPointerCapture(event.pointerId);
+    this.canvas.classList.add('is-dragging');
+  };
+
+  AttitudeFusionCardPreview.prototype.handlePointerMove = function(event) {
+    if (!this.isDragging) return;
+
+    var dx = event.clientX - this.lastPointerX;
+    var dy = event.clientY - this.lastPointerY;
+    this.lastPointerX = event.clientX;
+    this.lastPointerY = event.clientY;
+
+    this.truthYaw = wrap360(this.truthYaw + dx * DRAG_YAW_RATE);
+    this.truthPitch = clamp(this.truthPitch - dy * DRAG_PITCH_RATE, -35, 35);
+    this.truthRoll = clamp(this.truthRoll + dx * DRAG_ROLL_RATE, -55, 55);
+  };
+
+  AttitudeFusionCardPreview.prototype.handlePointerUp = function(event) {
+    if (!this.isDragging || !this.canvas) return;
+
+    this.isDragging = false;
+    this.canvas.classList.remove('is-dragging');
+    if (this.canvas.hasPointerCapture && this.canvas.hasPointerCapture(event.pointerId)) {
+      this.canvas.releasePointerCapture(event.pointerId);
+    }
   };
 
   AttitudeFusionCardPreview.prototype.handleResize = function() {
@@ -1387,15 +1551,20 @@
   AttitudeFusionCardPreview.prototype.step = function(dt) {
     this.elapsed += dt;
 
-    var truthRoll = Math.sin(this.elapsed * 0.85) * 24;
-    var truthPitch = Math.sin(this.elapsed * 0.58 + 0.8) * 16;
-    var truthYaw = wrap360(270 + Math.sin(this.elapsed * 0.42) * 20);
+    if (!this.isDragging) {
+      var targetRoll = Math.sin(this.elapsed * 0.85) * 24;
+      var targetPitch = Math.sin(this.elapsed * 0.58 + 0.8) * 16;
+      var targetYaw = wrap360(270 + Math.sin(this.elapsed * 0.42) * 20);
+      this.truthRoll += (targetRoll - this.truthRoll) * 0.06;
+      this.truthPitch += (targetPitch - this.truthPitch) * 0.06;
+      this.truthYaw = lerpAngle(this.truthYaw, targetYaw, 0.06);
+    }
 
-    this.estRoll += (truthRoll * 0.9 + Math.sin(this.elapsed * 1.15) * 4 - this.estRoll) * 0.08;
-    this.estPitch += (truthPitch * 0.88 + Math.sin(this.elapsed * 0.92) * 3 - this.estPitch) * 0.08;
-    this.estYaw = lerpAngle(this.estYaw, wrap360(truthYaw + Math.sin(this.elapsed * 0.74) * 7), 0.08);
+    this.estRoll += (this.truthRoll * 0.9 + Math.sin(this.elapsed * 1.15) * 4 - this.estRoll) * 0.08;
+    this.estPitch += (this.truthPitch * 0.88 + Math.sin(this.elapsed * 0.92) * 3 - this.estPitch) * 0.08;
+    this.estYaw = lerpAngle(this.estYaw, wrap360(this.truthYaw + Math.sin(this.elapsed * 0.74) * 7), 0.08);
 
-    applyAttitudeRotation(this.trueVehicle, truthRoll, truthPitch, truthYaw);
+    applyAttitudeRotation(this.trueVehicle, this.truthRoll, this.truthPitch, this.truthYaw);
     applyAttitudeRotation(this.estimatedVehicle, this.estRoll, this.estPitch, this.estYaw);
   };
 
@@ -1407,6 +1576,9 @@
     var halfWidth = Math.floor(width / 2);
     var rightWidth = width - halfWidth;
 
+    this.renderer.setScissorTest(false);
+    this.renderer.setViewport(0, 0, width, height);
+    this.renderer.clear();
     this.renderer.setScissorTest(true);
 
     this.renderer.setViewport(0, 0, halfWidth, height);
@@ -1452,6 +1624,13 @@
 
   AttitudeFusionCardPreview.prototype.destroy = function() {
     this.stop();
+    if (this.canvas) {
+      this.canvas.removeEventListener('pointerdown', this.onPointerDown);
+      this.canvas.classList.remove('is-dragging');
+    }
+    window.removeEventListener('pointermove', this.onPointerMove);
+    window.removeEventListener('pointerup', this.onPointerUp);
+    window.removeEventListener('pointercancel', this.onPointerUp);
     window.removeEventListener('resize', this.onResize);
     if (this.renderer) this.renderer.dispose();
   };

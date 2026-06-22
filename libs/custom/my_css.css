@@ -1096,6 +1096,11 @@ body.demo-modal-open {
   display: block;
   width: 100%;
   height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+.attitude-fusion-preview__canvas.is-dragging {
+  cursor: grabbing;
 }
 .attitude-fusion-preview__labels {
   position: absolute;
@@ -1125,6 +1130,18 @@ body.demo-modal-open {
   background: rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
+.attitude-fusion-preview__drag-hint {
+  position: absolute;
+  left: 0.55rem;
+  bottom: 0.45rem;
+  margin: 0;
+  padding: 0.14rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 0.68em;
+  pointer-events: none;
+}
 .attitude-fusion-preview__loading {
   position: absolute;
   inset: 0;
@@ -1142,7 +1159,8 @@ body.demo-modal-open {
   display: none;
 }
 .attitude-fusion-preview.is-loading .attitude-fusion-preview__labels,
-.attitude-fusion-preview.is-loading .attitude-fusion-preview__divider {
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__divider,
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__drag-hint {
   visibility: hidden;
 }
 .attitude-fusion-preview__hint {

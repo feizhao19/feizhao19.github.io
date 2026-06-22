@@ -9,7 +9,7 @@
   var DRAG_YAW_RATE = 0.7;
   var DRAG_PITCH_RATE = 0.44;
   var DRAG_ROLL_RATE = 0.24;
-  var GYRO_WHITE_NOISE_DPS = 0.08;
+  var GYRO_WHITE_NOISE_DPS = 0.8;
   var THEME = {
     bg: '#f8fafc',
     bgAlt: '#f4f7fa',
@@ -879,30 +879,30 @@
     }
 
     if (this.fusionToggleBtn) {
-      this.fusionToggleBtn.textContent = enabled ? 'Switch to gyro-only' : 'Enable sensor fusion';
+      this.fusionToggleBtn.textContent = enabled ? 'Use gyro-only path' : 'Use multi-sensor path';
       this.fusionToggleBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
       this.fusionToggleBtn.classList.toggle('button-primary', enabled);
       this.fusionToggleBtn.classList.toggle('button', !enabled);
     }
 
     if (this.fusionLabelEl) {
-      this.fusionLabelEl.textContent = enabled ? 'Sensor fusion active' : 'Gyro-only mode (fusion off)';
+      this.fusionLabelEl.textContent = enabled ? 'Multi-sensor processing' : 'Gyro-only processing';
     }
 
     if (this.fusionDescEl) {
       this.fusionDescEl.textContent = enabled
-        ? 'Gyro, accelerometer, and magnetometer are fused with online gyro-bias correction.'
-        : 'Attitude comes from gyro integration only — bias accumulates and the estimate drifts. Hold the green aircraft still to watch it diverge.';
+        ? 'MEMS measurements are combined to estimate vehicle attitude in real time.'
+        : 'Only the gyroscope path is active — the estimate drifts when held still.';
     }
 
     if (this.instrumentsCaptionEl) {
       this.instrumentsCaptionEl.textContent = enabled
-        ? 'Sensor health and calibration effect update from live MEMS errors.'
-        : 'Accelerometer and magnetometer controls are disabled in gyro-only mode.';
+        ? 'Sensor quality and accelerometer calibration shown below.'
+        : 'Acc and mag controls inactive in gyro-only mode.';
     }
 
     if (this.ekfErrorValEl && this.ekfErrorValEl.parentNode && this.ekfErrorValEl.parentNode.firstChild) {
-      this.ekfErrorValEl.parentNode.firstChild.textContent = enabled ? 'Fusion Error: ' : 'Gyro Error: ';
+      this.ekfErrorValEl.parentNode.firstChild.textContent = 'Est. Error: ';
     }
 
     if (this.alphaWrap) {
@@ -1029,7 +1029,7 @@
           lineDataset('Ground Truth', this.hist.truth, '#2ecc71', { width: 1.3 }),
           lineDataset('Raw Sensor', this.hist.raw, '#e74c3c', { dash: [4, 3] }),
           lineDataset('Calibrated Sensor', this.hist.calibrated, '#2982ac', { dash: [5, 3], width: 1.8 }),
-          lineDataset('EKF Estimate', this.hist.ekf, '#f39c12', { width: 2.4 })
+          lineDataset('Estimate', this.hist.ekf, '#f39c12', { width: 2.4 })
         ]
       },
       options: {
@@ -1160,55 +1160,103 @@
     ctx.fillRect(x, y, w * pct, 8);
   };
 
-  MemsSensorFusionLabDemo.prototype.drawPipeline = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'MEMS Sensor Fusion Pipeline');
+  MemsSensorFusionLabDemo.prototype.drawPipelineNode = function(ctx, nx, ny, nw, nh, node, pulse, active) {
+    active = active !== false;
+    ctx.fillStyle = node.fill;
+    ctx.strokeStyle = node.stroke;
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = active ? (0.72 + 0.28 * pulse) : 0.28;
+    ctx.beginPath();
+    ctx.roundRect(nx, ny, nw, nh, 6);
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = active ? node.text : THEME.textMuted;
+    ctx.font = '700 8px Raleway, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(node.label, nx + nw / 2, ny + nh * 0.38);
+    ctx.font = '8px Raleway, sans-serif';
+    ctx.fillText(node.sub, nx + nw / 2, ny + nh * 0.72);
+    ctx.textAlign = 'left';
+  };
 
-    var nodes = [
-      { label: 'GYRO', sub: 'rate', fill: 'rgba(230,126,34,0.16)', stroke: 'rgba(230,126,34,0.34)', text: '#8a4d15' },
-      { label: 'ACC', sub: 'tilt', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226' },
-      { label: 'MAG', sub: 'heading', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87' },
-      { label: 'GPS', sub: 'motion', fill: 'rgba(22,160,133,0.14)', stroke: 'rgba(22,160,133,0.32)', text: '#0f6d5b' },
-      { label: 'CALIB', sub: 'quadrature', fill: 'rgba(41,130,172,0.14)', stroke: 'rgba(41,130,172,0.32)', text: '#1f5f7d' },
-      { label: 'DCM', sub: 'attitude', fill: 'rgba(52,73,94,0.12)', stroke: 'rgba(52,73,94,0.28)', text: '#2c3e50' },
-      { label: 'EKF', sub: this.fusionEnabled ? 'fusion' : 'gyro only', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' },
-      { label: 'RECORD', sub: 'motion', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45' }
+  MemsSensorFusionLabDemo.prototype.drawPipeline = function(ctx, x, y, w, h) {
+    this.drawCard(ctx, x, y, w, h, 'Measurement & Estimation Flow');
+
+    var fusionOn = this.fusionEnabled;
+    var pulse = 0.5 + 0.5 * Math.sin(this.elapsed * 5);
+    var pad = 12;
+    var innerW = w - pad * 2;
+    var innerH = h - 36;
+    var topY = y + 28;
+
+    var sensorW = Math.min(52, Math.max(40, innerW * 0.14));
+    var sensorH = Math.min(40, Math.max(30, innerH * 0.38));
+    var fusionW = Math.min(72, Math.max(56, innerW * 0.2));
+    var fusionH = Math.min(46, Math.max(34, innerH * 0.48));
+    var outW = Math.min(58, Math.max(44, innerW * 0.15));
+    var outH = fusionH;
+    var sensorGap = Math.max(6, (innerH - sensorH * 3) / 4);
+    var sensorX = x + pad + 4;
+    var sensorStartY = topY + sensorGap;
+
+    var sensors = [
+      { label: 'GYRO', sub: 'angular rate', fill: 'rgba(230,126,34,0.16)', stroke: 'rgba(230,126,34,0.34)', text: '#8a4d15', active: true },
+      { label: 'ACC', sub: 'gravity tilt', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226', active: fusionOn },
+      { label: 'MAG', sub: 'heading', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87', active: fusionOn }
     ];
 
-    var startX = x + 12;
-    var nodeGap = 6;
-    var nodeW = (w - 24 - (nodes.length - 1) * nodeGap) / nodes.length;
-    var nodeH = Math.min(42, Math.max(30, h - 40));
-    var nodeY = y + Math.max(24, (h - nodeH) * 0.42);
-    var pulse = 0.5 + 0.5 * Math.sin(this.elapsed * 5);
-
-    nodes.forEach(function(node, i) {
-      var nx = startX + i * (nodeW + nodeGap);
-      ctx.fillStyle = node.fill;
-      ctx.strokeStyle = node.stroke;
-      ctx.lineWidth = 1;
-      ctx.globalAlpha = 0.72 + 0.28 * pulse;
-      ctx.beginPath();
-      ctx.roundRect(nx, nodeY, nodeW, nodeH, 6);
-      ctx.fill();
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = node.text;
-      ctx.font = '700 8px Raleway, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(node.label, nx + nodeW / 2, nodeY + nodeH * 0.38);
-      ctx.font = '8px Raleway, sans-serif';
-      ctx.fillText(node.sub, nx + nodeW / 2, nodeY + nodeH * 0.72);
-
-      if (i < nodes.length - 1) {
-        ctx.strokeStyle = THEME.connector;
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(nx + nodeW + 2, nodeY + nodeH * 0.5);
-        ctx.lineTo(nx + nodeW + 8, nodeY + nodeH * 0.5);
-        ctx.stroke();
-      }
+    var sensorCenters = [];
+    var self = this;
+    sensors.forEach(function(node, i) {
+      var sy = sensorStartY + i * (sensorH + sensorGap);
+      self.drawPipelineNode(ctx, sensorX, sy, sensorW, sensorH, node, pulse, node.active);
+      sensorCenters.push({ x: sensorX + sensorW, y: sy + sensorH * 0.5, active: node.active });
     });
 
+    var fusionX = x + pad + innerW * 0.42 - fusionW * 0.5;
+    var fusionY = topY + (innerH - fusionH) * 0.5;
+    var fusionNode = fusionOn
+      ? { label: 'PROCESS', sub: 'multi-sensor', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' }
+      : { label: 'PROCESS', sub: 'gyro only', fill: 'rgba(231,76,60,0.12)', stroke: 'rgba(231,76,60,0.3)', text: '#a83226' };
+    this.drawPipelineNode(ctx, fusionX, fusionY, fusionW, fusionH, fusionNode, pulse, true);
+
+    var outX = x + w - pad - outW - 4;
+    var outY = fusionY;
+    var outNode = { label: 'OUTPUT', sub: 'attitude est.', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45' };
+    this.drawPipelineNode(ctx, outX, outY, outW, outH, outNode, pulse, true);
+
+    var fusionInX = fusionX;
+    var fusionMidY = fusionY + fusionH * 0.5;
+    var fusionOutX = fusionX + fusionW;
+    var outInX = outX;
+
+    ctx.strokeStyle = THEME.connector;
+    ctx.lineWidth = 1.5;
+    sensorCenters.forEach(function(sc) {
+      if (!sc.active) {
+        ctx.globalAlpha = 0.22;
+      } else {
+        ctx.globalAlpha = 0.55 + 0.25 * pulse;
+      }
+      ctx.beginPath();
+      ctx.moveTo(sc.x + 2, sc.y);
+      ctx.lineTo(fusionInX - 6, fusionMidY);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+
+    ctx.globalAlpha = 0.72 + 0.28 * pulse;
+    ctx.beginPath();
+    ctx.moveTo(fusionOutX + 2, fusionMidY);
+    ctx.lineTo(outInX - 8, fusionMidY);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    ctx.fillStyle = THEME.textMuted;
+    ctx.font = '7px Raleway, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(fusionOn ? 'Sensors → processing → output' : 'Gyro path only (other sensors inactive)', x + w * 0.5, y + h - 8);
     ctx.textAlign = 'left';
   };
 

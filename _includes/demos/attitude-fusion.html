@@ -10,14 +10,18 @@
   {% endif %}
 
   <div class="viz-project__demo-wrap">
-    <div class="attitude-fusion-preview">
-      <div class="attitude-fusion-preview__visual" aria-hidden="true">
-        <div class="attitude-fusion-preview__mini-att">
-          <span>ATT</span>
+    <div class="attitude-fusion-preview js-attitude-fusion-preview">
+      <div class="attitude-fusion-preview__visual">
+        <canvas
+          class="attitude-fusion-preview__canvas js-attitude-fusion-preview-canvas"
+          aria-label="Ground truth and EKF estimated aircraft attitude preview"
+        ></canvas>
+        <div class="attitude-fusion-preview__labels" aria-hidden="true">
+          <span>Ground Truth</span>
+          <span>EKF Estimate</span>
         </div>
-        <div class="attitude-fusion-preview__mini-hdg">
-          <span>HDG</span>
-        </div>
+        <div class="attitude-fusion-preview__divider" aria-hidden="true"></div>
+        <div class="attitude-fusion-preview__loading js-attitude-fusion-preview-loading" hidden aria-live="polite">Loading...</div>
       </div>
       <p class="attitude-fusion-preview__hint">
         Interactive MEMS sensor fusion demo — calibration and EKF fusion recover reliable attitude estimates from noisy measurements.
@@ -141,6 +145,8 @@
           <button type="button" class="button js-af-reset">Reset measurement run</button>
         </div>
       </div>
+
+      <div class="attitude-fusion-demo__loading js-af-model-loading" hidden aria-live="polite">Loading...</div>
     </div>
   </div>
 </div>

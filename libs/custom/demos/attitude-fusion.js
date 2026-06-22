@@ -6,10 +6,26 @@
   var THREE_OBJ_LOADER_CDN = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js';
   var CHART_CDN = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
   var DEG = Math.PI / 180;
+  var THEME = {
+    bg: '#f8fafc',
+    bgAlt: '#f4f7fa',
+    card: '#ffffff',
+    cardBorder: 'rgba(0, 0, 0, 0.08)',
+    text: 'rgba(0, 0, 0, 0.72)',
+    textMuted: 'rgba(0, 0, 0, 0.55)',
+    textSoft: 'rgba(0, 0, 0, 0.48)',
+    grid: 'rgba(0, 0, 0, 0.06)',
+    barTrack: 'rgba(0, 0, 0, 0.06)',
+    mapBg: '#eef2f6',
+    mapBorder: 'rgba(0, 0, 0, 0.08)',
+    mapGrid: 'rgba(0, 0, 0, 0.06)',
+    connector: 'rgba(0, 0, 0, 0.18)'
+  };
 
   var activeInstances = {};
   var scriptPromises = {};
-  var airplaneModelPromise = null;
+  var airplaneModelPromises = {};
+  var previewInstances = [];
 
   function loadScript(src) {
     if (scriptPromises[src]) return scriptPromises[src];
@@ -127,10 +143,11 @@
     return clone;
   }
 
-  function loadAirplaneTemplate() {
-    if (airplaneModelPromise) return airplaneModelPromise;
+  function loadAirplaneTemplate(objFile) {
+    objFile = objFile || 'bixler.obj';
+    if (airplaneModelPromises[objFile]) return airplaneModelPromises[objFile];
 
-    airplaneModelPromise = Promise.all([
+    airplaneModelPromises[objFile] = Promise.all([
       loadScript(THREE_MTL_LOADER_CDN),
       loadScript(THREE_OBJ_LOADER_CDN)
     ]).then(function() {
@@ -145,14 +162,37 @@
           var objLoader = new THREE.OBJLoader();
           objLoader.setMaterials(materials);
           objLoader.setPath(modelBase);
-          objLoader.load('bixler.obj', function(object) {
+          objLoader.load(objFile, function(object) {
             resolve(prepareAirplaneModel(object));
           }, undefined, reject);
         }, undefined, reject);
       });
     });
 
-    return airplaneModelPromise;
+    return airplaneModelPromises[objFile];
+  }
+
+  function createAttitudeScene() {
+    var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf8fafc);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+    var key = new THREE.DirectionalLight(0xffffff, 0.9);
+    key.position.set(5, 7, 4);
+    scene.add(key);
+
+    var grid = new THREE.GridHelper(7, 14, 0xbfc9d4, 0xdce3ea);
+    grid.position.y = -0.55;
+    scene.add(grid);
+
+    return scene;
+  }
+
+  function applyAttitudeRotation(group, roll, pitch, yaw) {
+    group.rotation.order = 'ZXY';
+    group.rotation.x = roll * DEG;
+    group.rotation.z = -pitch * DEG;
+    group.rotation.y = -yaw * DEG;
   }
 
   function clamp(value, min, max) {
@@ -245,6 +285,7 @@
     this.fusionDescEl = modal.querySelector('.js-af-fusion-desc');
     this.instrumentsCaptionEl = modal.querySelector('.js-af-instruments-caption');
     this.demoRoot = modal.querySelector('.js-attitude-fusion-demo');
+    this.modelLoadingEl = modal.querySelector('.js-af-model-loading');
     this.rawErrorValEl = modal.querySelector('.js-af-raw-error-val');
     this.calibratedErrorValEl = modal.querySelector('.js-af-calibrated-error-val');
     this.ekfErrorValEl = modal.querySelector('.js-af-ekf-error-val');
@@ -517,6 +558,11 @@
     this.renderer.setScissorTest(true);
   };
 
+  MemsSensorFusionLabDemo.prototype.setModelLoading = function(isLoading) {
+    if (this.modelLoadingEl) this.modelLoadingEl.hidden = !isLoading;
+    if (this.demoRoot) this.demoRoot.classList.toggle('is-loading', isLoading);
+  };
+
   MemsSensorFusionLabDemo.prototype.loadVehicles = function() {
     var self = this;
 
@@ -535,19 +581,7 @@
   };
 
   MemsSensorFusionLabDemo.prototype.createAttitudeScene = function() {
-    var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf4f7fa);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
-    var key = new THREE.DirectionalLight(0xffffff, 0.9);
-    key.position.set(5, 7, 4);
-    scene.add(key);
-
-    var grid = new THREE.GridHelper(7, 14, 0xbfc9d4, 0xdce3ea);
-    grid.position.y = -0.55;
-    scene.add(grid);
-
-    return scene;
+    return createAttitudeScene();
   };
 
   MemsSensorFusionLabDemo.prototype.initInstruments = function() {
@@ -689,39 +723,33 @@
 
   MemsSensorFusionLabDemo.prototype.updateVehicleRotation = function(display) {
     if (this.trueVehicle) {
-      this.trueVehicle.rotation.order = 'ZXY';
-      this.trueVehicle.rotation.x = this.groundTruth.roll * DEG;
-      this.trueVehicle.rotation.z = -this.groundTruth.pitch * DEG;
-      this.trueVehicle.rotation.y = -this.groundTruth.yaw * DEG;
+      applyAttitudeRotation(this.trueVehicle, this.groundTruth.roll, this.groundTruth.pitch, this.groundTruth.yaw);
     }
 
     if (this.estimatedVehicle) {
-      this.estimatedVehicle.rotation.order = 'ZXY';
-      this.estimatedVehicle.rotation.x = display.roll * DEG;
-      this.estimatedVehicle.rotation.z = -display.pitch * DEG;
-      this.estimatedVehicle.rotation.y = -display.yaw * DEG;
+      applyAttitudeRotation(this.estimatedVehicle, display.roll, display.pitch, display.yaw);
     }
   };
 
   MemsSensorFusionLabDemo.prototype.drawCard = function(ctx, x, y, w, h, title) {
-    ctx.fillStyle = 'rgba(16,24,32,0.92)';
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillStyle = THEME.card;
+    ctx.strokeStyle = THEME.cardBorder;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.roundRect(x, y, w, h, 8);
     ctx.fill();
     ctx.stroke();
-    ctx.fillStyle = '#dce6ef';
+    ctx.fillStyle = THEME.text;
     ctx.font = '700 10px Raleway, sans-serif';
     ctx.fillText(title, x + 10, y + 16);
   };
 
   MemsSensorFusionLabDemo.prototype.drawBar = function(ctx, x, y, w, label, value, maxValue, color) {
     var pct = clamp(Math.abs(value) / maxValue, 0, 1);
-    ctx.fillStyle = '#8fa0ad';
+    ctx.fillStyle = THEME.textMuted;
     ctx.font = '9px Raleway, sans-serif';
     ctx.fillText(label, x, y - 3);
-    ctx.fillStyle = 'rgba(255,255,255,0.12)';
+    ctx.fillStyle = THEME.barTrack;
     ctx.fillRect(x, y, w, 8);
     ctx.fillStyle = color;
     ctx.fillRect(x, y, w * pct, 8);
@@ -731,14 +759,14 @@
     this.drawCard(ctx, x, y, w, h, 'MEMS Sensor Fusion Pipeline');
 
     var nodes = [
-      { label: 'GYRO', sub: 'rate', color: '#e67e22' },
-      { label: 'ACC', sub: 'tilt', color: '#e74c3c' },
-      { label: 'MAG', sub: 'heading', color: '#9b59b6' },
-      { label: 'GPS', sub: 'motion', color: '#16a085' },
-      { label: 'CALIB', sub: 'bias/noise', color: '#2982ac' },
-      { label: 'DCM', sub: 'attitude', color: '#34495e' },
-      { label: 'EKF', sub: this.fusionEnabled ? 'fusion' : 'bypass', color: '#f39c12' },
-      { label: 'RECORD', sub: 'motion', color: '#2ecc71' }
+      { label: 'GYRO', sub: 'rate', fill: 'rgba(230,126,34,0.16)', stroke: 'rgba(230,126,34,0.34)', text: '#8a4d15' },
+      { label: 'ACC', sub: 'tilt', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226' },
+      { label: 'MAG', sub: 'heading', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87' },
+      { label: 'GPS', sub: 'motion', fill: 'rgba(22,160,133,0.14)', stroke: 'rgba(22,160,133,0.32)', text: '#0f6d5b' },
+      { label: 'CALIB', sub: 'bias/noise', fill: 'rgba(41,130,172,0.14)', stroke: 'rgba(41,130,172,0.32)', text: '#1f5f7d' },
+      { label: 'DCM', sub: 'attitude', fill: 'rgba(52,73,94,0.12)', stroke: 'rgba(52,73,94,0.28)', text: '#2c3e50' },
+      { label: 'EKF', sub: this.fusionEnabled ? 'fusion' : 'bypass', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' },
+      { label: 'RECORD', sub: 'motion', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45' }
     ];
 
     var startX = x + 12;
@@ -750,13 +778,16 @@
 
     nodes.forEach(function(node, i) {
       var nx = startX + i * (nodeW + nodeGap);
-      ctx.fillStyle = node.color;
-      ctx.globalAlpha = 0.55 + 0.35 * pulse;
+      ctx.fillStyle = node.fill;
+      ctx.strokeStyle = node.stroke;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.72 + 0.28 * pulse;
       ctx.beginPath();
       ctx.roundRect(nx, nodeY, nodeW, nodeH, 6);
       ctx.fill();
+      ctx.stroke();
       ctx.globalAlpha = 1;
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = node.text;
       ctx.font = '700 8px Raleway, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(node.label, nx + nodeW / 2, nodeY + nodeH * 0.38);
@@ -764,7 +795,7 @@
       ctx.fillText(node.sub, nx + nodeW / 2, nodeY + nodeH * 0.72);
 
       if (i < nodes.length - 1) {
-        ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+        ctx.strokeStyle = THEME.connector;
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.moveTo(nx + nodeW + 2, nodeY + nodeH * 0.5);
@@ -789,8 +820,8 @@
     ctx.save();
 
     // Map background
-    ctx.fillStyle = 'rgba(3,10,18,0.95)';
-    ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+    ctx.fillStyle = THEME.mapBg;
+    ctx.strokeStyle = THEME.mapBorder;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.roundRect(mapX, mapY, mapW, mapH, 7);
@@ -798,7 +829,7 @@
     ctx.stroke();
 
     // Grid
-    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.strokeStyle = THEME.mapGrid;
     ctx.lineWidth = 1;
     for (var gx = 1; gx < 4; gx += 1) {
       ctx.beginPath();
@@ -814,7 +845,7 @@
     }
 
     // Zero trace reference.
-    ctx.strokeStyle = 'rgba(220,226,232,0.45)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.18)';
     ctx.lineWidth = 1.5;
     ctx.setLineDash([5, 5]);
     ctx.beginPath();
@@ -863,12 +894,12 @@
       var markerX = mapX + mapW - 8;
       var markerY = centerY - clamp((last.trace || 0) * scale, -mapH * 0.44, mapH * 0.44);
 
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#2982ac';
       ctx.beginPath();
       ctx.arc(markerX, markerY, 3.5, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = 'rgba(255,255,255,0.72)';
+      ctx.fillStyle = THEME.textMuted;
       ctx.font = '8px Raleway, sans-serif';
       ctx.fillText('now', markerX - 16, markerY - 6);
     }
@@ -885,7 +916,7 @@
     ctx.lineTo(x + 26, legendY - 3);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(225,232,238,0.9)';
+    ctx.fillStyle = '#2982ac';
     ctx.fillText('heading', x + 30, legendY);
 
     ctx.strokeStyle = 'rgba(22,160,133,0.96)';
@@ -894,7 +925,7 @@
     ctx.moveTo(x + 92, legendY - 3);
     ctx.lineTo(x + 108, legendY - 3);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(220,245,235,0.9)';
+    ctx.fillStyle = '#16a085';
     ctx.fillText('speed', x + 112, legendY);
 
     ctx.strokeStyle = 'rgba(243,156,18,0.98)';
@@ -903,7 +934,7 @@
     ctx.moveTo(x + 152, legendY - 3);
     ctx.lineTo(x + 168, legendY - 3);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(255,230,190,0.9)';
+    ctx.fillStyle = '#d68910';
     ctx.fillText('trace', x + 172, legendY);
 
     ctx.restore();
@@ -934,13 +965,13 @@
     var rowH = Math.max(20, (h - 48) / rows.length);
 
     ctx.font = '700 8px Raleway, sans-serif';
-    ctx.fillStyle = '#8fa0ad';
+    ctx.fillStyle = THEME.textMuted;
     ctx.fillText('Before', x + w - 86, y + 17);
     ctx.fillText('After', x + w - 40, y + 17);
 
     rows.forEach(function(row, i) {
       var ry = startY + i * rowH;
-      ctx.fillStyle = '#dce6ef';
+      ctx.fillStyle = THEME.text;
       ctx.font = '9px Raleway, sans-serif';
       ctx.fillText(row.label, x + 12, ry);
       ctx.fillStyle = '#e74c3c';
@@ -958,7 +989,7 @@
     if (!ctx || !width || !height) return;
 
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = '#0b1118';
+    ctx.fillStyle = THEME.bg;
     ctx.fillRect(0, 0, width, height);
     this.drawPipeline(ctx, 8, 8, width - 16, height - 16);
   };
@@ -970,7 +1001,7 @@
     if (!ctx || !width || !height) return;
 
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = '#0b1118';
+    ctx.fillStyle = THEME.bg;
     ctx.fillRect(0, 0, width, height);
 
     var gap = 10;
@@ -1181,6 +1212,7 @@
     if (this._initPromise) return this._initPromise;
 
     var self = this;
+    this.setModelLoading(true);
     this.initThree();
     this._initPromise = this.loadVehicles().then(function() {
       self.initInstruments();
@@ -1190,6 +1222,8 @@
       self.initialized = true;
       self.handleResize();
       self.updateDisplays();
+    }).finally(function() {
+      self.setModelLoading(false);
     });
 
     return this._initPromise;
@@ -1261,6 +1295,193 @@
     }
   }
 
+  function AttitudeFusionCardPreview(root) {
+    this.root = root;
+    this.canvas = root.querySelector('.js-attitude-fusion-preview-canvas');
+    this.loadingEl = root.querySelector('.js-attitude-fusion-preview-loading');
+    this.trueScene = null;
+    this.estimatedScene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.trueVehicle = null;
+    this.estimatedVehicle = null;
+    this.elapsed = 0;
+    this.estRoll = 0;
+    this.estPitch = 0;
+    this.estYaw = 270;
+    this.running = false;
+    this.visible = false;
+    this.initialized = false;
+    this.initializing = false;
+    this.rafId = null;
+    this.onResize = this.handleResize.bind(this);
+    this.animate = this.animate.bind(this);
+  }
+
+  AttitudeFusionCardPreview.prototype.setLoading = function(isLoading) {
+    if (this.loadingEl) this.loadingEl.hidden = !isLoading;
+    if (this.root) this.root.classList.toggle('is-loading', isLoading);
+  };
+
+  AttitudeFusionCardPreview.prototype.ensureInitialized = function() {
+    if (this.initialized || this.initializing) return this._initPromise || Promise.resolve();
+
+    var self = this;
+    this.initializing = true;
+    this.setLoading(true);
+
+    this._initPromise = Promise.all([
+      loadScript(THREE_CDN),
+      loadAirplaneTemplate('bixler-low.obj')
+    ]).then(function(results) {
+      var template = results[1];
+      self.initThree(template);
+      self.initialized = true;
+      self.initializing = false;
+      self.setLoading(false);
+      self.handleResize();
+    }).catch(function(error) {
+      console.warn('Attitude fusion preview failed to load.', error);
+      self.initializing = false;
+      self.setLoading(false);
+    });
+
+    return this._initPromise;
+  };
+
+  AttitudeFusionCardPreview.prototype.initThree = function(template) {
+    var width = this.canvas.clientWidth;
+    var height = this.canvas.clientHeight;
+
+    this.trueScene = createAttitudeScene();
+    this.estimatedScene = createAttitudeScene();
+    this.trueVehicle = createColoredAirplane(template, 0x2ecc71, 1.0);
+    this.estimatedVehicle = createColoredAirplane(template, 0xf39c12, 1.0);
+    this.trueScene.add(this.trueVehicle);
+    this.estimatedScene.add(this.estimatedVehicle);
+
+    this.camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 100);
+    this.camera.position.set(2.35, 1.05, 2.95);
+    this.camera.lookAt(0, 0.02, 0);
+
+    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: false });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.setSize(width, height, false);
+    this.renderer.setScissorTest(true);
+
+    window.addEventListener('resize', this.onResize);
+  };
+
+  AttitudeFusionCardPreview.prototype.handleResize = function() {
+    if (!this.renderer || !this.camera || !this.canvas) return;
+
+    var width = this.canvas.clientWidth;
+    var height = this.canvas.clientHeight;
+    if (!width || !height) return;
+
+    this.camera.aspect = (width / 2) / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height, false);
+  };
+
+  AttitudeFusionCardPreview.prototype.step = function(dt) {
+    this.elapsed += dt;
+
+    var truthRoll = Math.sin(this.elapsed * 0.85) * 24;
+    var truthPitch = Math.sin(this.elapsed * 0.58 + 0.8) * 16;
+    var truthYaw = wrap360(270 + Math.sin(this.elapsed * 0.42) * 20);
+
+    this.estRoll += (truthRoll * 0.9 + Math.sin(this.elapsed * 1.15) * 4 - this.estRoll) * 0.08;
+    this.estPitch += (truthPitch * 0.88 + Math.sin(this.elapsed * 0.92) * 3 - this.estPitch) * 0.08;
+    this.estYaw = lerpAngle(this.estYaw, wrap360(truthYaw + Math.sin(this.elapsed * 0.74) * 7), 0.08);
+
+    applyAttitudeRotation(this.trueVehicle, truthRoll, truthPitch, truthYaw);
+    applyAttitudeRotation(this.estimatedVehicle, this.estRoll, this.estPitch, this.estYaw);
+  };
+
+  AttitudeFusionCardPreview.prototype.render = function() {
+    if (!this.renderer || !this.camera || !this.trueScene || !this.estimatedScene) return;
+
+    var width = this.canvas.clientWidth;
+    var height = this.canvas.clientHeight;
+    var halfWidth = Math.floor(width / 2);
+    var rightWidth = width - halfWidth;
+
+    this.renderer.setScissorTest(true);
+
+    this.renderer.setViewport(0, 0, halfWidth, height);
+    this.renderer.setScissor(0, 0, halfWidth, height);
+    this.renderer.render(this.trueScene, this.camera);
+
+    this.renderer.setViewport(halfWidth, 0, rightWidth, height);
+    this.renderer.setScissor(halfWidth, 0, rightWidth, height);
+    this.renderer.render(this.estimatedScene, this.camera);
+  };
+
+  AttitudeFusionCardPreview.prototype.animate = function() {
+    if (!this.running) return;
+    this.step(1 / 60);
+    this.render();
+    this.rafId = window.requestAnimationFrame(this.animate);
+  };
+
+  AttitudeFusionCardPreview.prototype.start = function() {
+    if (this.running) return;
+
+    var self = this;
+    this.ensureInitialized().then(function() {
+      if (!self.initialized || self.running) return;
+      self.running = true;
+      self.animate();
+    });
+  };
+
+  AttitudeFusionCardPreview.prototype.stop = function() {
+    this.running = false;
+    if (this.rafId) {
+      window.cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+  };
+
+  AttitudeFusionCardPreview.prototype.setVisible = function(isVisible) {
+    this.visible = isVisible;
+    if (isVisible) this.start();
+    else this.stop();
+  };
+
+  AttitudeFusionCardPreview.prototype.destroy = function() {
+    this.stop();
+    window.removeEventListener('resize', this.onResize);
+    if (this.renderer) this.renderer.dispose();
+  };
+
+  function initAttitudeFusionPreviews() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.js-attitude-fusion-preview').forEach(function(root) {
+        var preview = new AttitudeFusionCardPreview(root);
+        previewInstances.push(preview);
+        preview.start();
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        var preview = entry.target.__afPreview;
+        if (!preview) return;
+        preview.setVisible(entry.isIntersecting);
+      });
+    }, { rootMargin: '120px 0px', threshold: 0.12 });
+
+    document.querySelectorAll('.js-attitude-fusion-preview').forEach(function(root) {
+      var preview = new AttitudeFusionCardPreview(root);
+      root.__afPreview = preview;
+      previewInstances.push(preview);
+      observer.observe(root);
+    });
+  }
+
   function initMemsSensorFusionLabDemos() {
     document.querySelectorAll('.js-attitude-fusion-open').forEach(function(button) {
       button.addEventListener('click', function() {
@@ -1281,6 +1502,8 @@
       var openModalEl = document.querySelector('.js-attitude-fusion-modal:not([hidden])');
       if (openModalEl) closeModal(openModalEl);
     });
+
+    initAttitudeFusionPreviews();
   }
 
   if (document.readyState === 'loading') {

@@ -1085,45 +1085,65 @@ body.demo-modal-open {
 .attitude-fusion-preview__visual {
   position: relative;
   width: 100%;
-  height: 120px;
+  height: 168px;
   margin: 0 auto 0.75rem;
   border-radius: 10px;
-  background: #0b1118;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   overflow: hidden;
+}
+.attitude-fusion-preview__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.attitude-fusion-preview__labels {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.55rem;
+  right: 0.55rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding: 8px;
+  gap: 0.5rem;
+  pointer-events: none;
 }
-.attitude-fusion-preview__mini-att {
-  border-radius: 8px;
-  background: linear-gradient(180deg, rgba(41,130,172,0.9) 0%, rgba(41,130,172,0.9) 50%, rgba(122,91,36,0.9) 50%, rgba(122,91,36,0.9) 100%);
+.attitude-fusion-preview__labels span {
+  justify-self: center;
+  padding: 0.16rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: rgba(0, 0, 0, 0.66);
+  font-size: 0.68em;
+  font-weight: 600;
+}
+.attitude-fusion-preview__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+.attitude-fusion-preview__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 0.72em;
+  background: #f8fafc;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 0.82em;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
-.attitude-fusion-preview__mini-hdg {
-  border-radius: 8px;
-  background: radial-gradient(circle, #0d141b 0%, #0d141b 58%, #101820 58%);
-  border: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dce6ef;
-  font-size: 0.72em;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-.attitude-fusion-preview__tile,
-.attitude-fusion-preview__tile--att,
-.attitude-fusion-preview__tile--cdi,
-.attitude-fusion-preview__horizon,
-.attitude-fusion-preview__plane {
+.attitude-fusion-preview__loading[hidden] {
   display: none;
+}
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__labels,
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__divider {
+  visibility: hidden;
 }
 .attitude-fusion-preview__hint {
   margin: 0 0 0.85rem;
@@ -1136,6 +1156,10 @@ body.demo-modal-open {
 }
 
 /* --- Attitude fusion demo (inside modal) --- */
+.attitude-fusion-demo {
+  position: relative;
+  isolation: isolate;
+}
 .attitude-fusion-demo__main {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -1174,7 +1198,7 @@ body.demo-modal-open {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   overflow: hidden;
-  background: #0b1118;
+  background: #f8fafc;
 }
 .attitude-fusion-demo__pipeline-wrap {
   position: relative;
@@ -1183,7 +1207,7 @@ body.demo-modal-open {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   overflow: hidden;
-  background: #0b1118;
+  background: #f8fafc;
 }
 .attitude-fusion-demo__panels-caption {
   position: absolute;
@@ -1192,9 +1216,9 @@ body.demo-modal-open {
   margin: 0;
   padding: 0.12rem 0.4rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.88);
   font-size: 0.65em;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(0, 0, 0, 0.55);
   pointer-events: none;
 }
 .attitude-fusion-demo__charts {
@@ -1225,6 +1249,27 @@ body.demo-modal-open {
 }
 .attitude-fusion-demo__canvas.is-dragging {
   cursor: grabbing;
+}
+.attitude-fusion-demo__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  color: rgba(0, 0, 0, 0.62);
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  pointer-events: all;
+}
+.attitude-fusion-demo__loading[hidden] {
+  display: none;
+}
+.attitude-fusion-demo.is-loading > :not(.attitude-fusion-demo__loading) {
+  visibility: hidden;
+  pointer-events: none;
 }
 .attitude-fusion-demo__subplot-labels {
   position: absolute;

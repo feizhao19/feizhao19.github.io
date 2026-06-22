@@ -62,15 +62,15 @@
     <div class="attitude-fusion-demo js-attitude-fusion-demo is-fusion-on" data-project-id="{{ p.id }}">
       <div class="attitude-fusion-demo__fusion-bar">
         <div class="attitude-fusion-demo__fusion-copy">
-          <strong class="js-af-fusion-label">EKF-based attitude estimation active</strong>
-          <span class="js-af-fusion-desc">Gyroscope integration corrected using accelerometer and magnetometer observations with online gyro-bias estimation</span>
+          <strong class="js-af-fusion-label">Sensor fusion active</strong>
+          <span class="js-af-fusion-desc">Gyro, accelerometer, and magnetometer are fused with online gyro-bias correction.</span>
         </div>
         <button
           type="button"
           class="button button-primary js-af-fusion-toggle"
           aria-pressed="true"
         >
-          Disable EKF fusion
+          Switch to gyro-only
         </button>
       </div>
 
@@ -83,7 +83,8 @@
               <span>Hdg: <strong class="js-af-hdg-val">000°</strong></span>
               <span>Raw Error: <strong class="js-af-raw-error-val">0.0°</strong></span>
               <span>Calibrated Error: <strong class="js-af-calibrated-error-val">0.0°</strong></span>
-              <span>EKF Error: <strong class="js-af-ekf-error-val">0.0°</strong></span>
+              <span>Fusion Error: <strong class="js-af-ekf-error-val">0.0°</strong></span>
+              <span>Gyro Bias Est.: <strong class="js-af-bias-val">0.000, 0.000, 0.000 °/s</strong></span>
             </div>
             <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D MEMS-based aircraft attitude visualization"></canvas>
             <div class="attitude-fusion-demo__subplot-labels" aria-hidden="true">
@@ -111,7 +112,7 @@
       </div>
 
       <div class="attitude-fusion-demo__controls">
-        <p class="attitude-fusion-demo__noise-hint">Adjust sensor imperfections to observe how calibration and EKF fusion improve attitude estimation.</p>
+        <p class="attitude-fusion-demo__noise-hint">Adjust sensor imperfections to compare fused estimation (ON) with gyro-only integration (OFF).</p>
         <div class="attitude-fusion-demo__sliders">
           <label class="attitude-fusion-demo__slider js-af-noise-acc">
             <span class="attitude-fusion-demo__slider-head">

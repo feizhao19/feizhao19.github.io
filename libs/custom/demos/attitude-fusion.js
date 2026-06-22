@@ -343,7 +343,7 @@
   }
 
   function createAttitudeState() {
-    return { roll: 0, pitch: 0, yaw: 270 };
+    return { roll: 15, pitch: 10, yaw: 270 };
   }
 
   function copyAttitudeState(state) {
@@ -373,6 +373,244 @@
       spanGaps: true
     };
   }
+
+  // --- Vec3 / Mat3 / DCM (matches Three.js ZXY: roll→X, pitch→−Z, yaw→−Y) ---
+  function vec3(x, y, z) { return { x: x || 0, y: y || 0, z: z || 0 }; }
+
+  function vec3Add(a, b) { return vec3(a.x + b.x, a.y + b.y, a.z + b.z); }
+
+  function vec3Sub(a, b) { return vec3(a.x - b.x, a.y - b.y, a.z - b.z); }
+
+  function vec3Cross(a, b) {
+    return vec3(
+      a.y * b.z - a.z * b.y,
+      a.z * b.x - a.x * b.z,
+      a.x * b.y - a.y * b.x
+    );
+  }
+
+  function vec3Scale(v, s) { return vec3(v.x * s, v.y * s, v.z * s); }
+
+  function vec3Dot(a, b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
+
+  function vec3Norm(v) { return Math.sqrt(vec3Dot(v, v)); }
+
+  function vec3Normalize(v) {
+    var n = vec3Norm(v);
+    return n < 1e-12 ? vec3(0, 0, 1) : vec3Scale(v, 1 / n);
+  }
+
+  function mat3MulVec(m, v) {
+    return vec3(
+      m[0] * v.x + m[1] * v.y + m[2] * v.z,
+      m[3] * v.x + m[4] * v.y + m[5] * v.z,
+      m[6] * v.x + m[7] * v.y + m[8] * v.z
+    );
+  }
+
+  function mat3Transpose(m) {
+    return [m[0], m[3], m[6], m[1], m[4], m[7], m[2], m[5], m[8]];
+  }
+
+  function mat3Inverse(m) {
+    var a = m[0], b = m[1], c = m[2];
+    var d = m[3], e = m[4], f = m[5];
+    var g = m[6], h = m[7], i = m[8];
+    var det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+    if (Math.abs(det) < 1e-12) return [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    var inv = 1 / det;
+    return [
+      (e * i - f * h) * inv, (c * h - b * i) * inv, (b * f - c * e) * inv,
+      (f * g - d * i) * inv, (a * i - c * g) * inv, (c * d - a * f) * inv,
+      (d * h - e * g) * inv, (b * g - a * h) * inv, (a * e - b * d) * inv
+    ];
+  }
+
+  function mat3Mul(a, b) {
+    return [
+      a[0] * b[0] + a[1] * b[3] + a[2] * b[6],
+      a[0] * b[1] + a[1] * b[4] + a[2] * b[7],
+      a[0] * b[2] + a[1] * b[5] + a[2] * b[8],
+      a[3] * b[0] + a[4] * b[3] + a[5] * b[6],
+      a[3] * b[1] + a[4] * b[4] + a[5] * b[7],
+      a[3] * b[2] + a[4] * b[5] + a[5] * b[8],
+      a[6] * b[0] + a[7] * b[3] + a[8] * b[6],
+      a[6] * b[1] + a[7] * b[4] + a[8] * b[7],
+      a[6] * b[2] + a[7] * b[5] + a[8] * b[8]
+    ];
+  }
+
+  // Gravity in body frame (roll/pitch only; yaw does not affect accelerometer).
+  // Paired with tiltFromGravity — matches the demo's roll/pitch convention.
+  function gravityInBody(rollDeg, pitchDeg) {
+    var r = rollDeg * DEG, p = pitchDeg * DEG;
+    return vec3(
+      -Math.sin(p),
+      Math.sin(r) * Math.cos(p),
+      Math.cos(r) * Math.cos(p)
+    );
+  }
+
+  function gravityDot(rollDeg, pitchDeg, rollRateDeg, pitchRateDeg) {
+    var r = rollDeg * DEG, p = pitchDeg * DEG;
+    var rd = rollRateDeg * DEG, pd = pitchRateDeg * DEG;
+    return vec3(
+      -Math.cos(p) * pd,
+      Math.cos(r) * Math.cos(p) * rd - Math.sin(r) * Math.sin(p) * pd,
+      -Math.sin(r) * Math.cos(p) * rd - Math.cos(r) * Math.sin(p) * pd
+    );
+  }
+
+  function bodyOmegaFromEulerRates(rollDeg, pitchDeg, rollRateDeg, pitchRateDeg, yawRateDeg) {
+    var g = gravityInBody(rollDeg, pitchDeg);
+    var gd = gravityDot(rollDeg, pitchDeg, rollRateDeg, pitchRateDeg);
+    var omega = vec3Cross(g, gd);
+    if (Math.abs(yawRateDeg) > 1e-9) {
+      omega = vec3Add(omega, vec3Scale(vec3Normalize(g), yawRateDeg * DEG));
+    }
+    return omega;
+  }
+
+  function omegaForGravity(omega, gravityDir) {
+    var gn = vec3Normalize(gravityDir);
+    return vec3Sub(omega, vec3Scale(gn, vec3Dot(omega, gn)));
+  }
+
+  function tiltFromGravity(g) {
+    var gn = vec3Normalize(g);
+    return {
+      roll: Math.atan2(gn.y, gn.z) / DEG,
+      pitch: Math.atan2(-gn.x, Math.sqrt(gn.y * gn.y + gn.z * gn.z)) / DEG
+    };
+  }
+
+  function gravityDirError(accVec, gTrue) {
+    var dot = vec3Dot(vec3Normalize(accVec), vec3Normalize(gTrue));
+    return Math.acos(clamp(dot, -1, 1)) / DEG;
+  }
+
+  function tiltErrorFromGravity(accVec, truth) {
+    var tilt = tiltFromGravity(accVec);
+    return Math.sqrt(
+      Math.pow(tilt.roll - truth.roll, 2) +
+      Math.pow(tilt.pitch - truth.pitch, 2)
+    );
+  }
+
+  // Quadrature misalignment: W_true ≈ J_err · W_raw  →  calibrate with J_cal ≈ J_err⁻¹
+  // Deliberately imperfect cal matrix so After shows small residual (realistic factory cal).
+  var MISALIGN_ERR = [1.12, 0.14, -0.09, 0.06, 0.88, 0.11, -0.08, 0.13, 1.10];
+  var MISALIGN_RESIDUAL = [1.0, 0.012, -0.008, 0.005, 1.0, 0.010, -0.006, 0.009, 1.0];
+  var MISALIGN_CAL = mat3Mul(mat3Inverse(MISALIGN_ERR), MISALIGN_RESIDUAL);
+
+  // Gravity-direction fusion (Mahony PI on S²) + online gyro bias — stable for interactive demo.
+  function AttitudeEKF() {
+    this.x = [0, 0, 1, 0, 0, 0];
+    this.eInt = [0, 0, 0];
+    this.Kp = 1.6;
+    this.Ki = 0.02;
+    this.yaw = 270;
+    this.gyroOnly = { roll: 0, pitch: 0, yaw: 270 };
+    this.gyroOnlyR = [0, 0, 1];
+  }
+
+  AttitudeEKF.prototype.reset = function(roll, pitch, yaw) {
+    var g = gravityInBody(roll, pitch);
+    this.x[0] = g.x;
+    this.x[1] = g.y;
+    this.x[2] = g.z;
+    this.x[3] = this.x[4] = this.x[5] = 0;
+    this.eInt[0] = this.eInt[1] = this.eInt[2] = 0;
+    this.yaw = yaw;
+    this.gyroOnly = { roll: roll, pitch: pitch, yaw: yaw };
+    this.gyroOnlyR = [g.x, g.y, g.z];
+  };
+
+  AttitudeEKF.prototype.propagateGravity = function(r, wx, wy, wz, dt) {
+    var dr = vec3Cross(vec3(wx, wy, wz), vec3(r[0], r[1], r[2]));
+    r[0] += dr.x * dt;
+    r[1] += dr.y * dt;
+    r[2] += dr.z * dt;
+    var n = Math.sqrt(r[0] * r[0] + r[1] * r[1] + r[2] * r[2]);
+    if (n > 1e-9) { r[0] /= n; r[1] /= n; r[2] /= n; }
+  };
+
+  AttitudeEKF.prototype.fuse = function(gyroRad, accBody, dt, opts) {
+    opts = opts || {};
+    var useAcc = opts.useAcc !== false;
+    var motionScale = opts.motionScale || 1;
+    var gain = 1 / Math.sqrt(Math.max(1, motionScale));
+    var kp = this.Kp * gain;
+    var ki = this.Ki * gain;
+    var gEst = vec3(this.x[0], this.x[1], this.x[2]);
+    var wx = gyroRad.x;
+    var wy = gyroRad.y;
+    var wz = gyroRad.z;
+
+    if (useAcc && vec3Norm(accBody) > 0.5) {
+      var acc = vec3Normalize(accBody);
+      var e = vec3Cross(gEst, acc);
+      this.eInt[0] += e.x * ki * dt;
+      this.eInt[1] += e.y * ki * dt;
+      wx += kp * e.x + this.eInt[0];
+      wy += kp * e.y + this.eInt[1];
+      this.x[3] = this.eInt[0];
+      this.x[4] = this.eInt[1];
+    }
+
+    var omegaG = omegaForGravity(vec3(wx, wy, wz), gEst);
+    this.propagateGravity(this.x, omegaG.x, omegaG.y, omegaG.z, dt);
+  };
+
+  // Gyro-only bypass: integrate body rates in Euler space (bias accumulates, no acc/mag).
+  AttitudeEKF.prototype.propagateGyroOnly = function(gyroRad, dt) {
+    this.gyroOnly.roll += (gyroRad.x / DEG) * dt;
+    this.gyroOnly.pitch += (gyroRad.y / DEG) * dt;
+    this.gyroOnly.yaw = wrap360(this.gyroOnly.yaw + (gyroRad.z / DEG) * dt);
+    var g = gravityInBody(this.gyroOnly.roll, this.gyroOnly.pitch);
+    this.gyroOnlyR[0] = g.x;
+    this.gyroOnlyR[1] = g.y;
+    this.gyroOnlyR[2] = g.z;
+  };
+
+  AttitudeEKF.prototype.syncFusedFromGyroOnly = function() {
+    var g = gravityInBody(this.gyroOnly.roll, this.gyroOnly.pitch);
+    this.x[0] = g.x;
+    this.x[1] = g.y;
+    this.x[2] = g.z;
+    this.yaw = this.gyroOnly.yaw;
+    this.eInt[0] = this.x[3];
+    this.eInt[1] = this.x[4];
+  };
+
+  AttitudeEKF.prototype.getRollPitch = function() {
+    return tiltFromGravity(vec3(this.x[0], this.x[1], this.x[2]));
+  };
+
+  AttitudeEKF.prototype.getBiasDegPerSec = function() {
+    return { x: this.x[3] / DEG, y: this.x[4] / DEG, z: this.x[5] / DEG };
+  };
+
+  AttitudeEKF.prototype.toAttitude = function(yaw) {
+    var rp = this.getRollPitch();
+    return { roll: rp.roll, pitch: rp.pitch, yaw: yaw };
+  };
+
+  // Soft tracking during interactive drag (matches homepage preview feel).
+  AttitudeEKF.prototype.nudgeTowardTruth = function(roll, pitch, yaw, t) {
+    t = clamp(t, 0, 1);
+    var gTarget = gravityInBody(roll, pitch);
+    this.x[0] += (gTarget.x - this.x[0]) * t;
+    this.x[1] += (gTarget.y - this.x[1]) * t;
+    this.x[2] += (gTarget.z - this.x[2]) * t;
+    var n = Math.sqrt(this.x[0] * this.x[0] + this.x[1] * this.x[1] + this.x[2] * this.x[2]);
+    if (n > 1e-9) {
+      this.x[0] /= n;
+      this.x[1] /= n;
+      this.x[2] /= n;
+    }
+    this.yaw = lerpAngle(this.yaw, yaw, t);
+  };
 
   function MemsSensorFusionLabDemo(modal) {
     this.modal = modal;
@@ -405,6 +643,7 @@
     this.rawErrorValEl = modal.querySelector('.js-af-raw-error-val');
     this.calibratedErrorValEl = modal.querySelector('.js-af-calibrated-error-val');
     this.ekfErrorValEl = modal.querySelector('.js-af-ekf-error-val');
+    this.biasValEl = modal.querySelector('.js-af-bias-val');
 
     this.accNoise = 5;
     this.gyroDrift = 0.05;
@@ -414,6 +653,7 @@
     this.gyroDriftOn = true;
     this.magNoiseOn = true;
     this.fusionEnabled = true;
+    this.autoMotionEnabled = false;
 
     this.groundTruth = createAttitudeState();
     this.prevGroundTruth = createAttitudeState();
@@ -426,7 +666,14 @@
     this.accEst = createAttitudeState();
     this.magEst = createAttitudeState();
     this.fusedEst = this.ekfEstimate;
+    this.ekfFilter = new AttitudeEKF();
     this.gyroBias = { roll: 0.6, pitch: -0.4, yaw: 1.0 };
+    this.trueGyroBias = vec3(0, 0, 0);
+    this.lastAccRaw = vec3(0, 0, 1);
+    this.lastAccCal = vec3(0, 0, 1);
+    this.lastGTrue = vec3(0, 0, 1);
+    this.accSmoothTilt = { roll: 0, pitch: 0 };
+    this.uncorrectedEstimate = createAttitudeState();
     this.lastErrors = { raw: 0, calibrated: 0, ekf: 0, gyro: 0 };
 
     this.elapsed = 0;
@@ -435,6 +682,8 @@
     this.userPitchRate = 0;
     this.userYawRate = 0;
     this.isDragging = false;
+    this.dragSteppedThisFrame = false;
+    this.lastDragStepTime = 0;
     this.lastPointerX = 0;
     this.lastPointerY = 0;
     this.running = false;
@@ -573,9 +822,15 @@
 
   MemsSensorFusionLabDemo.prototype.setFusionEnabled = function(enabled) {
     if (!enabled && this.fusionEnabled) {
-      this.gyroEst.roll = this.ekfEstimate.roll;
-      this.gyroEst.pitch = this.ekfEstimate.pitch;
-      this.gyroEst.yaw = this.ekfEstimate.yaw;
+      var est = this.ekfFilter.toAttitude(this.ekfFilter.yaw);
+      this.ekfFilter.gyroOnly = { roll: est.roll, pitch: est.pitch, yaw: est.yaw };
+      this.ekfFilter.gyroOnlyR = [this.ekfFilter.x[0], this.ekfFilter.x[1], this.ekfFilter.x[2]];
+      this.accSmoothTilt.roll = this.calibratedSensor.roll;
+      this.accSmoothTilt.pitch = this.calibratedSensor.pitch;
+    }
+
+    if (enabled && !this.fusionEnabled) {
+      this.ekfFilter.syncFusedFromGyroOnly();
     }
 
     this.fusionEnabled = enabled;
@@ -586,30 +841,30 @@
     }
 
     if (this.fusionToggleBtn) {
-      this.fusionToggleBtn.textContent = enabled ? 'Disable EKF fusion' : 'Enable EKF fusion';
+      this.fusionToggleBtn.textContent = enabled ? 'Switch to gyro-only' : 'Enable sensor fusion';
       this.fusionToggleBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
       this.fusionToggleBtn.classList.toggle('button-primary', enabled);
       this.fusionToggleBtn.classList.toggle('button', !enabled);
     }
 
     if (this.fusionLabelEl) {
-      this.fusionLabelEl.textContent = enabled ? 'EKF-based attitude estimation active' : 'Uncorrected MEMS sensors — EKF off';
+      this.fusionLabelEl.textContent = enabled ? 'Sensor fusion active' : 'Gyro-only mode (fusion off)';
     }
 
     if (this.fusionDescEl) {
       this.fusionDescEl.textContent = enabled
-        ? 'Gyro propagation is corrected by accelerometer and magnetometer observations with online bias compensation.'
-        : 'Roll/pitch follow gyro integration (bias drifts) with accelerometer noise; heading follows the magnetometer directly (jitter).';
+        ? 'Gyro, accelerometer, and magnetometer are fused with online gyro-bias correction.'
+        : 'Roll/pitch follow gyro integration (bias drifts). Magnetometer sets heading if enabled; accelerometer adds tilt jitter if enabled.';
     }
 
     if (this.instrumentsCaptionEl) {
       this.instrumentsCaptionEl.textContent = enabled
         ? 'Sensor health and calibration effect update from live MEMS errors.'
-        : 'EKF is bypassed; gyro drift, accelerometer noise, and magnetometer jitter are all visible on the estimate.';
+        : 'Toggle sensor checkboxes to see gyro drift, accelerometer jitter, and magnetometer noise without fusion.';
     }
 
     if (this.ekfErrorValEl && this.ekfErrorValEl.parentNode && this.ekfErrorValEl.parentNode.firstChild) {
-      this.ekfErrorValEl.parentNode.firstChild.textContent = enabled ? 'EKF Error: ' : 'Sensor Error: ';
+      this.ekfErrorValEl.parentNode.firstChild.textContent = enabled ? 'Fusion Error: ' : 'Gyro Error: ';
     }
 
     if (this.alphaWrap) {
@@ -778,6 +1033,7 @@
     if (localX > rect.width / 2) return;
 
     this.isDragging = true;
+    this.lastDragStepTime = performance.now();
     this.lastPointerX = event.clientX;
     this.lastPointerY = event.clientY;
     this.canvas.setPointerCapture(event.pointerId);
@@ -799,10 +1055,16 @@
     this.groundTruth.pitch = clamp(this.groundTruth.pitch + pitchDelta, -35, 35);
     this.groundTruth.roll = clamp(this.groundTruth.roll + rollDelta, -55, 55);
 
-    this.userYawRate = yawDelta * 18;
-    this.userPitchRate = pitchDelta * 18;
-    this.userRollRate = rollDelta * 18;
-    this.updateDisplays();
+    if (this.running) {
+      var now = performance.now();
+      var dt = this.lastDragStepTime
+        ? Math.max(1 / 240, Math.min(1 / 15, (now - this.lastDragStepTime) / 1000))
+        : 1 / 60;
+      this.lastDragStepTime = now;
+      this.stepSimulation(dt);
+      this.renderThree();
+      this.dragSteppedThisFrame = true;
+    }
   };
 
   MemsSensorFusionLabDemo.prototype.handlePointerUp = function(event) {
@@ -814,14 +1076,31 @@
     }
   };
 
+  MemsSensorFusionLabDemo.prototype.buildBypassEstimate = function(calTilt, magHeading) {
+    var noise = this.getEffectiveNoise();
+    var gyro = this.ekfFilter.gyroOnly;
+    var roll = gyro.roll;
+    var pitch = gyro.pitch;
+    var yaw = gyro.yaw;
+
+    if (this.accNoiseOn && noise.acc > 0) {
+      var accGain = 1.4 + noise.acc * 0.18;
+      roll += (calTilt.roll - this.accSmoothTilt.roll) * accGain;
+      pitch += (calTilt.pitch - this.accSmoothTilt.pitch) * accGain;
+    }
+
+    if (this.magNoiseOn) {
+      yaw = magHeading;
+    }
+
+    return { roll: roll, pitch: pitch, yaw: yaw };
+  };
+
   MemsSensorFusionLabDemo.prototype.getDisplayEstimate = function() {
-    if (this.fusionEnabled) return this.ekfEstimate;
-    // Gyro integration carries slow bias drift; acc residual adds high-frequency tilt noise.
-    return {
-      roll: this.gyroEst.roll + (this.accEst.roll - this.calibratedSensor.roll),
-      pitch: this.gyroEst.pitch + (this.accEst.pitch - this.calibratedSensor.pitch),
-      yaw: this.magEst.yaw
-    };
+    if (this.fusionEnabled) {
+      return this.ekfEstimate;
+    }
+    return this.uncorrectedEstimate;
   };
 
   MemsSensorFusionLabDemo.prototype.updateVehicleRotation = function(display) {
@@ -866,9 +1145,9 @@
       { label: 'ACC', sub: 'tilt', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226' },
       { label: 'MAG', sub: 'heading', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87' },
       { label: 'GPS', sub: 'motion', fill: 'rgba(22,160,133,0.14)', stroke: 'rgba(22,160,133,0.32)', text: '#0f6d5b' },
-      { label: 'CALIB', sub: 'bias/noise', fill: 'rgba(41,130,172,0.14)', stroke: 'rgba(41,130,172,0.32)', text: '#1f5f7d' },
+      { label: 'CALIB', sub: 'quadrature', fill: 'rgba(41,130,172,0.14)', stroke: 'rgba(41,130,172,0.32)', text: '#1f5f7d' },
       { label: 'DCM', sub: 'attitude', fill: 'rgba(52,73,94,0.12)', stroke: 'rgba(52,73,94,0.28)', text: '#2c3e50' },
-      { label: 'EKF', sub: this.fusionEnabled ? 'fusion' : 'bypass', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' },
+      { label: 'EKF', sub: this.fusionEnabled ? 'fusion' : 'gyro only', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' },
       { label: 'RECORD', sub: 'motion', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45' }
     ];
 
@@ -922,33 +1201,76 @@
   };
 
   MemsSensorFusionLabDemo.prototype.drawCalibrationPanel = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Calibration Effect');
-    var raw = this.rawSensor;
-    var cal = this.calibratedSensor;
-    var truth = this.groundTruth;
+    this.drawCard(ctx, x, y, w, h, 'Quadrature Calibration');
+    var raw = this.lastAccRaw;
+    var cal = this.lastAccCal;
+    var truth = this.lastGTrue || vec3(0, 0, 1);
     var rows = [
-      { label: 'Roll Error', before: Math.abs(raw.roll - truth.roll), after: Math.abs(cal.roll - truth.roll) },
-      { label: 'Pitch Error', before: Math.abs(raw.pitch - truth.pitch), after: Math.abs(cal.pitch - truth.pitch) },
-      { label: 'Heading Error', before: Math.abs(shortestAngleDiff(truth.yaw, raw.yaw)), after: Math.abs(shortestAngleDiff(truth.yaw, cal.yaw)) }
+      {
+        label: '|g| error',
+        before: Math.abs(vec3Norm(raw) - 1) * 100,
+        after: Math.abs(vec3Norm(cal) - 1) * 100,
+        unit: '%',
+        max: 18
+      },
+      {
+        label: 'Tilt error',
+        before: tiltErrorFromGravity(raw, this.groundTruth),
+        after: tiltErrorFromGravity(cal, this.groundTruth),
+        unit: '°',
+        max: 12
+      },
+      {
+        label: 'Dir error',
+        before: gravityDirError(raw, truth),
+        after: gravityDirError(cal, truth),
+        unit: '°',
+        max: 12
+      }
     ];
-    var startY = y + 34;
-    var rowH = Math.max(20, (h - 48) / rows.length);
+    var startY = y + 40;
+    var rowH = Math.max(28, (h - 52) / rows.length);
+    var barX = x + 12;
+    var barW = Math.max(36, w - 118);
 
-    ctx.font = '700 8px Raleway, sans-serif';
     ctx.fillStyle = THEME.textMuted;
+    ctx.font = '7px Raleway, sans-serif';
+    ctx.fillText('Misalignment only (acc noise excluded)', x + 10, y + 28);
+    ctx.font = '700 8px Raleway, sans-serif';
     ctx.fillText('Before', x + w - 86, y + 17);
     ctx.fillText('After', x + w - 40, y + 17);
 
     rows.forEach(function(row, i) {
       var ry = startY + i * rowH;
+      var beforePct = clamp(row.before / row.max, 0, 1);
+      var afterPct = clamp(row.after / row.max, 0, 1);
+      var delta = row.before - row.after;
+
       ctx.fillStyle = THEME.text;
       ctx.font = '9px Raleway, sans-serif';
-      ctx.fillText(row.label, x + 12, ry);
+      ctx.fillText(row.label, barX, ry);
+
+      ctx.fillStyle = 'rgba(231,76,60,0.16)';
+      ctx.fillRect(barX, ry + 5, barW, 4);
+      ctx.fillStyle = '#e74c3c';
+      ctx.fillRect(barX, ry + 5, barW * beforePct, 4);
+      ctx.fillStyle = 'rgba(46,204,113,0.16)';
+      ctx.fillRect(barX, ry + 12, barW, 4);
+      ctx.fillStyle = '#2ecc71';
+      ctx.fillRect(barX, ry + 12, barW * afterPct, 4);
+
       ctx.fillStyle = '#e74c3c';
       ctx.font = '700 9px Raleway, sans-serif';
-      ctx.fillText(row.before.toFixed(1) + '°', x + w - 88, ry);
+      ctx.textAlign = 'right';
+      ctx.fillText(row.before.toFixed(1) + row.unit, x + w - 48, ry + 6);
       ctx.fillStyle = '#2ecc71';
-      ctx.fillText(row.after.toFixed(1) + '°', x + w - 42, ry);
+      ctx.fillText(row.after.toFixed(1) + row.unit, x + w - 8, ry + 6);
+      if (delta > 0.05) {
+        ctx.fillStyle = '#1f7a45';
+        ctx.font = '7px Raleway, sans-serif';
+        ctx.fillText('\u2193' + delta.toFixed(1), x + w - 8, ry + 18);
+      }
+      ctx.textAlign = 'left';
     });
   };
 
@@ -988,8 +1310,154 @@
     this.drawSensorPanels();
   };
 
-  MemsSensorFusionLabDemo.prototype.fuseAxis = function(previous, gyroRate, accMeasurement, dt) {
-    return this.alpha * (previous + gyroRate * dt) + (1 - this.alpha) * accMeasurement;
+  MemsSensorFusionLabDemo.prototype.stepSimulation = function(dt) {
+    this.elapsed += dt;
+
+    var noise = this.getEffectiveNoise();
+    var groundRollRate = 0;
+    var groundPitchRate = 0;
+    var groundYawRate = 0;
+
+    if (!this.isDragging && this.autoMotionEnabled) {
+      groundRollRate = Math.sin(this.elapsed * 1.18) * 9.2 + Math.sin(this.elapsed * 0.31) * 2.4;
+      groundPitchRate = Math.sin(this.elapsed * 0.82 + 1.2) * 5.6;
+      groundYawRate = 9 + Math.sin(this.elapsed * 0.46) * 3.4;
+    }
+
+    this.userRollRate *= 0.9;
+    this.userPitchRate *= 0.9;
+    this.userYawRate *= 0.9;
+
+    var prevTruth = this.prevGroundTruth;
+
+    this.groundTruth.roll = clamp(this.groundTruth.roll + (groundRollRate - this.groundTruth.roll * (this.isDragging ? 0 : 0.18)) * dt, -55, 55);
+    this.groundTruth.pitch = clamp(this.groundTruth.pitch + (groundPitchRate - this.groundTruth.pitch * (this.isDragging ? 0 : 0.14)) * dt, -35, 35);
+    this.groundTruth.yaw = wrap360(this.groundTruth.yaw + groundYawRate * dt);
+
+    // Rates from angle delta (pointer drag updates groundTruth between frames).
+    var trueRollRate = clamp((this.groundTruth.roll - prevTruth.roll) / dt, -200, 200);
+    var truePitchRate = clamp((this.groundTruth.pitch - prevTruth.pitch) / dt, -200, 200);
+    var trueYawRate = clamp(shortestAngleDiff(prevTruth.yaw, this.groundTruth.yaw) / dt, -200, 200);
+    var motionDeg = Math.sqrt(trueRollRate * trueRollRate + truePitchRate * truePitchRate + trueYawRate * trueYawRate);
+    var accTrustScale = 1 + Math.min(motionDeg * motionDeg * 0.00035, 18);
+    if (this.isDragging) {
+      accTrustScale = 1;
+    }
+
+    if (noise.gyroDrift > 0) {
+      var biasWalk = 0.03 * dt;
+      this.gyroBias.roll = clamp(this.gyroBias.roll + randn() * biasWalk, -1.4, 1.4);
+      this.gyroBias.pitch = clamp(this.gyroBias.pitch + randn() * biasWalk, -1.4, 1.4);
+      this.gyroBias.yaw = clamp(this.gyroBias.yaw + randn() * biasWalk, -1.4, 1.4);
+    }
+
+    var gTrue = gravityInBody(this.groundTruth.roll, this.groundTruth.pitch);
+    var accRaw = mat3MulVec(MISALIGN_ERR, gTrue);
+    var accCal = mat3MulVec(MISALIGN_CAL, accRaw);
+
+    this.lastAccRaw = accRaw;
+    this.lastAccCal = accCal;
+    this.lastGTrue = gTrue;
+
+    var rawTilt = tiltFromGravity(accRaw);
+    var calTilt = tiltFromGravity(accCal);
+    if (noise.acc > 0) {
+      calTilt.roll += randn() * noise.acc * 0.55;
+      calTilt.pitch += randn() * noise.acc * 0.55;
+    }
+    if (noise.acc > 0) {
+      rawTilt.roll += randn() * noise.acc * 0.65;
+      rawTilt.pitch += randn() * noise.acc * 0.65;
+    }
+
+    this.rawSensor.roll = rawTilt.roll;
+    this.rawSensor.pitch = rawTilt.pitch;
+    this.calibratedSensor.roll = calTilt.roll;
+    this.calibratedSensor.pitch = calTilt.pitch;
+
+    this.accSmoothTilt.roll = this.accSmoothTilt.roll * 0.5 + calTilt.roll * 0.5;
+    this.accSmoothTilt.pitch = this.accSmoothTilt.pitch * 0.5 + calTilt.pitch * 0.5;
+    this.accEst.roll = calTilt.roll;
+    this.accEst.pitch = calTilt.pitch;
+
+    var magHeading = wrap360(this.groundTruth.yaw + randn() * noise.mag);
+    this.rawSensor.yaw = magHeading;
+    this.calibratedSensor.yaw = magHeading;
+    this.magEst.yaw = magHeading;
+
+    var biasTrue = vec3(
+      noise.gyroDrift * this.gyroBias.roll * DEG,
+      noise.gyroDrift * this.gyroBias.pitch * DEG,
+      noise.gyroDrift * this.gyroBias.yaw * DEG
+    );
+    this.trueGyroBias = biasTrue;
+
+    var omegaTrue = bodyOmegaFromEulerRates(
+      prevTruth.roll,
+      prevTruth.pitch,
+      trueRollRate,
+      truePitchRate,
+      trueYawRate
+    );
+    var gyroWhite = noise.gyroWhite * DEG;
+    var gyroMeas = vec3Add(omegaTrue, vec3Add(biasTrue, vec3(randn() * gyroWhite, randn() * gyroWhite, randn() * gyroWhite)));
+    var gyroEuler = vec3(
+      trueRollRate * DEG + biasTrue.x + randn() * gyroWhite,
+      truePitchRate * DEG + biasTrue.y + randn() * gyroWhite,
+      trueYawRate * DEG + biasTrue.z + randn() * gyroWhite
+    );
+
+    if (this.fusionEnabled) {
+      this.ekfFilter.fuse(gyroMeas, accCal, dt, { useAcc: true, motionScale: accTrustScale });
+      if (this.isDragging || motionDeg > 35) {
+        this.ekfFilter.yaw = wrap360(this.ekfFilter.yaw + gyroMeas.z / DEG * dt);
+      } else {
+        this.ekfFilter.yaw = lerpAngle(
+          wrap360(this.ekfFilter.yaw + gyroMeas.z / DEG * dt),
+          magHeading,
+          0.08
+        );
+      }
+      if (this.isDragging) {
+        var dragTrack = clamp(dt * 4.8, 0.06, 0.28);
+        this.ekfFilter.nudgeTowardTruth(
+          this.groundTruth.roll,
+          this.groundTruth.pitch,
+          this.groundTruth.yaw,
+          dragTrack
+        );
+      }
+    } else {
+      this.ekfFilter.propagateGyroOnly(gyroEuler, dt);
+    }
+
+    this.uncorrectedEstimate = this.buildBypassEstimate(calTilt, magHeading);
+    if (!this.fusionEnabled && this.isDragging) {
+      var bypassTrack = clamp(dt * 4.8, 0.06, 0.28);
+      this.uncorrectedEstimate.roll += (this.groundTruth.roll - this.uncorrectedEstimate.roll) * bypassTrack;
+      this.uncorrectedEstimate.pitch += (this.groundTruth.pitch - this.uncorrectedEstimate.pitch) * bypassTrack;
+      this.uncorrectedEstimate.yaw = lerpAngle(this.uncorrectedEstimate.yaw, this.groundTruth.yaw, bypassTrack);
+    }
+    this.ekfEstimate = this.ekfFilter.toAttitude(this.ekfFilter.yaw);
+    this.gyroEst.roll = this.ekfFilter.gyroOnly.roll;
+    this.gyroEst.pitch = this.ekfFilter.gyroOnly.pitch;
+    this.gyroEst.yaw = this.ekfFilter.gyroOnly.yaw;
+    this.accEst.roll = calTilt.roll;
+    this.accEst.pitch = calTilt.pitch;
+
+    var display = this.getDisplayEstimate();
+    this.lastErrors.raw = attitudeError(this.rawSensor, this.groundTruth);
+    this.lastErrors.calibrated = attitudeError(this.calibratedSensor, this.groundTruth);
+    this.lastErrors.ekf = attitudeError(this.ekfEstimate, this.groundTruth);
+    this.lastErrors.gyro = attitudeError(display, this.groundTruth);
+
+    if (this.frameCount % 2 === 0) {
+      this.pushHistory(display);
+    }
+
+    this.frameCount += 1;
+    this.prevGroundTruth = copyAttitudeState(this.groundTruth);
+    this.updateDisplays();
   };
 
   MemsSensorFusionLabDemo.prototype.updateCharts = function() {
@@ -1019,81 +1487,6 @@
     this.updateCharts();
   };
 
-  MemsSensorFusionLabDemo.prototype.stepSimulation = function(dt) {
-    this.elapsed += dt;
-
-    var noise = this.getEffectiveNoise();
-    var groundRollRate = this.isDragging ? 0 : Math.sin(this.elapsed * 1.18) * 9.2 + Math.sin(this.elapsed * 0.31) * 2.4;
-    var groundPitchRate = this.isDragging ? 0 : Math.sin(this.elapsed * 0.82 + 1.2) * 5.6;
-    var groundYawRate = this.isDragging ? 0 : 9 + Math.sin(this.elapsed * 0.46) * 3.4;
-
-    this.userRollRate *= 0.9;
-    this.userPitchRate *= 0.9;
-    this.userYawRate *= 0.9;
-
-    this.prevGroundTruth = copyAttitudeState(this.groundTruth);
-
-    this.groundTruth.roll = clamp(this.groundTruth.roll + (groundRollRate - this.groundTruth.roll * (this.isDragging ? 0 : 0.18)) * dt, -55, 55);
-    this.groundTruth.pitch = clamp(this.groundTruth.pitch + (groundPitchRate - this.groundTruth.pitch * (this.isDragging ? 0 : 0.14)) * dt, -35, 35);
-    this.groundTruth.yaw = wrap360(this.groundTruth.yaw + groundYawRate * dt);
-
-    var trueRollRate = (this.groundTruth.roll - this.prevGroundTruth.roll) / dt + this.userRollRate;
-    var truePitchRate = (this.groundTruth.pitch - this.prevGroundTruth.pitch) / dt + this.userPitchRate;
-    var trueYawRate = shortestAngleDiff(this.prevGroundTruth.yaw, this.groundTruth.yaw) / dt + this.userYawRate;
-
-    if (noise.gyroDrift > 0) {
-      var biasWalk = 0.03 * dt;
-      this.gyroBias.roll = clamp(this.gyroBias.roll + randn() * biasWalk, -1.4, 1.4);
-      this.gyroBias.pitch = clamp(this.gyroBias.pitch + randn() * biasWalk, -1.4, 1.4);
-      this.gyroBias.yaw = clamp(this.gyroBias.yaw + randn() * biasWalk, -1.4, 1.4);
-    }
-
-    var measuredRollRate = trueRollRate + noise.gyroWhite * randn() + noise.gyroDrift * this.gyroBias.roll;
-    var measuredPitchRate = truePitchRate + noise.gyroWhite * randn() + noise.gyroDrift * this.gyroBias.pitch;
-    var measuredYawRate = trueYawRate + noise.gyroWhite * randn() + noise.gyroDrift * this.gyroBias.yaw;
-
-    var accRoll = this.groundTruth.roll + randn() * noise.acc;
-    var accPitch = this.groundTruth.pitch + randn() * noise.acc;
-    var magHeading = wrap360(this.groundTruth.yaw + randn() * noise.mag);
-
-    this.gyroEst.roll += measuredRollRate * dt;
-    this.gyroEst.pitch += measuredPitchRate * dt;
-    this.gyroEst.yaw = wrap360(this.gyroEst.yaw + measuredYawRate * dt);
-
-    this.accEst.roll = accRoll;
-    this.accEst.pitch = accPitch;
-    this.magEst.yaw = magHeading;
-
-    this.rawSensor.roll = accRoll;
-    this.rawSensor.pitch = accPitch;
-    this.rawSensor.yaw = magHeading;
-
-    this.calibratedSensor.roll = this.calibratedSensor.roll * 0.7 + accRoll * 0.3;
-    this.calibratedSensor.pitch = this.calibratedSensor.pitch * 0.7 + accPitch * 0.3;
-    this.calibratedSensor.yaw = lerpAngle(this.calibratedSensor.yaw, magHeading, 0.3);
-
-    this.ekfEstimate.roll = this.fuseAxis(this.ekfEstimate.roll, measuredRollRate, this.calibratedSensor.roll, dt);
-    this.ekfEstimate.pitch = this.fuseAxis(this.ekfEstimate.pitch, measuredPitchRate, this.calibratedSensor.pitch, dt);
-    this.ekfEstimate.yaw = lerpAngle(
-      wrap360(this.ekfEstimate.yaw + measuredYawRate * dt),
-      this.calibratedSensor.yaw,
-      1 - this.alpha
-    );
-
-    var display = this.getDisplayEstimate();
-    this.lastErrors.raw = attitudeError(this.rawSensor, this.groundTruth);
-    this.lastErrors.calibrated = attitudeError(this.calibratedSensor, this.groundTruth);
-    this.lastErrors.ekf = attitudeError(this.ekfEstimate, this.groundTruth);
-    this.lastErrors.gyro = attitudeError(display, this.groundTruth);
-
-    if (this.frameCount % 2 === 0) {
-      this.pushHistory(display);
-    }
-
-    this.frameCount += 1;
-    this.updateDisplays();
-  };
-
   MemsSensorFusionLabDemo.prototype.updateDisplays = function() {
     var display = this.getDisplayEstimate();
 
@@ -1104,6 +1497,17 @@
     if (this.calibratedErrorValEl) this.calibratedErrorValEl.textContent = this.lastErrors.calibrated.toFixed(1) + '°';
     if (this.ekfErrorValEl) {
       this.ekfErrorValEl.textContent = (this.fusionEnabled ? this.lastErrors.ekf : this.lastErrors.gyro).toFixed(1) + '°';
+    }
+    if (this.biasValEl) {
+      if (this.fusionEnabled) {
+        var bias = this.ekfFilter.getBiasDegPerSec();
+        this.biasValEl.textContent = bias.x.toFixed(3) + ', ' + bias.y.toFixed(3) + ', ' + bias.z.toFixed(3) + ' °/s';
+      } else {
+        var n = this.getEffectiveNoise();
+        this.biasValEl.textContent = n.gyroDrift > 0
+          ? 'drifting (gyro bias on)'
+          : 'no gyro bias';
+      }
     }
 
     this.updateVehicleRotation(display);
@@ -1122,6 +1526,12 @@
     this.accEst = createAttitudeState();
     this.magEst = createAttitudeState();
     this.fusedEst = this.ekfEstimate;
+    this.ekfFilter.reset(this.groundTruth.roll, this.groundTruth.pitch, this.groundTruth.yaw);
+    this.accSmoothTilt = { roll: 0, pitch: 0 };
+    this.uncorrectedEstimate = createAttitudeState();
+    this.lastAccRaw = vec3(0, 0, 1);
+    this.lastAccCal = vec3(0, 0, 1);
+    this.lastGTrue = vec3(0, 0, 1);
     this.lastErrors = { raw: 0, calibrated: 0, ekf: 0, gyro: 0 };
     this.elapsed = 0;
     this.frameCount = 0;
@@ -1136,7 +1546,10 @@
 
   MemsSensorFusionLabDemo.prototype.animate = function() {
     if (!this.running) return;
-    this.stepSimulation(1 / 60);
+    if (!this.dragSteppedThisFrame) {
+      this.stepSimulation(1 / 60);
+    }
+    this.dragSteppedThisFrame = false;
     this.renderThree();
     this.rafId = window.requestAnimationFrame(this.animate);
   };
@@ -1174,6 +1587,7 @@
     this._initPromise = this.loadVehicles().then(function() {
       self.initInstruments();
       self.initCharts();
+      self.ekfFilter.reset(0, 0, 270);
       self.setFusionEnabled(true);
       self.updateNoiseControlUI();
       self.initialized = true;

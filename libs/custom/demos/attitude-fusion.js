@@ -9,6 +9,7 @@
   var DRAG_YAW_RATE = 0.7;
   var DRAG_PITCH_RATE = 0.44;
   var DRAG_ROLL_RATE = 0.24;
+  var GYRO_WHITE_NOISE_DPS = 0.08;
   var THEME = {
     bg: '#f8fafc',
     bgAlt: '#f4f7fa',
@@ -573,6 +574,18 @@
     this.gyroOnlyR[2] = g.z;
   };
 
+  // Interactive drag: apply the true angle step directly (gyro tracks fast motion; bias/noise still added).
+  AttitudeEKF.prototype.propagateGyroOnlyDelta = function(dRollDeg, dPitchDeg, dYawDeg, biasRad, whiteRad, dt) {
+    var noiseDeg = (whiteRad / DEG) * dt;
+    this.gyroOnly.roll += dRollDeg + (biasRad.x / DEG) * dt + randn() * noiseDeg;
+    this.gyroOnly.pitch += dPitchDeg + (biasRad.y / DEG) * dt + randn() * noiseDeg;
+    this.gyroOnly.yaw = wrap360(this.gyroOnly.yaw + dYawDeg + (biasRad.z / DEG) * dt + randn() * noiseDeg);
+    var g = gravityInBody(this.gyroOnly.roll, this.gyroOnly.pitch);
+    this.gyroOnlyR[0] = g.x;
+    this.gyroOnlyR[1] = g.y;
+    this.gyroOnlyR[2] = g.z;
+  };
+
   AttitudeEKF.prototype.syncFusedFromGyroOnly = function() {
     var g = gravityInBody(this.gyroOnly.roll, this.gyroOnly.pitch);
     this.x[0] = g.x;
@@ -630,6 +643,7 @@
     this.alphaInput = modal.querySelector('.js-af-alpha');
     this.accNoiseVal = modal.querySelector('.js-af-acc-noise-val');
     this.gyroDriftVal = modal.querySelector('.js-af-gyro-drift-val');
+    this.gyroWhiteNoiseNoteEl = modal.querySelector('.js-af-gyro-white-noise-note');
     this.magNoiseVal = modal.querySelector('.js-af-mag-noise-val');
     this.alphaVal = modal.querySelector('.js-af-alpha-val');
     this.alphaWrap = modal.querySelector('.js-af-alpha-wrap');
@@ -799,7 +813,7 @@
       return {
         acc: 0,
         gyroDrift: this.gyroDriftOn ? this.gyroDrift : 0,
-        gyroWhite: this.gyroDriftOn ? 0.08 : 0,
+        gyroWhite: this.gyroDriftOn ? GYRO_WHITE_NOISE_DPS : 0,
         mag: 0
       };
     }
@@ -807,7 +821,7 @@
     return {
       acc: this.accNoiseOn ? this.accNoise : 0,
       gyroDrift: this.gyroDriftOn ? this.gyroDrift : 0,
-      gyroWhite: this.gyroDriftOn ? 0.08 : 0,
+      gyroWhite: this.gyroDriftOn ? GYRO_WHITE_NOISE_DPS : 0,
       mag: this.magNoiseOn ? this.magNoise : 0
     };
   };
@@ -831,7 +845,17 @@
       if (checkbox) checkbox.disabled = fusionLocked;
     });
 
+    this.updateGyroWhiteNoiseNote();
     this.updateDisplays();
+  };
+
+  MemsSensorFusionLabDemo.prototype.updateGyroWhiteNoiseNote = function() {
+    if (!this.gyroWhiteNoiseNoteEl) return;
+    if (this.gyroDriftOn) {
+      this.gyroWhiteNoiseNoteEl.textContent = '+ ' + GYRO_WHITE_NOISE_DPS.toFixed(2) + '°/s white noise';
+    } else {
+      this.gyroWhiteNoiseNoteEl.textContent = 'white noise off';
+    }
   };
 
   MemsSensorFusionLabDemo.prototype.setFusionEnabled = function(enabled) {
@@ -1334,9 +1358,10 @@
     this.groundTruth.yaw = wrap360(this.groundTruth.yaw + groundYawRate * dt);
 
     // Rates from angle delta (pointer drag updates groundTruth between frames).
-    var trueRollRate = clamp((this.groundTruth.roll - prevTruth.roll) / dt, -200, 200);
-    var truePitchRate = clamp((this.groundTruth.pitch - prevTruth.pitch) / dt, -200, 200);
-    var trueYawRate = clamp(shortestAngleDiff(prevTruth.yaw, this.groundTruth.yaw) / dt, -200, 200);
+    var rateLimit = this.isDragging ? 3600 : 200;
+    var trueRollRate = clamp((this.groundTruth.roll - prevTruth.roll) / dt, -rateLimit, rateLimit);
+    var truePitchRate = clamp((this.groundTruth.pitch - prevTruth.pitch) / dt, -rateLimit, rateLimit);
+    var trueYawRate = clamp(shortestAngleDiff(prevTruth.yaw, this.groundTruth.yaw) / dt, -rateLimit, rateLimit);
     var motionDeg = Math.sqrt(trueRollRate * trueRollRate + truePitchRate * truePitchRate + trueYawRate * trueYawRate);
     var accTrustScale = 1 + Math.min(motionDeg * motionDeg * 0.00035, 18);
     if (this.isDragging) {
@@ -1429,6 +1454,11 @@
           dragTrack
         );
       }
+    } else if (this.isDragging) {
+      var dRoll = this.groundTruth.roll - prevTruth.roll;
+      var dPitch = this.groundTruth.pitch - prevTruth.pitch;
+      var dYaw = shortestAngleDiff(prevTruth.yaw, this.groundTruth.yaw);
+      this.ekfFilter.propagateGyroOnlyDelta(dRoll, dPitch, dYaw, biasTrue, gyroWhite, dt);
     } else {
       this.ekfFilter.propagateGyroOnly(gyroEuler, dt);
     }

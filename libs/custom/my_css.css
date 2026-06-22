@@ -1625,6 +1625,16 @@ body.demo-modal-open {
   font-size: 0.585em;
   line-height: 1.2;
 }
+.attitude-fusion-demo__slider-note {
+  margin: -0.15rem 0 0;
+  font-size: 0.52em;
+  line-height: 1.35;
+  color: rgba(0, 0, 0, 0.45);
+}
+.attitude-fusion-demo__slider.is-noise-off .attitude-fusion-demo__slider-note,
+.attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-note {
+  color: rgba(0, 0, 0, 0.32);
+}
 .attitude-fusion-demo__actions {
   display: flex;
   justify-content: flex-end;

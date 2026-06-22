@@ -20,7 +20,7 @@
         </div>
       </div>
       <p class="attitude-fusion-preview__hint">
-        Wind gust attitude response demo — fusion keeps the stabilizer demand smooth.
+        Interactive MEMS sensor fusion demo — calibration and EKF fusion recover reliable attitude estimates from noisy measurements.
       </p>
       <button
         type="button"
@@ -48,61 +48,68 @@
     <button type="button" class="demo-modal__close js-attitude-fusion-close" aria-label="Close demo">&times;</button>
 
     <header class="demo-modal__header">
-      <h5 class="demo-modal__title" id="attitude-fusion-title-{{ p.id }}">Fixed-Wing UAV Attitude Fusion</h5>
+      <h5 class="demo-modal__title" id="attitude-fusion-title-{{ p.id }}">MEMS-Based Vehicle Motion Measurement System</h5>
       <p class="demo-modal__subtitle">
-        Wind gusts disturb roll, pitch, and heading. ESKF-style sensor fusion gives the stabilizer a cleaner attitude estimate.
+        Low-cost MEMS gyroscopes, accelerometers, magnetometers, and GPS are fused through an Extended Kalman Filter to estimate vehicle attitude and motion in real time.
       </p>
     </header>
 
     <div class="attitude-fusion-demo js-attitude-fusion-demo is-fusion-on" data-project-id="{{ p.id }}">
       <div class="attitude-fusion-demo__fusion-bar">
         <div class="attitude-fusion-demo__fusion-copy">
-          <strong class="js-af-fusion-label">ESKF-style attitude estimation active</strong>
-          <span class="js-af-fusion-desc">Gyro propagation corrected by accelerometer, magnetometer, and barometer observations</span>
+          <strong class="js-af-fusion-label">EKF-based attitude estimation active</strong>
+          <span class="js-af-fusion-desc">Gyroscope integration corrected using accelerometer and magnetometer observations with online gyro-bias estimation</span>
         </div>
         <button
           type="button"
           class="button button-primary js-af-fusion-toggle"
           aria-pressed="true"
         >
-          Turn off fusion
+          Disable EKF fusion
         </button>
       </div>
 
       <div class="attitude-fusion-demo__main">
         <div class="attitude-fusion-demo__visual-col">
           <div class="attitude-fusion-demo__viewport-wrap">
-            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D fixed-wing UAV attitude visualization"></canvas>
-            <p class="attitude-fusion-demo__drag-hint">Drag ↔ roll · ↕ pitch</p>
+            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="3D MEMS-based aircraft attitude visualization"></canvas>
+            <div class="attitude-fusion-demo__subplot-labels" aria-hidden="true">
+              <span>Ground Truth Motion</span>
+              <span>Estimated Attitude</span>
+            </div>
+            <p class="attitude-fusion-demo__drag-hint">Drag the left green aircraft to test attitude tracking</p>
             <div class="attitude-fusion-demo__readout" aria-live="polite">
               <span>Roll: <strong class="js-af-roll-val">0.0°</strong></span>
               <span>Pitch: <strong class="js-af-pitch-val">0.0°</strong></span>
               <span>Hdg: <strong class="js-af-hdg-val">000°</strong></span>
+              <span>Raw Error: <strong class="js-af-raw-error-val">0.0°</strong></span>
+              <span>Calibrated Error: <strong class="js-af-calibrated-error-val">0.0°</strong></span>
+              <span>EKF Error: <strong class="js-af-ekf-error-val">0.0°</strong></span>
             </div>
           </div>
-          <div class="attitude-fusion-demo__flight-panels">
-            <canvas class="attitude-fusion-demo__flight-panels-canvas js-attitude-fusion-flight-panels" aria-label="Wind gust attitude response and stabilizer output"></canvas>
-            <p class="attitude-fusion-demo__panels-caption js-af-instruments-caption">Gray = wind gust · Green = true attitude · Orange = estimated attitude</p>
+          <div class="attitude-fusion-demo__sensor-panels">
+            <canvas class="attitude-fusion-demo__sensor-panels-canvas js-attitude-fusion-sensor-panels" aria-label="Sensor measurements, EKF estimates, and sensor health and calibration effect"></canvas>
+            <p class="attitude-fusion-demo__panels-caption js-af-instruments-caption">Sensor health and calibration effect update from live MEMS errors.</p>
           </div>
         </div>
 
         <div class="attitude-fusion-demo__side">
           <div class="attitude-fusion-demo__pipeline-wrap">
-            <canvas class="attitude-fusion-demo__pipeline js-attitude-fusion-pipeline" aria-label="ESKF-style state estimation pipeline"></canvas>
+            <canvas class="attitude-fusion-demo__pipeline js-attitude-fusion-pipeline" aria-label="MEMS calibration and EKF sensor fusion pipeline"></canvas>
           </div>
           <div class="attitude-fusion-demo__charts">
             <div class="attitude-fusion-demo__chart-wrap">
-              <canvas class="attitude-fusion-demo__chart js-af-chart-rp" aria-label="Roll and pitch sensor paths"></canvas>
+              <canvas class="attitude-fusion-demo__chart js-af-chart-rp" aria-label="Raw sensor, calibrated sensor, EKF estimate, and ground truth attitude paths"></canvas>
             </div>
             <div class="attitude-fusion-demo__chart-wrap">
-              <canvas class="attitude-fusion-demo__chart js-af-chart-hdg" aria-label="Heading sensor paths"></canvas>
+              <canvas class="attitude-fusion-demo__chart js-af-chart-hdg" aria-label="Vehicle trace and motion recording output"></canvas>
             </div>
           </div>
         </div>
       </div>
 
       <div class="attitude-fusion-demo__controls">
-        <p class="attitude-fusion-demo__noise-hint">Use sensor noise to show how a noisy attitude estimate changes stabilizer demand.</p>
+        <p class="attitude-fusion-demo__noise-hint">Adjust sensor imperfections to observe how calibration and EKF fusion improve attitude estimation.</p>
         <div class="attitude-fusion-demo__sliders">
           <label class="attitude-fusion-demo__slider js-af-noise-acc">
             <span class="attitude-fusion-demo__slider-head">
@@ -128,15 +135,10 @@
             <input type="range" class="js-af-mag-noise" min="0" max="25" step="0.5" value="4">
             <span class="attitude-fusion-demo__slider-value js-af-mag-noise-val">4.0°</span>
           </label>
-          <label class="attitude-fusion-demo__slider js-af-alpha-wrap">
-            <span class="attitude-fusion-demo__slider-label">Measurement correction strength</span>
-            <input type="range" class="js-af-alpha" min="0.005" max="0.1" step="0.005" value="0.02">
-            <span class="attitude-fusion-demo__slider-value js-af-alpha-val">2%</span>
-          </label>
         </div>
 
         <div class="attitude-fusion-demo__actions">
-          <button type="button" class="button js-af-reset">Reset simulation</button>
+          <button type="button" class="button js-af-reset">Reset measurement run</button>
         </div>
       </div>
     </div>

@@ -1162,102 +1162,77 @@
 
   MemsSensorFusionLabDemo.prototype.drawPipelineNode = function(ctx, nx, ny, nw, nh, node, pulse, active) {
     active = active !== false;
-    ctx.fillStyle = node.fill;
-    ctx.strokeStyle = node.stroke;
+    if (active) {
+      ctx.fillStyle = node.fill;
+      ctx.strokeStyle = node.stroke;
+      ctx.globalAlpha = 0.72 + 0.28 * pulse;
+    } else {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.globalAlpha = 1;
+    }
     ctx.lineWidth = 1;
-    ctx.globalAlpha = active ? (0.72 + 0.28 * pulse) : 0.28;
     ctx.beginPath();
-    ctx.roundRect(nx, ny, nw, nh, 6);
+    ctx.roundRect(nx, ny, nw, nh, 5);
     ctx.fill();
     ctx.stroke();
     ctx.globalAlpha = 1;
-    ctx.fillStyle = active ? node.text : THEME.textMuted;
-    ctx.font = '700 8px Raleway, sans-serif';
+    ctx.fillStyle = active ? node.text : 'rgba(0, 0, 0, 0.26)';
     ctx.textAlign = 'center';
-    ctx.fillText(node.label, nx + nw / 2, ny + nh * 0.38);
-    ctx.font = '8px Raleway, sans-serif';
-    ctx.fillText(node.sub, nx + nw / 2, ny + nh * 0.72);
+    ctx.font = '700 ' + (nw < 40 ? 7 : 8) + 'px Raleway, sans-serif';
+    ctx.fillText(node.label, nx + nw / 2, ny + nh * (nw < 40 ? 0.52 : 0.4));
+    if (nw >= 36 && node.sub) {
+      ctx.font = '7px Raleway, sans-serif';
+      ctx.fillStyle = active ? node.text : 'rgba(0, 0, 0, 0.22)';
+      ctx.fillText(node.sub, nx + nw / 2, ny + nh * 0.78);
+    }
     ctx.textAlign = 'left';
   };
 
   MemsSensorFusionLabDemo.prototype.drawPipeline = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Measurement & Estimation Flow');
+    this.drawCard(ctx, x, y, w, h, 'Processing Flow');
 
     var fusionOn = this.fusionEnabled;
     var pulse = 0.5 + 0.5 * Math.sin(this.elapsed * 5);
-    var pad = 12;
+    var pad = 10;
     var innerW = w - pad * 2;
-    var innerH = h - 36;
-    var topY = y + 28;
-
-    var sensorW = Math.min(52, Math.max(40, innerW * 0.14));
-    var sensorH = Math.min(40, Math.max(30, innerH * 0.38));
-    var fusionW = Math.min(72, Math.max(56, innerW * 0.2));
-    var fusionH = Math.min(46, Math.max(34, innerH * 0.48));
-    var outW = Math.min(58, Math.max(44, innerW * 0.15));
-    var outH = fusionH;
-    var sensorGap = Math.max(6, (innerH - sensorH * 3) / 4);
-    var sensorX = x + pad + 4;
-    var sensorStartY = topY + sensorGap;
-
-    var sensors = [
-      { label: 'GYRO', sub: 'angular rate', fill: 'rgba(230,126,34,0.16)', stroke: 'rgba(230,126,34,0.34)', text: '#8a4d15', active: true },
-      { label: 'ACC', sub: 'gravity tilt', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226', active: fusionOn },
-      { label: 'MAG', sub: 'heading', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87', active: fusionOn }
+    var nodeH = Math.min(34, Math.max(26, h - 38));
+    var nodeY = y + 22 + Math.max(0, (h - 38 - nodeH) * 0.5);
+    var arrowW = 10;
+    var nodes = [
+      { label: 'GYRO', sub: 'rate', fill: 'rgba(230,126,34,0.16)', stroke: 'rgba(230,126,34,0.34)', text: '#8a4d15', active: true },
+      { label: 'ACC', sub: fusionOn ? 'tilt' : 'off', fill: 'rgba(231,76,60,0.14)', stroke: 'rgba(231,76,60,0.32)', text: '#a83226', active: fusionOn },
+      { label: 'MAG', sub: fusionOn ? 'hdg' : 'off', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87', active: fusionOn },
+      {
+        label: 'PROC',
+        sub: fusionOn ? 'multi' : 'gyro',
+        fill: fusionOn ? 'rgba(243,156,18,0.16)' : 'rgba(231,76,60,0.12)',
+        stroke: fusionOn ? 'rgba(243,156,18,0.34)' : 'rgba(231,76,60,0.3)',
+        text: fusionOn ? '#9a6412' : '#a83226',
+        active: true
+      },
+      { label: 'OUT', sub: 'att.', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45', active: true }
     ];
+    var nodeCount = nodes.length;
+    var nodeW = Math.max(34, (innerW - arrowW * (nodeCount - 1)) / nodeCount);
+    var cursorX = x + pad;
 
-    var sensorCenters = [];
-    var self = this;
-    sensors.forEach(function(node, i) {
-      var sy = sensorStartY + i * (sensorH + sensorGap);
-      self.drawPipelineNode(ctx, sensorX, sy, sensorW, sensorH, node, pulse, node.active);
-      sensorCenters.push({ x: sensorX + sensorW, y: sy + sensorH * 0.5, active: node.active });
-    });
-
-    var fusionX = x + pad + innerW * 0.42 - fusionW * 0.5;
-    var fusionY = topY + (innerH - fusionH) * 0.5;
-    var fusionNode = fusionOn
-      ? { label: 'PROCESS', sub: 'multi-sensor', fill: 'rgba(243,156,18,0.16)', stroke: 'rgba(243,156,18,0.34)', text: '#9a6412' }
-      : { label: 'PROCESS', sub: 'gyro only', fill: 'rgba(231,76,60,0.12)', stroke: 'rgba(231,76,60,0.3)', text: '#a83226' };
-    this.drawPipelineNode(ctx, fusionX, fusionY, fusionW, fusionH, fusionNode, pulse, true);
-
-    var outX = x + w - pad - outW - 4;
-    var outY = fusionY;
-    var outNode = { label: 'OUTPUT', sub: 'attitude est.', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45' };
-    this.drawPipelineNode(ctx, outX, outY, outW, outH, outNode, pulse, true);
-
-    var fusionInX = fusionX;
-    var fusionMidY = fusionY + fusionH * 0.5;
-    var fusionOutX = fusionX + fusionW;
-    var outInX = outX;
-
-    ctx.strokeStyle = THEME.connector;
-    ctx.lineWidth = 1.5;
-    sensorCenters.forEach(function(sc) {
-      if (!sc.active) {
-        ctx.globalAlpha = 0.22;
-      } else {
-        ctx.globalAlpha = 0.55 + 0.25 * pulse;
+    nodes.forEach(function(node, i) {
+      this.drawPipelineNode(ctx, cursorX, nodeY, nodeW, nodeH, node, pulse, node.active);
+      cursorX += nodeW;
+      if (i < nodeCount - 1) {
+        var linkActive = node.active && nodes[i + 1].active;
+        ctx.strokeStyle = linkActive ? THEME.connector : 'rgba(0, 0, 0, 0.12)';
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = linkActive ? (0.55 + 0.25 * pulse) : 1;
+        ctx.beginPath();
+        ctx.moveTo(cursorX + 1, nodeY + nodeH * 0.5);
+        ctx.lineTo(cursorX + arrowW - 1, nodeY + nodeH * 0.5);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        cursorX += arrowW;
       }
-      ctx.beginPath();
-      ctx.moveTo(sc.x + 2, sc.y);
-      ctx.lineTo(fusionInX - 6, fusionMidY);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-    });
-
-    ctx.globalAlpha = 0.72 + 0.28 * pulse;
-    ctx.beginPath();
-    ctx.moveTo(fusionOutX + 2, fusionMidY);
-    ctx.lineTo(outInX - 8, fusionMidY);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-
-    ctx.fillStyle = THEME.textMuted;
-    ctx.font = '7px Raleway, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(fusionOn ? 'Sensors → processing → output' : 'Gyro path only (other sensors inactive)', x + w * 0.5, y + h - 8);
-    ctx.textAlign = 'left';
+    }, this);
   };
 
   MemsSensorFusionLabDemo.prototype.drawSensorHealthPanel = function(ctx, x, y, w, h) {

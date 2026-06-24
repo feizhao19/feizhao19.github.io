@@ -1086,20 +1086,27 @@ body.demo-modal-open {
   position: relative;
   width: 100%;
   height: 168px;
-  margin: 0 auto 0.75rem;
+  margin: 0;
   border-radius: 10px;
   background: #f8fafc;
   border: 1px solid rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.attitude-fusion-preview__visual:hover {
+  border-color: rgba(41, 130, 172, 0.28);
+  box-shadow: 0 4px 14px rgba(41, 130, 172, 0.08);
 }
 .attitude-fusion-preview__canvas {
   display: block;
   width: 100%;
   height: 100%;
-  cursor: grab;
+  cursor: inherit;
   touch-action: none;
 }
-.attitude-fusion-preview__canvas.is-dragging {
+.attitude-fusion-preview__canvas.is-dragging,
+.attitude-fusion-preview__visual.is-dragging {
   cursor: grabbing;
 }
 .attitude-fusion-preview__labels {
@@ -1142,6 +1149,18 @@ body.demo-modal-open {
   font-size: 0.68em;
   pointer-events: none;
 }
+.attitude-fusion-preview__open-hint {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.45rem;
+  margin: 0;
+  padding: 0.14rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: rgba(41, 130, 172, 0.72);
+  font-size: 0.68em;
+  pointer-events: none;
+}
 .attitude-fusion-preview__loading {
   position: absolute;
   inset: 0;
@@ -1160,7 +1179,8 @@ body.demo-modal-open {
 }
 .attitude-fusion-preview.is-loading .attitude-fusion-preview__labels,
 .attitude-fusion-preview.is-loading .attitude-fusion-preview__divider,
-.attitude-fusion-preview.is-loading .attitude-fusion-preview__drag-hint {
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__drag-hint,
+.attitude-fusion-preview.is-loading .attitude-fusion-preview__open-hint {
   visibility: hidden;
 }
 .attitude-fusion-preview__hint {
@@ -1168,9 +1188,6 @@ body.demo-modal-open {
   font-size: 0.88em;
   line-height: 1.45;
   color: rgba(0, 0, 0, 0.62);
-}
-.attitude-fusion-preview__launch {
-  margin: 0.75rem 0 0;
 }
 
 /* --- Attitude fusion demo (inside modal) --- */

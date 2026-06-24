@@ -11,11 +11,11 @@
 
   <div class="viz-project__demo-wrap">
     <div class="viz-project__figure">
-    <div class="attitude-fusion-preview js-attitude-fusion-preview">
+    <div class="attitude-fusion-preview js-attitude-fusion-preview" data-modal-id="attitude-fusion-modal-{{ p.id }}">
       <div class="attitude-fusion-preview__visual">
         <canvas
           class="attitude-fusion-preview__canvas js-attitude-fusion-preview-canvas"
-          aria-label="True state and state estimate side by side"
+          aria-label="True state and state estimate side by side. Click to open the interactive demo."
         ></canvas>
         <div class="attitude-fusion-preview__labels" aria-hidden="true">
           <span>True State</span>
@@ -23,16 +23,9 @@
         </div>
         <div class="attitude-fusion-preview__divider" aria-hidden="true"></div>
         <p class="attitude-fusion-preview__drag-hint">Drag the aircraft</p>
+        <p class="attitude-fusion-preview__open-hint">Click to open</p>
         <div class="attitude-fusion-preview__loading js-attitude-fusion-preview-loading" hidden aria-live="polite">Loading...</div>
       </div>
-      <button
-        type="button"
-        class="button button-primary attitude-fusion-preview__launch js-attitude-fusion-open"
-        data-modal-id="attitude-fusion-modal-{{ p.id }}"
-        aria-haspopup="dialog"
-      >
-        Try Demo
-      </button>
     </div>
     </div>
   </div>

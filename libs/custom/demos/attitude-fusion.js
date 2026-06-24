@@ -1740,7 +1740,9 @@
 
   function AttitudeFusionCardPreview(root) {
     this.root = root;
+    this.modalId = root.getAttribute('data-modal-id');
     this.canvas = root.querySelector('.js-attitude-fusion-preview-canvas');
+    this.visualEl = root.querySelector('.attitude-fusion-preview__visual');
     this.loadingEl = root.querySelector('.js-attitude-fusion-preview-loading');
     this.trueScene = null;
     this.estimatedScene = null;
@@ -1756,6 +1758,8 @@
     this.truthPitch = 0;
     this.truthYaw = 270;
     this.isDragging = false;
+    this.pointerDownX = 0;
+    this.pointerDownY = 0;
     this.lastPointerX = 0;
     this.lastPointerY = 0;
     this.running = false;
@@ -1828,15 +1832,22 @@
   AttitudeFusionCardPreview.prototype.handlePointerDown = function(event) {
     if (!this.initialized || !this.canvas) return;
 
+    this.pointerDownX = event.clientX;
+    this.pointerDownY = event.clientY;
+
     var rect = this.canvas.getBoundingClientRect();
     var localX = event.clientX - rect.left;
-    if (localX > rect.width / 2) return;
+    if (localX > rect.width / 2) {
+      this.isDragging = false;
+      return;
+    }
 
     this.isDragging = true;
     this.lastPointerX = event.clientX;
     this.lastPointerY = event.clientY;
     this.canvas.setPointerCapture(event.pointerId);
     this.canvas.classList.add('is-dragging');
+    if (this.visualEl) this.visualEl.classList.add('is-dragging');
   };
 
   AttitudeFusionCardPreview.prototype.handlePointerMove = function(event) {
@@ -1853,12 +1864,24 @@
   };
 
   AttitudeFusionCardPreview.prototype.handlePointerUp = function(event) {
-    if (!this.isDragging || !this.canvas) return;
+    if (!this.canvas) return;
 
-    this.isDragging = false;
-    this.canvas.classList.remove('is-dragging');
-    if (this.canvas.hasPointerCapture && this.canvas.hasPointerCapture(event.pointerId)) {
-      this.canvas.releasePointerCapture(event.pointerId);
+    var dx = event.clientX - this.pointerDownX;
+    var dy = event.clientY - this.pointerDownY;
+    var movedLittle = dx * dx + dy * dy < 36;
+
+    if (this.isDragging) {
+      this.isDragging = false;
+      this.canvas.classList.remove('is-dragging');
+      if (this.visualEl) this.visualEl.classList.remove('is-dragging');
+      if (this.canvas.hasPointerCapture && this.canvas.hasPointerCapture(event.pointerId)) {
+        this.canvas.releasePointerCapture(event.pointerId);
+      }
+    }
+
+    if (movedLittle && this.modalId) {
+      var modal = document.getElementById(this.modalId);
+      if (modal) openModal(modal);
     }
   };
 
@@ -1980,13 +2003,6 @@
   }
 
   function initMemsSensorFusionLabDemos() {
-    document.querySelectorAll('.js-attitude-fusion-open').forEach(function(button) {
-      button.addEventListener('click', function() {
-        var modal = document.getElementById(button.getAttribute('data-modal-id'));
-        if (modal) openModal(modal);
-      });
-    });
-
     document.querySelectorAll('.js-attitude-fusion-close').forEach(function(el) {
       el.addEventListener('click', function() {
         var modal = el.closest('.js-attitude-fusion-modal');

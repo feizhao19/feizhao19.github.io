@@ -1,0 +1,138 @@
+{% assign p = include.project %}
+
+<div class="viz-project viz-project--attitude-fusion" id="project-{{ p.id }}" data-project-id="{{ p.id }}">
+  <h5 class="viz-project__title">
+    <a class="viz-project__permalink" href="#project-{{ p.id }}" aria-label="Permalink to this project demo">#</a>
+    {{ p.title }}
+  </h5>
+  {% if p.description %}
+  <div class="viz-project__description">{{ p.description | markdownify }}</div>
+  {% endif %}
+
+  <div class="viz-project__demo-wrap">
+    <div class="viz-project__figure">
+    <div class="attitude-fusion-preview js-attitude-fusion-preview" data-modal-id="attitude-fusion-modal-{{ p.id }}">
+      <div class="attitude-fusion-preview__visual">
+        <canvas
+          class="attitude-fusion-preview__canvas js-attitude-fusion-preview-canvas"
+          aria-label="True state and state estimate side by side. Click to open the interactive demo."
+        ></canvas>
+        <div class="attitude-fusion-preview__labels" aria-hidden="true">
+          <span>True State</span>
+          <span>Estimated State</span>
+        </div>
+        <div class="attitude-fusion-preview__divider" aria-hidden="true"></div>
+        <p class="attitude-fusion-preview__drag-hint">Drag the aircraft</p>
+        <p class="attitude-fusion-preview__open-hint">Click to open</p>
+        <div class="attitude-fusion-preview__loading js-attitude-fusion-preview-loading" hidden aria-live="polite">Loading...</div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="demo-modal js-attitude-fusion-modal"
+  id="attitude-fusion-modal-{{ p.id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Attitude state estimation interactive demo"
+  aria-hidden="true"
+  hidden
+>
+  <div class="demo-modal__backdrop js-attitude-fusion-close" aria-hidden="true"></div>
+  <div class="demo-modal__panel demo-modal__panel--wide">
+    <button type="button" class="demo-modal__close js-attitude-fusion-close" aria-label="Close demo">&times;</button>
+
+    <div class="attitude-fusion-demo js-attitude-fusion-demo is-fusion-on" data-project-id="{{ p.id }}">
+      <div class="attitude-fusion-demo__fusion-bar">
+        <div class="attitude-fusion-demo__fusion-copy">
+          <strong class="js-af-fusion-label">Multimodal fusion</strong>
+          <span class="js-af-fusion-desc">Acc · gyro · mag → state estimate</span>
+        </div>
+        <button
+          type="button"
+          class="button button-primary attitude-fusion-demo__fusion-toggle js-af-fusion-toggle"
+          aria-pressed="true"
+        >
+          Gyro only
+        </button>
+      </div>
+
+      <div class="attitude-fusion-demo__main">
+        <div class="attitude-fusion-demo__visual-col">
+          <div class="attitude-fusion-demo__viewport-wrap">
+            <div class="attitude-fusion-demo__readout" aria-live="polite">
+              <span>Roll: <strong class="js-af-roll-val">0.0°</strong></span>
+              <span>Pitch: <strong class="js-af-pitch-val">0.0°</strong></span>
+              <span>Hdg: <strong class="js-af-hdg-val">000°</strong></span>
+              <span>Raw err: <strong class="js-af-raw-error-val">0.0°</strong></span>
+              <span>Cal err: <strong class="js-af-calibrated-error-val">0.0°</strong></span>
+              <span>Est err: <strong class="js-af-ekf-error-val">0.0°</strong></span>
+              <span>Bias: <strong class="js-af-bias-val">0.000, 0.000, 0.000 °/s</strong></span>
+            </div>
+            <canvas class="attitude-fusion-demo__canvas js-attitude-fusion-canvas" aria-label="True state and state estimate"></canvas>
+            <div class="attitude-fusion-demo__subplot-labels" aria-hidden="true">
+              <span>True State</span>
+              <span>Estimated State</span>
+            </div>
+            <p class="attitude-fusion-demo__drag-hint">Drag the aircraft</p>
+          </div>
+          <div class="attitude-fusion-demo__sensor-panels">
+            <canvas class="attitude-fusion-demo__sensor-panels-canvas js-attitude-fusion-sensor-panels" aria-label="Sensor noise and accelerometer calibration"></canvas>
+            <p class="attitude-fusion-demo__panels-caption js-af-instruments-caption">Sensor noise · acc calibration</p>
+          </div>
+        </div>
+
+        <div class="attitude-fusion-demo__side">
+          <div class="attitude-fusion-demo__pipeline-wrap">
+            <canvas class="attitude-fusion-demo__pipeline js-attitude-fusion-pipeline" aria-label="Multimodal fusion pipeline"></canvas>
+          </div>
+          <div class="attitude-fusion-demo__charts">
+            <div class="attitude-fusion-demo__chart-wrap">
+              <canvas class="attitude-fusion-demo__chart js-af-chart-rp" aria-label="Roll state history"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attitude-fusion-demo__controls">
+        <div class="attitude-fusion-demo__sliders">
+          <label class="attitude-fusion-demo__slider js-af-noise-acc">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-acc-noise-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Acc noise</span>
+            </span>
+            <input type="range" class="js-af-acc-noise" min="0" max="15" step="0.5" value="5">
+            <span class="attitude-fusion-demo__slider-value js-af-acc-noise-val">5.0°</span>
+          </label>
+          <label class="attitude-fusion-demo__slider js-af-noise-gyro">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-gyro-drift-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Gyro drift</span>
+            </span>
+            <input type="range" class="js-af-gyro-drift" min="0" max="5" step="0.1" value="3">
+            <span class="attitude-fusion-demo__slider-value js-af-gyro-drift-val">3.0°/s</span>
+            <span class="attitude-fusion-demo__slider-note js-af-gyro-white-noise-note">±0.80°/s jitter</span>
+          </label>
+          <label class="attitude-fusion-demo__slider js-af-noise-mag">
+            <span class="attitude-fusion-demo__slider-head">
+              <input type="checkbox" class="js-af-mag-noise-on" checked>
+              <span class="attitude-fusion-demo__slider-label">Mag noise</span>
+            </span>
+            <input type="range" class="js-af-mag-noise" min="0" max="25" step="0.5" value="4">
+            <span class="attitude-fusion-demo__slider-value js-af-mag-noise-val">4.0°</span>
+          </label>
+        </div>
+
+        <div class="attitude-fusion-demo__actions">
+          <button type="button" class="button js-af-reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="attitude-fusion-demo__loading js-af-model-loading" hidden aria-live="polite">Loading...</div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ '/libs/custom/demos/attitude-fusion.js' | prepend: site.baseurl }}" defer></script>

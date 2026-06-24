@@ -7,3 +7,6 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
+
+# Airplane source exports not used by the web demo
+libs/airplane-model/*.fbx

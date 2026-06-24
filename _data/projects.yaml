@@ -22,3 +22,9 @@ projects:
     top_right_label: Post-disaster
     bottom_left_label: Pre-disaster
     bottom_right_label: Damage assessment
+
+  - id: attitude-fusion
+    type: attitude-fusion
+    title: "Selected Project 2: Multimodal sensor fusion and calibration for attitude state estimation"
+    description: >-
+      Combines gyroscope, accelerometer, and magnetometer measurements for real-time vehicle attitude estimation, enabling accurate trajectory estimation while mitigating long-term drift.

@@ -33,7 +33,32 @@
   var previewInstances = [];
   var threeDepsPromise = null;
 
-  function loadScript(src) {
+  function runWhenAppropriate(fn, options) {
+    options = options || {};
+
+    if (options.urgent) {
+      fn();
+      return;
+    }
+
+    function runIdle() {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(fn, { timeout: options.idleTimeout || 4000 });
+      } else {
+        window.setTimeout(fn, options.fallbackDelay || 1000);
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      runIdle();
+      return;
+    }
+
+    window.addEventListener('load', runIdle, { once: true });
+  }
+
+  function loadScript(src, options) {
+    options = options || {};
     if (scriptPromises[src]) return scriptPromises[src];
 
     scriptPromises[src] = new Promise(function(resolve, reject) {
@@ -75,6 +100,11 @@
       var script = document.createElement('script');
       script.src = src;
       script.async = true;
+      if (options.urgent) {
+        if ('fetchPriority' in script) script.fetchPriority = 'high';
+      } else if ('fetchPriority' in script) {
+        script.fetchPriority = 'low';
+      }
       script.onload = function() {
         script.dataset.loaded = 'true';
         finish();
@@ -146,19 +176,20 @@
     delete scriptPromises[src];
   }
 
-  function loadThreeDeps() {
+  function loadThreeDeps(options) {
+    options = options || {};
     if (threeDepsPromise) return threeDepsPromise;
 
-    threeDepsPromise = loadScript(THREE_CDN)
+    threeDepsPromise = loadScript(THREE_CDN, options)
       .then(function() { return waitForGlobal('THREE'); })
       .then(function() {
         resetBrokenLoaderScript(THREE_MTL_LOADER_CDN, 'THREE.MTLLoader');
-        return loadScript(THREE_MTL_LOADER_CDN);
+        return loadScript(THREE_MTL_LOADER_CDN, options);
       })
       .then(function() { return waitForGlobal('THREE.MTLLoader'); })
       .then(function() {
         resetBrokenLoaderScript(THREE_OBJ_LOADER_CDN, 'THREE.OBJLoader');
-        return loadScript(THREE_OBJ_LOADER_CDN);
+        return loadScript(THREE_OBJ_LOADER_CDN, options);
       })
       .then(function() { return waitForGlobal('THREE.OBJLoader'); });
 
@@ -174,6 +205,29 @@
 
   function getAirplaneModelBase() {
     return getSiteBaseUrl() + '/libs/airplane-model/';
+  }
+
+  function getLoadingPosterUrl() {
+    return getSiteBaseUrl() + '/images/demo_small_figure.png';
+  }
+
+  var loadingPosterPreload = null;
+
+  function preloadLoadingPoster() {
+    if (loadingPosterPreload) return loadingPosterPreload;
+    loadingPosterPreload = new Promise(function(resolve) {
+      var img = new Image();
+      if ('fetchPriority' in img) img.fetchPriority = 'low';
+      img.decoding = 'async';
+      img.onload = img.onerror = function() { resolve(); };
+      img.src = getLoadingPosterUrl();
+    });
+    return loadingPosterPreload;
+  }
+
+  function applyLoadingPoster(el) {
+    if (!el) return;
+    el.style.setProperty('--attitude-fusion-loading-poster', 'url("' + getLoadingPosterUrl() + '")');
   }
 
   function computeFuselagePivot(object) {
@@ -687,6 +741,7 @@
     this.instrumentsCaptionEl = modal.querySelector('.js-af-instruments-caption');
     this.demoRoot = modal.querySelector('.js-attitude-fusion-demo');
     this.modelLoadingEl = modal.querySelector('.js-af-model-loading');
+    applyLoadingPoster(this.modelLoadingEl);
     this.rawErrorValEl = modal.querySelector('.js-af-raw-error-val');
     this.calibratedErrorValEl = modal.querySelector('.js-af-calibrated-error-val');
     this.ekfErrorValEl = modal.querySelector('.js-af-ekf-error-val');
@@ -1705,8 +1760,14 @@
 
   function openModal(modal) {
     var modalId = modal.id;
+    var modalLoadingEl = modal.querySelector('.js-af-model-loading');
+    applyLoadingPoster(modalLoadingEl);
+    preloadLoadingPoster();
 
-    Promise.all([loadThreeDeps(), loadScript(CHART_CDN)]).then(function() {
+    Promise.all([
+      loadThreeDeps({ urgent: true }),
+      loadScript(CHART_CDN, { urgent: true })
+    ]).then(function() {
       document.body.classList.add('demo-modal-open');
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
@@ -1744,6 +1805,7 @@
     this.canvas = root.querySelector('.js-attitude-fusion-preview-canvas');
     this.visualEl = root.querySelector('.attitude-fusion-preview__visual');
     this.loadingEl = root.querySelector('.js-attitude-fusion-preview-loading');
+    applyLoadingPoster(this.loadingEl);
     this.trueScene = null;
     this.estimatedScene = null;
     this.camera = null;
@@ -1939,13 +2001,19 @@
   };
 
   AttitudeFusionCardPreview.prototype.start = function() {
-    if (this.running) return;
+    if (this.running || this._startScheduled) return;
 
     var self = this;
-    this.ensureInitialized().then(function() {
-      if (!self.initialized || self.running) return;
-      self.running = true;
-      self.animate();
+    this._startScheduled = true;
+    runWhenAppropriate(function() {
+      self._startScheduled = false;
+      if (self.running) return;
+
+      self.ensureInitialized().then(function() {
+        if (!self.initialized || self.running) return;
+        self.running = true;
+        self.animate();
+      });
     });
   };
 
@@ -1959,8 +2027,14 @@
 
   AttitudeFusionCardPreview.prototype.setVisible = function(isVisible) {
     this.visible = isVisible;
-    if (isVisible) this.start();
-    else this.stop();
+    if (isVisible) {
+      applyLoadingPoster(this.loadingEl);
+      preloadLoadingPoster();
+      this.start();
+    } else {
+      this._startScheduled = false;
+      this.stop();
+    }
   };
 
   AttitudeFusionCardPreview.prototype.destroy = function() {
@@ -1981,7 +2055,7 @@
       document.querySelectorAll('.js-attitude-fusion-preview').forEach(function(root) {
         var preview = new AttitudeFusionCardPreview(root);
         previewInstances.push(preview);
-        preview.start();
+        preview.setVisible(true);
       });
       return;
     }
@@ -1992,7 +2066,7 @@
         if (!preview) return;
         preview.setVisible(entry.isIntersecting);
       });
-    }, { rootMargin: '120px 0px', threshold: 0.12 });
+    }, { rootMargin: '0px 0px', threshold: 0.2 });
 
     document.querySelectorAll('.js-attitude-fusion-preview').forEach(function(root) {
       var preview = new AttitudeFusionCardPreview(root);

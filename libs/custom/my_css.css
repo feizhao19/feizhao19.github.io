@@ -1168,11 +1168,61 @@ body.demo-modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  overflow: hidden;
+  background-color: #eef2f6;
+  background-image: var(--attitude-fusion-loading-poster);
+  background-size: cover;
+  background-position: center;
   color: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+.attitude-fusion-preview__loading::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px) saturate(1.12);
+  -webkit-backdrop-filter: blur(16px) saturate(1.12);
+  animation: attitude-fusion-loading-pulse 2.4s ease-in-out infinite;
+}
+.attitude-fusion-preview__loading-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.95rem;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .attitude-fusion-preview__loading::before {
+    background: rgba(248, 250, 252, 0.72);
+  }
+  .attitude-fusion-preview__loading-copy {
+    background: rgba(255, 255, 255, 0.88);
+  }
+}
+.attitude-fusion-preview__loading-title {
   font-size: 0.82em;
   font-weight: 600;
   letter-spacing: 0.04em;
+}
+.attitude-fusion-preview__loading-note {
+  max-width: 13rem;
+  font-size: 0.68em;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: rgba(0, 0, 0, 0.45);
 }
 .attitude-fusion-preview__loading[hidden] {
   display: none;
@@ -1294,12 +1344,65 @@ body.demo-modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  overflow: hidden;
+  background-color: #eef2f6;
+  background-image: var(--attitude-fusion-loading-poster);
+  background-size: cover;
+  background-position: center;
   color: rgba(0, 0, 0, 0.62);
+  pointer-events: all;
+}
+.attitude-fusion-demo__loading::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px) saturate(1.12);
+  -webkit-backdrop-filter: blur(16px) saturate(1.12);
+  animation: attitude-fusion-loading-pulse 2.4s ease-in-out infinite;
+}
+.attitude-fusion-demo__loading-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(10px) saturate(1.15);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  box-shadow:
+    0 4px 22px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .attitude-fusion-demo__loading::before {
+    background: rgba(248, 250, 252, 0.72);
+  }
+  .attitude-fusion-demo__loading-copy {
+    background: rgba(255, 255, 255, 0.88);
+  }
+}
+@keyframes attitude-fusion-loading-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+.attitude-fusion-demo__loading-title {
   font-size: 0.95em;
   font-weight: 600;
   letter-spacing: 0.05em;
-  pointer-events: all;
+}
+.attitude-fusion-demo__loading-note {
+  max-width: 15rem;
+  font-size: 0.78em;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: rgba(0, 0, 0, 0.48);
 }
 .attitude-fusion-demo__loading[hidden] {
   display: none;

@@ -25,7 +25,6 @@ projects:
 
   - id: attitude-fusion
     type: attitude-fusion
-    title: "Selected Project 2: Fixed-Wing UAV Attitude Fusion (Interactive Demo)"
+    title: "Selected Project 2: Multimodal sensor fusion and calibration for attitude state estimation"
     description: >-
-      Explore ESKF-style state estimation for fixed-wing UAVs: gyro propagation corrected by accelerometer,
-      magnetometer, and barometer observations under wind gusts and sensor noise.
+      Combines gyroscope, accelerometer, and magnetometer measurements for real-time vehicle attitude estimation, enabling accurate trajectory estimation while mitigating long-term drift.

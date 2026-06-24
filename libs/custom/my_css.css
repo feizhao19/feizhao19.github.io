@@ -1073,13 +1073,13 @@ body.demo-modal-open {
 
 /* --- Attitude fusion project card preview --- */
 .attitude-fusion-preview {
-  width: 64%;
+  width: 100%;
   max-width: 100%;
-  margin: 0.35rem auto 0;
-  padding: 1.1rem 1rem 1.15rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  background: linear-gradient(160deg, rgba(244, 247, 250, 0.95), rgba(255, 255, 255, 0.98));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   text-align: center;
 }
 .attitude-fusion-preview__visual {
@@ -1170,7 +1170,7 @@ body.demo-modal-open {
   color: rgba(0, 0, 0, 0.62);
 }
 .attitude-fusion-preview__launch {
-  margin-bottom: 0;
+  margin: 0.75rem 0 0;
 }
 
 /* --- Attitude fusion demo (inside modal) --- */
@@ -1374,6 +1374,7 @@ body.demo-modal-open {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  min-height: 3.35rem;
   margin-bottom: 0.75rem;
   padding: 0.65rem 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -1385,32 +1386,40 @@ body.demo-modal-open {
     0 6px 18px rgba(15, 23, 42, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.82);
 }
-.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-bar {
-  border-color: rgba(255, 255, 255, 0.72);
-  background: rgba(231, 76, 60, 0.1);
-}
 .attitude-fusion-demo__fusion-copy {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.15rem;
   min-width: 0;
+  min-height: 2.05rem;
 }
 .attitude-fusion-demo__fusion-copy strong {
   font-size: 0.88em;
   color: #2982ac;
 }
-.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-copy strong {
-  color: #c0392b;
-}
 .attitude-fusion-demo__fusion-copy span {
   font-size: 0.78em;
   line-height: 1.4;
   color: rgba(0, 0, 0, 0.58);
+  min-height: 1.1em;
 }
-.attitude-fusion-demo__fusion-bar .button {
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-copy strong {
+  color: #e74c3c;
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__fusion-copy span {
+  color: rgba(231, 76, 60, 0.78);
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__panels-caption {
+  color: #e74c3c;
+}
+.attitude-fusion-demo__fusion-bar .button,
+.attitude-fusion-demo__fusion-toggle {
   margin-bottom: 0;
   flex: 0 0 auto;
   white-space: nowrap;
+  min-width: 7.25rem;
+  text-align: center;
 }
 .attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__viewport-wrap,
 .attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__sensor-panels,
@@ -1509,6 +1518,10 @@ body.demo-modal-open {
 .attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-label,
 .attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-value {
   color: rgba(0, 0, 0, 0.34);
+}
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-label,
+.attitude-fusion-demo.is-fusion-off .attitude-fusion-demo__slider.is-fusion-locked .attitude-fusion-demo__slider-value {
+  color: rgba(231, 76, 60, 0.62);
 }
 .attitude-fusion-demo__slider.is-fusion-locked input[type="checkbox"],
 .attitude-fusion-demo__slider.is-fusion-locked input[type="range"] {
@@ -1645,10 +1658,6 @@ body.demo-modal-open {
 }
 
 @media (max-width: 750px) {
-  .attitude-fusion-preview,
-  .viz-project__figure {
-    width: 100%;
-  }
   .attitude-fusion-demo__main {
     grid-template-columns: 1fr;
   }

@@ -10,6 +10,7 @@
   var DRAG_PITCH_RATE = 0.44;
   var DRAG_ROLL_RATE = 0.24;
   var GYRO_WHITE_NOISE_DPS = 0.8;
+  var AIRPLANE_MODEL_SIZE = 1.35 * 1.2;
   var THEME = {
     bg: '#f8fafc',
     bgAlt: '#f4f7fa',
@@ -228,7 +229,7 @@
     model.add(object);
     object.position.set(-pivot.x, -pivot.y, -pivot.z);
 
-    model.scale.setScalar(1.35 / Math.max(size.x, size.y, size.z));
+    model.scale.setScalar(AIRPLANE_MODEL_SIZE / Math.max(size.x, size.y, size.z));
     model.rotation.y = -Math.PI / 2;
 
     box.setFromObject(model);
@@ -239,6 +240,10 @@
     group.add(model);
     group.position.y = 0.12;
     return group;
+  }
+
+  function cloneTexturedAirplane(template) {
+    return template.clone(true);
   }
 
   function createColoredAirplane(template, color, opacity) {
@@ -311,6 +316,34 @@
     group.rotation.x = roll * DEG;
     group.rotation.z = -pitch * DEG;
     group.rotation.y = -yaw * DEG;
+  }
+
+  function renderSplitAttitudeScenes(renderer, camera, trueScene, estimatedScene, width, height, options) {
+    options = options || {};
+    if (!width || !height) return;
+
+    var halfWidth = Math.floor(width / 2);
+    var rightWidth = width - halfWidth;
+
+    if (options.clear) {
+      renderer.setScissorTest(false);
+      renderer.setViewport(0, 0, width, height);
+      renderer.clear();
+    }
+
+    renderer.setScissorTest(true);
+
+    camera.aspect = halfWidth / height;
+    camera.updateProjectionMatrix();
+    renderer.setViewport(0, 0, halfWidth, height);
+    renderer.setScissor(0, 0, halfWidth, height);
+    renderer.render(trueScene, camera);
+
+    camera.aspect = rightWidth / height;
+    camera.updateProjectionMatrix();
+    renderer.setViewport(halfWidth, 0, rightWidth, height);
+    renderer.setScissor(halfWidth, 0, rightWidth, height);
+    renderer.render(estimatedScene, camera);
   }
 
   function clamp(value, min, max) {
@@ -852,9 +885,9 @@
   MemsSensorFusionLabDemo.prototype.updateGyroWhiteNoiseNote = function() {
     if (!this.gyroWhiteNoiseNoteEl) return;
     if (this.gyroDriftOn) {
-      this.gyroWhiteNoiseNoteEl.textContent = '+ ' + GYRO_WHITE_NOISE_DPS.toFixed(2) + '°/s white noise';
+      this.gyroWhiteNoiseNoteEl.textContent = '±' + GYRO_WHITE_NOISE_DPS.toFixed(2) + '°/s jitter';
     } else {
-      this.gyroWhiteNoiseNoteEl.textContent = 'white noise off';
+      this.gyroWhiteNoiseNoteEl.textContent = '';
     }
   };
 
@@ -879,30 +912,28 @@
     }
 
     if (this.fusionToggleBtn) {
-      this.fusionToggleBtn.textContent = enabled ? 'Use gyro-only path' : 'Use multi-sensor path';
+      this.fusionToggleBtn.textContent = enabled ? 'Gyro only' : 'Multimodal';
       this.fusionToggleBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
-      this.fusionToggleBtn.classList.toggle('button-primary', enabled);
-      this.fusionToggleBtn.classList.toggle('button', !enabled);
     }
 
     if (this.fusionLabelEl) {
-      this.fusionLabelEl.textContent = enabled ? 'Multi-sensor processing' : 'Gyro-only processing';
+      this.fusionLabelEl.textContent = enabled ? 'Multimodal fusion' : 'Gyro only';
     }
 
     if (this.fusionDescEl) {
       this.fusionDescEl.textContent = enabled
-        ? 'MEMS measurements are combined to estimate vehicle attitude in real time.'
-        : 'Only the gyroscope path is active — the estimate drifts when held still.';
+        ? 'Acc · gyro · mag → state estimate'
+        : 'Gyro only · no acc/mag fusion';
     }
 
     if (this.instrumentsCaptionEl) {
       this.instrumentsCaptionEl.textContent = enabled
-        ? 'Sensor quality and accelerometer calibration shown below.'
-        : 'Acc and mag controls inactive in gyro-only mode.';
+        ? 'Sensor noise · acc calibration'
+        : 'Acc & mag disabled';
     }
 
     if (this.ekfErrorValEl && this.ekfErrorValEl.parentNode && this.ekfErrorValEl.parentNode.firstChild) {
-      this.ekfErrorValEl.parentNode.firstChild.textContent = 'Est. Error: ';
+      this.ekfErrorValEl.parentNode.firstChild.textContent = enabled ? 'Est err: ' : 'Drift: ';
     }
 
     if (this.alphaWrap) {
@@ -950,6 +981,7 @@
       });
     });
 
+    group.scale.setScalar(1.2);
     group.position.y = 0.12;
     return group;
   };
@@ -983,7 +1015,7 @@
     var self = this;
 
     return loadAirplaneTemplate().then(function(template) {
-      self.trueVehicle = createColoredAirplane(template, 0x2ecc71, 1.0);
+      self.trueVehicle = cloneTexturedAirplane(template);
       self.estimatedVehicle = createColoredAirplane(template, 0xf39c12, 1.0);
       self.trueScene.add(self.trueVehicle);
       self.estimatedScene.add(self.estimatedVehicle);
@@ -1026,10 +1058,10 @@
       data: {
         labels: this.labels,
         datasets: [
-          lineDataset('Ground Truth', this.hist.truth, '#2ecc71', { width: 1.3 }),
-          lineDataset('Raw Sensor', this.hist.raw, '#e74c3c', { dash: [4, 3] }),
-          lineDataset('Calibrated Sensor', this.hist.calibrated, '#2982ac', { dash: [5, 3], width: 1.8 }),
-          lineDataset('Estimate', this.hist.ekf, '#f39c12', { width: 2.4 })
+          lineDataset('Truth', this.hist.truth, '#2ecc71', { width: 1.3 }),
+          lineDataset('Raw', this.hist.raw, '#e74c3c', { dash: [4, 3] }),
+          lineDataset('Cal.', this.hist.calibrated, '#2982ac', { dash: [5, 3], width: 1.8 }),
+          lineDataset('Estimated state', this.hist.ekf, '#f39c12', { width: 2.4 })
         ]
       },
       options: {
@@ -1038,7 +1070,7 @@
         animation: false,
         plugins: {
           legend: { labels: { boxWidth: 8, font: { size: 9 } } },
-          title: { display: true, text: 'Attitude Estimation Performance', font: { size: 10 } }
+          title: { display: true, text: 'Roll', font: { size: 10 } }
         },
         scales: {
           x: { display: false },
@@ -1190,7 +1222,7 @@
   };
 
   MemsSensorFusionLabDemo.prototype.drawPipeline = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Processing Flow');
+    this.drawCard(ctx, x, y, w, h, 'Pipeline');
 
     var fusionOn = this.fusionEnabled;
     var pulse = 0.5 + 0.5 * Math.sin(this.elapsed * 5);
@@ -1205,13 +1237,13 @@
       { label: 'MAG', sub: fusionOn ? 'hdg' : 'off', fill: 'rgba(155,89,182,0.14)', stroke: 'rgba(155,89,182,0.32)', text: '#6f3f87', active: fusionOn },
       {
         label: 'PROC',
-        sub: fusionOn ? 'multi' : 'gyro',
+        sub: fusionOn ? 'fuse' : 'gyro',
         fill: fusionOn ? 'rgba(243,156,18,0.16)' : 'rgba(231,76,60,0.12)',
         stroke: fusionOn ? 'rgba(243,156,18,0.34)' : 'rgba(231,76,60,0.3)',
         text: fusionOn ? '#9a6412' : '#a83226',
         active: true
       },
-      { label: 'OUT', sub: 'att.', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45', active: true }
+      { label: 'OUT', sub: 'state', fill: 'rgba(46,204,113,0.14)', stroke: 'rgba(46,204,113,0.32)', text: '#1f7a45', active: true }
     ];
     var nodeCount = nodes.length;
     var nodeW = Math.max(34, (innerW - arrowW * (nodeCount - 1)) / nodeCount);
@@ -1236,7 +1268,7 @@
   };
 
   MemsSensorFusionLabDemo.prototype.drawSensorHealthPanel = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Sensor Health');
+    this.drawCard(ctx, x, y, w, h, 'Noise');
     var noise = this.getEffectiveNoise();
     var barTop = y + 30;
     var barGap = Math.max(18, (h - 44) / 3);
@@ -1247,7 +1279,7 @@
   };
 
   MemsSensorFusionLabDemo.prototype.drawCalibrationPanel = function(ctx, x, y, w, h) {
-    this.drawCard(ctx, x, y, w, h, 'Quadrature Calibration');
+    this.drawCard(ctx, x, y, w, h, 'Calibration');
     var raw = this.lastAccRaw;
     var cal = this.lastAccCal;
     var truth = this.lastGTrue || vec3(0, 0, 1);
@@ -1281,7 +1313,7 @@
 
     ctx.fillStyle = THEME.textMuted;
     ctx.font = '7px Raleway, sans-serif';
-    ctx.fillText('Misalignment only (acc noise excluded)', x + 10, y + 28);
+    ctx.fillText('Misalignment only', x + 10, y + 28);
     ctx.font = '700 8px Raleway, sans-serif';
     ctx.fillText('Before', x + w - 86, y + 17);
     ctx.fillText('After', x + w - 40, y + 17);
@@ -1553,9 +1585,7 @@
         this.biasValEl.textContent = bias.x.toFixed(3) + ', ' + bias.y.toFixed(3) + ', ' + bias.z.toFixed(3) + ' °/s';
       } else {
         var n = this.getEffectiveNoise();
-        this.biasValEl.textContent = n.gyroDrift > 0
-          ? 'drifting (gyro bias on)'
-          : 'no gyro bias';
+        this.biasValEl.textContent = n.gyroDrift > 0 ? 'drifting' : '—';
       }
     }
 
@@ -1606,20 +1636,14 @@
   MemsSensorFusionLabDemo.prototype.renderThree = function() {
     if (!this.renderer || !this.camera || !this.trueScene || !this.estimatedScene) return;
 
-    var width = this.canvas.clientWidth;
-    var height = this.canvas.clientHeight;
-    var halfWidth = Math.floor(width / 2);
-    var rightWidth = width - halfWidth;
-
-    this.renderer.setScissorTest(true);
-
-    this.renderer.setViewport(0, 0, halfWidth, height);
-    this.renderer.setScissor(0, 0, halfWidth, height);
-    this.renderer.render(this.trueScene, this.camera);
-
-    this.renderer.setViewport(halfWidth, 0, rightWidth, height);
-    this.renderer.setScissor(halfWidth, 0, rightWidth, height);
-    this.renderer.render(this.estimatedScene, this.camera);
+    renderSplitAttitudeScenes(
+      this.renderer,
+      this.camera,
+      this.trueScene,
+      this.estimatedScene,
+      this.canvas.clientWidth,
+      this.canvas.clientHeight
+    );
   };
 
   MemsSensorFusionLabDemo.prototype.ensureInitialized = function() {
@@ -1779,7 +1803,7 @@
 
     this.trueScene = createAttitudeScene();
     this.estimatedScene = createAttitudeScene();
-    this.trueVehicle = createColoredAirplane(template, 0x2ecc71, 1.0);
+    this.trueVehicle = cloneTexturedAirplane(template);
     this.estimatedVehicle = createColoredAirplane(template, 0xf39c12, 1.0);
     this.trueScene.add(this.trueVehicle);
     this.estimatedScene.add(this.estimatedVehicle);
@@ -1873,23 +1897,15 @@
   AttitudeFusionCardPreview.prototype.render = function() {
     if (!this.renderer || !this.camera || !this.trueScene || !this.estimatedScene) return;
 
-    var width = this.canvas.clientWidth;
-    var height = this.canvas.clientHeight;
-    var halfWidth = Math.floor(width / 2);
-    var rightWidth = width - halfWidth;
-
-    this.renderer.setScissorTest(false);
-    this.renderer.setViewport(0, 0, width, height);
-    this.renderer.clear();
-    this.renderer.setScissorTest(true);
-
-    this.renderer.setViewport(0, 0, halfWidth, height);
-    this.renderer.setScissor(0, 0, halfWidth, height);
-    this.renderer.render(this.trueScene, this.camera);
-
-    this.renderer.setViewport(halfWidth, 0, rightWidth, height);
-    this.renderer.setScissor(halfWidth, 0, rightWidth, height);
-    this.renderer.render(this.estimatedScene, this.camera);
+    renderSplitAttitudeScenes(
+      this.renderer,
+      this.camera,
+      this.trueScene,
+      this.estimatedScene,
+      this.canvas.clientWidth,
+      this.canvas.clientHeight,
+      { clear: true }
+    );
   };
 
   AttitudeFusionCardPreview.prototype.animate = function() {

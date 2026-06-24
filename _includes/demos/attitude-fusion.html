@@ -11,7 +11,7 @@
 
   <div class="viz-project__demo-wrap">
     <div class="viz-project__figure">
-    <div class="attitude-fusion-preview js-attitude-fusion-preview" data-modal-id="attitude-fusion-modal-{{ p.id }}">
+    <div class="attitude-fusion-preview js-attitude-fusion-preview is-loading" data-modal-id="attitude-fusion-modal-{{ p.id }}">
       <div class="attitude-fusion-preview__visual">
         <canvas
           class="attitude-fusion-preview__canvas js-attitude-fusion-preview-canvas"
@@ -24,7 +24,15 @@
         <div class="attitude-fusion-preview__divider" aria-hidden="true"></div>
         <p class="attitude-fusion-preview__drag-hint">Drag the aircraft</p>
         <p class="attitude-fusion-preview__open-hint">Click to open</p>
-        <div class="attitude-fusion-preview__loading js-attitude-fusion-preview-loading" hidden aria-live="polite">Loading...</div>
+        <div
+          class="attitude-fusion-preview__loading js-attitude-fusion-preview-loading"
+          aria-live="polite"
+        >
+          <div class="attitude-fusion-preview__loading-copy">
+            <span class="attitude-fusion-preview__loading-title">Loading…</span>
+            <span class="attitude-fusion-preview__loading-note">This demo is large — please be patient.</span>
+          </div>
+        </div>
       </div>
     </div>
     </div>
@@ -130,9 +138,18 @@
         </div>
       </div>
 
-      <div class="attitude-fusion-demo__loading js-af-model-loading" hidden aria-live="polite">Loading...</div>
+      <div
+        class="attitude-fusion-demo__loading js-af-model-loading"
+        hidden
+        aria-live="polite"
+      >
+        <div class="attitude-fusion-demo__loading-copy">
+          <span class="attitude-fusion-demo__loading-title">Loading…</span>
+          <span class="attitude-fusion-demo__loading-note">This demo is large — please be patient.</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<script src="{{ '/libs/custom/demos/attitude-fusion.js' | prepend: site.baseurl }}" defer></script>
+<script src="{{ '/libs/custom/demos/attitude-fusion.js' | prepend: site.baseurl }}" defer fetchpriority="low"></script>

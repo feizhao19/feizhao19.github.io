@@ -1113,11 +1113,12 @@ body.demo-modal-open {
   width: 100%;
   height: 100%;
   cursor: inherit;
-  touch-action: none;
+  touch-action: pan-y;
 }
 .attitude-fusion-preview__canvas.is-dragging,
 .attitude-fusion-preview__visual.is-dragging {
   cursor: grabbing;
+  touch-action: none;
 }
 .attitude-fusion-preview__labels {
   position: absolute;

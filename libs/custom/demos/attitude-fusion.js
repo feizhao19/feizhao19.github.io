@@ -1820,6 +1820,10 @@
     this.truthPitch = 0;
     this.truthYaw = 270;
     this.isDragging = false;
+    this.didDrag = false;
+    this.pointerDownOnPreview = false;
+    this.pointerDownOnRightHalf = false;
+    this._openEnabledAt = 0;
     this.pointerDownX = 0;
     this.pointerDownY = 0;
     this.lastPointerX = 0;
@@ -1833,12 +1837,14 @@
     this.onPointerDown = this.handlePointerDown.bind(this);
     this.onPointerMove = this.handlePointerMove.bind(this);
     this.onPointerUp = this.handlePointerUp.bind(this);
+    this.onVisualClick = this.handleVisualClick.bind(this);
     this.animate = this.animate.bind(this);
   }
 
   AttitudeFusionCardPreview.prototype.setLoading = function(isLoading) {
     if (this.loadingEl) this.loadingEl.hidden = !isLoading;
     if (this.root) this.root.classList.toggle('is-loading', isLoading);
+    if (!isLoading) this._openEnabledAt = Date.now() + 450;
   };
 
   AttitudeFusionCardPreview.prototype.ensureInitialized = function() {
@@ -1885,6 +1891,7 @@
     this.renderer.setScissorTest(true);
 
     this.canvas.addEventListener('pointerdown', this.onPointerDown);
+    if (this.visualEl) this.visualEl.addEventListener('click', this.onVisualClick);
     window.addEventListener('pointermove', this.onPointerMove);
     window.addEventListener('pointerup', this.onPointerUp);
     window.addEventListener('pointercancel', this.onPointerUp);
@@ -1892,14 +1899,18 @@
   };
 
   AttitudeFusionCardPreview.prototype.handlePointerDown = function(event) {
-    if (!this.initialized || !this.canvas) return;
+    if (!this.initialized || !this.canvas || (this.root && this.root.classList.contains('is-loading'))) return;
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
 
+    this.pointerDownOnPreview = true;
+    this.didDrag = false;
     this.pointerDownX = event.clientX;
     this.pointerDownY = event.clientY;
 
     var rect = this.canvas.getBoundingClientRect();
     var localX = event.clientX - rect.left;
-    if (localX > rect.width / 2) {
+    this.pointerDownOnRightHalf = localX > rect.width / 2;
+    if (this.pointerDownOnRightHalf) {
       this.isDragging = false;
       return;
     }
@@ -1917,6 +1928,7 @@
 
     var dx = event.clientX - this.lastPointerX;
     var dy = event.clientY - this.lastPointerY;
+    if (dx * dx + dy * dy > 16) this.didDrag = true;
     this.lastPointerX = event.clientX;
     this.lastPointerY = event.clientY;
 
@@ -1925,26 +1937,46 @@
     this.truthRoll = clamp(this.truthRoll + dx * DRAG_ROLL_RATE, -55, 55);
   };
 
+  AttitudeFusionCardPreview.prototype.resetPointerState = function(event) {
+    this.pointerDownOnPreview = false;
+    this.pointerDownOnRightHalf = false;
+    if (!this.isDragging) return;
+
+    this.isDragging = false;
+    this.canvas.classList.remove('is-dragging');
+    if (this.visualEl) this.visualEl.classList.remove('is-dragging');
+    if (event && this.canvas.hasPointerCapture && this.canvas.hasPointerCapture(event.pointerId)) {
+      this.canvas.releasePointerCapture(event.pointerId);
+    }
+  };
+
   AttitudeFusionCardPreview.prototype.handlePointerUp = function(event) {
     if (!this.canvas) return;
+    if (event.type === 'pointercancel') {
+      this.resetPointerState(event);
+      return;
+    }
+    if (!this.pointerDownOnPreview) return;
 
-    var dx = event.clientX - this.pointerDownX;
-    var dy = event.clientY - this.pointerDownY;
-    var movedLittle = dx * dx + dy * dy < 36;
+    this.pointerDownOnPreview = false;
+    this.resetPointerState(event);
+  };
 
-    if (this.isDragging) {
-      this.isDragging = false;
-      this.canvas.classList.remove('is-dragging');
-      if (this.visualEl) this.visualEl.classList.remove('is-dragging');
-      if (this.canvas.hasPointerCapture && this.canvas.hasPointerCapture(event.pointerId)) {
-        this.canvas.releasePointerCapture(event.pointerId);
-      }
+  AttitudeFusionCardPreview.prototype.handleVisualClick = function(event) {
+    if (!this.initialized || !this.canvas || !this.modalId) return;
+    if (this.root && this.root.classList.contains('is-loading')) return;
+    if (Date.now() < this._openEnabledAt) return;
+    if (this.didDrag) {
+      this.didDrag = false;
+      return;
     }
 
-    if (movedLittle && this.modalId) {
-      var modal = document.getElementById(this.modalId);
-      if (modal) openModal(modal);
-    }
+    var rect = this.canvas.getBoundingClientRect();
+    var localX = event.clientX - rect.left;
+    if (localX <= rect.width / 2) return;
+
+    var modal = document.getElementById(this.modalId);
+    if (modal) openModal(modal);
   };
 
   AttitudeFusionCardPreview.prototype.handleResize = function() {
@@ -2043,6 +2075,7 @@
       this.canvas.removeEventListener('pointerdown', this.onPointerDown);
       this.canvas.classList.remove('is-dragging');
     }
+    if (this.visualEl) this.visualEl.removeEventListener('click', this.onVisualClick);
     window.removeEventListener('pointermove', this.onPointerMove);
     window.removeEventListener('pointerup', this.onPointerUp);
     window.removeEventListener('pointercancel', this.onPointerUp);

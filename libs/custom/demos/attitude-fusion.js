@@ -2110,6 +2110,14 @@
   }
 
   function initMemsSensorFusionLabDemos() {
+    document.querySelectorAll('.js-attitude-fusion-modal').forEach(function(modal) {
+      modal.addEventListener('click', function(event) {
+        if (event.target.closest('.demo-modal__panel')) return;
+        if (event.target.closest('.demo-modal__close')) return;
+        closeModal(modal);
+      });
+    });
+
     document.querySelectorAll('.js-attitude-fusion-close').forEach(function(el) {
       el.addEventListener('click', function() {
         var modal = el.closest('.js-attitude-fusion-modal');

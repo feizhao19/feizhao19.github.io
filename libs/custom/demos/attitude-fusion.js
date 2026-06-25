@@ -10,7 +10,7 @@
   var DRAG_PITCH_RATE = 0.44;
   var DRAG_ROLL_RATE = 0.24;
   var GYRO_WHITE_NOISE_DPS = 0.8;
-  var AIRPLANE_MODEL_SIZE = 1.35 * 1.2;
+  var AIRPLANE_MODEL_SIZE = 1.35 * 1.2 * 1.1;
   var THEME = {
     bg: '#f8fafc',
     bgAlt: '#f4f7fa',
@@ -1036,7 +1036,7 @@
       });
     });
 
-    group.scale.setScalar(1.2);
+    group.scale.setScalar(1.2 * 1.1);
     group.position.y = 0.12;
     return group;
   };

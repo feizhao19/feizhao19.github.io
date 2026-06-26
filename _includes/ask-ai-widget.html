@@ -12,7 +12,7 @@
     aria-controls="ask-ai-panel"
   >
     <i class="fa fa-comments" aria-hidden="true"></i>
-    <span>Ask AI</span>
+    <span>Ask AI about {{ site.data.main_info.name }}</span>
   </button>
 
   <div
@@ -28,53 +28,82 @@
       <button type="button" class="ask-ai-widget__close js-ask-ai-close" aria-label="Close">&times;</button>
     </div>
 
-    <p class="ask-ai-widget__hint">Edit your question, then pick an AI.</p>
+    <div class="ask-ai-widget__body">
+      <div class="ask-ai-widget__content js-ask-ai-content">
+      <p class="ask-ai-widget__hint">Edit your question, then directly pick an AI.</p>
 
-    <label class="ask-ai-widget__label" for="ask-ai-question">Your question</label>
+      <label class="ask-ai-widget__label" for="ask-ai-question">Your question</label>
 
-    <script type="application/json" class="js-ask-ai-config">{
-      "display": {{ ask_ai_default.display | jsonify }},
-      "questionIntro": {{ ask_ai_default.question_intro | jsonify }},
-      "systemPrompt": {{ ask_ai_default.prompt | strip | jsonify }},
-      "llmsFull": {{ llms_full | strip | jsonify }}
-    }</script>
+      <script type="application/json" class="js-ask-ai-config">{
+        "display": {{ ask_ai_default.display | jsonify }},
+        "questionIntro": {{ ask_ai_default.question_intro | jsonify }},
+        "systemPrompt": {{ ask_ai_default.prompt | strip | jsonify }},
+        "llmsFull": {{ llms_full | strip | jsonify }}
+      }</script>
 
-    <textarea
-      id="ask-ai-question"
-      class="ask-ai-widget__input js-ask-ai-question"
-      rows="3"
-    ></textarea>
+      <textarea
+        id="ask-ai-question"
+        class="ask-ai-widget__input js-ask-ai-question"
+        rows="3"
+      ></textarea>
 
-    <div class="ask-ai-widget__actions">
-      <p class="ask-ai-widget__actions-label">Open in</p>
-      <p class="ask-ai-widget__actions-note">All questions and prompts are copied to your clipboard automatically. Use Cmd/Ctrl+V to paste directly in the AI chat.</p>
-      <div class="ask-ai-widget__platforms">
-        <button
-          type="button"
-          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
-          data-platform="chatgpt"
-          aria-label="Copy prompt and open ChatGPT"
-        >ChatGPT</button>
-        <button
-          type="button"
-          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
-          data-platform="gemini"
-          aria-label="Copy prompt and open Gemini"
-        >Gemini</button>
-        <button
-          type="button"
-          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
-          data-platform="perplexity"
-          aria-label="Copy prompt and open Perplexity"
-        >Perplexity</button>
+      <div class="ask-ai-widget__actions">
+        <p class="ask-ai-widget__actions-label">Open in</p>
+        <div class="ask-ai-widget__platforms">
+          <button
+            type="button"
+            class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-platform"
+            data-platform="chatgpt"
+          >ChatGPT</button>
+          <button
+            type="button"
+            class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-platform"
+            data-platform="gemini"
+          >Gemini</button>
+          <button
+            type="button"
+            class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-platform"
+            data-platform="perplexity"
+          >Perplexity</button>
+        </div>
       </div>
-      <button
-        type="button"
-        class="ask-ai-widget__copy-only js-ask-ai-copy"
-        aria-label="Copy prompt only"
-      >Copy prompt only</button>
+
+      <p class="ask-ai-widget__status js-ask-ai-status" aria-live="polite"></p>
+
+      <p class="ask-ai-widget__note">
+        <span class="ask-ai-widget__note-stack">
+          <span class="ask-ai-widget__note-idle js-ask-ai-note-idle">
+            Using your own AI?
+            <button type="button" class="ask-ai-widget__note-link js-ask-ai-copy">Copy the full prompt</button>
+          </span>
+          <span class="ask-ai-widget__note-done js-ask-ai-note-done is-hidden">Copied. Paste with Cmd/Ctrl+V into your AI chat.</span>
+        </span>
+      </p>
     </div>
 
-    <p class="ask-ai-widget__status js-ask-ai-status" aria-live="polite"></p>
+    <div
+      class="ask-ai-widget__ready js-ask-ai-ready"
+      hidden
+      role="button"
+      tabindex="0"
+      aria-label="Open AI platform"
+    >
+      <button type="button" class="ask-ai-widget__ready-back js-ask-ai-back" aria-label="Back">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </button>
+      <div class="ask-ai-widget__ready-card">
+        <p class="ask-ai-widget__ready-kicker">
+          <i class="fa fa-clipboard" aria-hidden="true"></i>
+          Prompt ready — copied to your clipboard
+        </p>
+        <p class="ask-ai-widget__ready-message">
+          Use Cmd/Ctrl+V to paste directly in the AI chat.
+        </p>
+        <p class="ask-ai-widget__ready-hint">
+          Click to open the AI platform
+        </p>
+      </div>
+    </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,77 @@
+<div
+  class="ask-ai-widget"
+  id="ask-ai-widget"
+  data-site-url="{{ site.public_site_url | default: 'https://feizhao19.github.io' }}"
+  data-llms-full-url="{{ site.public_site_url | default: 'https://feizhao19.github.io' }}/llms-full.txt"
+>
+  <button
+    type="button"
+    class="ask-ai-widget__fab js-ask-ai-open"
+    aria-expanded="false"
+    aria-controls="ask-ai-panel"
+  >
+    <i class="fa fa-comments" aria-hidden="true"></i>
+    <span>Ask AI</span>
+  </button>
+
+  <div
+    class="ask-ai-widget__panel"
+    id="ask-ai-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ask-ai-title"
+    hidden
+  >
+    <div class="ask-ai-widget__header">
+      <h2 class="ask-ai-widget__title" id="ask-ai-title">Ask AI about {{ site.data.main_info.name }}</h2>
+      <button type="button" class="ask-ai-widget__close js-ask-ai-close" aria-label="Close">&times;</button>
+    </div>
+
+    <p class="ask-ai-widget__hint">
+      Answers depend on the selected AI platform and whether it can access the web.
+    </p>
+
+    <label class="ask-ai-widget__label" for="ask-ai-question">Your question</label>
+
+    <script type="application/json" class="js-ask-ai-default-data">{{ site.data.ask_ai_questions.default | jsonify }}</script>
+
+    {% if site.data.ask_ai_questions.suggestions.size > 0 %}
+    <script type="application/json" class="js-ask-ai-suggestions-data">{{ site.data.ask_ai_questions.suggestions | jsonify }}</script>
+
+    <div class="ask-ai-widget__suggestions" role="list" aria-label="Suggested questions">
+      {% for item in site.data.ask_ai_questions.suggestions %}
+      <button
+        type="button"
+        class="ask-ai-widget__chip js-ask-ai-chip"
+        role="listitem"
+        data-suggestion-index="{{ forloop.index0 }}"
+        data-display="{{ item.display | default: item.question | strip_newlines | escape }}"
+      >
+        {{ item.label }}
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <textarea
+      id="ask-ai-question"
+      class="ask-ai-widget__input js-ask-ai-question"
+      rows="3"
+      placeholder="Ask about my research, projects, or publications..."
+    ></textarea>
+
+    <div class="ask-ai-widget__actions">
+      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--primary js-ask-ai-platform" data-platform="chatgpt">
+        Ask with ChatGPT
+      </button>
+      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--primary js-ask-ai-platform" data-platform="perplexity">
+        Ask with Perplexity
+      </button>
+      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--secondary js-ask-ai-copy">
+        Copy Prompt
+      </button>
+    </div>
+
+    <p class="ask-ai-widget__status js-ask-ai-status" aria-live="polite"></p>
+  </div>
+</div>

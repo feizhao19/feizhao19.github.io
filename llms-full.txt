@@ -1,0 +1,5 @@
+---
+layout: plaintext
+permalink: /llms-full.txt
+---
+{% capture llms_full %}{% include llms-full-content.html %}{% endcapture %}{{ llms_full | strip }}

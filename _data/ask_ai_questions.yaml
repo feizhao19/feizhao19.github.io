@@ -1,0 +1,39 @@
+default:
+  display: Summarize Fei Zhao's research directions.
+  prompt: |
+    Here are the websites you need to explore:
+    https://feizhao19.github.io/llms-full.txt
+
+    Prefer llms-full.txt as the primary structured summary of the website: https://feizhao19.github.io.
+    
+
+    If you cannot access the sources above, do not guess or use outside information. Reply only with:
+    "Due to inability to access Fei Zhao's website, I cannot provide a summary of Fei's information."
+    Don't use Hugging Face information.
+    Assume the reader is a recruiter, hiring manager, or technical interviewer. Generate a concise executive summary (no more than 500 words). Use the following format.
+
+    # Research Snapshot
+    Summarize Fei Zhao's research in 2–3 sentences.
+
+    # Research Timeline
+    For each stage, provide:
+    • Time period: from recent period back to early period
+    • Main research focus
+    • Representative projects
+    • Representative publications
+    • Technologies aligned with the AI trends of that period
+
+    # Current Research Interests
+    List the primary research areas and representative work.
+
+    # Technical Expertise
+    Summarize the major AI/ML expertise using concise bullet points.
+
+    # Best Fit Roles
+    Suggest the AI roles that best match this research portfolio.
+
+    Keep the response concise, highly structured, and easy to scan. Avoid long paragraphs.
+
+suggestions: []
+
+

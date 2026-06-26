@@ -1,0 +1,48 @@
+entries:
+  - role: ML Research Scientist (Postdoc)
+    period: 12/2025 - present
+    lines:
+      - The University of Alabama at Birmingham, USA
+    tags:
+      - Multimodal AI Agents
+      - Multimodal Learning
+      - Representation Learning
+      - Foundation Models
+    logo: UAB_logo_green.png
+    logo_alt: UAB
+
+  - role: Graduate Research Assistant
+    period: 08/2019 - 12/2025
+    lines:
+      - The University of Alabama at Birmingham, USA
+    tags:
+      - Multimodal Learning
+      - Vision-Language Models
+      - Computer Vision
+      - Foundation Models
+    logo: UAB_logo_green.png
+    logo_alt: UAB
+
+  - role: "ML Engineer (First Level Staff Member)"
+    period: 10/2013 - 04/2019
+    lines:
+      - Shanxi Auto Transport Group Co., Ltd, China
+    tags:
+      - Vehicle State Monitoring
+      - Real-Time Multimodal Perception      
+      - Autonomous Vehicle Systems
+      - Fleet Intelligence
+    logo: auto_logo.png
+    logo_alt: Shanxi Auto Transport Group
+
+  - role: Graduate Research Assistant
+    period: 02/2011 - 07/2013
+    lines:
+      - Tsinghua University, China
+    tags:
+      - Multimodal Sensor Fusion
+      - Attitude Estimation
+      - MEMS
+      - Autonomous Systems
+    logo: Tsinghua_University_Logo.png
+    logo_alt: Tsinghua University

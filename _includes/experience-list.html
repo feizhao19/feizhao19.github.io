@@ -1,0 +1,38 @@
+{% for entry in site.data.experience.entries %}
+  <div class="experience-entry">
+    <div class="experience-entry__content">
+      <p class="experience-entry__role">
+        <strong>{{ entry.role }} | {{ entry.period }}</strong>
+      </p>
+      <ul class="experience-entry__lines">
+        {% for line in entry.lines %}
+          <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+      {% if entry.tags %}
+        <div class="experience-entry__tags" aria-label="Research focus">
+          {% for tag in entry.tags %}
+            <span class="experience-entry__tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if entry.details %}
+        <ul class="experience-entry__details">
+          {% for detail in entry.details %}
+            <li>{{ detail }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    {% if entry.logo %}
+      <div class="experience-entry__logo">
+        <img
+          src="{{ site.baseurl }}/images/{{ entry.logo }}"
+          alt="{{ entry.logo_alt | default: entry.role }}"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}

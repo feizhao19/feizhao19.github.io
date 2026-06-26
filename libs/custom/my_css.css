@@ -1799,6 +1799,77 @@ body.demo-modal-open {
   }
 }
 
+/* --- Experience section --- */
+.experience-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.experience-entry:last-child {
+  margin-bottom: 0;
+}
+.experience-entry__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.experience-entry__role {
+  margin: 0 0 0.35rem;
+}
+.experience-entry__lines,
+.experience-entry__details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.experience-entry__lines li,
+.experience-entry__details li {
+  margin: 0;
+  line-height: 1.45;
+}
+.experience-entry__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+}
+.experience-entry__tag {
+  display: inline-block;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(41, 130, 172, 0.1);
+  border: 1px solid rgba(41, 130, 172, 0.22);
+  color: #1f6b8f;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+.experience-entry__details {
+  margin-top: 0.35rem;
+}
+.experience-entry__logo {
+  flex: 0 0 auto;
+}
+.experience-entry__logo img {
+  display: block;
+  height: 96px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+}
+@media (max-width: 550px) {
+  .experience-entry {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .experience-entry__logo img {
+    height: 72px;
+    max-width: 120px;
+  }
+}
+
 /* --- Ask AI widget (frosted glass) --- */
 .ask-ai-widget {
   position: fixed;

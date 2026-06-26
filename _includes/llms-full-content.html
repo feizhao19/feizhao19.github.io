@@ -114,6 +114,24 @@ Citation summary (Google Scholar, {{ cites.updated }}): first-authored papers {{
 - CS 473/673/773 Computer Vision, 2020 Spring
 - CS 510-QL Database App Dev, 2019 Fall
 
+## Experience
+
+{% for entry in site.data.experience.entries %}
+### {{ entry.role }} | {{ entry.period }}
+
+{% for line in entry.lines %}
+- {{ line }}
+{% endfor %}
+{% if entry.tags %}
+Focus: {{ entry.tags | join: ", " }}
+{% endif %}
+{% if entry.details %}
+{% for detail in entry.details %}
+- {{ detail }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
 ## Service
 
 ### Conference Program Committee

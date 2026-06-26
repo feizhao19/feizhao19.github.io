@@ -1,5 +1,5 @@
 entries:
-  - role: ML Research Scientist (Postdoc)
+  - role: Machine Learning Research Scientist (Postdoc)
     period: 12/2025 - present
     lines:
       - The University of Alabama at Birmingham, USA
@@ -23,13 +23,13 @@ entries:
     logo: UAB_logo_green.png
     logo_alt: UAB
 
-  - role: "ML Engineer (First Level Staff Member)"
+  - role: "Machine Learning Engineer (First Level Staff Member)"
     period: 10/2013 - 04/2019
     lines:
       - Shanxi Auto Transport Group Co., Ltd, China
     tags:
       - Vehicle State Monitoring
-      - Real-Time Multimodal Perception      
+      - Multimodal Perception      
       - Autonomous Vehicle Systems
       - Fleet Intelligence
     logo: auto_logo.png

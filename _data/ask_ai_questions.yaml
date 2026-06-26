@@ -2,9 +2,7 @@ default:
   display: Summarize Fei Zhao's research directions.
   prompt: |
     Here are the websites you need to explore:
-    https://feizhao19.github.io/llms-full.txt
-
-    Prefer llms-full.txt as the primary structured summary of the website: https://feizhao19.github.io.
+    https://feizhao19.github.io
     
 
     If you cannot access the sources above, do not guess or use outside information. Reply only with:

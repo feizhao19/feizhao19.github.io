@@ -1836,14 +1836,14 @@ body.demo-modal-open {
 }
 .experience-entry__tag {
   display: inline-block;
-  padding: 0.18rem 0.5rem;
+  padding: calc(0.32rem * 2 / 3) calc(0.7rem * 2 / 3);
   border-radius: 999px;
   background: rgba(41, 130, 172, 0.1);
   border: 1px solid rgba(41, 130, 172, 0.22);
   color: #1f6b8f;
-  font-size: 0.78rem;
+  font-size: calc(17px * 2 / 3);
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: 0.01em;
 }
 .experience-entry__details {

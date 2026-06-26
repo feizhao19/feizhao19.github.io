@@ -2,7 +2,7 @@ projects:
   - id: building-damage
     title: "Selected Project 1: Visual Prompt Learning of Foundation Models for Damage Evaluation"
     description: >-
-      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
+      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment, applicable to 11 different types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
       - id: potero
         label: Potero

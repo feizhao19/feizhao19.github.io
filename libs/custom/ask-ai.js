@@ -45,10 +45,16 @@
     var fab = root.querySelector('.js-ask-ai-open');
     var panel = document.getElementById('ask-ai-panel');
     var closeBtn = root.querySelector('.js-ask-ai-close');
+    var contentEl = root.querySelector('.js-ask-ai-content');
+    var readyEl = root.querySelector('.js-ask-ai-ready');
     var input = root.querySelector('.js-ask-ai-question');
     var statusEl = root.querySelector('.js-ask-ai-status');
     var copyBtn = root.querySelector('.js-ask-ai-copy');
-    var copyOpenBtns = root.querySelectorAll('.js-ask-ai-copy-open');
+    var noteIdleEl = root.querySelector('.js-ask-ai-note-idle');
+    var noteDoneEl = root.querySelector('.js-ask-ai-note-done');
+    var platformBtns = root.querySelectorAll('.js-ask-ai-platform');
+    var goLabel = root.querySelector('.js-ask-ai-go-label');
+    var backBtn = root.querySelector('.js-ask-ai-back');
     var configEl = root.querySelector('.js-ask-ai-config');
     var config = {
       display: '',
@@ -56,6 +62,7 @@
       systemPrompt: '',
       llmsFull: ''
     };
+    var pendingPlatform = null;
 
     if (configEl) {
       try {
@@ -107,28 +114,75 @@
       }, 1800);
     }
 
-    function handleCopy(prompt, btn) {
+    function isReadyVisible() {
+      return readyEl && !readyEl.hidden;
+    }
+
+    function showReadyScreen(platform) {
+      var platformLabel = PLATFORM_LABELS[platform] || 'AI';
+      pendingPlatform = platform;
+      if (goLabel) goLabel.textContent = platformLabel;
+      readyEl.setAttribute('aria-label', 'Open ' + platformLabel);
+      contentEl.classList.add('is-ready-hidden');
+      readyEl.hidden = false;
+      panel.classList.add('is-ready');
+      window.setTimeout(function() {
+        if (readyEl.focus) {
+          try {
+            readyEl.focus({ preventScroll: true });
+          } catch (error) {
+            readyEl.focus();
+          }
+        }
+      }, 80);
+    }
+
+    function hideReadyScreen() {
+      pendingPlatform = null;
+      readyEl.hidden = true;
+      contentEl.classList.remove('is-ready-hidden');
+      panel.classList.remove('is-ready');
+    }
+
+    function resetNoteAfter() {
+      if (noteIdleEl) noteIdleEl.classList.remove('is-hidden');
+      if (noteDoneEl) noteDoneEl.classList.add('is-hidden');
+    }
+
+    function showNoteCopied() {
+      if (noteIdleEl) noteIdleEl.classList.add('is-hidden');
+      if (noteDoneEl) noteDoneEl.classList.remove('is-hidden');
+    }
+
+    function handleCopy(prompt) {
       return copyToClipboard(prompt).then(function() {
-        showStatus('Copied — paste with Cmd/Ctrl+V.');
-        if (btn) flashButton(btn, 'Copied');
+        showStatus('');
+        showNoteCopied();
       }).catch(function() {
+        resetNoteAfter();
         showStatus('Copy failed. Select and copy manually.');
       });
     }
 
-    function handleCopyAndOpen(prompt, platform, btn) {
+    function preparePlatform(platform, btn) {
       var platformLabel = PLATFORM_LABELS[platform] || 'the AI platform';
-      var platformUrl = PLATFORM_URLS[platform];
 
-      if (!platformUrl) return;
-
-      return copyToClipboard(prompt).then(function() {
-        window.open(platformUrl, '_blank', 'noopener,noreferrer');
-        showStatus('Copied — paste into ' + platformLabel + '.');
-        flashButton(btn, '✓');
+      return copyToClipboard(currentPrompt()).then(function() {
+        showReadyScreen(platform);
       }).catch(function() {
         showStatus('Copy failed. Open ' + platformLabel + ' and paste manually.');
+        if (btn) flashButton(btn, '!');
       });
+    }
+
+    function openPendingPlatform() {
+      if (!pendingPlatform) return;
+
+      var platformUrl = PLATFORM_URLS[pendingPlatform];
+      if (!platformUrl) return;
+
+      window.open(platformUrl, '_blank', 'noopener,noreferrer');
+      closePanel();
     }
 
     function applyDefaultQuestion() {
@@ -138,6 +192,8 @@
     function openPanel() {
       panel.hidden = false;
       fab.setAttribute('aria-expanded', 'true');
+      hideReadyScreen();
+      resetNoteAfter();
       applyDefaultQuestion();
       window.setTimeout(function() {
         input.focus();
@@ -148,6 +204,8 @@
     function closePanel() {
       panel.hidden = true;
       fab.setAttribute('aria-expanded', 'false');
+      hideReadyScreen();
+      resetNoteAfter();
       statusEl.textContent = '';
       input.value = '';
       fab.focus();
@@ -161,11 +219,36 @@
       }
     });
 
-    closeBtn.addEventListener('click', closePanel);
+    closeBtn.addEventListener('click', function(event) {
+      event.stopPropagation();
+      closePanel();
+    });
+
+    backBtn.addEventListener('click', function(event) {
+      event.stopPropagation();
+      hideReadyScreen();
+      input.focus();
+    });
+
+    readyEl.addEventListener('click', openPendingPlatform);
+
+    readyEl.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPendingPlatform();
+      }
+    });
 
     document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && !panel.hidden) {
-        closePanel();
+      if (panel.hidden) return;
+
+      if (event.key === 'Escape') {
+        if (isReadyVisible()) {
+          hideReadyScreen();
+          input.focus();
+        } else {
+          closePanel();
+        }
       }
     });
 
@@ -176,16 +259,12 @@
     });
 
     copyBtn.addEventListener('click', function() {
-      handleCopy(currentPrompt(), copyBtn);
+      handleCopy(currentPrompt());
     });
 
-    copyOpenBtns.forEach(function(btn) {
+    platformBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
-        handleCopyAndOpen(
-          currentPrompt(),
-          btn.getAttribute('data-platform'),
-          btn
-        );
+        preparePlatform(btn.getAttribute('data-platform'), btn);
       });
     });
   }

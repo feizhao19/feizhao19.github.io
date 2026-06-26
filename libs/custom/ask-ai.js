@@ -1,105 +1,46 @@
 (function() {
   'use strict';
 
-  var SITE_URL = 'https://feizhao19.github.io';
-
   var PLATFORM_URLS = {
-    perplexity: function(encodedPrompt) {
-      return 'https://www.perplexity.ai/search?q=' + encodedPrompt;
-    },
-    chatgpt: function(encodedPrompt) {
-      return 'https://chatgpt.com/?q=' + encodedPrompt + '&hints=search';
-    }
+    chatgpt: 'https://chatgpt.com/',
+    perplexity: 'https://www.perplexity.ai/',
+    gemini: 'https://gemini.google.com/app'
   };
 
-  function resolveSiteUrl(raw) {
-    if (!raw || /localhost|127\.0\.0\.1/i.test(raw)) {
-      return SITE_URL;
-    }
-    return raw;
-  }
+  var PLATFORM_LABELS = {
+    chatgpt: 'ChatGPT',
+    perplexity: 'Perplexity',
+    gemini: 'Gemini'
+  };
 
-  function getEntryDisplay(entry) {
-    if (!entry) return '';
-    return (entry.display || entry.question || '').trim();
-  }
-
-  function buildPrompt(siteUrl, llmsFullUrl, question) {
-    return [
-      'Please search and read the following sources before answering:',
-      '',
-      llmsFullUrl,
-      siteUrl,
-      '',
-      'Prefer llms-full.txt as the primary structured summary of the website.',
-      'If you cannot access the sources above, do not guess or use outside information. Reply only with:',
-      '"Due to inability to access Fei Zhao\'s website, I cannot provide a summary of Fei\'s information."',
-      'Focus on research vision, publications, projects, grants, awards, teaching, service, and experience.',
-      '',
-      'Question:',
-      '',
-      question
-    ].join('\n');
-  }
-
-  function openPlatform(platform, prompt) {
-    var buildUrl = PLATFORM_URLS[platform];
-    if (!buildUrl) return;
-    window.open(buildUrl(encodeURIComponent(prompt)), '_blank', 'noopener,noreferrer');
-  }
-
-  function copyPrompt(prompt, statusEl, copyBtn) {
-    function showStatus(message) {
-      statusEl.textContent = message;
-    }
-
-    function flashButton(label) {
-      var original = copyBtn.textContent;
-      copyBtn.textContent = label;
-      window.setTimeout(function() {
-        copyBtn.textContent = original;
-      }, 1800);
-    }
-
+  function copyToClipboard(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(prompt).then(function() {
-        showStatus('Prompt copied. You can paste it into any AI assistant.');
-        flashButton('Copied');
-      }).catch(function() {
-        fallbackCopy(prompt, showStatus, flashButton);
-      });
-      return;
+      return navigator.clipboard.writeText(text);
     }
 
-    fallbackCopy(prompt, showStatus, flashButton);
-  }
+    return new Promise(function(resolve, reject) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
 
-  function fallbackCopy(prompt, showStatus, flashButton) {
-    var textarea = document.createElement('textarea');
-    textarea.value = prompt;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.select();
-
-    try {
-      document.execCommand('copy');
-      showStatus('Prompt copied. You can paste it into any AI assistant.');
-      flashButton('Copied');
-    } catch (error) {
-      showStatus('Copy failed. Please select and copy the prompt manually.');
-    }
-
-    document.body.removeChild(textarea);
+      try {
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        resolve();
+      } catch (error) {
+        document.body.removeChild(textarea);
+        reject(error);
+      }
+    });
   }
 
   function init() {
     var root = document.getElementById('ask-ai-widget');
     if (!root) return;
-
-    var siteUrl = resolveSiteUrl(root.getAttribute('data-site-url'));
-    var llmsFullUrl = root.getAttribute('data-llms-full-url') || (siteUrl + '/llms-full.txt');
 
     var fab = root.querySelector('.js-ask-ai-open');
     var panel = document.getElementById('ask-ai-panel');
@@ -107,101 +48,97 @@
     var input = root.querySelector('.js-ask-ai-question');
     var statusEl = root.querySelector('.js-ask-ai-status');
     var copyBtn = root.querySelector('.js-ask-ai-copy');
-    var platformBtns = root.querySelectorAll('.js-ask-ai-platform');
-    var chipBtns = root.querySelectorAll('.js-ask-ai-chip');
-    var defaultDataEl = root.querySelector('.js-ask-ai-default-data');
-    var suggestionsDataEl = root.querySelector('.js-ask-ai-suggestions-data');
-    var defaultEntry = null;
-    var suggestions = [];
+    var copyOpenBtns = root.querySelectorAll('.js-ask-ai-copy-open');
+    var configEl = root.querySelector('.js-ask-ai-config');
+    var config = {
+      display: '',
+      questionIntro: 'I would like to learn about Dr. Fei Zhao. Please answer the following question:',
+      systemPrompt: '',
+      llmsFull: ''
+    };
 
-    if (defaultDataEl) {
+    if (configEl) {
       try {
-        defaultEntry = JSON.parse(defaultDataEl.textContent || 'null');
+        config = JSON.parse(configEl.textContent || '{}');
       } catch (error) {
-        defaultEntry = null;
+        config = { display: '', questionIntro: '', systemPrompt: '', llmsFull: '' };
       }
     }
 
-    if (suggestionsDataEl) {
-      try {
-        suggestions = JSON.parse(suggestionsDataEl.textContent || '[]');
-      } catch (error) {
-        suggestions = [];
-      }
+    var defaultQuestion = (config.display || '').trim();
+    var questionIntro = (config.questionIntro || 'I would like to learn about Dr. Fei Zhao. Please answer the following question:').trim();
+    var systemPrompt = (config.systemPrompt || '').trim();
+    var llmsFull = (config.llmsFull || '').trim();
+
+    function currentUserQuestion() {
+      var value = (input.value || '').trim();
+      return value || defaultQuestion;
     }
 
-    var selectedSuggestionIndex = null;
-    var defaultDisplay = getEntryDisplay(defaultEntry);
+    function buildPrompt(userQuestion) {
+      var parts = [];
 
-    function clearChipSelection() {
-      chipBtns.forEach(function(chip) {
-        chip.classList.remove('is-selected');
+      if (llmsFull) {
+        parts.push('# Website Profile (llms-full.txt)', '', llmsFull);
+      }
+
+      if (systemPrompt) {
+        parts.push('---', systemPrompt);
+      }
+
+      parts.push('---', questionIntro, '', userQuestion);
+
+      return parts.join('\n');
+    }
+
+    function currentPrompt() {
+      return buildPrompt(currentUserQuestion());
+    }
+
+    function showStatus(message) {
+      statusEl.textContent = message;
+    }
+
+    function flashButton(btn, label) {
+      var original = btn.textContent;
+      btn.textContent = label;
+      window.setTimeout(function() {
+        btn.textContent = original;
+      }, 1800);
+    }
+
+    function handleCopy(prompt, btn) {
+      return copyToClipboard(prompt).then(function() {
+        showStatus('Copied — paste with Cmd/Ctrl+V.');
+        if (btn) flashButton(btn, 'Copied');
+      }).catch(function() {
+        showStatus('Copy failed. Select and copy manually.');
       });
-      selectedSuggestionIndex = null;
     }
 
-    function selectChip(chip, index) {
-      clearChipSelection();
-      if (chip) chip.classList.add('is-selected');
-      selectedSuggestionIndex = index;
+    function handleCopyAndOpen(prompt, platform, btn) {
+      var platformLabel = PLATFORM_LABELS[platform] || 'the AI platform';
+      var platformUrl = PLATFORM_URLS[platform];
+
+      if (!platformUrl) return;
+
+      return copyToClipboard(prompt).then(function() {
+        window.open(platformUrl, '_blank', 'noopener,noreferrer');
+        showStatus('Copied — paste into ' + platformLabel + '.');
+        flashButton(btn, '✓');
+      }).catch(function() {
+        showStatus('Copy failed. Open ' + platformLabel + ' and paste manually.');
+      });
     }
 
-    function getSelectedSuggestion() {
-      if (selectedSuggestionIndex === null) return null;
-      return suggestions[selectedSuggestionIndex] || null;
-    }
-
-    function findSuggestionByDisplay(value) {
-      var trimmed = (value || '').trim();
-      if (!trimmed) return null;
-
-      for (var i = 0; i < suggestions.length; i++) {
-        if (getEntryDisplay(suggestions[i]) === trimmed) {
-          return { suggestion: suggestions[i], index: i };
-        }
-      }
-
-      return null;
-    }
-
-    function usesDefaultEntry() {
-      if (!defaultEntry || !defaultEntry.prompt) return false;
-
-      var currentValue = input.value.trim();
-      return !currentValue || currentValue === defaultDisplay;
-    }
-
-    function applyDefaultDisplay() {
-      if (!defaultDisplay) return;
-      input.value = defaultDisplay;
-    }
-
-    function resolveActiveSuggestion() {
-      var selected = getSelectedSuggestion();
-      if (selected && selected.prompt) {
-        return selected;
-      }
-
-      var matched = findSuggestionByDisplay(input.value);
-      if (matched && matched.suggestion.prompt) {
-        selectedSuggestionIndex = matched.index;
-        chipBtns.forEach(function(chip, index) {
-          chip.classList.toggle('is-selected', index === matched.index);
-        });
-        return matched.suggestion;
-      }
-
-      if (usesDefaultEntry()) {
-        return defaultEntry;
-      }
-
-      return null;
+    function applyDefaultQuestion() {
+      input.value = defaultQuestion;
     }
 
     function openPanel() {
       panel.hidden = false;
       fab.setAttribute('aria-expanded', 'true');
-      applyDefaultDisplay();
+      applyDefaultQuestion();
       window.setTimeout(function() {
         input.focus();
         input.setSelectionRange(input.value.length, input.value.length);
@@ -213,18 +150,7 @@
       fab.setAttribute('aria-expanded', 'false');
       statusEl.textContent = '';
       input.value = '';
-      clearChipSelection();
       fab.focus();
-    }
-
-    function currentPrompt() {
-      var activeSuggestion = resolveActiveSuggestion();
-      if (activeSuggestion && activeSuggestion.prompt) {
-        return activeSuggestion.prompt;
-      }
-
-      var question = input.value.trim() || defaultDisplay;
-      return buildPrompt(siteUrl, llmsFullUrl, question);
     }
 
     fab.addEventListener('click', function() {
@@ -249,42 +175,17 @@
       closePanel();
     });
 
-    platformBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        openPlatform(btn.getAttribute('data-platform'), currentPrompt());
-      });
-    });
-
     copyBtn.addEventListener('click', function() {
-      copyPrompt(currentPrompt(), statusEl, copyBtn);
+      handleCopy(currentPrompt(), copyBtn);
     });
 
-    chipBtns.forEach(function(chip) {
-      chip.addEventListener('click', function() {
-        var index = Number(chip.getAttribute('data-suggestion-index'));
-        var display = chip.getAttribute('data-display') || getEntryDisplay(suggestions[index]);
-        input.value = display;
-        selectChip(chip, index);
-        input.focus();
-        statusEl.textContent = '';
-      });
-    });
-
-    input.addEventListener('input', function() {
-      var currentValue = input.value.trim();
-      var matched = findSuggestionByDisplay(currentValue);
-
-      if (matched) {
-        chipBtns.forEach(function(chip, index) {
-          chip.classList.toggle('is-selected', index === matched.index);
-        });
-        selectedSuggestionIndex = matched.index;
-        return;
-      }
-
-      selectedSuggestionIndex = null;
-      chipBtns.forEach(function(chip) {
-        chip.classList.remove('is-selected');
+    copyOpenBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        handleCopyAndOpen(
+          currentPrompt(),
+          btn.getAttribute('data-platform'),
+          btn
+        );
       });
     });
   }

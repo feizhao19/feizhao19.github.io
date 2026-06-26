@@ -1,8 +1,9 @@
+{% capture llms_full %}{% include llms-full-content.html %}{% endcapture %}
+{% assign ask_ai_default = site.data.ask_ai_questions.default %}
 <div
   class="ask-ai-widget"
   id="ask-ai-widget"
   data-site-url="{{ site.public_site_url | default: 'https://feizhao19.github.io' }}"
-  data-llms-full-url="{{ site.public_site_url | default: 'https://feizhao19.github.io' }}/llms-full.txt"
 >
   <button
     type="button"
@@ -27,49 +28,51 @@
       <button type="button" class="ask-ai-widget__close js-ask-ai-close" aria-label="Close">&times;</button>
     </div>
 
-    <p class="ask-ai-widget__hint">
-      Answers depend on the selected AI platform and whether it can access the web.
-    </p>
+    <p class="ask-ai-widget__hint">Edit your question, then pick an AI.</p>
 
     <label class="ask-ai-widget__label" for="ask-ai-question">Your question</label>
 
-    <script type="application/json" class="js-ask-ai-default-data">{{ site.data.ask_ai_questions.default | jsonify }}</script>
-
-    {% if site.data.ask_ai_questions.suggestions.size > 0 %}
-    <script type="application/json" class="js-ask-ai-suggestions-data">{{ site.data.ask_ai_questions.suggestions | jsonify }}</script>
-
-    <div class="ask-ai-widget__suggestions" role="list" aria-label="Suggested questions">
-      {% for item in site.data.ask_ai_questions.suggestions %}
-      <button
-        type="button"
-        class="ask-ai-widget__chip js-ask-ai-chip"
-        role="listitem"
-        data-suggestion-index="{{ forloop.index0 }}"
-        data-display="{{ item.display | default: item.question | strip_newlines | escape }}"
-      >
-        {{ item.label }}
-      </button>
-      {% endfor %}
-    </div>
-    {% endif %}
+    <script type="application/json" class="js-ask-ai-config">{
+      "display": {{ ask_ai_default.display | jsonify }},
+      "questionIntro": {{ ask_ai_default.question_intro | jsonify }},
+      "systemPrompt": {{ ask_ai_default.prompt | strip | jsonify }},
+      "llmsFull": {{ llms_full | strip | jsonify }}
+    }</script>
 
     <textarea
       id="ask-ai-question"
       class="ask-ai-widget__input js-ask-ai-question"
       rows="3"
-      placeholder="Ask about my research, projects, or publications..."
     ></textarea>
 
     <div class="ask-ai-widget__actions">
-      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--primary js-ask-ai-platform" data-platform="chatgpt">
-        Ask with ChatGPT
-      </button>
-      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--primary js-ask-ai-platform" data-platform="perplexity">
-        Ask with Perplexity
-      </button>
-      <button type="button" class="ask-ai-widget__btn ask-ai-widget__btn--secondary js-ask-ai-copy">
-        Copy Prompt
-      </button>
+      <p class="ask-ai-widget__actions-label">Open in</p>
+      <p class="ask-ai-widget__actions-note">All questions and prompts are copied to your clipboard automatically. Use Cmd/Ctrl+V to paste directly in the AI chat.</p>
+      <div class="ask-ai-widget__platforms">
+        <button
+          type="button"
+          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
+          data-platform="chatgpt"
+          aria-label="Copy prompt and open ChatGPT"
+        >ChatGPT</button>
+        <button
+          type="button"
+          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
+          data-platform="gemini"
+          aria-label="Copy prompt and open Gemini"
+        >Gemini</button>
+        <button
+          type="button"
+          class="ask-ai-widget__btn ask-ai-widget__btn--primary ask-ai-widget__btn--platform js-ask-ai-copy-open"
+          data-platform="perplexity"
+          aria-label="Copy prompt and open Perplexity"
+        >Perplexity</button>
+      </div>
+      <button
+        type="button"
+        class="ask-ai-widget__copy-only js-ask-ai-copy"
+        aria-label="Copy prompt only"
+      >Copy prompt only</button>
     </div>
 
     <p class="ask-ai-widget__status js-ask-ai-status" aria-live="polite"></p>

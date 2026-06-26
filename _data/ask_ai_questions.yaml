@@ -1,13 +1,9 @@
 default:
-  display: Summarize Fei Zhao's research directions.
+  display: Summarize Dr. Fei Zhao's research directions.
+  question_intro: "I would like to learn about Dr. Fei Zhao. Based on the information provided and the instructions above, please answer the following question :"
   prompt: |
-    Here are the websites you need to explore:
-    https://feizhao19.github.io
-    
-
-    If you cannot access the sources above, do not guess or use outside information. Reply only with:
-    "Due to inability to access Fei Zhao's website, I cannot provide a summary of Fei's information."
-    Don't use Hugging Face information.
+    Use the complete website profile above as your source about Dr. Fei Zhao. You may also use this website: https://feizhao19.github.io for additional information.
+    Don't use Hugging Face information. 
     Assume the reader is a recruiter, hiring manager, or technical interviewer. Generate a concise executive summary (no more than 500 words). Use the following format.
 
     # Research Snapshot
@@ -30,8 +26,6 @@ default:
     # Best Fit Roles
     Suggest the AI roles that best match this research portfolio.
 
-    Keep the response concise, highly structured, and easy to scan. Avoid long paragraphs.
+    Keep the response concise, highly structured, and easy to scan. Avoid long paragraphs. 
 
 suggestions: []
-
-

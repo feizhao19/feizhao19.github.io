@@ -1,5 +1,7 @@
 {% assign p = include.project %}
-{% if p.type == 'attitude-fusion' %}
+{% if p.type == 'vlm-hallucination' %}
+  {% include demos/vlm-hallucination.html project=p %}
+{% elsif p.type == 'attitude-fusion' %}
   {% include demos/attitude-fusion.html project=p %}
 {% else %}
   {% include synced-swipe-compare.html project=p %}

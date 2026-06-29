@@ -1,0 +1,45 @@
+samples:
+  - id: dog
+    label: Dog
+    image: vlm-hallucination/dog.jpg
+    alt: Black Labrador retriever looking at the camera
+    corrected_caption: "A black dog looking at the camera outdoors."
+    corrected_tokens:
+      - "black dog"
+      - "outdoors"
+    critic_score: 0.83
+    sas_after: 0.86
+    nhp_after: 0.80
+    gamma_layers: 12
+    rl_steps: 3
+    beam_candidates:
+      - caption: "A golden retriever sitting on a red couch in a living room."
+        reward: 0.52
+        sas: 0.58
+        nhp: 0.46
+        beam_rank: 1
+        hallucinated: true
+      - caption: "A dog resting on a sofa watching television indoors."
+        reward: 0.48
+        sas: 0.54
+        nhp: 0.42
+        beam_rank: 2
+        hallucinated: true
+      - caption: "A brown puppy lying on furniture near a window."
+        reward: 0.51
+        sas: 0.57
+        nhp: 0.45
+        beam_rank: 3
+        hallucinated: true
+      - caption: "A Labrador on a leather couch in a bright room."
+        reward: 0.46
+        sas: 0.52
+        nhp: 0.40
+        beam_rank: 4
+        hallucinated: true
+      - caption: "A pet dog on a red sofa with pillows."
+        reward: 0.44
+        sas: 0.50
+        nhp: 0.38
+        beam_rank: 5
+        hallucinated: true

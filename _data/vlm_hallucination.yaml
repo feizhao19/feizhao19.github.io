@@ -1,4 +1,85 @@
 samples:
+  - id: street
+    label: Rainy Street
+    image: vlm-hallucination/street.png
+    alt: Aerial view of a rain-soaked downtown city intersection with wet pavement reflecting traffic lights
+    prompt: '"Describe this image."'
+    image_content: >-
+      A high-angle view of a downtown city intersection after rainfall,
+      with wet pavement reflecting traffic lights and surrounding buildings.
+    original_caption: >-
+      A high-angle view of a severely flooded downtown intersection, where vehicles drive through deep floodwater after a major storm.
+    hallucinated_tokens:
+      - "severely flooded"
+      - "deep floodwater"
+      - "major storm"
+    corrected_caption: >-
+      A high-angle view of a rain-soaked downtown intersection, where wet
+      pavement reflects traffic lights and nearby buildings.
+    corrected_tokens:
+      - "rain-soaked downtown intersection"
+      - "wet pavement reflects"
+      - "traffic lights"
+      - "nearby buildings"
+    rl_steps: 3
+    tta_iterations:
+      - label: Initial Generation
+        mean: -0.46
+        original_caption: >-
+          A high-angle view of a severely flooded downtown intersection, where vehicles drive through deep floodwater after a major storm.
+        candidates:
+          - beam_rank: 1
+            caption: >-
+              An aerial view of a severely flooded downtown intersection after a major storm, with vehicles attempting to drive through deep floodwater between high-rise office buildings.
+            reward: 0.85
+          - beam_rank: 2
+            caption: A downtown intersection submerged by floodwater.
+            reward: 0.20
+          - beam_rank: 3
+            caption: Cars driving through deep water after a hurricane.
+            reward: -1.35
+          - beam_rank: 4
+            caption: A city intersection at night with wet roads and reflections.
+            reward: 0.65
+          - beam_rank: 5
+            caption: An urban disaster scene with buildings surrounded by water.
+            reward: -2.00
+      - label: TTA Step 1
+        mean: 0.50
+        candidates:
+          - beam_rank: 1
+            caption: A rainy downtown intersection with cars and bright reflections.
+            reward: 1.15
+          - beam_rank: 2
+            caption: A flooded urban street with vehicles moving through water.
+            reward: -0.15
+          - beam_rank: 3
+            caption: A wet city intersection viewed from above at night.
+            reward: 1.30
+          - beam_rank: 4
+            caption: A storm-damaged city road covered in floodwater.
+            reward: -0.90
+          - beam_rank: 5
+            caption: Cars traveling through a rain-soaked intersection between tall buildings.
+            reward: 1.10
+      - label: TTA Step 2
+        mean: 1.42
+        candidates:
+          - beam_rank: 1
+            caption: A high-angle view of a rain-soaked city intersection reflecting traffic lights.
+            reward: 1.75
+          - beam_rank: 2
+            caption: Wet downtown streets with cars, crosswalks, and reflections from city lights.
+            reward: 1.55
+          - beam_rank: 3
+            caption: An aerial view of a rainy urban intersection surrounded by office buildings.
+            reward: 1.45
+          - beam_rank: 4
+            caption: Cars moving through a wet intersection after rainfall.
+            reward: 1.35
+          - beam_rank: 5
+            caption: A flooded downtown road after a severe storm.
+            reward: 1.00
   - id: chameleon
     label: Chameleon
     image: vlm-hallucination/forest.jpg

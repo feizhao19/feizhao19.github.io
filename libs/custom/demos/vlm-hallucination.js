@@ -14,12 +14,15 @@
   };
   var WIRE_AFTER = {
     'beam-candidates': 'cand-rm',
-    'reward-model':    '',
+    'reward-model':    'rm-cand',
     'vlm-update':      ''
   };
   var TOTAL_ITERS = 3;
   var PULSE_FADE_MS = 480;
   var INPUT_PULSE_HOLD_MS = 1200;
+  var SCORES_AFTER_RM_MS = 520;
+  var VLM_NEURO_UPDATE_DELAY_MS = 320;
+  var AUTO_RESTART_DELAY_MS = 3000;
 
   function getSiteBaseUrl() {
     var el = document.querySelector('script[src*="vlm-hallucination.js"]');
@@ -87,6 +90,8 @@
     this.promptEl        = root.querySelector('.js-vlm-prompt');
     this.statusEl        = root.querySelector('.js-vlm-status');
     this.vlmHubEl        = root.querySelector('.js-vlm-hub');
+    this.vlmNeuroEl        = root.querySelector('.js-vlm-neuro-img');
+    this.vlmNeuroOverlayEl = root.querySelector('.js-vlm-neuro-overlay');
     this.vlmActivityEl   = root.querySelector('.js-vlm-activity-label');
     this.branchPanelEl   = root.querySelector('[data-stage="branch"]');
     this.outputStageEl   = root.querySelector('.js-output-stage');
@@ -96,8 +101,12 @@
     this.candidatesEl    = root.querySelector('.js-flow-candidates');
     this.scoresFrameEl   = root.querySelector('.js-scores-frame');
     this.scoresMeanEl    = root.querySelector('.js-scores-mean');
-    this.captionEl         = root.querySelector('.js-vlm-output-caption');
-    this.originalCaptionEl  = root.querySelector('.js-vlm-original-caption');
+    this.captionEl            = root.querySelector('.js-vlm-output-caption');
+    this.captionTextEl        = root.querySelector('.js-vlm-output-caption-text');
+    this.captionSizerEl       = root.querySelector('.js-vlm-output-caption-sizer');
+    this.originalCaptionEl    = root.querySelector('.js-vlm-original-caption');
+    this.originalCaptionTextEl  = root.querySelector('.js-vlm-original-caption-text');
+    this.originalCaptionSizerEl = root.querySelector('.js-vlm-original-caption-sizer');
     this.mitigateBtn     = root.querySelector('.js-vlm-mitigate-btn');
     this.pauseBtn        = root.querySelector('.js-vlm-pause-btn');
     this.resetBtn        = root.querySelector('.js-vlm-reset-btn');
@@ -112,10 +121,21 @@
     this.isRunning = false;
     this.isPaused = false;
     this.totalIters = TOTAL_ITERS;
+    this.currentTtaIter = 0;
 
     this._bindEvents();
-    this._loadSample(this.currentSampleId, true);
+    this._bindOutputResize();
+    this._loadSample(this.currentSampleId, false);
   }
+
+  Demo.prototype._bindOutputResize = function () {
+    var self = this;
+    if (this._outputResizeBound) return;
+    this._outputResizeBound = true;
+    window.addEventListener('resize', function () {
+      self._syncOutputBoxHeights();
+    });
+  };
 
   Demo.prototype._bindEvents = function () {
     var self = this;
@@ -157,6 +177,24 @@
 
   Demo.prototype._status = function (html) {
     if (this.statusEl) this.statusEl.innerHTML = html;
+  };
+
+  Demo.prototype._vlmNeuroSrc = function (filename) {
+    return getSiteBaseUrl() + '/images/' + filename;
+  };
+
+  Demo.prototype._setVlmNeuroUpdating = function (iter) {
+    if (!this.vlmNeuroOverlayEl) return;
+    var n = Math.max(1, Math.min(TOTAL_ITERS, iter || 1));
+    this.vlmNeuroOverlayEl.src = this._vlmNeuroSrc('vlm-hallucination/p' + n + '_neuro.png');
+    this.vlmNeuroOverlayEl.hidden = false;
+    this.vlmNeuroOverlayEl.classList.add('is-visible');
+  };
+
+  Demo.prototype._resetVlmNeuro = function () {
+    if (!this.vlmNeuroOverlayEl) return;
+    this.vlmNeuroOverlayEl.classList.remove('is-visible');
+    this.vlmNeuroOverlayEl.hidden = true;
   };
 
   Demo.prototype._wireParts = function (el) {
@@ -461,9 +499,39 @@
     el.classList.add('is-working', 'is-steady');
   };
 
+  Demo.prototype._reserveOutputSpace = function (sample) {
+    if (!sample) return;
+    var corrected = sample.corrected_caption || '';
+    var original = sample.original_caption || '';
+    var sizerText = corrected.length >= original.length ? corrected : original;
+    if (this.captionSizerEl)
+      this.captionSizerEl.textContent = sizerText;
+    if (this.originalCaptionSizerEl)
+      this.originalCaptionSizerEl.textContent = sizerText;
+    this._syncOutputBoxHeights();
+  };
+
+  Demo.prototype._syncOutputBoxHeights = function () {
+    var finalBox = this.outputStageEl;
+    var origBox = this.originalStageEl;
+    if (!finalBox || !origBox) return;
+    finalBox.style.minHeight = '';
+    origBox.style.minHeight = '';
+    var maxH = Math.max(finalBox.offsetHeight, origBox.offsetHeight);
+    if (!maxH) return;
+    var px = maxH + 'px';
+    finalBox.style.minHeight = px;
+    origBox.style.minHeight = px;
+  };
+
+  Demo.prototype._clearCaptionText = function (textEl) {
+    if (!textEl) return;
+    textEl.textContent = '';
+  };
+
   Demo.prototype._resetOriginalShell = function () {
-    if (!this.originalStageEl || !this.originalCaptionEl) return;
-    this.originalCaptionEl.innerHTML = '';
+    if (!this.originalStageEl) return;
+    this._clearCaptionText(this.originalCaptionTextEl);
     this.originalStageEl.classList.remove(
       'is-working', 'is-steady', 'is-revealed',
       'is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete'
@@ -472,13 +540,13 @@
   };
 
   Demo.prototype._revealOriginalOutput = function (sample) {
-    if (!this.originalStageEl || !this.originalCaptionEl) return;
+    if (!this.originalStageEl || !this.originalCaptionTextEl) return;
     var original = sample.original_caption || '';
     if (!original) {
       this.originalStageEl.hidden = true;
       return;
     }
-    this.originalCaptionEl.innerHTML = highlightTokens(
+    this.originalCaptionTextEl.innerHTML = highlightTokens(
       original,
       sample.hallucinated_tokens,
       'vg-output__token--bad'
@@ -486,6 +554,7 @@
     this.originalStageEl.hidden = false;
     this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete');
     this.originalStageEl.classList.add('is-revealed', 'is-working', 'is-steady');
+    this._syncOutputBoxHeights();
   };
 
   Demo.prototype._resetFlow = function () {
@@ -521,8 +590,9 @@
     }
     this._hideScoresFrame();
     this._buildCandidateShell();
-    if (this.captionEl) this.captionEl.innerHTML = '';
+    this._clearCaptionText(this.captionTextEl);
     this._resetOriginalShell();
+    this._resetVlmNeuro();
     this.root.classList.remove('is-running','is-complete','is-tta-done','is-paused');
     this._setPauseUi(false);
     this._status('Press <em>Run TTA</em> to start.');
@@ -575,6 +645,7 @@
     if (WIRE_AFTER[name]) this._workWire(WIRE_AFTER[name]);
     if (name === 'vlm-update') {
       this._setWire('rm-cand', '');
+      this._resetVlmNeuro();
     }
   };
 
@@ -766,7 +837,6 @@
 
   Demo.prototype._fillScores = function (token) {
     if (token !== this.runToken) return Promise.resolve(false);
-    this._workWire('rm-cand');
     if (this.candidatesEl) this.candidatesEl.classList.add('has-scores');
     var cards = Array.from(this.candidatesEl.querySelectorAll('.js-beam-card'));
     var values = cards.map(function(card){ return card.__reward || 0; });
@@ -835,7 +905,7 @@
 
     var iterLabel = iterData.label ? ' (' + iterData.label + ')' : '';
     this._activateBranchStep('beam-candidates');
-    this._status('Iter '+iter+'/'+self.totalIters+iterLabel+' — candidates (beam search, K=5) from VLM');
+    this._status('Iter '+iter+'/'+self.totalIters+iterLabel+' — candidates (beam search, k=5) from VLM');
 
     return this._wait(500, token)
       .then(function(){
@@ -863,6 +933,10 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
+        return self._wait(SCORES_AFTER_RM_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
         return self._fillScores(token);
       })
       .then(function(ok){
@@ -872,9 +946,15 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
+        self.currentTtaIter = iter;
         self._activateBranchStep('vlm-update');
         self._status('Iter '+iter+'/'+self.totalIters+' — RL update (PPO + LN-γ)');
-        return self._wait(760, token);
+        return self._wait(VLM_NEURO_UPDATE_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._setVlmNeuroUpdating(iter);
+        return self._wait(760 - VLM_NEURO_UPDATE_DELAY_MS, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
@@ -925,6 +1005,7 @@
     this.imageEl.src = getSiteBaseUrl() + '/images/' + sample.image;
     this.imageEl.alt = sample.alt || '';
     this._resetFlow();
+    this._reserveOutputSpace(sample);
     if (this.promptEl) this.promptEl.textContent = sample.prompt || '"Describe this image."';
     this.mitigateBtn.disabled = false;
     this.mitigateBtn.hidden = false;
@@ -942,6 +1023,7 @@
     this.runToken++;
     var token = this.runToken;
     this._resetFlow();
+    this._reserveOutputSpace(sample);
     this.totalIters = sample.rl_steps || TOTAL_ITERS;
     this.mitigateBtn.disabled = true;
     this.mitigateBtn.hidden = true;
@@ -953,11 +1035,11 @@
     return this._activateStage('input')
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
+        self._workWire('input-vlm');
         return self._wait(INPUT_PULSE_HOLD_MS, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
-        self._workWire('input-vlm');
         return self._handoffPulse(
           self._stageEl('input'),
           self.vlmHubEl,
@@ -1016,7 +1098,7 @@
       .then(function(r){
         if (r === false || token !== self.runToken) return null;
         self._status('Vision-language model outputs final caption');
-        return self._typeCaption(self.captionEl, sample.corrected_caption, 13);
+        return self._typeCaption(self.captionTextEl, sample.corrected_caption, 13);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
@@ -1027,20 +1109,24 @@
         if (ok === false || token !== self.runToken) return null;
         self._setVlmComplete();
         self._setOutputLit();
-        self.captionEl.innerHTML = highlightTokens(
+        self.captionTextEl.innerHTML = highlightTokens(
           sample.corrected_caption, sample.corrected_tokens, 'vg-output__token--ok');
         self._revealOriginalOutput(sample);
+        self._syncOutputBoxHeights();
         self._status('Done.');
-        return self._wait(140, token);
-      })
-      .then(function(r){
-        if (r === false || token !== self.runToken) return;
         self.isRunning = false;
         self._setPauseUi(false);
         self.mitigateBtn.hidden = true;
         self.resetBtn.hidden = false;
         self.root.classList.remove('is-running');
         self.root.classList.add('is-complete');
+        return self._wait(AUTO_RESTART_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return;
+        self.root.classList.remove('is-complete');
+        self.resetBtn.hidden = true;
+        self.runMitigation();
       });
   };
 

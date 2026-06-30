@@ -57,23 +57,32 @@
                   <strong class="vg-node__title">Vision-Language Model</strong>
                 </div>
                 <figure class="vg-node__fig vg-node__fig--vlm">
-                  <img
-                    src="{{ '/images/vlm-hallucination/neuro.png' | prepend: site.baseurl }}"
-                    alt="Neural network diagram"
-                    loading="lazy"
-                    decoding="async">
+                  <div class="vg-vlm-neuro-stack">
+                    <img
+                      class="js-vlm-neuro-img"
+                      src="{{ '/images/vlm-hallucination/neuro.png' | prepend: site.baseurl }}"
+                      alt="Neural network diagram"
+                      loading="eager"
+                      decoding="async">
+                    <img
+                      class="vg-vlm-neuro-overlay js-vlm-neuro-overlay"
+                      src=""
+                      alt=""
+                      hidden
+                      decoding="async">
+                  </div>
                 </figure>
                 <span class="vg-vlm-state">Generator</span>
                 <span class="vg-vlm-activity js-vlm-activity-label" hidden aria-live="polite"></span>
+                <div class="vg-main-tail">
+                  <div class="vg-conn js-flow-bridge" data-bridge="vlm-output">
+                    <span class="vg-conn__shaft js-vg-wire" data-wire="vlm-output"></span>
+                    <span class="vg-conn__tip   js-vg-wire" data-wire="vlm-output">▼</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="vg-main-tail">
-              <div class="vg-conn js-flow-bridge" data-bridge="vlm-output">
-                <span class="vg-conn__shaft js-vg-wire" data-wire="vlm-output"></span>
-                <span class="vg-conn__tip   js-vg-wire" data-wire="vlm-output">▼</span>
-              </div>
-            </div>
           </div><!-- .vg-main -->
 
           <!-- bridge column: VLM ↔ right panel -->
@@ -105,7 +114,7 @@
               <div class="vg-rm-row">
                 <!-- Candidates (Beam Search, K=5) -->
                 <div class="vg-step vg-step--generation js-tta-step" data-tta-step="beam-candidates">
-                  <span class="vg-step__name">Candidates (Beam Search, K=5)</span>
+                  <span class="vg-step__name">Candidates (Beam Search, k=5)</span>
                   <div class="vg-candidates__area">
                     <div class="vg-candidates__list js-flow-candidates" role="list"></div>
                     <div class="vg-scores-frame js-scores-frame" hidden>
@@ -137,7 +146,7 @@
                       loading="lazy"
                       decoding="async">
                   </figure>
-                  <span class="vg-step__sub vg-step__sub--clip">LLM-as-judge (CLIP Model)</span>
+                  <span class="vg-step__sub vg-step__sub--clip">LLM-as-judge<br>(CLIP Model)</span>
                 </div>
               </div>
 
@@ -148,13 +157,19 @@
             <section class="vg-node vg-node--output js-output-stage js-flow-stage" data-stage="output">
               <div class="vg-node__body">
                 <strong class="vg-node__title">Final Output</strong>
-                <p class="vg-output-caption js-vlm-output-caption" aria-live="polite"></p>
+                <p class="vg-output-caption js-vlm-output-caption" aria-live="polite">
+                  <span class="vg-output-caption__text js-vlm-output-caption-text"></span>
+                  <span class="vg-output-caption__sizer js-vlm-output-caption-sizer" aria-hidden="true"></span>
+                </p>
               </div>
             </section>
             <section class="vg-node vg-node--original js-original-stage">
               <div class="vg-node__body">
                 <strong class="vg-node__title">Original Output</strong>
-                <p class="vg-output-caption js-vlm-original-caption" aria-live="polite"></p>
+                <p class="vg-output-caption js-vlm-original-caption" aria-live="polite">
+                  <span class="vg-output-caption__text js-vlm-original-caption-text"></span>
+                  <span class="vg-output-caption__sizer js-vlm-original-caption-sizer" aria-hidden="true"></span>
+                </p>
               </div>
             </section>
           </div>
@@ -162,7 +177,7 @@
         </div><!-- .vg-split -->
 
         <div class="vg-demo__actions">
-          <button type="button" class="button button-primary js-vlm-mitigate-btn">Run TTA</button>
+          <button type="button" class="button js-vlm-mitigate-btn">Run TTA</button>
           <button type="button" class="button js-vlm-pause-btn" hidden>Pause</button>
           <button type="button" class="button js-vlm-reset-btn" hidden>Reset</button>
         </div>

@@ -1,45 +1,82 @@
 samples:
-  - id: dog
-    label: Dog
-    image: vlm-hallucination/dog.jpg
-    alt: Black Labrador retriever looking at the camera
-    corrected_caption: "A black dog looking at the camera outdoors."
+  - id: chameleon
+    label: Chameleon
+    image: vlm-hallucination/forest.jpg
+    alt: A green chameleon camouflaged on a lichen-covered tree branch, surrounded by green leaves
+    prompt: '"Describe this image."'
+    image_content: >-
+      A green chameleon camouflaged on a lichen-covered tree branch,
+      surrounded by green leaves.
+    original_caption: >-
+      A green reptile climbing through dense jungle vegetation.
+    hallucinated_tokens:
+      - "reptile"
+      - "climbing"
+      - "jungle vegetation"
+    corrected_caption: >-
+      A green chameleon with a curled tail camouflaged on a lichen-covered
+      tree branch among green leaves.
     corrected_tokens:
-      - "black dog"
-      - "outdoors"
-    critic_score: 0.83
-    sas_after: 0.86
-    nhp_after: 0.80
-    gamma_layers: 12
+      - "green chameleon"
+      - "curled tail"
+      - "camouflaged"
+      - "lichen-covered tree branch"
+      - "green leaves"
     rl_steps: 3
-    beam_candidates:
-      - caption: "A golden retriever sitting on a red couch in a living room."
-        reward: 0.52
-        sas: 0.58
-        nhp: 0.46
-        beam_rank: 1
-        hallucinated: true
-      - caption: "A dog resting on a sofa watching television indoors."
-        reward: 0.48
-        sas: 0.54
-        nhp: 0.42
-        beam_rank: 2
-        hallucinated: true
-      - caption: "A brown puppy lying on furniture near a window."
-        reward: 0.51
-        sas: 0.57
-        nhp: 0.45
-        beam_rank: 3
-        hallucinated: true
-      - caption: "A Labrador on a leather couch in a bright room."
-        reward: 0.46
-        sas: 0.52
-        nhp: 0.40
-        beam_rank: 4
-        hallucinated: true
-      - caption: "A pet dog on a red sofa with pillows."
-        reward: 0.44
-        sas: 0.50
-        nhp: 0.38
-        beam_rank: 5
-        hallucinated: true
+    tta_iterations:
+      - label: Initial Generation
+        mean: -0.28
+        original_caption: >-
+          A green reptile climbing through dense jungle vegetation.
+        candidates:
+          - beam_rank: 1
+            caption: Green leaves and branches in a forest.
+            reward: -1.20
+          - beam_rank: 2
+            caption: A green lizard sitting on a tree branch.
+            reward: 0.80
+          - beam_rank: 3
+            caption: A small iguana resting among leaves.
+            reward: 0.35
+          - beam_rank: 4
+            caption: A snake hiding in the jungle foliage.
+            reward: -1.45
+          - beam_rank: 5
+            caption: A green reptile climbing through dense jungle vegetation.
+            reward: 1.10
+      - label: TTA Step 1
+        mean: 0.66
+        candidates:
+          - beam_rank: 1
+            caption: A green chameleon blending into leaves.
+            reward: 1.05
+          - beam_rank: 2
+            caption: A lizard with a curled tail sitting on a branch.
+            reward: 0.85
+          - beam_rank: 3
+            caption: A chameleon camouflaged among branches and foliage.
+            reward: 1.35
+          - beam_rank: 4
+            caption: A green reptile climbing through jungle leaves.
+            reward: 0.45
+          - beam_rank: 5
+            caption: A gecko resting on mossy bark.
+            reward: -0.40
+      - label: TTA Step 2
+        mean: 1.38
+        candidates:
+          - beam_rank: 1
+            caption: A green chameleon on a lichen-covered branch.
+            reward: 1.55
+          - beam_rank: 2
+            caption: A chameleon with a curled tail camouflaged on a mossy branch.
+            reward: 1.75
+          - beam_rank: 3
+            caption: A green chameleon blending into leafy surroundings.
+            reward: 1.50
+          - beam_rank: 4
+            caption: A chameleon resting on a tree branch covered with lichen.
+            reward: 1.45
+          - beam_rank: 5
+            caption: A green lizard hidden among leaves and branches.
+            reward: 0.65

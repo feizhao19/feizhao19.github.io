@@ -3,7 +3,7 @@
 
   /*
    * Left:  Input → Vision-Language Model → Final Output
-   * Right: [Beam Search + Candidates] → Reward Model → (red ←) scores on candidates → VLM
+   * Right: Candidates (Beam Search, K=5) → Reward Model → (green ←) scores → VLM
    *        (×3 iterations, then main line continues)
    */
   var BRANCH_STEPS = ['beam-candidates', 'reward-model', 'vlm-update'];
@@ -14,10 +14,12 @@
   };
   var WIRE_AFTER = {
     'beam-candidates': 'cand-rm',
-    'reward-model':    'rm-cand',
+    'reward-model':    '',
     'vlm-update':      ''
   };
   var TOTAL_ITERS = 3;
+  var PULSE_FADE_MS = 480;
+  var INPUT_PULSE_HOLD_MS = 1200;
 
   function getSiteBaseUrl() {
     var el = document.querySelector('script[src*="vlm-hallucination.js"]');
@@ -54,7 +56,26 @@
     return (n >= 0 ? '+' : '') + s;
   }
 
-  function wait(ms) { return new Promise(function(res){ setTimeout(res, ms); }); }
+  function pauseAwareWait(demo, ms, token) {
+    var step = 40;
+    var elapsed = 0;
+    return new Promise(function(resolve) {
+      function tick() {
+        if (token != null && token !== demo.runToken) return resolve(false);
+        if (demo.isPaused) {
+          setTimeout(tick, step);
+          return;
+        }
+        if (elapsed >= ms) return resolve(true);
+        var chunk = Math.min(step, ms - elapsed);
+        setTimeout(function() {
+          elapsed += chunk;
+          tick();
+        }, chunk);
+      }
+      tick();
+    });
+  }
 
   function Demo(root) {
     this.root = root;
@@ -66,18 +87,19 @@
     this.promptEl        = root.querySelector('.js-vlm-prompt');
     this.statusEl        = root.querySelector('.js-vlm-status');
     this.vlmHubEl        = root.querySelector('.js-vlm-hub');
-    this.vlmStateLabelEl = root.querySelector('.js-vlm-state-label');
+    this.vlmActivityEl   = root.querySelector('.js-vlm-activity-label');
     this.branchPanelEl   = root.querySelector('[data-stage="branch"]');
     this.outputStageEl   = root.querySelector('.js-output-stage');
+    this.originalStageEl = root.querySelector('.js-original-stage');
     this.iterLabelEl     = root.querySelector('.js-tta-iter-label');
     this.iterDotsEl      = root.querySelector('.js-tta-dots');
     this.candidatesEl    = root.querySelector('.js-flow-candidates');
     this.scoresFrameEl   = root.querySelector('.js-scores-frame');
     this.scoresMeanEl    = root.querySelector('.js-scores-mean');
-    this.captionEl       = root.querySelector('.js-vlm-output-caption');
-    this.dualEl          = root.querySelector('.js-vlm-output-dual');
-    this.scoreDisplayEl  = root.querySelector('.js-score-display');
+    this.captionEl         = root.querySelector('.js-vlm-output-caption');
+    this.originalCaptionEl  = root.querySelector('.js-vlm-original-caption');
     this.mitigateBtn     = root.querySelector('.js-vlm-mitigate-btn');
+    this.pauseBtn        = root.querySelector('.js-vlm-pause-btn');
     this.resetBtn        = root.querySelector('.js-vlm-reset-btn');
 
     this.stageEls   = root.querySelectorAll('.js-flow-stage');
@@ -88,6 +110,7 @@
     this.currentSampleId = this.samples.length ? this.samples[0].id : null;
     this.runToken = 0;
     this.isRunning = false;
+    this.isPaused = false;
     this.totalIters = TOTAL_ITERS;
 
     this._bindEvents();
@@ -97,7 +120,39 @@
   Demo.prototype._bindEvents = function () {
     var self = this;
     this.mitigateBtn.addEventListener('click', function(){ self.runMitigation(); });
+    this.pauseBtn.addEventListener('click', function(){ self.togglePause(); });
     this.resetBtn.addEventListener('click', function(){ self._loadSample(self.currentSampleId, true); });
+  };
+
+  Demo.prototype._wait = function (ms, token) {
+    return pauseAwareWait(this, ms, token);
+  };
+
+  Demo.prototype.togglePause = function () {
+    if (!this.isRunning) return;
+    this.isPaused = !this.isPaused;
+    if (this.pauseBtn) {
+      this.pauseBtn.textContent = this.isPaused ? 'Resume' : 'Pause';
+    }
+    if (this.isPaused) {
+      this.root.classList.add('is-paused');
+      this._status('Paused — click <em>Resume</em> to continue.');
+    } else {
+      this.root.classList.remove('is-paused');
+    }
+  };
+
+  Demo.prototype._setPauseUi = function (running) {
+    if (!this.pauseBtn) return;
+    if (running) {
+      this.pauseBtn.hidden = false;
+      this.pauseBtn.disabled = false;
+      this.pauseBtn.textContent = 'Pause';
+    } else {
+      this.pauseBtn.hidden = true;
+      this.isPaused = false;
+      this.root.classList.remove('is-paused');
+    }
   };
 
   Demo.prototype._status = function (html) {
@@ -110,15 +165,34 @@
     );
   };
 
-  Demo.prototype._setWire = function (name, state) {
-    this.wireEls.forEach(function(el){
+  Demo.prototype._wireNodes = function (name) {
+    var nodes = [];
+    this.wireEls.forEach(function (el) {
       if (el.getAttribute('data-wire') !== name) return;
-      el.classList.remove('is-working','is-complete');
-      if (state) el.classList.add(state);
-      this._wireParts(el).forEach(function(child){
-        child.classList.remove('is-working','is-complete');
-        if (state) child.classList.add(state);
+      nodes.push(el);
+      this._wireParts(el).forEach(function (child) {
+        nodes.push(child);
       });
+    }, this);
+    return nodes;
+  };
+
+  Demo.prototype._setWire = function (name, state) {
+    var target = state || '';
+    this._wireNodes(name).forEach(function (node) {
+      var working = node.classList.contains('is-working');
+      var complete = node.classList.contains('is-complete');
+      if (target === 'is-working' && working) return;
+      if (target === 'is-complete' && complete && !working) return;
+      if (!target && !working && !complete) return;
+      node.classList.remove('is-working', 'is-complete');
+      if (target) node.classList.add(target);
+    });
+  };
+
+  Demo.prototype._idleBranchWires = function () {
+    ['cand-rm', 'rm-cand', 'scores-vlm'].forEach(function (w) {
+      this._setWire(w, '');
     }, this);
   };
 
@@ -131,56 +205,245 @@
     });
   };
 
-  Demo.prototype._activateBridge = function (name) {
-    this.bridgeEls.forEach(function(el){
-      if (el.getAttribute('data-bridge') === name) {
-        this._wireParts(el).forEach(function(c){
-          c.classList.add('is-working'); c.classList.remove('is-complete');
-        });
+  /* Pulse helpers — fade between boxes; keep rhythm when staying on same box. */
+  Demo.prototype._stageEl = function (name) {
+    var found = null;
+    this.stageEls.forEach(function (el) {
+      if (el.getAttribute('data-stage') === name) found = el;
+    });
+    return found;
+  };
+
+  Demo.prototype._isPulsing = function (el) {
+    return el && el.classList.contains('is-working') && !el.classList.contains('is-halo-exit');
+  };
+
+  Demo.prototype._beginPulse = function (el, opts) {
+    if (!el) return;
+    opts = opts || {};
+    el.classList.remove('is-complete', 'is-pulse-out', 'is-grayed', 'is-halo-exit', 'is-pulse-in');
+    if (el === this.vlmHubEl) {
+      el.classList.toggle('is-updating', !!opts.updating);
+    } else {
+      el.classList.remove('is-updating');
+    }
+    if (!el.classList.contains('is-working')) {
+      el.classList.add('is-working');
+    }
+  };
+
+  Demo.prototype._fadePulseOff = function (els) {
+    var self = this;
+    var token = this.runToken;
+    var list = (Array.isArray(els) ? els : [els]).filter(function (el) {
+      return el && el.classList.contains('is-working') && !el.classList.contains('is-halo-exit');
+    });
+    if (!list.length) return Promise.resolve(true);
+    list.forEach(function (el) {
+      el.classList.add('is-halo-exit');
+    });
+    return this._wait(PULSE_FADE_MS, token).then(function (ok) {
+      if (!ok) return false;
+      list.forEach(function (el) {
+        el.classList.remove('is-working', 'is-halo-exit', 'is-updating', 'is-pulse-in', 'is-pulse-out');
+      });
+      return true;
+    });
+  };
+
+  Demo.prototype._fadePulseOn = function (els, opts) {
+    var self = this;
+    var token = this.runToken;
+    opts = opts || {};
+    var list = (Array.isArray(els) ? els : [els]).filter(function (el) {
+      return el && (!el.classList.contains('is-working') || el.classList.contains('is-halo-exit'));
+    });
+    if (!list.length) return Promise.resolve(true);
+    var fresh = list.filter(function (el) { return !el.classList.contains('is-working'); });
+    list.forEach(function (el) {
+      self._beginPulse(el, opts);
+    });
+    if (!fresh.length) return Promise.resolve(true);
+    return this._wait(PULSE_FADE_MS, token).then(function (ok) {
+      return !!ok;
+    });
+  };
+
+  Demo.prototype._handoffPulse = function (fromEls, toEls, opts) {
+    var self = this;
+    var token = this.runToken;
+    opts = opts || {};
+    var fromList = (Array.isArray(fromEls) ? fromEls : [fromEls]).filter(function (el) {
+      return el && el.classList.contains('is-working') && !el.classList.contains('is-halo-exit');
+    });
+    var toList = (Array.isArray(toEls) ? toEls : [toEls]).filter(Boolean);
+    if (!fromList.length) {
+      return this._fadePulseOn(toList, opts);
+    }
+    if (!toList.length) {
+      return this._fadePulseOff(fromList);
+    }
+    toList.forEach(function (el) {
+      self._beginPulse(el, opts);
+    });
+    fromList.forEach(function (el) {
+      el.classList.add('is-halo-exit');
+    });
+    return this._wait(PULSE_FADE_MS, token).then(function (ok) {
+      if (!ok) return false;
+      fromList.forEach(function (el) {
+        el.classList.remove('is-working', 'is-halo-exit', 'is-updating', 'is-pulse-in', 'is-pulse-out');
+      });
+      return true;
+    });
+  };
+
+  Demo.prototype._clearStagePulses = function () {
+    this.ttaStepEls.forEach(function (el) {
+      el.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    });
+    this.stageEls.forEach(function (el) {
+      el.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    });
+  };
+
+  Demo.prototype._clearNodePulse = function () {
+    if (this.vlmHubEl) {
+      this.vlmHubEl.classList.remove('is-working', 'is-updating', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    }
+    if (this.branchPanelEl) {
+      this.branchPanelEl.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    }
+    this._clearStagePulses();
+  };
+
+  Demo.prototype._applyVlmPulse = function (label, updating) {
+    var hub = this.vlmHubEl;
+    if (!hub) return;
+    hub.classList.remove('is-complete', 'is-pulse-out', 'is-halo-exit');
+    hub.classList.add('is-working');
+    hub.classList.toggle('is-updating', !!updating);
+    this._setVlmActivity(label || '');
+  };
+
+  Demo.prototype._applyTtaPulse = function (on) {
+    if (!this.branchPanelEl) return Promise.resolve(true);
+    if (on) {
+      this.branchPanelEl.classList.remove('is-complete', 'is-grayed', 'is-updating', 'is-pulse-out', 'is-halo-exit');
+      if (!this._isPulsing(this.branchPanelEl)) {
+        return this._fadePulseOn(this.branchPanelEl);
       }
-    }, this);
+      this.branchPanelEl.classList.add('is-working');
+      return Promise.resolve(true);
+    }
+    return this._fadePulseOff(this.branchPanelEl);
+  };
+
+  Demo.prototype._pulseVlm = function (label, updating) {
+    var self = this;
+    this._clearStagePulses();
+    return this._fadePulseOff(this.branchPanelEl).then(function (ok) {
+      if (!ok) return false;
+      if (self._isPulsing(self.vlmHubEl)) {
+        self._applyVlmPulse(label, updating);
+        return true;
+      }
+      return self._fadePulseOn(self.vlmHubEl, { updating: updating });
+    });
+  };
+
+  Demo.prototype._pulseVlmAndTta = function (label, updating) {
+    var self = this;
+    var vlm = this.vlmHubEl;
+    var tta = this.branchPanelEl;
+    var vlmOn = this._isPulsing(vlm);
+    var ttaOn = this._isPulsing(tta);
+
+    this._clearStagePulses();
+    if (tta) tta.classList.remove('is-complete', 'is-grayed', 'is-updating');
+
+    if (vlmOn && ttaOn) {
+      this._applyVlmPulse(label, updating);
+      if (tta) {
+        tta.classList.remove('is-halo-exit', 'is-complete', 'is-grayed');
+        tta.classList.add('is-working');
+      }
+      return Promise.resolve(true);
+    }
+
+    if (vlmOn && !ttaOn) {
+      return this._fadePulseOn(tta).then(function (ok) {
+        if (!ok) return false;
+        self._applyVlmPulse(label, updating);
+        if (tta) tta.classList.add('is-working');
+        return true;
+      });
+    }
+
+    return this._fadePulseOn([vlm, tta], { updating: updating }).then(function (ok) {
+      if (!ok) return false;
+      self._applyVlmPulse(label, updating);
+      if (tta) tta.classList.add('is-working');
+      return true;
+    });
+  };
+
+  Demo.prototype._pulseStage = function (stageName) {
+    this._clearNodePulse();
+    return this._fadePulseOn(this._stageEl(stageName));
+  };
+
+  Demo.prototype._activateBridge = function (name) {
     this._workWire(name);
   };
 
   Demo.prototype._completeBridge = function (name) {
-    this.bridgeEls.forEach(function(el){
-      if (el.getAttribute('data-bridge') === name) {
-        this._wireParts(el).forEach(function(c){
-          c.classList.remove('is-working'); c.classList.add('is-complete');
-        });
-      }
-    }, this);
     this._doneWire(name);
   };
 
   Demo.prototype._activateStage = function (name) {
-    this.stageEls.forEach(function(el){
-      el.classList.toggle('is-working', el.getAttribute('data-stage') === name);
-    });
+    if (name === 'branch') {
+      if (this.branchPanelEl) {
+        this.branchPanelEl.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+      }
+      return Promise.resolve(true);
+    }
+    return this._pulseStage(name);
   };
 
   Demo.prototype._completeStage = function (name) {
-    this.stageEls.forEach(function(el){
-      if (el.getAttribute('data-stage') === name) {
-        el.classList.remove('is-working'); el.classList.add('is-complete');
+    var self = this;
+    var el = this._stageEl(name);
+    return this._fadePulseOff(el).then(function (ok) {
+      if (el && ok) {
+        el.classList.remove('is-pulse-in', 'is-pulse-out');
+        el.classList.add('is-complete');
       }
+      return ok;
     });
   };
 
-  Demo.prototype._setVlmWorking = function (label, updating) {
-    var hub = this.vlmHubEl;
-    if (!hub) return;
-    hub.classList.remove('is-complete','is-updating');
-    hub.classList.add('is-working');
-    if (updating) hub.classList.add('is-updating');
-    if (this.vlmStateLabelEl) this.vlmStateLabelEl.textContent = label || 'Generator';
+  Demo.prototype._setVlmActivity = function (text) {
+    if (!this.vlmActivityEl) return;
+    if (text) {
+      this.vlmActivityEl.textContent = text;
+      this.vlmActivityEl.hidden = false;
+    } else {
+      this.vlmActivityEl.textContent = '';
+      this.vlmActivityEl.hidden = true;
+    }
   };
 
-  Demo.prototype._setVlmIdle = function (label) {
-    var hub = this.vlmHubEl;
-    if (!hub) return;
-    hub.classList.remove('is-working','is-updating');
-    if (this.vlmStateLabelEl) this.vlmStateLabelEl.textContent = label || 'Generator';
+  Demo.prototype._setVlmWorking = function (label, updating) {
+    return this._pulseVlm(label, updating);
+  };
+
+  Demo.prototype._setVlmIdle = function () {
+    var self = this;
+    return this._fadePulseOff(this.vlmHubEl).then(function (ok) {
+      if (ok) self._setVlmActivity('');
+      return ok;
+    });
   };
 
   Demo.prototype._setVlmComplete = function () {
@@ -188,12 +451,48 @@
     if (!hub) return;
     hub.classList.remove('is-working','is-updating');
     hub.classList.add('is-complete');
-    if (this.vlmStateLabelEl) this.vlmStateLabelEl.textContent = 'Generator';
+    this._setVlmActivity('');
+  };
+
+  Demo.prototype._setOutputLit = function () {
+    var el = this.outputStageEl;
+    if (!el) return;
+    el.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete');
+    el.classList.add('is-working', 'is-steady');
+  };
+
+  Demo.prototype._resetOriginalShell = function () {
+    if (!this.originalStageEl || !this.originalCaptionEl) return;
+    this.originalCaptionEl.innerHTML = '';
+    this.originalStageEl.classList.remove(
+      'is-working', 'is-steady', 'is-revealed',
+      'is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete'
+    );
+    this.originalStageEl.hidden = false;
+  };
+
+  Demo.prototype._revealOriginalOutput = function (sample) {
+    if (!this.originalStageEl || !this.originalCaptionEl) return;
+    var original = sample.original_caption || '';
+    if (!original) {
+      this.originalStageEl.hidden = true;
+      return;
+    }
+    this.originalCaptionEl.innerHTML = highlightTokens(
+      original,
+      sample.hallucinated_tokens,
+      'vg-output__token--bad'
+    );
+    this.originalStageEl.hidden = false;
+    this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete');
+    this.originalStageEl.classList.add('is-revealed', 'is-working', 'is-steady');
   };
 
   Demo.prototype._resetFlow = function () {
     this._clearAllWorking();
-    this.stageEls.forEach(function(el){ el.classList.remove('is-working','is-complete','is-grayed'); });
+    this.stageEls.forEach(function(el){
+      el.classList.remove('is-working', 'is-complete', 'is-grayed', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-steady');
+    });
     this.bridgeEls.forEach(function(el){
       this._wireParts(el).forEach(function(c){
         c.classList.remove('is-working','is-complete');
@@ -206,22 +505,27 @@
       });
     }, this);
     this.ttaStepEls.forEach(function(el){ el.classList.remove('is-working','is-complete'); });
-    if (this.branchPanelEl) this.branchPanelEl.classList.remove('is-grayed');
-    if (this.vlmHubEl) this.vlmHubEl.classList.remove('is-working','is-updating','is-complete');
+    if (this.branchPanelEl) {
+      this.branchPanelEl.classList.remove('is-grayed', 'is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    }
+    if (this.vlmHubEl) {
+      this.vlmHubEl.classList.remove('is-working', 'is-updating', 'is-complete', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+    }
+    this._setVlmActivity('');
     if (this.iterDotsEl) Array.from(this.iterDotsEl.children).forEach(function(d){
       d.classList.remove('is-current','is-done');
     });
     if (this.iterLabelEl) this.iterLabelEl.textContent = '— / ' + this.totalIters;
     if (this.candidatesEl) {
-      this.candidatesEl.innerHTML = '';
-      this.candidatesEl.classList.remove('has-scores', 'is-relative');
+      this.candidatesEl.classList.remove('has-scores', 'is-relative', 'is-formula-phase');
     }
     this._hideScoresFrame();
+    this._buildCandidateShell();
     if (this.captionEl) this.captionEl.innerHTML = '';
-    if (this.dualEl) { this.dualEl.hidden = true; this.dualEl.textContent = ''; }
-    if (this.scoreDisplayEl) this.scoreDisplayEl.textContent = 'beam outputs';
-    this.root.classList.remove('is-running','is-complete','is-tta-done');
-    this._status('Press <em>Run self-correction</em> to start.');
+    this._resetOriginalShell();
+    this.root.classList.remove('is-running','is-complete','is-tta-done','is-paused');
+    this._setPauseUi(false);
+    this._status('Press <em>Run TTA</em> to start.');
   };
 
   Demo.prototype._setIteration = function (iter) {
@@ -233,12 +537,9 @@
     });
   };
 
-  Demo.prototype._resetBranchCycle = function () {
+  Demo.prototype._resetBranchCycle = function (iter) {
     this.ttaStepEls.forEach(function(el){ el.classList.remove('is-working','is-complete'); });
-    ['vlm-beam','cand-rm','rm-cand','scores-vlm'].forEach(function(w){
-      this._setWire(w,'');
-    }, this);
-    if (this.scoreDisplayEl) this.scoreDisplayEl.textContent = 'beam outputs';
+    this._idleBranchWires();
     if (this.candidatesEl) this.candidatesEl.classList.remove('has-scores', 'is-relative');
     this._hideScoresFrame();
   };
@@ -248,18 +549,17 @@
     this.ttaStepEls.forEach(function(el){
       var s = el.getAttribute('data-tta-step');
       var i = BRANCH_STEPS.indexOf(s);
-      el.classList.toggle('is-working',  s === name);
       el.classList.toggle('is-complete', i >= 0 && i < idx);
     });
 
     if (WIRE_DURING[name]) this._workWire(WIRE_DURING[name]);
 
-    if (name === 'beam-candidates') {
-      this._setVlmWorking('generating…', false);
-    } else if (name === 'vlm-update') {
-      this._setVlmWorking('LN-γ update', true);
-    } else {
-      this._setVlmIdle('Generator');
+    if (name === 'vlm-update') {
+      this._pulseVlmAndTta('RL update (PPO + LN-γ)', true);
+    } else if (name === 'beam-candidates') {
+      this._pulseVlmAndTta('Generating', false);
+    } else if (name === 'reward-model') {
+      this._pulseVlmAndTta('', false);
     }
   };
 
@@ -269,11 +569,70 @@
         el.classList.remove('is-working'); el.classList.add('is-complete');
       }
     });
-    if (WIRE_DURING[name]) this._doneWire(WIRE_DURING[name]);
+    if (WIRE_DURING[name] && WIRE_DURING[name] !== 'vlm-beam') {
+      this._doneWire(WIRE_DURING[name]);
+    }
     if (WIRE_AFTER[name]) this._workWire(WIRE_AFTER[name]);
     if (name === 'vlm-update') {
-      this._doneWire('scores-vlm');
-      this._setVlmIdle('Generator');
+      this._setWire('rm-cand', '');
+    }
+  };
+
+  function beamRowHtml(rank, caption, imgSrc, imgAlt) {
+    return (
+      '<span class="vg-beam-row__rank">#' + rank + '</span>' +
+      '<span class="vg-beam-row__text-wrap">' +
+        '<span class="vg-beam-row__text">' + escapeHtml(caption) + '</span>' +
+      '</span>' +
+      '<span class="vg-beam-row__trail">' +
+        '<span class="vg-beam-row__suffix" aria-hidden="true">+</span>' +
+        (imgSrc
+          ? '<span class="vg-beam-row__pair" title="Paired image → reward model">' +
+            '<img class="vg-beam-row__thumb" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(imgAlt) + '" loading="lazy" decoding="async">' +
+            '</span>'
+          : '<span class="vg-beam-row__pair vg-beam-row__pair--empty" aria-hidden="true"></span>') +
+      '</span>' +
+      '<span class="vg-beam-row__bar"><span class="vg-beam-row__fill js-beam-fill"></span></span>' +
+      '<span class="vg-beam-row__score js-beam-score"></span>'
+    );
+  }
+
+  var BEAM_K = 5;
+  var SCORE_BAR_MIN = -2;
+  var SCORE_BAR_MAX = 2;
+  var SCORE_BAR_SPAN = SCORE_BAR_MAX - SCORE_BAR_MIN;
+
+  function scoreBarWidth(value) {
+    var clamped = Math.max(SCORE_BAR_MIN, Math.min(SCORE_BAR_MAX, value));
+    return ((clamped - SCORE_BAR_MIN) / SCORE_BAR_SPAN) * 100;
+  }
+
+  function setScoreBarFill(fill, value, isRelative) {
+    if (!fill) return;
+    fill.style.width = scoreBarWidth(value) + '%';
+    fill.classList.remove('is-gray', 'is-positive', 'is-negative');
+    if (isRelative) {
+      if (value > 0) fill.classList.add('is-positive');
+      else if (value < 0) fill.classList.add('is-negative');
+      else fill.classList.add('is-gray');
+    } else {
+      fill.classList.add('is-gray');
+    }
+  }
+
+  Demo.prototype._buildCandidateShell = function () {
+    if (!this.candidatesEl) return;
+    var imgSrc = this.imageEl && this.imageEl.src ? this.imageEl.src : '';
+    var imgAlt = this.imageEl && this.imageEl.alt ? this.imageEl.alt : 'Input image';
+    this.candidatesEl.innerHTML = '';
+    this.candidatesEl.classList.remove('has-scores', 'is-relative', 'is-formula-phase');
+    for (var i = 1; i <= BEAM_K; i++) {
+      var row = document.createElement('div');
+      row.className = 'vg-beam-row vg-beam-row--shell js-beam-shell';
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-hidden', 'true');
+      row.innerHTML = beamRowHtml(i, '\u00a0', imgSrc, imgAlt);
+      this.candidatesEl.appendChild(row);
     }
   };
 
@@ -287,16 +646,41 @@
     });
   };
 
+  Demo.prototype._getIterationData = function (sample, iter) {
+    var groups = sample.tta_iterations;
+    if (groups && groups[iter - 1]) {
+      var g = groups[iter - 1];
+      return {
+        label: g.label || '',
+        mean: g.mean != null ? g.mean : null,
+        original_caption: g.original_caption || '',
+        candidates: (g.candidates || []).map(function (c) {
+          return {
+            caption: c.caption,
+            beam_rank: c.beam_rank,
+            reward: c.reward != null ? c.reward : c.score
+          };
+        })
+      };
+    }
+    return {
+      label: '',
+      mean: null,
+      original_caption: '',
+      candidates: this._iterRewards(sample, iter)
+    };
+  };
+
   Demo.prototype._buildCandidates = function (candidates) {
     this.candidatesEl.innerHTML = '';
-    this.candidatesEl.classList.remove('has-scores');
+    this.candidatesEl.classList.remove('has-scores', 'is-formula-phase');
+    var imgSrc = this.imageEl && this.imageEl.src ? this.imageEl.src : '';
+    var imgAlt = this.imageEl && this.imageEl.alt ? this.imageEl.alt : 'Input image';
     candidates.forEach(function(c, i){
       var row = document.createElement('div');
       row.className = 'vg-beam-row js-beam-card';
       row.setAttribute('role','listitem');
-      row.innerHTML =
-        '<span class="vg-beam-row__rank">#'+(c.beam_rank||i+1)+'</span>'+
-        '<span class="vg-beam-row__text">'+escapeHtml(c.caption)+'</span>';
+      row.innerHTML = beamRowHtml(c.beam_rank || i + 1, c.caption, imgSrc, imgAlt);
       row.__reward = c.reward;
       this.candidatesEl.appendChild(row);
     }, this);
@@ -310,58 +694,79 @@
     cards.forEach(function(card){
       chain = chain.then(function(ok){
         if (ok === false || token !== self.runToken) return false;
-        card.classList.add('is-visible');
-        return wait(50).then(function(){ return token === self.runToken; });
+        card.classList.add('is-caption-visible');
+        return self._wait(50, token);
       });
     });
     return chain;
+  };
+
+  Demo.prototype._revealPairs = function (token) {
+    var self = this;
+    var cards = Array.from(this.candidatesEl.querySelectorAll('.js-beam-card'));
+    if (!cards.length) return Promise.resolve(true);
+    var chain = Promise.resolve(true);
+    cards.forEach(function(card){
+      chain = chain.then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        card.classList.add('is-pair-visible');
+        return self._wait(45, token);
+      });
+    });
+    return chain;
+  };
+
+  Demo.prototype._hidePairs = function (token) {
+    var cards = Array.from(this.candidatesEl.querySelectorAll('.js-beam-card'));
+    cards.forEach(function(card){
+      card.classList.remove('is-pair-visible');
+    });
+    return this._wait(140, token);
   };
 
   Demo.prototype._hideScoresFrame = function () {
     if (this.scoresFrameEl) {
       this.scoresFrameEl.hidden = true;
       this.scoresFrameEl.classList.remove('is-visible', 'is-normalizing');
-      var box = this.scoresFrameEl.querySelector('.vg-scores-frame__box');
-      if (box) box.style.height = '';
     }
     if (this.scoresMeanEl) this.scoresMeanEl.textContent = '';
   };
 
-  Demo.prototype._positionScoresFrame = function () {
-    if (!this.candidatesEl || !this.scoresFrameEl) return;
-    var box = this.scoresFrameEl.querySelector('.vg-scores-frame__box');
-    if (box) box.style.height = this.candidatesEl.offsetHeight + 'px';
+  Demo.prototype._showScoreFormulas = function (cards, values, meanToken) {
+    if (this.candidatesEl) this.candidatesEl.classList.add('is-formula-phase');
+    var meanLabel = meanToken === 'mean' ? 'mean' : meanToken;
+    cards.forEach(function(card, i){
+      var scoreEl = card.querySelector('.js-beam-score');
+      var fill = card.querySelector('.js-beam-fill');
+      if (!scoreEl) return;
+      scoreEl.classList.remove('is-negative', 'is-positive');
+      scoreEl.classList.add('is-formula');
+      scoreEl.innerHTML = values[i].toFixed(2) + '<span class="vg-score-formula__mean"> \u2212 ' + meanLabel + '</span>';
+      if (fill) fill.style.width = '0%';
+    });
+    cards.forEach(function(c){ c.classList.remove('is-top'); });
   };
 
   Demo.prototype._updateScoreBars = function (cards, values, isRelative) {
-    var minV = Math.min.apply(null, values);
-    var maxV = Math.max.apply(null, values);
-    var span = maxV - minV;
-    var best = -Infinity;
-    var bestCard = null;
+    if (this.candidatesEl) this.candidatesEl.classList.remove('is-formula-phase');
     cards.forEach(function(card, i){
       var v = values[i];
       var fill = card.querySelector('.js-beam-fill');
       var scoreEl = card.querySelector('.js-beam-score');
       if (scoreEl) {
+        scoreEl.classList.remove('is-formula');
         scoreEl.textContent = isRelative ? formatSigned(v) : v.toFixed(2);
         scoreEl.classList.toggle('is-negative', isRelative && v < 0);
         scoreEl.classList.toggle('is-positive', isRelative && v > 0);
       }
-      if (fill) {
-        fill.style.width = (span > 0 ? ((v - minV) / span) * 100 : 50) + '%';
-      }
-      if (v > best) { best = v; bestCard = card; }
+      setScoreBarFill(fill, v, isRelative);
     });
     cards.forEach(function(c){ c.classList.remove('is-top'); });
-    if (bestCard) bestCard.classList.add('is-top');
-    return best;
   };
 
   Demo.prototype._fillScores = function (token) {
     if (token !== this.runToken) return Promise.resolve(false);
-    var genEl = this.root.querySelector('[data-tta-step="beam-candidates"]');
-    if (genEl) genEl.classList.add('is-working');
+    this._workWire('rm-cand');
     if (this.candidatesEl) this.candidatesEl.classList.add('has-scores');
     var cards = Array.from(this.candidatesEl.querySelectorAll('.js-beam-card'));
     var values = cards.map(function(card){ return card.__reward || 0; });
@@ -377,61 +782,62 @@
       }
     });
     this._updateScoreBars(cards, values, false);
-    if (this.scoreDisplayEl) this.scoreDisplayEl.textContent = 'absolute scores';
-    return wait(220).then(function(){
-      if (genEl) genEl.classList.remove('is-working');
-      return token === this.runToken;
+    return this._wait(220, token).then(function(ok){
+      return ok && token === this.runToken;
     }.bind(this));
   };
 
   Demo.prototype._normalizeScores = function (token) {
     if (token !== this.runToken) return Promise.resolve(false);
-    var genEl = this.root.querySelector('[data-tta-step="beam-candidates"]');
     var cards = Array.from(this.candidatesEl.querySelectorAll('.js-beam-card'));
     if (!cards.length) return Promise.resolve(true);
 
     var values = cards.map(function(card){ return card.__reward || 0; });
-    var mean = values.reduce(function(a, b){ return a + b; }, 0) / values.length;
+    var mean = this._currentIterMean != null
+      ? this._currentIterMean
+      : values.reduce(function(a, b){ return a + b; }, 0) / values.length;
+    var meanText = mean.toFixed(2);
 
-    this._positionScoresFrame();
     if (this.scoresFrameEl) {
       this.scoresFrameEl.hidden = false;
+      this.scoresFrameEl.classList.add('is-normalizing');
       requestAnimationFrame(function(){
         if (this.scoresFrameEl) this.scoresFrameEl.classList.add('is-visible');
       }.bind(this));
     }
-    if (this.scoresMeanEl) this.scoresMeanEl.textContent = 'mean = ' + mean.toFixed(2);
-    if (genEl) genEl.classList.add('is-working');
+    if (this.scoresMeanEl) this.scoresMeanEl.textContent = 'mean=' + meanText;
 
-    return wait(480).then(function(){
-      if (token !== this.runToken) return false;
-      if (this.scoresFrameEl) this.scoresFrameEl.classList.add('is-normalizing');
+    return this._wait(380, token).then(function(ok){
+      if (ok === false || token !== this.runToken) return false;
+      this._showScoreFormulas(cards, values, 'mean');
+      return this._wait(420, token);
+    }.bind(this)).then(function(ok){
+      if (ok === false || token !== this.runToken) return false;
       var relatives = values.map(function(v){ return v - mean; });
       cards.forEach(function(card, i){ card.__relative = relatives[i]; });
       this.candidatesEl.classList.add('is-relative');
-      var best = this._updateScoreBars(cards, relatives, true);
-      if (this.scoreDisplayEl) {
-        this.scoreDisplayEl.textContent = 'relative (score \u2212 mean), best: ' + formatSigned(best);
-      }
-      return wait(360).then(function(){
-        if (genEl) genEl.classList.remove('is-working');
-        return token === this.runToken;
+      this._updateScoreBars(cards, relatives, true);
+      return this._wait(360, token).then(function(ok2){
+        return ok2 && token === this.runToken;
       }.bind(this));
     }.bind(this));
   };
 
   Demo.prototype._runIteration = function (sample, iter, token) {
     var self = this;
-    var candidates = this._iterRewards(sample, iter);
+    var iterData = this._getIterationData(sample, iter);
+    var candidates = iterData.candidates;
 
-    this._resetBranchCycle();
+    this._currentIterMean = iterData.mean;
+    this._resetBranchCycle(iter);
     this._setIteration(iter);
     this._buildCandidates(candidates);
 
+    var iterLabel = iterData.label ? ' (' + iterData.label + ')' : '';
     this._activateBranchStep('beam-candidates');
-    this._status('Iter '+iter+'/'+self.totalIters+' — beam search from VLM');
+    this._status('Iter '+iter+'/'+self.totalIters+iterLabel+' — candidates (beam search, K=5) from VLM');
 
-    return wait(300)
+    return this._wait(500, token)
       .then(function(){
         if (token !== self.runToken) return false;
         self._status('Iter '+iter+'/'+self.totalIters+' — candidates generated');
@@ -439,33 +845,41 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
+        self._status('Iter '+iter+'/'+self.totalIters+' — pairing captions with input image');
+        return self._revealPairs(token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
         self._completeBranchStep('beam-candidates');
         self._activateBranchStep('reward-model');
-        self._status('Iter '+iter+'/'+self.totalIters+' — reward model (SAS + NHP)');
-        return wait(320);
+        self._status('Iter '+iter+'/'+self.totalIters+' — LLM-as-judge (CLIP Model), SAS + NHP');
+        return self._wait(320, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
         self._completeBranchStep('reward-model');
         self._status('Iter '+iter+'/'+self.totalIters+' — reward scores → candidates');
+        return self._hidePairs(token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
         return self._fillScores(token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
-        self._status('Iter '+iter+'/'+self.totalIters+' — mean & normalization (score \u2212 mean)');
+        self._status('Iter '+iter+'/'+self.totalIters+iterLabel+' — mean & normalization (score \u2212 mean)');
         return self._normalizeScores(token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
-        self._doneWire('rm-cand');
         self._activateBranchStep('vlm-update');
-        self._status('Iter '+iter+'/'+self.totalIters+' — scores → vision-language model');
-        return wait(340);
+        self._status('Iter '+iter+'/'+self.totalIters+' — RL update (PPO + LN-γ)');
+        return self._wait(760, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
         self._completeBranchStep('vlm-update');
-        return wait(160).then(function(){ return true; });
+        return self._wait(160, token).then(function(){ return true; });
       });
   };
 
@@ -488,6 +902,10 @@
     return new Promise(function(resolve){
       function tick() {
         if (token !== self.runToken) return resolve(false);
+        if (self.isPaused) {
+          setTimeout(tick, 40);
+          return;
+        }
         if (i >= chars.length) return resolve(true);
         el.textContent += chars[i++];
         setTimeout(tick, speed);
@@ -501,15 +919,17 @@
     if (!sample) return;
     this.runToken++;
     this.isRunning = false;
+    this.isPaused = false;
     this.currentSampleId = sample.id;
     this.totalIters = sample.rl_steps || TOTAL_ITERS;
-    this._resetFlow();
     this.imageEl.src = getSiteBaseUrl() + '/images/' + sample.image;
     this.imageEl.alt = sample.alt || '';
+    this._resetFlow();
     if (this.promptEl) this.promptEl.textContent = sample.prompt || '"Describe this image."';
     this.mitigateBtn.disabled = false;
     this.mitigateBtn.hidden = false;
     this.resetBtn.hidden = true;
+    this._setPauseUi(false);
     if (!resetOnly) this.runMitigation();
   };
 
@@ -518,40 +938,63 @@
     var sample = this.sampleById[this.currentSampleId] || this.samples[0];
     if (!sample || this.isRunning) return;
     this.isRunning = true;
+    this.isPaused = false;
     this.runToken++;
     var token = this.runToken;
     this._resetFlow();
     this.totalIters = sample.rl_steps || TOTAL_ITERS;
     this.mitigateBtn.disabled = true;
+    this.mitigateBtn.hidden = true;
+    this._setPauseUi(true);
     this.root.classList.add('is-running');
 
-    this._activateStage('input');
     this._status('Input image + text prompt');
 
-    wait(360)
-      .then(function(){
-        if (token !== self.runToken) return null;
-        self._completeStage('input');
-        self._activateBridge('input-vlm');
-        self._setVlmWorking('receiving input…', false);
+    return this._activateStage('input')
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        return self._wait(INPUT_PULSE_HOLD_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        self._workWire('input-vlm');
+        return self._handoffPulse(
+          self._stageEl('input'),
+          self.vlmHubEl,
+          { updating: false }
+        );
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        self._setWire('input-vlm', '');
+        var inputEl = self._stageEl('input');
+        if (inputEl) inputEl.classList.add('is-complete');
+        self._setVlmActivity('Receiving…');
         self._status('Sending image + prompt into vision-language model…');
-        return wait(340);
+        return self._wait(560, token);
       })
       .then(function(r){
-        if (r === null || token !== self.runToken) return null;
-        self._completeBridge('input-vlm');
-        self._setVlmIdle('Generator');
+        if (r === false || token !== self.runToken) return null;
         self._activateStage('branch');
-        self._status('Starting '+self.totalIters+' self-correction loops');
-        return wait(280);
+        self._workWire('vlm-beam');
+        self._setVlmActivity('Generating');
+        return self._fadePulseOn(self.branchPanelEl).then(function(ok2) {
+          if (!ok2 || token !== self.runToken) return null;
+          self._applyVlmPulse('Generating', false);
+          self._status('Starting '+self.totalIters+' TTA loops');
+          return self._wait(280, token);
+        });
       })
       .then(function(r){
-        if (r === null || token !== self.runToken) return null;
+        if (r === false || token !== self.runToken) return null;
         return self._runAllIterations(sample, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
-        self._completeStage('branch');
+        return self._completeStage('branch');
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
         if (self.iterDotsEl)
           Array.from(self.iterDotsEl.children).forEach(function(d){
             d.classList.remove('is-current'); d.classList.add('is-done');
@@ -559,43 +1002,41 @@
         if (self.iterLabelEl) self.iterLabelEl.textContent = self.totalIters+' / '+self.totalIters+' · done';
         if (self.branchPanelEl) self.branchPanelEl.classList.add('is-grayed');
         self.ttaStepEls.forEach(function(el){ el.classList.remove('is-working'); });
-        self._setVlmWorking('outputting…', false);
-        self._status('Self-correction complete — generating final caption');
-        return wait(420);
+        self._setWire('vlm-beam', '');
+        self._idleBranchWires();
+        return self._fadePulseOff(self.branchPanelEl);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        self._applyVlmPulse('Generating', false);
+        self._workWire('vlm-output');
+        self._status('TTA complete — generating final caption');
+        return self._wait(650, token);
       })
       .then(function(r){
-        if (r === null || token !== self.runToken) return null;
-        self._setVlmIdle('Generator');
-        self._activateBridge('vlm-output');
-        self._activateStage('output');
+        if (r === false || token !== self.runToken) return null;
         self._status('Vision-language model outputs final caption');
-        return wait(280);
-      })
-      .then(function(r){
-        if (r === null || token !== self.runToken) return null;
-        self._completeBridge('vlm-output');
-        self._setVlmComplete();
         return self._typeCaption(self.captionEl, sample.corrected_caption, 13);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
+        self._setWire('vlm-output', '');
+        return self._handoffPulse(self.vlmHubEl, self.outputStageEl);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        self._setVlmComplete();
+        self._setOutputLit();
         self.captionEl.innerHTML = highlightTokens(
           sample.corrected_caption, sample.corrected_tokens, 'vg-output__token--ok');
-        if (self.dualEl && sample.sas_after != null) {
-          var sc = sample.critic_score != null ? sample.critic_score : sample.clip_after;
-          self.dualEl.textContent =
-            'Critic '+(sc!=null?sc.toFixed(2):'')+
-            ' · SAS '+sample.sas_after.toFixed(2)+
-            ' · NHP '+sample.nhp_after.toFixed(2);
-          self.dualEl.hidden = false;
-        }
+        self._revealOriginalOutput(sample);
         self._status('Done.');
-        return wait(140);
+        return self._wait(140, token);
       })
       .then(function(r){
-        if (r === null || token !== self.runToken) return;
-        self._completeStage('output');
+        if (r === false || token !== self.runToken) return;
         self.isRunning = false;
+        self._setPauseUi(false);
         self.mitigateBtn.hidden = true;
         self.resetBtn.hidden = false;
         self.root.classList.remove('is-running');

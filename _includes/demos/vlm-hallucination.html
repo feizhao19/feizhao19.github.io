@@ -19,39 +19,39 @@
     <div class="viz-project__figure">
       <div class="vg-demo">
 
-        <p class="vg-demo__status js-vlm-status">Press <em>Run self-correction</em> to start.</p>
+        <p class="vg-demo__status js-vlm-status">Press <em>Run TTA</em> to start.</p>
 
         <div class="vg-split">
 
           <!-- LEFT: main line -->
           <div class="vg-main">
-            <section class="vg-input-group js-flow-stage" data-stage="input">
-              <div class="vg-row vg-row--center vg-input-row">
-                <div class="vg-node vg-node--prompt">
-                  <div class="vg-node__body">
-                    <strong class="vg-node__title">Text Prompt</strong>
-                    <p class="vg-node__prompt js-vlm-prompt">"Describe this image."</p>
+            <div class="vg-main-top">
+              <section class="vg-input-group js-flow-stage" data-stage="input">
+                <div class="vg-input-col">
+                  <div class="vg-node vg-node--prompt">
+                    <div class="vg-node__body">
+                      <strong class="vg-node__title">Text Prompt</strong>
+                      <p class="vg-node__prompt js-vlm-prompt">"Describe this image."</p>
+                    </div>
+                  </div>
+                  <div class="vg-node vg-node--image">
+                    <div class="vg-node__body">
+                      <strong class="vg-node__title">Input Image</strong>
+                    </div>
+                    <figure class="vg-node__fig">
+                      <img class="js-vlm-image"
+                        src="{{ '/images/' | append: active.image | prepend: site.baseurl }}"
+                        alt="{{ active.alt }}" loading="eager" decoding="async">
+                    </figure>
                   </div>
                 </div>
-                <div class="vg-node vg-node--image">
-                  <div class="vg-node__body">
-                    <strong class="vg-node__title">Input Image</strong>
-                  </div>
-                  <figure class="vg-node__fig">
-                    <img class="js-vlm-image"
-                      src="{{ '/images/' | append: active.image | prepend: site.baseurl }}"
-                      alt="{{ active.alt }}" loading="eager" decoding="async">
-                  </figure>
-                </div>
+              </section>
+
+              <div class="vg-hconn vg-hconn--input js-flow-bridge" data-bridge="input-vlm">
+                <span class="vg-hconn__line js-vg-wire" data-wire="input-vlm"></span>
+                <span class="vg-hconn__tip js-vg-wire" data-wire="input-vlm">▶</span>
               </div>
-            </section>
 
-            <div class="vg-conn js-flow-bridge" data-bridge="input-vlm">
-              <span class="vg-conn__shaft js-vg-wire" data-wire="input-vlm"></span>
-              <span class="vg-conn__tip   js-vg-wire" data-wire="input-vlm">▼</span>
-            </div>
-
-            <div class="vg-row vg-row--center">
               <div class="vg-node vg-node--vlm js-vlm-hub">
                 <div class="vg-node__body">
                   <strong class="vg-node__title">Vision-Language Model</strong>
@@ -63,42 +63,36 @@
                     loading="lazy"
                     decoding="async">
                 </figure>
-                <span class="vg-vlm-state js-vlm-state-label">Generator</span>
+                <span class="vg-vlm-state">Generator</span>
+                <span class="vg-vlm-activity js-vlm-activity-label" hidden aria-live="polite"></span>
               </div>
             </div>
 
-            <div class="vg-conn js-flow-bridge" data-bridge="vlm-output">
-              <span class="vg-conn__shaft js-vg-wire" data-wire="vlm-output"></span>
-              <span class="vg-conn__tip   js-vg-wire" data-wire="vlm-output">▼</span>
-            </div>
-
-            <div class="vg-row vg-row--center">
-              <section class="vg-node vg-node--output js-output-stage js-flow-stage" data-stage="output">
-                <div class="vg-node__body">
-                  <strong class="vg-node__title">Final Output</strong>
-                  <p class="vg-output-caption js-vlm-output-caption" aria-live="polite"></p>
-                  <p class="vg-output-meta js-vlm-output-dual" hidden></p>
-                </div>
-              </section>
+            <div class="vg-main-tail">
+              <div class="vg-conn js-flow-bridge" data-bridge="vlm-output">
+                <span class="vg-conn__shaft js-vg-wire" data-wire="vlm-output"></span>
+                <span class="vg-conn__tip   js-vg-wire" data-wire="vlm-output">▼</span>
+              </div>
             </div>
           </div><!-- .vg-main -->
 
           <!-- bridge column: VLM ↔ right panel -->
           <div class="vg-mid" aria-hidden="true">
-            <div class="vg-hconn vg-hconn--to-side js-vg-wire" data-wire="vlm-beam">
+            <div class="vg-hconn vg-hconn--to-side vg-hconn--fwd js-vg-wire" data-wire="vlm-beam">
+              <span class="vg-hconn__line"></span>
               <span class="vg-hconn__tip">▶</span>
-              <span class="vg-hconn__line"></span>
             </div>
-            <div class="vg-hconn vg-hconn--to-vlm js-vg-wire" data-wire="scores-vlm">
-              <span class="vg-hconn__line"></span>
+            <div class="vg-hconn vg-hconn--to-vlm vg-hconn--back js-vg-wire" data-wire="scores-vlm">
               <span class="vg-hconn__tip">◀</span>
+              <span class="vg-hconn__line"></span>
             </div>
           </div>
 
-          <!-- RIGHT: beam search branch -->
+          <!-- RIGHT: TTA branch -->
           <aside class="vg-side-panel js-flow-stage" data-stage="branch">
             <header class="vg-side-panel__header">
-              <span class="vg-side-panel__title">Self-correction</span>
+              <span class="vg-side-panel__title">TTA</span>
+              <span class="vg-side-panel__subtitle">(test time adaptation)</span>
               <span class="vg-side-panel__badge">× 3</span>
               <span class="vg-side-panel__iter js-tta-iter-label" aria-live="polite">— / 3</span>
               <span class="vg-side-dots js-tta-dots" aria-hidden="true">
@@ -109,29 +103,18 @@
             <div class="vg-side-flow">
 
               <div class="vg-rm-row">
-                <!-- Beam Search + Candidates -->
+                <!-- Candidates (Beam Search, K=5) -->
                 <div class="vg-step vg-step--generation js-tta-step" data-tta-step="beam-candidates">
-                  <div class="vg-gen-head">
-                    <div class="vg-gen-head__item">
-                      <span class="vg-step__name">Beam Search</span>
-                      <span class="vg-step__sub">k = 5</span>
-                    </div>
-                    <span class="vg-gen-head__arrow" aria-hidden="true">→</span>
-                    <div class="vg-gen-head__item">
-                      <span class="vg-step__name">Candidates</span>
-                      <span class="vg-step__sub js-score-display">beam outputs</span>
-                    </div>
-                  </div>
+                  <span class="vg-step__name">Candidates (Beam Search, K=5)</span>
                   <div class="vg-candidates__area">
                     <div class="vg-candidates__list js-flow-candidates" role="list"></div>
                     <div class="vg-scores-frame js-scores-frame" hidden>
-                      <div class="vg-scores-frame__box"></div>
                       <p class="vg-scores-frame__mean js-scores-mean"></p>
                     </div>
                   </div>
                 </div>
 
-                <!-- arrows: candidates → RM, RM → candidates (red) -->
+                <!-- arrows: candidates → RM (blue ▶), RM → candidates (green ◀) -->
                 <div class="vg-rm-bridge" aria-hidden="true">
                   <div class="vg-hconn vg-hconn--fwd js-vg-wire" data-wire="cand-rm">
                     <span class="vg-hconn__line"></span>
@@ -146,24 +129,41 @@
                 <!-- Reward Model (right of generation box) -->
                 <div class="vg-step vg-step--reward-model js-tta-step" data-tta-step="reward-model">
                   <span class="vg-step__name">Reward Model</span>
-                  <span class="vg-step__sub">SAS + NHP</span>
+                  <span class="vg-rm-scores">SAS + NHP</span>
                   <figure class="vg-step__fig">
                     <img
                       src="{{ '/images/vlm-hallucination/neuro.png' | prepend: site.baseurl }}"
-                      alt="Neural network diagram"
+                      alt="LLM-as-judge (CLIP Model) diagram"
                       loading="lazy"
                       decoding="async">
                   </figure>
+                  <span class="vg-step__sub vg-step__sub--clip">LLM-as-judge (CLIP Model)</span>
                 </div>
               </div>
 
             </div>
           </aside>
 
+          <div class="vg-output-row">
+            <section class="vg-node vg-node--output js-output-stage js-flow-stage" data-stage="output">
+              <div class="vg-node__body">
+                <strong class="vg-node__title">Final Output</strong>
+                <p class="vg-output-caption js-vlm-output-caption" aria-live="polite"></p>
+              </div>
+            </section>
+            <section class="vg-node vg-node--original js-original-stage">
+              <div class="vg-node__body">
+                <strong class="vg-node__title">Original Output</strong>
+                <p class="vg-output-caption js-vlm-original-caption" aria-live="polite"></p>
+              </div>
+            </section>
+          </div>
+
         </div><!-- .vg-split -->
 
         <div class="vg-demo__actions">
-          <button type="button" class="button button-primary js-vlm-mitigate-btn">Run self-correction</button>
+          <button type="button" class="button button-primary js-vlm-mitigate-btn">Run TTA</button>
+          <button type="button" class="button js-vlm-pause-btn" hidden>Pause</button>
           <button type="button" class="button js-vlm-reset-btn" hidden>Reset</button>
         </div>
 

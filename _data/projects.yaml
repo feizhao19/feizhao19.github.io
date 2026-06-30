@@ -1,14 +1,12 @@
 projects:
   - id: vlm-hallucination
     type: vlm-hallucination
-    title: "Selected Project 1: VisionGuard — RL-based Agentic Self-Correction for Vision-Language Models"
+    title: "Selected Project 1: VisionGuard — Test-Time Alignment for Vision-Language Models"
     description: >-
-      Interactive demo of **VisionGuard** ([GitHub](https://github.com/feizhao19/VisionGuard), [paper](https://arxiv.org/abs/2505.03420), [PDF](/files/RL4VLM.pdf)):
-      an inference-time agentic loop where the **Generator** (VLM) proposes beam-search candidates,
-      the **Critic** (custom CLIP) scores **SAS** + **NHP**, and the **Self-Corrector** applies RL-TTA on LayerNorm γ
-      (~0.003% of parameters, episodic per image) before re-generating a grounded caption.
-      Reduces CHAIR by **15.4%** (LLaVA-7B) and **17.3%** (InstructBLIP) on AMBER.
-      Switch samples and run the closed loop.
+      An inference-time alignment framework that improves visual grounding by aligning language generation with visual evidence.
+      Proposed in 2024, VisionGuard ([GitHub](https://github.com/feizhao19/VisionGuard)) performs lightweight reinforcement learning using a relationship-based reward formulation that compares candidate responses relative to one another, rather than relying on absolute reward values.
+      This progressively improves multimodal alignment, strengthens visual grounding, and reduces hallucinations without model retraining.
+      Use the demo below to run the closed-loop TTA pipeline on sample images.
 
   - id: building-damage
     title: "Selected Project 2: Visual Prompt Learning of Foundation Models for Damage Evaluation"

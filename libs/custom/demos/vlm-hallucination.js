@@ -128,6 +128,19 @@
     this._loadSample(this.currentSampleId, false);
   }
 
+  Demo.prototype._nextSampleId = function () {
+    if (!this.samples.length) return this.currentSampleId;
+    var idx = -1;
+    for (var i = 0; i < this.samples.length; i++) {
+      if (this.samples[i].id === this.currentSampleId) {
+        idx = i;
+        break;
+      }
+    }
+    var next = idx < 0 ? 0 : (idx + 1) % this.samples.length;
+    return this.samples[next].id;
+  };
+
   Demo.prototype._bindOutputResize = function () {
     var self = this;
     if (this._outputResizeBound) return;
@@ -1126,7 +1139,7 @@
         if (ok === false || token !== self.runToken) return;
         self.root.classList.remove('is-complete');
         self.resetBtn.hidden = true;
-        self.runMitigation();
+        self._loadSample(self._nextSampleId(), false);
       });
   };
 

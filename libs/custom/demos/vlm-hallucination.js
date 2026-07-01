@@ -23,6 +23,8 @@
   var SCORES_AFTER_RM_MS = 520;
   var VLM_NEURO_UPDATE_DELAY_MS = 320;
   var AUTO_RESTART_DELAY_MS = 4000;
+  var FINAL_CAPTION_PREFIX = 'Final: ';
+  var ORIGINAL_CAPTION_PREFIX = 'Original: ';
 
   function getSiteBaseUrl() {
     var el = document.querySelector('script[src*="vlm-hallucination.js"]');
@@ -96,6 +98,8 @@
     this.branchPanelEl   = root.querySelector('[data-stage="branch"]');
     this.outputStageEl   = root.querySelector('.js-output-stage');
     this.originalStageEl = root.querySelector('.js-original-stage');
+    this.originalDividerEl = root.querySelector('.js-original-divider');
+    this.finalPaneEl     = root.querySelector('.vg-output-combined__pane--final');
     this.iterLabelEl     = root.querySelector('.js-tta-iter-label');
     this.iterDotsEl      = root.querySelector('.js-tta-dots');
     this.candidatesEl    = root.querySelector('.js-flow-candidates');
@@ -516,25 +520,16 @@
     if (!sample) return;
     var corrected = sample.corrected_caption || '';
     var original = sample.original_caption || '';
-    var sizerText = corrected.length >= original.length ? corrected : original;
     if (this.captionSizerEl)
-      this.captionSizerEl.textContent = sizerText;
+      this.captionSizerEl.textContent = FINAL_CAPTION_PREFIX + corrected;
     if (this.originalCaptionSizerEl)
-      this.originalCaptionSizerEl.textContent = sizerText;
+      this.originalCaptionSizerEl.textContent = ORIGINAL_CAPTION_PREFIX + original;
     this._syncOutputBoxHeights();
   };
 
   Demo.prototype._syncOutputBoxHeights = function () {
-    var finalBox = this.outputStageEl;
-    var origBox = this.originalStageEl;
-    if (!finalBox || !origBox) return;
-    finalBox.style.minHeight = '';
-    origBox.style.minHeight = '';
-    var maxH = Math.max(finalBox.offsetHeight, origBox.offsetHeight);
-    if (!maxH) return;
-    var px = maxH + 'px';
-    finalBox.style.minHeight = px;
-    origBox.style.minHeight = px;
+    if (this.finalPaneEl) this.finalPaneEl.style.minHeight = '';
+    if (this.originalStageEl) this.originalStageEl.style.minHeight = '';
   };
 
   Demo.prototype._clearCaptionText = function (textEl) {
@@ -550,6 +545,7 @@
       'is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete'
     );
     this.originalStageEl.hidden = false;
+    if (this.originalDividerEl) this.originalDividerEl.hidden = false;
   };
 
   Demo.prototype._revealOriginalOutput = function (sample) {
@@ -557,6 +553,7 @@
     var original = sample.original_caption || '';
     if (!original) {
       this.originalStageEl.hidden = true;
+      if (this.originalDividerEl) this.originalDividerEl.hidden = true;
       return;
     }
     this.originalCaptionTextEl.innerHTML = highlightTokens(
@@ -565,8 +562,9 @@
       'vg-output__token--bad'
     );
     this.originalStageEl.hidden = false;
-    this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete', 'is-steady');
-    this.originalStageEl.classList.add('is-revealed', 'is-working');
+    if (this.originalDividerEl) this.originalDividerEl.hidden = false;
+    this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete', 'is-steady', 'is-working');
+    this.originalStageEl.classList.add('is-revealed');
     this._syncOutputBoxHeights();
   };
 
@@ -1117,18 +1115,18 @@
       .then(function(r){
         if (r === false || token !== self.runToken) return null;
         self._status('Vision-language model outputs final caption');
-        return self._typeCaption(self.captionTextEl, sample.corrected_caption, 13);
+        self._revealOriginalOutput(sample);
+        return self._fadePulseOn(self.outputStageEl);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
-        return self._fadePulseOn(self.outputStageEl);
+        return self._typeCaption(self.captionTextEl, sample.corrected_caption, 13);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
         self._setOutputLit();
         self.captionTextEl.innerHTML = highlightTokens(
           sample.corrected_caption, sample.corrected_tokens, 'vg-output__token--ok');
-        self._revealOriginalOutput(sample);
         self._syncOutputBoxHeights();
         self._status('Done.');
         self.isRunning = false;

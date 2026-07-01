@@ -1103,6 +1103,12 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
+        var inputEl = self._stageEl('input');
+        if (inputEl) {
+          inputEl.classList.remove('is-complete');
+          inputEl.classList.add('is-working');
+        }
+        self._workWire('input-vlm');
         self._applyVlmPulse('Generating', false);
         self._workWire('vlm-output');
         self._status('TTA complete — generating final caption');
@@ -1115,12 +1121,6 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
-        self._setWire('vlm-output', '');
-        return self._handoffPulse(self.vlmHubEl, self.outputStageEl);
-      })
-      .then(function(ok){
-        if (ok === false || token !== self.runToken) return null;
-        self._setVlmComplete();
         self._setOutputLit();
         self.captionTextEl.innerHTML = highlightTokens(
           sample.corrected_caption, sample.corrected_tokens, 'vg-output__token--ok');

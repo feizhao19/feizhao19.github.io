@@ -22,7 +22,7 @@
   var INPUT_PULSE_HOLD_MS = 1200;
   var SCORES_AFTER_RM_MS = 520;
   var VLM_NEURO_UPDATE_DELAY_MS = 320;
-  var AUTO_RESTART_DELAY_MS = 6000;
+  var AUTO_RESTART_DELAY_MS = 4000;
 
   function getSiteBaseUrl() {
     var el = document.querySelector('script[src*="vlm-hallucination.js"]');
@@ -1053,8 +1053,10 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
+        var inputEl = self._stageEl('input');
+        if (inputEl) inputEl.classList.add('is-complete');
         return self._handoffPulse(
-          self._stageEl('input'),
+          inputEl,
           self.vlmHubEl,
           { updating: false }
         );
@@ -1062,8 +1064,6 @@
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
         self._setWire('input-vlm', '');
-        var inputEl = self._stageEl('input');
-        if (inputEl) inputEl.classList.add('is-complete');
         self._setVlmActivity('Receiving…');
         self._status('Sending image + prompt into vision-language model…');
         return self._wait(560, token);

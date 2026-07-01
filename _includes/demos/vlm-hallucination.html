@@ -17,6 +17,26 @@
 
   <div class="viz-project__demo-wrap">
     <div class="viz-project__figure">
+      <figure class="vg-mobile-fallback" aria-label="Interactive demo unavailable on mobile">
+        <img
+          class="vg-mobile-fallback__preview"
+          src="{{ '/images/vlm-hallucination/mobile-overview.png' | prepend: site.baseurl }}"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true">
+        <figcaption class="vg-mobile-fallback__glass">
+          <span class="vg-mobile-fallback__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <path d="M8 21h8M12 17v4"></path>
+            </svg>
+          </span>
+          <p class="vg-mobile-fallback__text">This demo is not available on mobile.</p>
+          <p class="vg-mobile-fallback__sub">Please open this page on a desktop computer.</p>
+        </figcaption>
+      </figure>
+
       <div class="vg-demo">
 
         <p class="vg-demo__status js-vlm-status">Press <em>Run TTA</em> to start.</p>

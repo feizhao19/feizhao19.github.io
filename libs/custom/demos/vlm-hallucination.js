@@ -1143,7 +1143,12 @@
       });
   };
 
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 640px)').matches;
+  }
+
   function init() {
+    if (isMobileViewport()) return;
     document.querySelectorAll('.js-vlm-hallucination').forEach(function(root){
       if (!root.__vlmDemo) root.__vlmDemo = new Demo(root);
     });

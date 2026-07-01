@@ -284,9 +284,8 @@
     return this._wait(PULSE_FADE_MS, token).then(function (ok) {
       if (!ok) return false;
       nodes.forEach(function (node) {
-        node.classList.remove('is-halo-exit');
+        node.classList.remove('is-halo-exit', 'is-working', 'is-complete');
       });
-      self._setWire(name, '');
       return true;
     });
   };

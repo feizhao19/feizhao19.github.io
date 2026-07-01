@@ -2035,11 +2035,27 @@ body.demo-modal-open {
 .vg-hconn__tip.is-working.is-halo-exit,
 .vg-conn__shaft.is-working.is-halo-exit,
 .vg-conn__tip.is-working.is-halo-exit {
-  animation: vg-wire-fade-out 0.48s ease-in forwards;
+  transition: background 0.48s ease-in, color 0.48s ease-in;
 }
-@keyframes vg-wire-fade-out {
-  from { opacity: 1; }
-  to   { opacity: 0.35; }
+.vg-hconn--fwd .vg-hconn__line.is-working.is-halo-exit,
+.vg-hconn--input .vg-hconn__line.is-working.is-halo-exit,
+.vg-conn__shaft.is-working.is-halo-exit {
+  background: rgba(96, 96, 96, 0.35);
+}
+.vg-hconn--fwd .vg-hconn__tip.is-working.is-halo-exit,
+.vg-hconn--input .vg-hconn__tip.is-working.is-halo-exit,
+.vg-conn__tip.is-working.is-halo-exit {
+  color: rgba(96, 96, 96, 0.45);
+}
+.vg-hconn--back .vg-hconn__line.is-working.is-halo-exit,
+.vg-hconn--to-vlm .vg-hconn__line.is-working.is-halo-exit,
+.vg-hconn--to-cand .vg-hconn__line.is-working.is-halo-exit {
+  background: rgba(56, 161, 105, 0.14);
+}
+.vg-hconn--back .vg-hconn__tip.is-working.is-halo-exit,
+.vg-hconn--to-vlm .vg-hconn__tip.is-working.is-halo-exit,
+.vg-hconn--to-cand .vg-hconn__tip.is-working.is-halo-exit {
+  color: rgba(56, 161, 105, 0.2);
 }
 
 /* Forward (right ▶) — dark gray */

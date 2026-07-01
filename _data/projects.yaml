@@ -1,12 +1,11 @@
 projects:
   - id: vlm-hallucination
     type: vlm-hallucination
-    title: "Selected Project 1: VisionGuard — Test-Time Alignment for Vision-Language Models"
+    title: "Selected Project 1: Test-Time Alignment for Vision-Language Models and Cross-Modal Generation"
     description: >-
-      An inference-time alignment framework that improves visual grounding by aligning language generation with visual evidence.
-      Proposed in 2024, VisionGuard ([GitHub](https://github.com/feizhao19/VisionGuard)) performs lightweight reinforcement learning using a relationship-based reward formulation that compares candidate responses relative to one another, rather than relying on absolute reward values.
-      This progressively improves multimodal alignment, strengthens visual grounding, and reduces hallucinations without model retraining.
-      Use the demo below to run the closed-loop TTA pipeline on sample images.
+      An inference-time alignment framework, addressing one of the fundamental challenges in cross-modal generation.
+      Proposed in 2024, our work ([GitHub](https://github.com/feizhao19/VisionGuard)) introduces a relationship-based optimization strategy for lightweight reinforcement learning, optimizing candidate responses by their relative quality rather than absolute reward values.
+      This progressively improves cross-modal alignment, strengthens visual grounding, and enables more reliable generation without model retraining.
 
   - id: building-damage
     title: "Selected Project 2: Visual Prompt Learning of Foundation Models for Damage Evaluation"

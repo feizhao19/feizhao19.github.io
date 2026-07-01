@@ -174,22 +174,28 @@
           </aside>
 
           <div class="vg-output-row">
-            <section class="vg-node vg-node--output js-output-stage js-flow-stage" data-stage="output">
-              <div class="vg-node__body">
-                <strong class="vg-node__title">Final Output</strong>
-                <p class="vg-output-caption js-vlm-output-caption" aria-live="polite">
-                  <span class="vg-output-caption__text js-vlm-output-caption-text"></span>
-                  <span class="vg-output-caption__sizer js-vlm-output-caption-sizer" aria-hidden="true"></span>
-                </p>
-              </div>
-            </section>
-            <section class="vg-node vg-node--original js-original-stage">
-              <div class="vg-node__body">
-                <strong class="vg-node__title">Original Output</strong>
-                <p class="vg-output-caption js-vlm-original-caption" aria-live="polite">
-                  <span class="vg-output-caption__text js-vlm-original-caption-text"></span>
-                  <span class="vg-output-caption__sizer js-vlm-original-caption-sizer" aria-hidden="true"></span>
-                </p>
+            <section class="vg-node vg-node--output-combined js-output-stage js-flow-stage" data-stage="output">
+              <div class="vg-output-combined">
+                <div class="vg-output-combined__pane vg-output-combined__pane--final">
+                  <strong class="vg-node__title">Result</strong>
+                  <p class="vg-output-caption js-vlm-output-caption" aria-live="polite">
+                    <span class="vg-output-caption__content">
+                      <span class="vg-output-caption__label vg-output-caption__label--final">Final:</span>
+                      <span class="vg-output-caption__text js-vlm-output-caption-text"></span>
+                    </span>
+                    <span class="vg-output-caption__sizer js-vlm-output-caption-sizer" aria-hidden="true"></span>
+                  </p>
+                </div>
+                <div class="vg-output-combined__divider js-original-divider" aria-hidden="true"></div>
+                <div class="vg-output-combined__pane vg-output-combined__pane--original js-original-stage">
+                  <p class="vg-output-caption js-vlm-original-caption" aria-live="polite">
+                    <span class="vg-output-caption__content">
+                      <span class="vg-output-caption__label vg-output-caption__label--original">Original:</span>
+                      <span class="vg-output-caption__text js-vlm-original-caption-text"></span>
+                    </span>
+                    <span class="vg-output-caption__sizer js-vlm-original-caption-sizer" aria-hidden="true"></span>
+                  </p>
+                </div>
               </div>
             </section>
           </div>

@@ -19,9 +19,15 @@
   };
   var TOTAL_ITERS = 3;
   var PULSE_FADE_MS = 480;
-  var INPUT_PULSE_HOLD_MS = 1200;
+  var INPUT_PULSE_HOLD_MS = 1500;
   var SCORES_AFTER_RM_MS = 520;
-  var VLM_NEURO_UPDATE_DELAY_MS = 320;
+  var CANDIDATES_COMPLETE_DELAY_MS = 500;
+  var CAND_RM_WIRE_DELAY_MS = 400;
+  var RM_CAND_WIRE_DELAY_MS = 500;
+  var RM_COMPLETE_DELAY_MS = 400;
+  var SCORES_VLM_WIRE_DELAY_MS = 300;
+  var LAYER_NORM_DELAY_MS = 500;
+  var VLM_UPDATE_HOLD_MS = 1000;
   var AUTO_RESTART_DELAY_MS = 4000;
   var FINAL_CAPTION_PREFIX = 'Final: ';
   var ORIGINAL_CAPTION_PREFIX = 'Original: ';
@@ -240,8 +246,15 @@
       if (target === 'is-working' && working) return;
       if (target === 'is-complete' && complete && !working) return;
       if (!target && !working && !complete) return;
-      node.classList.remove('is-working', 'is-complete');
-      if (target) node.classList.add(target);
+      if (target === 'is-working') {
+        node.classList.remove('is-complete');
+        node.classList.add('is-working');
+      } else if (target === 'is-complete') {
+        node.classList.remove('is-working');
+        node.classList.add('is-complete');
+      } else {
+        node.classList.remove('is-working', 'is-complete');
+      }
     });
   };
 
@@ -253,6 +266,30 @@
 
   Demo.prototype._workWire = function(n){ if(n) this._setWire(n,'is-working'); };
   Demo.prototype._doneWire = function(n){ if(n) this._setWire(n,'is-complete'); };
+
+  Demo.prototype._fadeWireOff = function (name) {
+    var self = this;
+    var token = this.runToken;
+    var nodes = [];
+    this._wireNodes(name).forEach(function (node) {
+      if (node.classList.contains('is-working')) nodes.push(node);
+    });
+    if (!nodes.length) {
+      this._setWire(name, '');
+      return Promise.resolve(true);
+    }
+    nodes.forEach(function (node) {
+      node.classList.add('is-halo-exit');
+    });
+    return this._wait(PULSE_FADE_MS, token).then(function (ok) {
+      if (!ok) return false;
+      nodes.forEach(function (node) {
+        node.classList.remove('is-halo-exit');
+      });
+      self._setWire(name, '');
+      return true;
+    });
+  };
 
   Demo.prototype._clearAllWorking = function () {
     this.root.querySelectorAll('.is-working').forEach(function(el){
@@ -626,34 +663,39 @@
   };
 
   Demo.prototype._activateBranchStep = function (name) {
-    var idx = BRANCH_STEPS.indexOf(name);
-    this.ttaStepEls.forEach(function(el){
-      var s = el.getAttribute('data-tta-step');
-      var i = BRANCH_STEPS.indexOf(s);
-      el.classList.toggle('is-complete', i >= 0 && i < idx);
-    });
-
-    if (WIRE_DURING[name]) this._workWire(WIRE_DURING[name]);
+    if (WIRE_DURING[name] && name !== 'reward-model' && name !== 'vlm-update') {
+      this._workWire(WIRE_DURING[name]);
+    }
 
     if (name === 'vlm-update') {
-      this._pulseVlmAndTta('RL update (PPO + LN-γ)', true);
+      this._pulseVlmAndTta('', false);
     } else if (name === 'beam-candidates') {
-      this._pulseVlmAndTta('Generating', false);
+      this._pulseVlmAndTta('Generating...', false);
     } else if (name === 'reward-model') {
       this._pulseVlmAndTta('', false);
     }
   };
 
-  Demo.prototype._completeBranchStep = function (name) {
-    this.ttaStepEls.forEach(function(el){
+  Demo.prototype._markBranchStepComplete = function (name) {
+    this.ttaStepEls.forEach(function (el) {
       if (el.getAttribute('data-tta-step') === name) {
-        el.classList.remove('is-working'); el.classList.add('is-complete');
+        el.classList.remove('is-working');
+        el.classList.add('is-complete');
       }
     });
-    if (WIRE_DURING[name] && WIRE_DURING[name] !== 'vlm-beam') {
+  };
+
+  Demo.prototype._completeBranchStep = function (name, opts) {
+    opts = opts || {};
+    if (name !== 'beam-candidates' && !opts.skipMarkComplete) {
+      this._markBranchStepComplete(name);
+    }
+    if (WIRE_DURING[name] && WIRE_DURING[name] !== 'vlm-beam' && WIRE_DURING[name] !== 'scores-vlm') {
       this._doneWire(WIRE_DURING[name]);
     }
-    if (WIRE_AFTER[name]) this._workWire(WIRE_AFTER[name]);
+    if (WIRE_AFTER[name] && name !== 'reward-model' && name !== 'beam-candidates') {
+      this._workWire(WIRE_AFTER[name]);
+    }
     if (name === 'vlm-update') {
       this._setWire('rm-cand', '');
       this._resetVlmNeuro();
@@ -934,12 +976,32 @@
         self._completeBranchStep('beam-candidates');
         self._activateBranchStep('reward-model');
         self._status('Iter '+iter+'/'+self.totalIters+' — LLM-as-judge (CLIP Model), SAS + NHP');
+        return self._wait(CAND_RM_WIRE_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._workWire('cand-rm');
         return self._wait(320, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
-        self._completeBranchStep('reward-model');
+        self._completeBranchStep('reward-model', { skipMarkComplete: true });
         self._status('Iter '+iter+'/'+self.totalIters+' — reward scores → candidates');
+        return self._wait(RM_COMPLETE_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._markBranchStepComplete('reward-model');
+        return self._wait(RM_CAND_WIRE_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._workWire('rm-cand');
+        return self._wait(CANDIDATES_COMPLETE_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._markBranchStepComplete('beam-candidates');
         return self._hidePairs(token);
       })
       .then(function(ok){
@@ -959,13 +1021,19 @@
         if (ok === false || token !== self.runToken) return false;
         self.currentTtaIter = iter;
         self._activateBranchStep('vlm-update');
-        self._status('Iter '+iter+'/'+self.totalIters+' — RL update (PPO + LN-γ)');
-        return self._wait(VLM_NEURO_UPDATE_DELAY_MS, token);
+        return self._wait(SCORES_VLM_WIRE_DELAY_MS, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
+        self._workWire('scores-vlm');
+        return self._wait(LAYER_NORM_DELAY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return false;
+        self._applyVlmPulse('RL update (PPO + LN-γ)', true);
         self._setVlmNeuroUpdating(iter);
-        return self._wait(760 - VLM_NEURO_UPDATE_DELAY_MS, token);
+        self._status('Iter '+iter+'/'+self.totalIters+' — RL update (PPO + LN-γ)');
+        return self._wait(VLM_UPDATE_HOLD_MS, token);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return false;
@@ -1053,6 +1121,7 @@
         if (ok === false || token !== self.runToken) return null;
         var inputEl = self._stageEl('input');
         if (inputEl) inputEl.classList.add('is-complete');
+        self._fadeWireOff('input-vlm');
         return self._handoffPulse(
           inputEl,
           self.vlmHubEl,
@@ -1061,7 +1130,6 @@
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;
-        self._setWire('input-vlm', '');
         self._setVlmActivity('Receiving…');
         self._status('Sending image + prompt into vision-language model…');
         return self._wait(560, token);
@@ -1070,10 +1138,10 @@
         if (r === false || token !== self.runToken) return null;
         self._activateStage('branch');
         self._workWire('vlm-beam');
-        self._setVlmActivity('Generating');
+        self._setVlmActivity('Generating...');
         return self._fadePulseOn(self.branchPanelEl).then(function(ok2) {
           if (!ok2 || token !== self.runToken) return null;
-          self._applyVlmPulse('Generating', false);
+          self._applyVlmPulse('Generating...', false);
           self._status('Starting '+self.totalIters+' TTA loops');
           return self._wait(280, token);
         });
@@ -1107,7 +1175,7 @@
           inputEl.classList.add('is-working');
         }
         self._workWire('input-vlm');
-        self._applyVlmPulse('Generating', false);
+        self._applyVlmPulse('Generating...', false);
         self._workWire('vlm-output');
         self._status('TTA complete — generating final caption');
         return self._wait(650, token);

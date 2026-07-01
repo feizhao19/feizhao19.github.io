@@ -22,7 +22,7 @@
   var INPUT_PULSE_HOLD_MS = 1200;
   var SCORES_AFTER_RM_MS = 520;
   var VLM_NEURO_UPDATE_DELAY_MS = 320;
-  var AUTO_RESTART_DELAY_MS = 3000;
+  var AUTO_RESTART_DELAY_MS = 6000;
 
   function getSiteBaseUrl() {
     var el = document.querySelector('script[src*="vlm-hallucination.js"]');
@@ -508,8 +508,8 @@
   Demo.prototype._setOutputLit = function () {
     var el = this.outputStageEl;
     if (!el) return;
-    el.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete');
-    el.classList.add('is-working', 'is-steady');
+    el.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete', 'is-steady');
+    el.classList.add('is-working');
   };
 
   Demo.prototype._reserveOutputSpace = function (sample) {
@@ -565,8 +565,8 @@
       'vg-output__token--bad'
     );
     this.originalStageEl.hidden = false;
-    this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete');
-    this.originalStageEl.classList.add('is-revealed', 'is-working', 'is-steady');
+    this.originalStageEl.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete', 'is-steady');
+    this.originalStageEl.classList.add('is-revealed', 'is-working');
     this._syncOutputBoxHeights();
   };
 
@@ -1118,6 +1118,10 @@
         if (r === false || token !== self.runToken) return null;
         self._status('Vision-language model outputs final caption');
         return self._typeCaption(self.captionTextEl, sample.corrected_caption, 13);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        return self._fadePulseOn(self.outputStageEl);
       })
       .then(function(ok){
         if (ok === false || token !== self.runToken) return null;

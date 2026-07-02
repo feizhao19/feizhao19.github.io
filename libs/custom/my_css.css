@@ -2137,6 +2137,10 @@ body.demo-modal-open {
   box-sizing: border-box;
   transition: opacity .45s, filter .45s, border-color .2s, box-shadow .2s;
 }
+.vg-side-panel--idle {
+  opacity: .55;
+  border-color: rgba(96, 96, 96, 0.32);
+}
 .vg-side-panel.is-working {
   position: relative;
   background: #fff;
@@ -2156,6 +2160,10 @@ body.demo-modal-open {
 .vg-side-panel.is-working .vg-step.is-complete {
   opacity: 1;
   border-color: rgba(56, 161, 105, 0.35);
+}
+.vg-side-panel.is-working .vg-step.is-working {
+  animation: none;
+  border-color: rgba(96, 96, 96, 0.65);
 }
 .vg-side-panel.is-grayed {
   opacity: .35;
@@ -2522,8 +2530,8 @@ body.demo-modal-open {
   opacity: 0;
   will-change: opacity, box-shadow;
   animation:
-    vg-halo-fade-in 0.48s ease-out forwards,
-    vg-breathe-halo 2.4s ease-in-out infinite;
+    vg-halo-fade-in 0.48s ease-out 0s forwards,
+    vg-breathe-halo 2.4s ease-in-out var(--vg-pulse-delay, 0s) infinite;
 }
 .vg-node.is-halo-exit::after,
 .vg-input-group.is-halo-exit::after,

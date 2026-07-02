@@ -19,6 +19,7 @@
   };
   var TOTAL_ITERS = 3;
   var PULSE_FADE_MS = 480;
+  var PULSE_BREATHE_MS = 2400;
   var INPUT_PULSE_HOLD_MS = 1500;
   var SCORES_AFTER_RM_MS = 520;
   var CANDIDATES_COMPLETE_DELAY_MS = 500;
@@ -26,6 +27,7 @@
   var RM_CAND_WIRE_DELAY_MS = 500;
   var RM_COMPLETE_DELAY_MS = 400;
   var SCORES_VLM_WIRE_DELAY_MS = 300;
+  var VLM_BEAM_WIRE_EARLY_MS = 300;
   var LAYER_NORM_DELAY_MS = 500;
   var VLM_UPDATE_HOLD_MS = 1000;
   var AUTO_RESTART_DELAY_MS = 4000;
@@ -309,15 +311,99 @@
     return el && el.classList.contains('is-working') && !el.classList.contains('is-halo-exit');
   };
 
+  Demo.prototype._pulseModuleEls = function () {
+    return [
+      this._stageEl('input'),
+      this.vlmHubEl,
+      this.branchPanelEl,
+      this.outputStageEl
+    ].filter(Boolean);
+  };
+
+  Demo.prototype._isPulseModule = function (el) {
+    if (!el) return false;
+    return this._pulseModuleEls().indexOf(el) !== -1;
+  };
+
+  Demo.prototype._getActivePulseModules = function (excludeEl) {
+    var self = this;
+    return this._pulseModuleEls().filter(function (el) {
+      return el !== excludeEl && self._isPulsing(el);
+    });
+  };
+
+  Demo.prototype._getPulseRhythmStart = function (excludeEl) {
+    var active = this._getActivePulseModules(excludeEl);
+    if (!active.length) return null;
+    var earliest = null;
+    active.forEach(function (el) {
+      var t = el._vgPulseStart;
+      if (t != null && (earliest === null || t < earliest)) earliest = t;
+    });
+    return earliest;
+  };
+
+  Demo.prototype._computePulseDelay = function (rhythmStart) {
+    if (rhythmStart == null) return '0s';
+    var elapsed = (Date.now() - rhythmStart) % PULSE_BREATHE_MS;
+    return (-(elapsed / 1000)).toFixed(4) + 's';
+  };
+
+  Demo.prototype._applyPulseDelay = function (el, delay) {
+    if (!el) return;
+    el.style.setProperty('--vg-pulse-delay', delay);
+  };
+
+  Demo.prototype._clearPulseDelay = function (el) {
+    if (!el) return;
+    el.style.removeProperty('--vg-pulse-delay');
+    delete el._vgPulseStart;
+  };
+
+  Demo.prototype._clearAllPulseSync = function () {
+    var self = this;
+    this._pulseModuleEls().forEach(function (el) {
+      self._clearPulseDelay(el);
+    });
+  };
+
+  Demo.prototype._syncPulseRhythm = function (el) {
+    if (!this._isPulseModule(el)) return;
+    var rhythmStart = this._getPulseRhythmStart(el);
+    if (rhythmStart == null) {
+      el._vgPulseStart = Date.now();
+      this._applyPulseDelay(el, '0s');
+    } else {
+      el._vgPulseStart = rhythmStart;
+      this._applyPulseDelay(el, this._computePulseDelay(rhythmStart));
+    }
+  };
+
   Demo.prototype._beginPulse = function (el, opts) {
     if (!el) return;
     opts = opts || {};
+    var wasPulsing = this._isPulsing(el);
+    var needsRhythmSync = !wasPulsing && this._isPulseModule(el);
+
     el.classList.remove('is-complete', 'is-pulse-out', 'is-grayed', 'is-halo-exit', 'is-pulse-in');
     if (el === this.vlmHubEl) {
       el.classList.toggle('is-updating', !!opts.updating);
     } else {
       el.classList.remove('is-updating');
     }
+
+    if (needsRhythmSync) {
+      this._syncPulseRhythm(el);
+      if (el.classList.contains('is-working')) {
+        el.classList.remove('is-working');
+        void el.offsetWidth;
+      }
+    }
+
+    if (el === this.branchPanelEl) {
+      this._setTtaPanelIdle(false);
+    }
+
     if (!el.classList.contains('is-working')) {
       el.classList.add('is-working');
     }
@@ -337,6 +423,7 @@
       if (!ok) return false;
       list.forEach(function (el) {
         el.classList.remove('is-working', 'is-halo-exit', 'is-updating', 'is-pulse-in', 'is-pulse-out');
+        self._clearPulseDelay(el);
       });
       return true;
     });
@@ -384,26 +471,45 @@
       if (!ok) return false;
       fromList.forEach(function (el) {
         el.classList.remove('is-working', 'is-halo-exit', 'is-updating', 'is-pulse-in', 'is-pulse-out');
+        self._clearPulseDelay(el);
       });
       return true;
     });
   };
 
   Demo.prototype._clearStagePulses = function () {
+    var branch = this.branchPanelEl;
     this.ttaStepEls.forEach(function (el) {
       el.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
     });
     this.stageEls.forEach(function (el) {
+      if (el === branch) return;
       el.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
     });
+  };
+
+  Demo.prototype._setTtaPanelIdle = function (on) {
+    if (!this.branchPanelEl) return;
+    this.branchPanelEl.classList.toggle('vg-side-panel--idle', !!on);
+  };
+
+  Demo.prototype._ensureTtaPanelPulse = function () {
+    if (!this.branchPanelEl) return;
+    this.branchPanelEl.classList.remove('is-complete', 'is-grayed', 'is-halo-exit');
+    this._setTtaPanelIdle(false);
+    if (!this._isPulsing(this.branchPanelEl)) {
+      this._beginPulse(this.branchPanelEl);
+    }
   };
 
   Demo.prototype._clearNodePulse = function () {
     if (this.vlmHubEl) {
       this.vlmHubEl.classList.remove('is-working', 'is-updating', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+      this._clearPulseDelay(this.vlmHubEl);
     }
     if (this.branchPanelEl) {
       this.branchPanelEl.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+      this._clearPulseDelay(this.branchPanelEl);
     }
     this._clearStagePulses();
   };
@@ -411,9 +517,7 @@
   Demo.prototype._applyVlmPulse = function (label, updating) {
     var hub = this.vlmHubEl;
     if (!hub) return;
-    hub.classList.remove('is-complete', 'is-pulse-out', 'is-halo-exit');
-    hub.classList.add('is-working');
-    hub.classList.toggle('is-updating', !!updating);
+    this._beginPulse(hub, { updating: updating });
     this._setVlmActivity(label || '');
   };
 
@@ -424,7 +528,7 @@
       if (!this._isPulsing(this.branchPanelEl)) {
         return this._fadePulseOn(this.branchPanelEl);
       }
-      this.branchPanelEl.classList.add('is-working');
+      this._beginPulse(this.branchPanelEl);
       return Promise.resolve(true);
     }
     return this._fadePulseOff(this.branchPanelEl);
@@ -457,7 +561,7 @@
       this._applyVlmPulse(label, updating);
       if (tta) {
         tta.classList.remove('is-halo-exit', 'is-complete', 'is-grayed');
-        tta.classList.add('is-working');
+        this._beginPulse(tta);
       }
       return Promise.resolve(true);
     }
@@ -466,7 +570,7 @@
       return this._fadePulseOn(tta).then(function (ok) {
         if (!ok) return false;
         self._applyVlmPulse(label, updating);
-        if (tta) tta.classList.add('is-working');
+        if (tta) self._beginPulse(tta);
         return true;
       });
     }
@@ -494,15 +598,15 @@
 
   Demo.prototype._activateStage = function (name) {
     if (name === 'branch') {
-      if (this.branchPanelEl) {
-        this.branchPanelEl.classList.remove('is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
-      }
       return Promise.resolve(true);
     }
     return this._pulseStage(name);
   };
 
   Demo.prototype._completeStage = function (name) {
+    if (name === 'branch') {
+      return Promise.resolve(true);
+    }
     var self = this;
     var el = this._stageEl(name);
     return this._fadePulseOff(el).then(function (ok) {
@@ -542,6 +646,7 @@
     if (!hub) return;
     hub.classList.remove('is-working','is-updating');
     hub.classList.add('is-complete');
+    this._clearPulseDelay(hub);
     this._setVlmActivity('');
   };
 
@@ -549,7 +654,7 @@
     var el = this.outputStageEl;
     if (!el) return;
     el.classList.remove('is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-complete', 'is-steady');
-    el.classList.add('is-working');
+    this._beginPulse(el);
   };
 
   Demo.prototype._reserveOutputSpace = function (sample) {
@@ -606,6 +711,7 @@
 
   Demo.prototype._resetFlow = function () {
     this._clearAllWorking();
+    this._clearAllPulseSync();
     this.stageEls.forEach(function(el){
       el.classList.remove('is-working', 'is-complete', 'is-grayed', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit', 'is-steady');
     });
@@ -623,6 +729,7 @@
     this.ttaStepEls.forEach(function(el){ el.classList.remove('is-working','is-complete'); });
     if (this.branchPanelEl) {
       this.branchPanelEl.classList.remove('is-grayed', 'is-working', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
+      this._setTtaPanelIdle(true);
     }
     if (this.vlmHubEl) {
       this.vlmHubEl.classList.remove('is-working', 'is-updating', 'is-complete', 'is-pulse-in', 'is-pulse-out', 'is-halo-exit');
@@ -666,13 +773,25 @@
       this._workWire(WIRE_DURING[name]);
     }
 
+    this._ensureTtaPanelPulse();
+
     if (name === 'vlm-update') {
-      this._pulseVlmAndTta('', false);
+      this._applyVlmPulse('', false);
     } else if (name === 'beam-candidates') {
-      this._pulseVlmAndTta('Generating...', false);
+      this._applyVlmPulse('Generating...', false);
     } else if (name === 'reward-model') {
-      this._pulseVlmAndTta('', false);
+      this._applyVlmPulse('', false);
     }
+
+    this.ttaStepEls.forEach(function (el) {
+      var step = el.getAttribute('data-tta-step');
+      if (step === name) {
+        el.classList.remove('is-complete');
+        el.classList.add('is-working');
+      } else {
+        el.classList.remove('is-working');
+      }
+    });
   };
 
   Demo.prototype._markBranchStepComplete = function (name) {
@@ -1131,16 +1250,21 @@
         if (ok === false || token !== self.runToken) return null;
         self._setVlmActivity('Receiving…');
         self._status('Sending image + prompt into vision-language model…');
-        return self._wait(560, token);
+        return self._wait(560 - VLM_BEAM_WIRE_EARLY_MS, token);
+      })
+      .then(function(ok){
+        if (ok === false || token !== self.runToken) return null;
+        self._workWire('vlm-beam');
+        return self._wait(VLM_BEAM_WIRE_EARLY_MS, token);
       })
       .then(function(r){
         if (r === false || token !== self.runToken) return null;
         self._activateStage('branch');
-        self._workWire('vlm-beam');
         self._setVlmActivity('Generating...');
         return self._fadePulseOn(self.branchPanelEl).then(function(ok2) {
           if (!ok2 || token !== self.runToken) return null;
           self._applyVlmPulse('Generating...', false);
+          self._ensureTtaPanelPulse();
           self._status('Starting '+self.totalIters+' TTA loops');
           return self._wait(280, token);
         });
@@ -1171,7 +1295,7 @@
         var inputEl = self._stageEl('input');
         if (inputEl) {
           inputEl.classList.remove('is-complete');
-          inputEl.classList.add('is-working');
+          self._beginPulse(inputEl);
         }
         self._workWire('input-vlm');
         self._applyVlmPulse('Generating...', false);

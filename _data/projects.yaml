@@ -1,15 +1,17 @@
 projects:
   - id: vlm-hallucination
     type: vlm-hallucination
-    title: "Selected Project 1: Test-Time Alignment for Cross-Modal Generation and Vision-Language Models"
+    title: "Multimodal Large Language Models & Reinforcement Learning"
     description: >-
+      *Test-Time Alignment for Cross-Modal Generation and Vision-Language Models:*
       An inference-time alignment framework, addressing one of the fundamental challenges in cross-modal generation.
       Proposed in 2024, our work ([GitHub](https://github.com/feizhao19/VisionGuard)) introduces a relationship-based optimization strategy for lightweight reinforcement learning, optimizing candidate responses by their relative quality rather than absolute reward values.
       This progressively improves cross-modal alignment, strengthens visual grounding, and enables more reliable generation without model retraining.
 
   - id: building-damage
-    title: "Selected Project 2: Visual Prompt Learning of Foundation Models for Damage Evaluation"
+    title: "Computer Vision & Contrastive Representation Learning"
     description: >-
+      *Visual Prompt Learning of Foundation Models for Damage Evaluation:*
       Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment, applicable to 11 different types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
       - id: potero
@@ -33,6 +35,7 @@ projects:
 
   - id: attitude-fusion
     type: attitude-fusion
-    title: "Selected Project 3: Multimodal sensor fusion and calibration for attitude state estimation"
+    title: "State and Trajectory Estimation"
     description: >-
+      *Multimodal sensor fusion and calibration for attitude state estimation:*
       Combines gyroscope, accelerometer, and magnetometer measurements for real-time vehicle attitude estimation, enabling accurate trajectory estimation while mitigating long-term drift.

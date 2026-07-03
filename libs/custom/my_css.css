@@ -390,6 +390,10 @@ body.paper-lightbox-open {
 .viz-project__description p {
   margin: 0;
 }
+.viz-project__description em {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.82);
+}
 .viz-project__description a {
   color: #2982ac;
   text-decoration: none;

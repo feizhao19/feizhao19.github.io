@@ -809,6 +809,36 @@ body.paper-lightbox-open {
   border-top: 1px solid #eee;
   padding: 15px 0 40px 0;
   margin-bottom: 0;}
+.visitor-map {
+  margin: 1.5rem auto 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid #eee;
+  width: fit-content;
+  max-width: 100%;
+}
+.visitor-map__title {
+  margin: 0 0 0.65rem;
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(0, 0, 0, 0.55);
+  text-align: center;
+}
+.visitor-map__embed {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  filter: grayscale(1) contrast(0.92) brightness(1.05);
+}
+.visitor-map__embed > * {
+  transform: scale(0.7);
+  transform-origin: top center;
+  flex: 0 0 auto;
+}
 .footer-credit {
   margin: 1.5rem 0 0;
   padding-top: 1rem;

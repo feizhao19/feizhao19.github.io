@@ -1,10 +1,7 @@
 {% assign p = include.project %}
 
 <div class="viz-project viz-project--attitude-fusion" id="project-{{ p.id }}" data-project-id="{{ p.id }}">
-  <h5 class="viz-project__title">
-    <a class="viz-project__permalink" href="#project-{{ p.id }}" aria-label="Permalink to this project demo">#</a>
-    {{ p.title }}
-  </h5>
+  {% include viz-project-title.html project=p number=include.number %}
   {% if p.description %}
   <div class="viz-project__description">{{ p.description | markdownify }}</div>
   {% endif %}

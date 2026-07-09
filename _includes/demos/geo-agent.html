@@ -1,0 +1,31 @@
+{% assign p = include.project %}
+
+<div class="viz-project viz-project--geo-agent" id="project-{{ p.id }}" data-project-id="{{ p.id }}">
+  {% include viz-project-title.html project=p number=include.number %}
+  {% if p.description %}
+  <div class="viz-project__description">{{ p.description | markdownify }}</div>
+  {% endif %}
+
+  <div class="viz-project__demo-wrap">
+    <div class="viz-project__figure">
+      <figure class="geo-agent-preview">
+        <a
+          class="geo-agent-preview__link js-paper-image-lightbox js-paper-image-lightbox--xxlarge"
+          href="{{ '/images/Agent_project.png' | prepend: site.baseurl }}"
+          aria-label="View larger GeoAgent dashboard screenshot"
+        >
+          <img
+            class="geo-agent-preview__img"
+            src="{{ '/images/Agent_project.png' | prepend: site.baseurl }}"
+            alt="GeoAgent dashboard showing a post-disaster damage map, assessment statistics, and a conversational AI interface for rapid disaster response"
+            loading="lazy"
+            decoding="async"
+          >
+        </a>
+        {% if p.preview_caption %}
+        <figcaption class="geo-agent-preview__caption">{{ p.preview_caption | markdownify }}</figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  </div>
+</div>

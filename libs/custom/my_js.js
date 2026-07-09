@@ -130,8 +130,10 @@ $(document).ready(function() {
       var src = $(this).attr('href');
       var alt = $(this).find('img').attr('alt') || '';
       $lightbox.find('.paper-image-lightbox__img').attr({ src: src, alt: alt });
-      $lightbox.removeClass('paper-image-lightbox--large paper-image-lightbox--xlarge');
-      if ($(this).hasClass('js-paper-image-lightbox--xlarge')) {
+      $lightbox.removeClass('paper-image-lightbox--large paper-image-lightbox--xlarge paper-image-lightbox--xxlarge');
+      if ($(this).hasClass('js-paper-image-lightbox--xxlarge')) {
+        $lightbox.addClass('paper-image-lightbox--xxlarge');
+      } else if ($(this).hasClass('js-paper-image-lightbox--xlarge')) {
         $lightbox.addClass('paper-image-lightbox--xlarge');
       } else if ($(this).hasClass('js-paper-image-lightbox--large')) {
         $lightbox.addClass('paper-image-lightbox--large');
@@ -153,7 +155,7 @@ $(document).ready(function() {
     });
 
     function closePaperLightbox() {
-      $lightbox.removeClass('is-open paper-image-lightbox--large paper-image-lightbox--xlarge').attr('aria-hidden', 'true');
+      $lightbox.removeClass('is-open paper-image-lightbox--large paper-image-lightbox--xlarge paper-image-lightbox--xxlarge').attr('aria-hidden', 'true');
       $lightbox.find('.paper-image-lightbox__img').attr('src', '');
       $body.removeClass('paper-lightbox-open');
     }

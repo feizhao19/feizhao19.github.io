@@ -1,0 +1,5 @@
+{% assign p = include.project %}
+<h5 class="viz-project__title">
+  <a class="viz-project__permalink" href="#project-{{ p.id }}" aria-label="Permalink to project {{ include.number }}">#{{ include.number }}</a>
+  {{ p.title }}
+</h5>

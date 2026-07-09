@@ -170,6 +170,15 @@ h4 {
 .paper-image-lightbox--xlarge .paper-image-lightbox__img {
   max-height: 90vh;
 }
+.paper-image-lightbox--xxlarge .paper-image-lightbox__content {
+  max-width: min(99vw, 1500px);
+}
+.paper-image-lightbox--xxlarge .paper-image-lightbox__stage {
+  max-height: 96vh;
+}
+.paper-image-lightbox--xxlarge .paper-image-lightbox__img {
+  max-height: 94vh;
+}
 .paper-image-lightbox__hint,
 .demo-modal__hint {
   margin: 0;
@@ -1083,6 +1092,43 @@ body.demo-modal-open {
   font-size: 0.88em;
   line-height: 1.45;
   color: rgba(0, 0, 0, 0.62);
+}
+
+/* --- GeoAgent project screenshot preview --- */
+.geo-agent-preview {
+  margin: 0;
+  padding: 0;
+}
+.geo-agent-preview__link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  cursor: zoom-in;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.geo-agent-preview__link:hover,
+.geo-agent-preview__link:focus {
+  border-color: rgba(41, 130, 172, 0.35);
+  box-shadow: 0 4px 18px rgba(41, 130, 172, 0.12);
+}
+.geo-agent-preview__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.geo-agent-preview__caption {
+  margin: 0.55rem 0 0;
+  text-align: center;
+  font-size: 0.82em;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.48);
+}
+.geo-agent-preview__caption p {
+  margin: 0;
 }
 
 /* --- Attitude fusion project card preview --- */

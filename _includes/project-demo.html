@@ -1,8 +1,11 @@
 {% assign p = include.project %}
+{% assign n = include.number %}
 {% if p.type == 'vlm-hallucination' %}
-  {% include demos/vlm-hallucination.html project=p %}
+  {% include demos/vlm-hallucination.html project=p number=n %}
 {% elsif p.type == 'attitude-fusion' %}
-  {% include demos/attitude-fusion.html project=p %}
+  {% include demos/attitude-fusion.html project=p number=n %}
+{% elsif p.type == 'geo-agent' %}
+  {% include demos/geo-agent.html project=p number=n %}
 {% else %}
-  {% include synced-swipe-compare.html project=p %}
+  {% include synced-swipe-compare.html project=p number=n %}
 {% endif %}

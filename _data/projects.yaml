@@ -12,7 +12,8 @@ projects:
     title: "Computer Vision & Contrastive Representation Learning"
     description: >-
       <span class="viz-project__lead">Visual Prompt Learning of Foundation Models for Damage Evaluation:</span>
-      Below is an interactive showcase of my work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)) on post-disaster building damage assessment, applicable to 11 different types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
+      Given paired pre- and post-disaster imagery, we adapt Meta's Segment Anything Model (SAM) using soft prompt tuning to learn contrastive representations for building damage assessment.
+      Below is an interactive showcase of our work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)), supporting 11 types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
       - id: potero
         label: Potero
@@ -32,6 +33,17 @@ projects:
     top_right_label: Post-disaster
     bottom_left_label: Pre-disaster
     bottom_right_label: Damage assessment
+
+  - id: geo-agent
+    type: geo-agent
+    title: "Agentic AI & AI Infra"
+    description: >-
+      <span class="viz-project__lead">GeoAgent: An agentic runtime for post-disaster assessment:</span>
+      An artifact-centric orchestration stack for heterogeneous geospatial agent workloads.
+      The runtime **coordinates GPU-heavy ViPDE perception** (see above), structured damage analytics, **facilities lookup**, and **RAG+LLM reasoning** with **locally deployed LLMs** through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises for privacy.
+      This decouples heavy inference from lightweight follow-ups, enables reliable multi-turn Q&amp;A over cached assessment artifacts, and closes the loop from imagery to decision-ready reports.
+      It allows users to ask natural-language questions about damage extent, affected communities, and nearby critical infrastructure (e.g., hospitals), and to generate assessment reports on demand.
+    preview_caption: "Above is a screenshot preview of the GeoAgent dashboard; an interactive demo and source code will be released soon."
 
   - id: attitude-fusion
     type: attitude-fusion

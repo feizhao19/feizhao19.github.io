@@ -39,10 +39,7 @@ projects:
     title: "Agentic AI & AI Infra"
     description: >-
       <span class="viz-project__lead">GeoAgent: An agentic runtime for post-disaster assessment:</span>
-      An artifact-centric orchestration stack for heterogeneous geospatial agent workloads.
-      The runtime **coordinates GPU-heavy ViPDE perception** (see above), structured damage analytics, **facilities lookup**, and **RAG+LLM reasoning** with **locally deployed LLMs** through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises for privacy.
-      This decouples heavy inference from lightweight follow-ups, enables reliable multi-turn Q&amp;A over cached assessment artifacts, and closes the loop from imagery to decision-ready reports.
-      It allows users to ask natural-language questions about damage extent, affected communities, and nearby critical infrastructure (e.g., hospitals), and to generate assessment reports on demand.
+    An artifact-centric orchestration stack for heterogeneous geospatial agent workloads. The runtime coordinates GPU-heavy ViPDE perception, structured damage analytics, facilities lookup, and RAG+LLM reasoning with locally deployed LLMs through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It enables reliable multi-turn Q&A and generates decision-ready assessment reports on demand.
     preview_caption: "Above is a screenshot preview of the GeoAgent dashboard; an interactive demo and source code will be released soon."
 
   - id: attitude-fusion

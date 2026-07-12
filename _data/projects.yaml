@@ -3,9 +3,9 @@ projects:
     type: vlm-hallucination
     title: "Multimodal Large Language Models & Reinforcement Learning"
     description: >-
-      <span class="viz-project__lead">Test-Time Alignment for Cross-Modal Generation and Vision-Language Models:</span>
-      An inference-time alignment framework, addressing one of the fundamental challenges in cross-modal generation.
-      Proposed in 2024, our work ([GitHub](https://github.com/feizhao19/VisionGuard)) introduces a relationship-based optimization strategy for lightweight reinforcement learning, optimizing candidate responses by their relative quality rather than absolute reward values.
+      <span class="viz-project__lead">Test-Time Traning (TTT) for Cross-Modal Generation and Vision-Language Models:</span>
+      An inference-time training framework designed to **address data distribution shift** in cross-modal generation.
+      Proposed in 2024, our work [GitHub](https://github.com/feizhao19/VisionGuard)) introduced a relationship-based optimization strategy that optimizes candidate responses by their relative quality rather than absolute reward values, preceding the widespread adoption of similar relative-ranking reinforcement learning methods (e.g., GRPO).
       This progressively improves cross-modal alignment, strengthens visual grounding, and enables more reliable generation without model retraining.
 
   - id: building-damage

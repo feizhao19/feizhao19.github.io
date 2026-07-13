@@ -1094,14 +1094,115 @@ body.demo-modal-open {
   color: rgba(0, 0, 0, 0.62);
 }
 
-/* --- GeoAgent project screenshot preview --- */
-.geo-agent-preview {
+/* --- GeoAgent project demo video --- */
+figure.geo-agent-preview {
+  margin: 0;
+}
+.viz-project--geo-agent .viz-project__demo-wrap {
+  margin-bottom: 0;
+}
+.geo-agent-preview__trigger {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
   margin: 0;
   padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: center;
+  white-space: normal;
+  color: inherit;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.geo-agent-preview__trigger:focus {
+  outline: none;
+}
+.geo-agent-preview__media {
+  position: relative;
+  display: block;
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: #fff;
+}
+.geo-agent-preview__trigger:focus-visible .geo-agent-preview__media {
+  box-shadow: 0 0 0 3px rgba(41, 130, 172, 0.45);
+}
+.geo-agent-preview__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.00);
+  color: #fff;
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+.geo-agent-preview__trigger:hover .geo-agent-preview__overlay,
+.geo-agent-preview__trigger:focus-visible .geo-agent-preview__overlay {
+  background: rgba(0, 0, 0, 0.34);
+}
+.geo-agent-preview__play-icon {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2982ac;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+.geo-agent-preview__play-icon svg {
+  margin-left: 0.15rem;
+}
+.geo-agent-preview__play-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  line-height: 1.2;
+}
+.demo-modal__content--geo-agent {
+  width: min(98vw, 1120px);
+}
+.geo-agent-modal__video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--geo-agent-video-aspect, 1920 / 954);
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.geo-agent-modal__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 .geo-agent-preview__link {
   display: block;
   width: 100%;
+  margin: 0;
   text-decoration: none;
   cursor: zoom-in;
   background: #fff;
@@ -1110,15 +1211,21 @@ body.demo-modal-open {
   overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.geo-agent-preview__link:hover,
-.geo-agent-preview__link:focus {
-  border-color: rgba(41, 130, 172, 0.35);
-  box-shadow: 0 4px 18px rgba(41, 130, 172, 0.12);
-}
 .geo-agent-preview__img {
   display: block;
   width: 100%;
   height: auto;
+  margin: 0;
+  vertical-align: top;
+}
+.geo-agent-preview__trigger:hover .geo-agent-preview__img,
+.geo-agent-preview__trigger:focus-visible .geo-agent-preview__img {
+  opacity: 0.92;
+}
+.geo-agent-preview__link:hover,
+.geo-agent-preview__link:focus {
+  border-color: rgba(41, 130, 172, 0.35);
+  box-shadow: 0 4px 18px rgba(41, 130, 172, 0.12);
 }
 .geo-agent-preview__caption {
   margin: 0.55rem 0 0;
@@ -1129,6 +1236,9 @@ body.demo-modal-open {
 }
 .geo-agent-preview__caption p {
   margin: 0;
+}
+.viz-project--geo-agent {
+  margin-bottom: 2rem;
 }
 
 /* --- Attitude fusion project card preview --- */

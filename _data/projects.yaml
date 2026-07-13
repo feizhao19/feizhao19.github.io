@@ -40,8 +40,8 @@ projects:
     youtube_id: lIQxRoqIp14
     youtube_aspect_ratio: "1920/954"
     description: >-
-      <span class="viz-project__lead">RapidResponseAgent ([GitHub](https://github.com/feizhao19/RapidResponseAgent)): An agentic runtime for post-disaster assessment:</span>
-      An artifact-centric orchestration stack for heterogeneous geospatial agent workloads. The runtime coordinates GPU-heavy ViPDE perception, structured damage analytics, facilities lookup, and locally deployed RAG+LLM reasoning through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It decouples heavy inference from lightweight follow-ups, enabling reliable multi-turn Q&amp;A over cached assessment artifacts and on-demand decision-ready reports.
+      <span class="viz-project__lead">RapidResponseAgent ([GitHub](https://github.com/feizhao19/RapidResponseAgent))</span>
+      An agentic runtime for post-disaster assessment that provides an artifact-centric orchestration stack for heterogeneous geospatial agent workloads. The runtime coordinates GPU-heavy ViPDE perception, VLM-based discrepancy verification and reasoning over uncertain assessments, structured damage analytics, facilities lookup, and locally deployed RAG+LLM reasoning through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It decouples heavy inference from lightweight follow-up analysis, enabling reliable multi-turn Q&amp;A over cached assessment artifacts and on-demand decision-ready reports.
     preview_caption: "Demo walkthrough of the RapidResponseAgent dashboard."
 
   - id: attitude-fusion

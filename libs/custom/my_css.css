@@ -363,7 +363,23 @@ body.paper-lightbox-open {
   opacity: 1;
 }
 .viz-project {
+  position: relative;
   margin-bottom: 2rem;
+}
+.viz-project__legacy-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  pointer-events: none;
 }
 .viz-project:last-child {
   margin-bottom: 0;

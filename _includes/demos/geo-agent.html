@@ -1,6 +1,12 @@
 {% assign p = include.project %}
+{% if p.anchor %}
+{% assign project_anchor = p.anchor %}
+{% else %}
+{% assign project_anchor = 'project-' | append: p.id %}
+{% endif %}
 
-<div class="viz-project viz-project--geo-agent" id="project-{{ p.id }}" data-project-id="{{ p.id }}">
+<div class="viz-project viz-project--geo-agent" id="{{ project_anchor }}" data-project-id="{{ p.id }}">
+  {% include viz-project-legacy-anchors.html project=p %}
   {% include viz-project-title.html project=p number=include.number %}
   {% if p.description %}
   <div class="viz-project__description">{{ p.description | markdownify }}</div>

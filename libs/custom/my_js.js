@@ -599,15 +599,40 @@ $(document).ready(function() {
     return ($nav.outerHeight() || 104) + 12;
   }
 
+  function resolveScrollTarget($target) {
+    if (!$target || !$target.length) {
+      return $();
+    }
+    if ($target.hasClass('viz-project__legacy-anchor')) {
+      var $project = $target.closest('.viz-project');
+      if ($project.length) {
+        return $project;
+      }
+    }
+    return $target;
+  }
+
   function getSectionScrollTarget($section) {
     var $heading = $section.children('h4').first();
+    if ($heading.length) {
+      return $heading;
+    }
+    $heading = $section.children('.viz-project__title').first();
     return $heading.length ? $heading : $section;
   }
 
   function scrollToSection($section) {
-    var $scrollTarget = getSectionScrollTarget($section);
+    var $resolved = resolveScrollTarget($section);
+    if (!$resolved.length) {
+      return;
+    }
+    var $scrollTarget = getSectionScrollTarget($resolved);
+    var top = $scrollTarget.offset() && $scrollTarget.offset().top;
+    if (typeof top !== 'number') {
+      return;
+    }
     $('html, body').stop().animate({
-      scrollTop: $scrollTarget.offset().top - getNavScrollOffset()
+      scrollTop: top - getNavScrollOffset()
     }, 0);
   }
 
@@ -617,7 +642,7 @@ $(document).ready(function() {
       return;
     }
 
-    var $target = $(hash);
+    var $target = resolveScrollTarget($(hash));
     if (!$target.length) {
       return;
     }
@@ -639,15 +664,24 @@ $(document).ready(function() {
       return;
     }
 
-    var $target = $(window.location.hash);
+    var $target = resolveScrollTarget($(window.location.hash));
     if (!$target.length) {
       return;
     }
 
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Remap legacy anchors to the real project block so hash loads don't flash wrong.
     setTimeout(function() {
       scrollToSection($target);
       onScroll();
     }, 0);
+    setTimeout(function() {
+      scrollToSection($target);
+      onScroll();
+    }, 150);
   }
 
   function openPopover(e) {

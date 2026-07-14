@@ -1,10 +1,16 @@
 {% assign p = include.project %}
+{% if p.anchor %}
+{% assign project_anchor = p.anchor %}
+{% else %}
+{% assign project_anchor = 'project-' | append: p.id %}
+{% endif %}
 {% assign active_sample = p.samples | first %}
 {% assign pre_src = '/images/' | append: active_sample.pre_image | prepend: site.baseurl %}
 {% assign post_src = '/images/' | append: active_sample.post_image | prepend: site.baseurl %}
 {% assign result_src = '/images/' | append: active_sample.result_image | prepend: site.baseurl %}
 
-<div class="viz-project" id="project-{{ p.id }}">
+<div class="viz-project" id="{{ project_anchor }}" data-project-id="{{ p.id }}">
+  {% include viz-project-legacy-anchors.html project=p %}
   {% include viz-project-title.html project=p number=include.number %}
   {% if p.description %}
   <div class="viz-project__description">{{ p.description | markdownify }}</div>

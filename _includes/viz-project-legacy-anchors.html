@@ -1,0 +1,6 @@
+{% assign p = include.project %}
+{% if p.legacy_ids %}
+{% for legacy_id in p.legacy_ids %}
+<span class="viz-project__legacy-anchor" id="{{ legacy_id }}" aria-hidden="true"></span>
+{% endfor %}
+{% endif %}

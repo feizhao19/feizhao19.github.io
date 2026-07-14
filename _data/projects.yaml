@@ -9,6 +9,9 @@ projects:
       This progressively improves cross-modal alignment, strengthens visual grounding, and enables more reliable generation without model retraining.
 
   - id: building-damage
+    anchor: RapidDamageAssessment
+    legacy_ids:
+      - project-building-damage
     title: "Computer Vision & Contrastive Representation Learning"
     description: >-
       <span class="viz-project__lead">Visual Prompt Learning of Foundation Models for Damage Evaluation:</span>
@@ -34,7 +37,10 @@ projects:
     bottom_left_label: Pre-disaster
     bottom_right_label: Damage assessment
 
-  - id: geo-agent
+  - id: rapid-response-agent
+    anchor: RapidResponseAgent
+    legacy_ids:
+      - project-geo-agent
     type: geo-agent
     title: "Multimodal AI Agent"
     youtube_id: lIQxRoqIp14

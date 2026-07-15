@@ -15,8 +15,8 @@ projects:
     title: "Computer Vision & Contrastive Representation Learning"
     description: >-
       <span class="viz-project__lead">Visual Prompt Learning of Foundation Models for Damage Evaluation:</span>
-      Given paired pre- and post-disaster imagery, we adapt Meta's Segment Anything Model (SAM) using soft prompt tuning to learn contrastive representations for building damage assessment.
-      Below is an interactive showcase of our work ViPDE ([Github](https://github.com/feizhao19/RapidDamageAssessment)), supporting 11 types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
+      Given paired pre- and post-disaster imagery, we adapt **Meta's Segment Anything Model (SAM)** using **soft prompt tuning** to learn contrastive representations for building damage assessment. The inference pipeline is cross-platform **optimized for heterogeneous GPU architectures (NVIDIA CUDA / Apple MPS)**.
+      Below is an interactive showcase of our work ViPDE ([GitHub](https://github.com/feizhao19/RapidDamageAssessment)), supporting 11 types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
       - id: potero
         label: Potero

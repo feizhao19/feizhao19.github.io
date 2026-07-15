@@ -15,7 +15,7 @@ projects:
     title: "Computer Vision & Contrastive Representation Learning"
     description: >-
       <span class="viz-project__lead">Visual Prompt Learning of Foundation Models for Damage Evaluation [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)]:</span>
-      Given paired pre- and post-disaster imagery, we adapt **Meta's Segment Anything Model (SAM)** using **soft prompt tuning** to learn contrastive representations for building damage assessment. The inference pipeline is cross-platform **optimized for heterogeneous GPU architectures (NVIDIA CUDA / Apple MPS)**.
+      Given paired pre- and post-disaster imagery, we adapt Meta's Segment Anything Model (**SAM**) using **soft prompt tuning** to learn contrastive representations for building damage assessment. The inference pipeline is cross-platform optimized for **heterogeneous GPU architectures** (NVIDIA CUDA / Apple MPS).
       Below is an interactive showcase of our work ViPDE [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], supporting 11 types of natural disasters. Drag the slider to compare pre- and post-disaster imagery (top) with the predicted damage map (bottom). Use the buttons to switch between sample communities.
     samples:
       - id: potero
@@ -47,7 +47,7 @@ projects:
     youtube_aspect_ratio: "1920/954"
     description: >-
       <span class="viz-project__lead">RapidResponseAgent [[GitHub](https://github.com/feizhao19/RapidResponseAgent)]</span>
-      An agentic runtime for post-disaster assessment that provides an artifact-centric orchestration stack for heterogeneous agent workloads. The runtime coordinates **GPU-heavy visual perception** [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], **VLM-based (e.g., LLaMA)** discrepancy **verification and reasoning** over uncertain assessments, structured damage analytics, facilities lookup, and locally deployed RAG+LLM reasoning through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It decouples heavy inference from lightweight follow-up analysis, enabling reliable multi-turn Q&amp;A over cached assessment artifacts and on-demand decision-ready reports.
+      An agentic runtime for post-disaster assessment that provides an artifact-centric orchestration stack for heterogeneous agent workloads. The runtime coordinates **GPU-heavy visual perception** [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], VLM-based (e.g., LLaMA) discrepancy **verification and reasoning** over uncertain assessments, structured damage analytics, facilities lookup, and locally deployed RAG+LLM reasoning through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It decouples heavy inference from lightweight follow-up analysis, enabling reliable multi-turn Q&amp;A over cached assessment artifacts and on-demand decision-ready reports.
     preview_caption: "Demo walkthrough of the RapidResponseAgent dashboard."
 
   - id: attitude-fusion

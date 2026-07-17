@@ -1,7 +1,16 @@
 h4 {
-  letter-spacing: .1rem; 
-  color: #2982ac; 
-  font-weight: 500;}
+  letter-spacing: .1rem;
+  color: #2982ac;
+  font-weight: 500;
+  /* Override Skeleton's margin-top:0 / margin-bottom:2rem so section
+     titles are not cramped above and oversized below. */
+  margin-top: 0.35rem;
+  margin-bottom: 0.85rem;
+}
+.docs-section > h4 {
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+}
 .container {
   max-width: 800px;
   box-sizing: border-box;
@@ -798,6 +807,29 @@ body.paper-lightbox-open {
   margin-left: 20px;
 }
 .numbered-list p {
+  margin-bottom: 0.35em;
+}
+
+/* Keep Service subsection titles equally spaced whether they follow
+   a numbered-list or a bullet list. */
+#service > p {
+  margin-top: 1.35rem;
+  margin-bottom: 0.45rem;
+}
+#service > h4 + p {
+  margin-top: 0;
+}
+#service > .numbered-list,
+#service > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#service > ul {
+  list-style-position: inside;
+  margin-left: 20px;
+  padding-left: 0;
+}
+#service > ul li {
   margin-bottom: 0.35em;
 }
 .paper p {

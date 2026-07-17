@@ -1,53 +1,59 @@
 items:
-  - sort: 202605
+  - sort: 20260713
+    month: "Jul"
+    year: 2026
+    text: >-
+      [Invited by **Meta** to share our research on foundation models and AI agents for disaster response with the **NSF AI Institute for Societal Decision Making (AI-SDM)** at Carnegie Mellon University](https://www.linkedin.com/feed/update/urn:li:activity:7482639840853827586/).
+
+  - sort: 20260501
     month: "May"
     year: 2026
     text: >-
       Paper accepted by **IEEE IRI 2027**!
 
-  - sort: 2026042
+  - sort: 20260402
     month: "Apr"
     year: 2026
     text: >-
       [Paper](/files/iclr_Evolving_Safety_Landscape.pdf) presented at **ICLR 2026** Trustworthy AI Workshop.
 
-  - sort: 2026041
+  - sort: 20260401
     month: "Apr"
     year: 2026
     text: >-
       **Invited to serve as PC Member**, ACM Multimedia (2026).
 
-  - sort: 202603
+  - sort: 20260301
     month: "Mar"
     year: 2026
     text: >-
       **Program Committee Chair**, [IEEE IRI Poster Session (2026)](https://ieee-iri.github.io/2026/committee_organizing.html).
 
-  - sort: 202512
+  - sort: 20251201
     month: "Dec"
     year: 2025
     text: >-
       Received the [**Dean's Award for Outstanding Graduate Student (Doctoral)**](https://www.uab.edu/cas/news/students/nine-students-receive-2025-college-of-arts-and-sciences-deans-awards), UAB CAS.
 
-  - sort: 202510
+  - sort: 20251001
     month: "Oct"
     year: 2025
     text: >-
       [Paper](/files/ICCV_paper.pdf) “**Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective**” accepted at the **TrustFM Workshop @ ICCV 2025** (Hawai'i, Oct 19–23)!
 
-  - sort: 202509
+  - sort: 20250901
     month: "Sep"
     year: 2025
     text: >-
       **Invited to serve as PC Member**, PAKDD (2026).
 
-  - sort: 202507
+  - sort: 20250701
     month: "Jul"
     year: 2025
     text: >-
       Our work [MarkMatch: Same-Hand Stuffing Detection](/files/MarkMatch.pdf) successfully demonstrated at **IEEE ICME 2025** (Nantes, France, Jun 30–Jul 4).
 
-  - sort: 202410
+  - sort: 20241001
     month: "Oct"
     year: 2024
     text: >-

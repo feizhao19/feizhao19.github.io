@@ -21,16 +21,18 @@
           role="button"
           tabindex="0"
           data-youtube-id="{{ p.youtube_id }}"
-          data-modal-id="geo-agent-modal-{{ p.id }}"
+          data-aspect-ratio="{{ p.youtube_aspect_ratio | default: '1920/954' }}"
           aria-label="Play RapidResponseAgent demo video"
         >
           <span class="geo-agent-preview__media">
             <img
               class="geo-agent-preview__img"
-              src="{{ '/images/Agent_project.png' | prepend: site.baseurl }}"
+              src="{{ '/images/Agent_project_preview.jpg' | prepend: site.baseurl }}"
               alt="RapidResponseAgent dashboard showing a post-disaster damage map, assessment statistics, and a conversational AI interface for rapid disaster response"
               loading="lazy"
               decoding="async"
+              width="1280"
+              height="803"
             >
             <span class="geo-agent-preview__overlay" aria-hidden="true">
               <span class="geo-agent-preview__play-icon">
@@ -50,10 +52,12 @@
         >
           <img
             class="geo-agent-preview__img"
-            src="{{ '/images/Agent_project.png' | prepend: site.baseurl }}"
+            src="{{ '/images/Agent_project_preview.jpg' | prepend: site.baseurl }}"
             alt="RapidResponseAgent dashboard showing a post-disaster damage map, assessment statistics, and a conversational AI interface for rapid disaster response"
             loading="lazy"
             decoding="async"
+            width="1280"
+            height="803"
           >
         </a>
         {% endif %}
@@ -66,33 +70,62 @@
 </div>
 
 {% if p.youtube_id %}
-<div
-  class="demo-modal js-geo-agent-modal"
-  id="geo-agent-modal-{{ p.id }}"
-  role="dialog"
-  aria-modal="true"
-  aria-label="RapidResponseAgent demo video"
-  aria-hidden="true"
-  hidden
-  data-aspect-ratio="{{ p.youtube_aspect_ratio | default: '1920/954' }}"
->
-  <div class="demo-modal__backdrop js-geo-agent-close" aria-hidden="true"></div>
-  <button type="button" class="demo-modal__close js-geo-agent-close" aria-label="Close demo">&times;</button>
-  <div class="demo-modal__content demo-modal__content--geo-agent">
-    <p class="demo-modal__hint">Press Escape or click the background to close</p>
-    <div
-      class="geo-agent-modal__video-wrap js-geo-agent-video-wrap"
-      style="--geo-agent-video-aspect: {{ p.youtube_aspect_ratio | default: '1920/954' }};"
-    >
-      <iframe
-        class="geo-agent-modal__video js-geo-agent-iframe"
-        title="RapidResponseAgent demo walkthrough"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
-    </div>
-  </div>
-</div>
-<script src="{{ '/libs/custom/demos/geo-agent.js' | prepend: site.baseurl }}" defer fetchpriority="low"></script>
+<script>
+(function () {
+  var src = {{ '/libs/custom/demos/geo-agent.js' | prepend: site.baseurl | jsonify }};
+  var loading = false;
+  function loadGeoAgentDemo() {
+    if (loading || window.__geoAgentDemoReady) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onload = function () { window.__geoAgentDemoReady = true; };
+    document.head.appendChild(s);
+  }
+  document.addEventListener('pointerdown', function (e) {
+    var trigger = e.target.closest && e.target.closest('.js-geo-agent-open');
+    if (!trigger) return;
+    if (window.__geoAgentOpenPending) {
+      window.__geoAgentOpenPending(trigger);
+    } else {
+      window.__geoAgentPendingTrigger = trigger;
+    }
+    loadGeoAgentDemo();
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if ((e.key !== 'Enter' && e.key !== ' ') || !(e.target.closest && e.target.closest('.js-geo-agent-open'))) return;
+    var trigger = e.target.closest('.js-geo-agent-open');
+    if (window.__geoAgentOpenPending) {
+      window.__geoAgentOpenPending(trigger);
+    } else {
+      window.__geoAgentPendingTrigger = trigger;
+    }
+    loadGeoAgentDemo();
+  }, true);
+  function scheduleIdleLoad() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadGeoAgentDemo, { timeout: 6000 });
+    } else {
+      window.addEventListener('load', function () { setTimeout(loadGeoAgentDemo, 2500); });
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    var trigger = document.querySelector('.js-geo-agent-open');
+    if (trigger) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (entry) { return entry.isIntersecting; })) {
+          io.disconnect();
+          scheduleIdleLoad();
+        }
+      }, { rootMargin: '200px 0px' });
+      io.observe(trigger);
+    } else {
+      scheduleIdleLoad();
+    }
+  } else {
+    scheduleIdleLoad();
+  }
+})();
+</script>
 {% endif %}

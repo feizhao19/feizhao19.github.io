@@ -2,68 +2,88 @@
   'use strict';
 
   var EMBED_BASE = 'https://www.youtube-nocookie.com/embed/';
-
-  function getModalForTrigger(trigger) {
-    var modalId = trigger.getAttribute('data-modal-id');
-    return modalId ? document.getElementById(modalId) : null;
-  }
-
-  function getVideoId(trigger) {
-    return trigger.getAttribute('data-youtube-id') || '';
-  }
+  var modal = null;
+  var pendingOpen = null;
 
   function buildEmbedSrc(videoId) {
     return EMBED_BASE + encodeURIComponent(videoId) + '?autoplay=1&rel=0';
   }
 
-  function openModal(modal, videoId) {
-    var iframe = modal.querySelector('.js-geo-agent-iframe');
+  function ensureModal(aspectRatio) {
+    if (modal) return modal;
+
+    modal = document.createElement('div');
+    modal.className = 'demo-modal js-geo-agent-modal';
+    modal.id = 'geo-agent-modal-lazy';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'RapidResponseAgent demo video');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.hidden = true;
+    modal.innerHTML =
+      '<div class="demo-modal__backdrop js-geo-agent-close" aria-hidden="true"></div>' +
+      '<button type="button" class="demo-modal__close js-geo-agent-close" aria-label="Close demo">&times;</button>' +
+      '<div class="demo-modal__content demo-modal__content--geo-agent">' +
+        '<p class="demo-modal__hint">Press Escape or click the background to close</p>' +
+        '<div class="geo-agent-modal__video-wrap js-geo-agent-video-wrap" style="--geo-agent-video-aspect: ' + aspectRatio + ';">' +
+          '<iframe class="geo-agent-modal__video js-geo-agent-iframe" title="RapidResponseAgent demo walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+    return modal;
+  }
+
+  function openModal(videoId, aspectRatio) {
+    var current = ensureModal(aspectRatio || '1920/954');
+    var wrap = current.querySelector('.js-geo-agent-video-wrap');
+    var iframe = current.querySelector('.js-geo-agent-iframe');
     if (!iframe) return;
 
+    if (wrap && aspectRatio) {
+      wrap.style.setProperty('--geo-agent-video-aspect', aspectRatio);
+    }
+    // Assign src only when opening — YouTube never loads on initial page render.
     iframe.src = buildEmbedSrc(videoId);
-    modal.hidden = false;
-    modal.setAttribute('aria-hidden', 'false');
+    current.hidden = false;
+    current.setAttribute('aria-hidden', 'false');
     document.body.classList.add('demo-modal-open');
   }
 
-  function closeModal(modal) {
+  function closeModal() {
+    if (!modal) return;
     var iframe = modal.querySelector('.js-geo-agent-iframe');
     if (iframe) {
       iframe.src = '';
+      iframe.removeAttribute('src');
     }
     modal.hidden = true;
     modal.setAttribute('aria-hidden', 'true');
-    if (!document.querySelector('.demo-modal:not([hidden])')) {
-      document.body.classList.remove('demo-modal-open');
-    }
+    document.body.classList.remove('demo-modal-open');
+  }
+
+  function tryOpenFromTrigger(trigger) {
+    var videoId = trigger.getAttribute('data-youtube-id') || '';
+    if (!videoId) return;
+    openModal(videoId, trigger.getAttribute('data-aspect-ratio') || '1920/954');
   }
 
   function initGeoAgentDemo() {
     document.addEventListener('click', function(event) {
       var openTrigger = event.target.closest('.js-geo-agent-open');
       if (openTrigger) {
-        var modal = getModalForTrigger(openTrigger);
-        var videoId = getVideoId(openTrigger);
-        if (modal && videoId) {
-          openModal(modal, videoId);
-        }
+        tryOpenFromTrigger(openTrigger);
         return;
       }
 
-      var closeTrigger = event.target.closest('.js-geo-agent-close');
-      if (closeTrigger) {
-        var modal = closeTrigger.closest('.js-geo-agent-modal');
-        if (modal) {
-          closeModal(modal);
-        }
+      if (event.target.closest('.js-geo-agent-close')) {
+        closeModal();
       }
     });
 
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
-        var openModalEl = document.querySelector('.js-geo-agent-modal:not([hidden])');
-        if (openModalEl) {
-          closeModal(openModalEl);
+        if (modal && !modal.hidden) {
+          closeModal();
         }
         return;
       }
@@ -72,13 +92,24 @@
       if (!trigger) return;
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        var modal = getModalForTrigger(trigger);
-        var videoId = getVideoId(trigger);
-        if (modal && videoId) {
-          openModal(modal, videoId);
-        }
+        tryOpenFromTrigger(trigger);
       }
     });
+
+    // If the user clicked before this script finished loading, open now.
+    if (pendingOpen) {
+      tryOpenFromTrigger(pendingOpen);
+      pendingOpen = null;
+    }
+  }
+
+  window.__geoAgentOpenPending = function(trigger) {
+    pendingOpen = trigger;
+  };
+
+  if (window.__geoAgentPendingTrigger) {
+    pendingOpen = window.__geoAgentPendingTrigger;
+    window.__geoAgentPendingTrigger = null;
   }
 
   if (document.readyState === 'loading') {

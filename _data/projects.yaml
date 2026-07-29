@@ -43,7 +43,7 @@ projects:
       - project-geo-agent
     type: geo-agent
     title: "Multimodal AI Agent"
-    youtube_id: lIQxRoqIp14
+    youtube_id: FHo7Og4VCOg
     youtube_aspect_ratio: "1920/954"
     description: >-
       <span class="viz-project__lead">RapidResponseAgent [[GitHub](https://github.com/feizhao19/RapidResponseAgent)]</span>

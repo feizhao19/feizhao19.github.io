@@ -47,7 +47,8 @@ projects:
     youtube_aspect_ratio: "1920/954"
     description: >-
       <span class="viz-project__lead">RapidResponseAgent [[GitHub](https://github.com/feizhao19/RapidResponseAgent)]</span>
-      Designed to help emergency response teams rapidly assess disaster situations and allocate resources, RapidResponseAgent is a **fully local**, interactive multimodal **AI agent** built on open-weight models. The runtime coordinates GPU-heavy visual perception [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], VLM-based (e.g., LLaMA) discrepancy **verification and reasoning**, structured damage analytics, facilities lookup, and RAG+LLM reasoning through persistent session memory, episodic tool traces, and manifest-driven checkpoints, keeping sensitive disaster imagery and assessment data on-premises. It decouples heavy inference from lightweight follow-up analysis, enabling reliable multi-turn Q&amp;A over cached assessment artifacts and on-demand decision-ready reports.
+      From a single natural-language request, it assesses building damage in satellite imagery, verifies its own findings, links them to nearby facilities, and generates decision-ready reports for emergency response teams.
+      A **fully local**, interactive multimodal **AI agent** built on open-weight models, it coordinates GPU-heavy visual perception [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], VLM-based (e.g., LLaMA) **verification and reasoning**, damage analytics, and RAG+LLM retrieval through persistent session memory and tool traces. Decoupling heavy inference from lightweight follow-up analysis enables reliable multi-turn Q&amp;A over cached results while keeping sensitive imagery on-premises.
     preview_caption: "Demo walkthrough of the RapidResponseAgent dashboard."
 
   - id: attitude-fusion

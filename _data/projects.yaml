@@ -3,11 +3,13 @@ projects:
     type: vlm-hallucination
     title: "Multimodal Large Language Models & Reinforcement Learning"
     description: >-
-      <span class="viz-project__lead">Test-Time Traning (TTT) for Cross-Modal Generation and Vision-Language Models [[GitHub](https://github.com/feizhao19/VisionGuard)]:</span>
-      An inference-time training framework designed to **address data distribution shift** in cross-modal generation.
-      Proposed in 2024, our work [[GitHub](https://github.com/feizhao19/VisionGuard)] introduced a relationship-based optimization strategy that optimizes candidate responses by their relative quality rather than absolute reward values, preceding the widespread adoption of similar relative-ranking reinforcement learning methods (e.g., GRPO).
-      This progressively improves cross-modal alignment, strengthens visual grounding, and enables more reliable generation without model retraining.
-
+      <span class="viz-project__lead">Test-Time Training (TTT) for Cross-Modal Generation and MLLMs [[GitHub](https://github.com/feizhao19/VisionGuard)]:</span>
+      An inference-time RL training framework that addresses **data distribution shift** and **hallucination** in cross-modal generation.
+      Proposed in 2024, it optimizes candidate responses by their relative quality rather than absolute reward values, preceding the widespread adoption of similar relative-ranking RL methods (e.g., GRPO).
+      We further diagnosed a **reward-hacking** gap: CLIP's alignment score still rewarded mostly correct captions containing a single localized hallucination.
+      **To close it**, we built **12M+ synthetic caption pairs**, each pairing a correct caption with a hallucination-injected variant, to **contrastively train an NHP verifier** on top of frozen CLIP.
+      Combined with the CLIP score, the NHP signal makes the reward catch fine-grained hallucinations and harder to game, reducing hallucinations by 4.8% over CLIP score alone.
+ 
   - id: building-damage
     anchor: RapidDamageAssessment
     legacy_ids:
@@ -47,8 +49,9 @@ projects:
     youtube_aspect_ratio: "1920/954"
     description: >-
       <span class="viz-project__lead">RapidResponseAgent [[GitHub](https://github.com/feizhao19/RapidResponseAgent)]</span>
-      From a single natural-language request, it assesses building damage in satellite imagery, verifies its own findings, links them to nearby facilities, and generates decision-ready reports for emergency response teams.
-      A **fully local**, interactive multimodal **AI agent** built on open-weight models, it coordinates GPU-heavy visual perception [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], VLM-based (e.g., LLaMA) **verification and reasoning**, damage analytics, and RAG+LLM retrieval through persistent session memory and tool traces. Decoupling heavy inference from lightweight follow-up analysis enables reliable multi-turn Q&amp;A over cached results while keeping sensitive imagery on-premises.
+      Given a text request, an image, or both, it assesses building damage in satellite imagery, verifies its own findings, links them to nearby facilities, and generates decision-ready reports for emergency response teams.
+      A **fully local**, interactive multimodal **AI agent** built on open-weight models, it coordinates GPU-heavy visual perception [[GitHub](https://github.com/feizhao19/RapidDamageAssessment)], VLM-based (e.g., LLaMA) **verification and reasoning refined with DPO**, damage analytics, and RAG retrieval through persistent session memory and tool traces. Decoupling heavy inference from lightweight follow-up analysis enables reliable multi-turn Q&amp;A over cached results while keeping sensitive imagery on-premises.
+      
     preview_caption: "Demo walkthrough of the RapidResponseAgent dashboard."
 
   - id: attitude-fusion

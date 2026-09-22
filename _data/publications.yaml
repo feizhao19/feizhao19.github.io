@@ -1,5 +1,13 @@
 papers:
   - label: C
+    number: 18
+    title: "On Optimal Modality Compression for Bandwidth Constrained Multimodal Fusion"
+    authors: "Mengchen Fan, <u>Fei Zhao</u>, Chengcui Zhang, Shuya Feng, Baocheng Geng"
+    venue: "IEEE IRI, 2026"
+    image: two-modality.png
+    link: /files/Constrained_Multimodal_Fusion.pdf
+
+  - label: C
     number: 17
     title: "MarkMatch: Same-Hand Stuffing Detection"
     authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"

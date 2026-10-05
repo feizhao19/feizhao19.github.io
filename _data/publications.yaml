@@ -1,22 +1,14 @@
 papers:
-  - label: C
+  - label: J
     number: 18
-    title: "On Optimal Modality Compression for Bandwidth Constrained Multimodal Fusion"
-    authors: "Mengchen Fan, <u>Fei Zhao</u>, Chengcui Zhang, Shuya Feng, Baocheng Geng"
-    venue: "IEEE IRI, 2026"
-    image: two-modality.png
-    link: /files/Constrained_Multimodal_Fusion.pdf
+    title: "Deep Multimodal Data Fusion"
+    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Baocheng Geng"
+    venue: "<b>ACM Computing Surveys</b>, 2024 [Impact Factor: 23.8]"
+    image: deepmultimodalfusion.png
+    link: /files/CSUR.pdf
 
   - label: C
     number: 17
-    title: "MarkMatch: Same-Hand Stuffing Detection"
-    authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
-    venue: "<b>IEEE ICME</b>, 2025"
-    image: arch_encoder.png
-    link: /files/MarkMatch.pdf
-
-  - label: C
-    number: 16
     title: "Mitigating Image Captioning Hallucinations in Vision-Language Models"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang, Xi Li"
     venue: "IEEE MIPR, 2025"
@@ -25,7 +17,31 @@ papers:
     link: /files/RL4VLM.pdf
 
   - label: C
+    number: 16
+    title: "On Optimal Modality Compression for Bandwidth Constrained Multimodal Fusion"
+    authors: "Mengchen Fan, <u>Fei Zhao</u>, Chengcui Zhang, Shuya Feng, Baocheng Geng"
+    venue: "IEEE IRI, 2026"
+    image: two-modality.png
+    link: /files/Constrained_Multimodal_Fusion.pdf
+
+  - label: C
+    number: 15
+    title: "MarkMatch: Same-Hand Stuffing Detection"
+    authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
+    venue: "<b>IEEE ICME</b>, 2025"
+    image: arch_encoder.png
+    link: /files/MarkMatch.pdf
+
+  - label: J
     number: 14
+    title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
+    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
+    venue: "Remote Sensing, 2025 [Impact Factor: 4.2]"
+    image: prompt.png
+    link: /files/PEFT_VPL.pdf
+
+  - label: C
+    number: 13
     title: "CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset"
     authors: "<u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang"
     venue: "<b>ACM CIKM</b>, 2024"
@@ -33,7 +49,7 @@ papers:
     link: /files/CheckGuard.pdf
 
   - label: C
-    number: 13
+    number: 12
     title: "Deep Body Fitness"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Sheikh Abujar"
     venue: "IEEE IRI, 2024 (Poster)"
@@ -41,7 +57,7 @@ papers:
     link: /files/Deep_Body_Fitness.pdf
 
   - label: C
-    number: 12
+    number: 11
     title: "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis"
     authors: "<u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, Zixi Nan"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
@@ -49,7 +65,7 @@ papers:
     link: /files/Gencheck.pdf
 
   - label: C
-    number: 11
+    number: 10
     title: "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
@@ -57,12 +73,20 @@ papers:
     link: /files/PEFT_Adaptation.pdf
 
   - label: C
-    number: 10
+    number: 9
     title: "BubbleSig: Same-Hand Ballot Stuffing Detection"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
     image: fruad.png
     link: /files/BubbleSig.pdf
+
+  - label: J
+    number: 8
+    title: "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student"
+    authors: "Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, <u>Fei Zhao</u>, Narcy Amireddy, Michael Johnson"
+    venue: "The Journal of Bone & Joint Surgery, 2024 [Impact Factor: 5.3]"
+    image: medi.png
+    link: https://pmc.ncbi.nlm.nih.gov/articles/PMC10817159/
 
   - label: C
     number: 7
@@ -102,30 +126,6 @@ papers:
     venue: "IEEE IRI, 2020 (Acceptance Rate: 29%)"
     image: iri_damage.png
     link: /files/BDE.pdf
-
-  - label: J
-    number: 15
-    title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
-    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
-    venue: "Remote Sensing, 2025 [Impact Factor: 4.2]"
-    image: prompt.png
-    link: /files/PEFT_VPL.pdf
-
-  - label: J
-    number: 9
-    title: "Deep Multimodal Data Fusion"
-    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Baocheng Geng"
-    venue: "<b>ACM Computing Surveys</b>, 2024 [Impact Factor: 23.8]"
-    image: deepmultimodalfusion.png
-    link: /files/CSUR.pdf
-
-  - label: J
-    number: 8
-    title: "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student"
-    authors: "Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, <u>Fei Zhao</u>, Narcy Amireddy, Michael Johnson"
-    venue: "The Journal of Bone & Joint Surgery, 2024 [Impact Factor: 5.3]"
-    image: medi.png
-    link: https://pmc.ncbi.nlm.nih.gov/articles/PMC10817159/
 
   - label: J
     number: 2

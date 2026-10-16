@@ -749,7 +749,7 @@
     this._resetVlmNeuro();
     this.root.classList.remove('is-running','is-complete','is-tta-done','is-paused');
     this._setPauseUi(false);
-    this._status('Press <em>Run TTA</em> to start.');
+    this._status('Press <em>Run TTT</em> to start.');
   };
 
   Demo.prototype._setIteration = function (iter) {
@@ -1265,7 +1265,7 @@
           if (!ok2 || token !== self.runToken) return null;
           self._applyVlmPulse('Generating...', false);
           self._ensureTtaPanelPulse();
-          self._status('Starting '+self.totalIters+' TTA loops');
+          self._status('Starting '+self.totalIters+' TTT loops');
           return self._wait(280, token);
         });
       })
@@ -1300,7 +1300,7 @@
         self._workWire('input-vlm');
         self._applyVlmPulse('Generating...', false);
         self._workWire('vlm-output');
-        self._status('TTA complete — generating final caption');
+        self._status('TTT complete — generating final caption');
         return self._wait(650, token);
       })
       .then(function(r){

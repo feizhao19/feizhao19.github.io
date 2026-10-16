@@ -44,7 +44,7 @@ samples:
           - beam_rank: 5
             caption: An urban disaster scene with buildings surrounded by water.
             reward: -2.00
-      - label: TTA Step 1
+      - label: TTT Step 1
         mean: 0.50
         candidates:
           - beam_rank: 1
@@ -62,7 +62,7 @@ samples:
           - beam_rank: 5
             caption: Cars traveling through a rain-soaked intersection between tall buildings.
             reward: 1.10
-      - label: TTA Step 2
+      - label: TTT Step 2
         mean: 1.42
         candidates:
           - beam_rank: 1
@@ -125,7 +125,7 @@ samples:
           - beam_rank: 5
             caption: A green reptile climbing through dense jungle vegetation.
             reward: 1.10
-      - label: TTA Step 1
+      - label: TTT Step 1
         mean: 0.66
         candidates:
           - beam_rank: 1
@@ -143,7 +143,7 @@ samples:
           - beam_rank: 5
             caption: A gecko resting on mossy bark.
             reward: -0.40
-      - label: TTA Step 2
+      - label: TTT Step 2
         mean: 1.38
         candidates:
           - beam_rank: 1

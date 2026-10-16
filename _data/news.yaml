@@ -3,15 +3,27 @@ items:
     month: "Jul"
     year: 2026
     text: >-
-      [Invited by **Meta AI for Good**](https://www.linkedin.com/feed/update/urn:li:activity:7482639840853827586/) to give a talk on foundation models and AI agents for disaster response at the **NSF AI-SDM Institute**, Carnegie Mellon University.
+      [Invited by **Meta AI for Good**](https://www.linkedin.com/feed/update/urn:li:activity:7482639840853827586/) to give a talk on foundation models and AI agents for disaster response at the **NSF AI-SDM Institute**, **Carnegie Mellon University**.
 
-  - sort: 20260501
+  - sort: 20260526
+    month: "May"
+    year: 2026
+    text: >-
+      Invited by the **California Governor's Office of Emergency Services (Cal OES)**, jointly with **Meta AI for Good**, to give a talk on visual prompt learning of foundation models for post-disaster building damage evaluation.
+
+  - sort: 20260516
     month: "May"
     year: 2026
     text: >-
       [Paper](/files/Constrained_Multimodal_Fusion.pdf) accepted by **IEEE IRI 2027**!
 
-  - sort: 20260402
+  - sort: 20260406
+    month: "Apr"
+    year: 2026
+    text: >-
+      Invited by the **California Governor's Office of Emergency Services (Cal OES)**, jointly with **Meta AI for Good**, to give a talk on applications of foundation models in rapid disaster response and emergency management.
+
+  - sort: 20260425
     month: "Apr"
     year: 2026
     text: >-

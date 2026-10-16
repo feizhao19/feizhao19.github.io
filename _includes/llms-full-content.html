@@ -32,6 +32,13 @@ I am a Machine Learning Research Scientist (Postdoctoral Fellow) at the Universi
 
 My research seeks to develop learning systems that can transform multimodal observations into actionable knowledge. I am particularly interested in enabling machines to generate grounded representations, reason under uncertainty, evaluate their own outputs, and make reliable decisions in complex environments. To advance this vision, my research is organized around four interconnected pillars: multimodal perception, multimodal learning, foundation models, and agentic decision making.
 
+## News
+
+{% assign news_items = site.data.news.items | sort: "sort" | reverse %}
+{% for item in news_items %}
+- {{ item.month }} {{ item.year }}: {{ item.text | markdownify | strip_html | strip }}
+
+{% endfor %}
 ## Projects
 
 {% for project in site.data.projects.projects %}
@@ -73,13 +80,6 @@ Citation summary (Google Scholar, {{ cites.updated }}): first-authored papers {{
   {% if paper.link %}Link: {% if paper.link contains "://" %}{{ paper.link }}{% else %}{{ site_url }}{{ paper.link }}{% endif %}{% endif %}
 
 {% endfor %}
-## News
-
-{% assign news_items = site.data.news.items | sort: "sort" | reverse %}
-{% for item in news_items %}
-- {{ item.month }} {{ item.year }}: {{ item.text | markdownify | strip_html | strip }}
-
-{% endfor %}
 ## Grants
 
 1. Chengcui Zhang (PI), Nitesh Saxena (PI), Dan Wallach (PI), NSF SaTC-2154589, "Bubble Aid: Assistive AI to Improve the Robustness and Security of Reading Hand-Marked Ballots," $1,200,000, 10/01/2022–09/30/2025. (Main contributor to preliminary work and part of the grant writing)
@@ -106,13 +106,25 @@ Citation summary (Google Scholar, {{ cites.updated }}): first-authored papers {{
 
 ## Teaching (Teaching Assistant, UAB)
 
-- CS 410-QL Database App Dev, 2022 Fall
-- CS 665/765-9I Deep Learning, 2022 Spring
-- CS 410-QL/510-QL Database App Dev, 2021 Fall
-- CS 665/765 Deep Learning, 2021 Spring
-- CS 332/532 Systems Programming, 2020 Fall
+Led TA teams, taught lab sections, held office hours, and graded assignments.
+
+- CS 510-QL Database Application Development, 2019 Fall, 2021 Fall, 2022 Fall
+- CS 665/765 Deep Learning, 2021 Spring, 2022 Spring
 - CS 473/673/773 Computer Vision, 2020 Spring
-- CS 510-QL Database App Dev, 2019 Fall
+- CS 332/532 Systems Programming, 2020 Fall
+- CS 499 Senior BS/BA Capstone, 2019 Fall
+- CS 499/CSA 499 Senior BS Capstone, 2020 Spring
+
+### Research Mentoring and Project Advising
+
+Mentored students on thesis/research projects; mentees co-authored 6 peer-reviewed papers.
+
+- Roselyn Zhang, Undergraduate Student, Computer Science, University of Waterloo, 2024–2026
+- Ravi Teja Challa, Master Student, Computer Science, UAB, 2025
+- Yifan Ying, Master Student, Computer Science, UAB, 2024
+- Jasper Shen, Master Student, Computer Science, UAB, 2024
+- Jiawen Chen, Undergraduate Student, Beijing University of Technology, 2024
+- Linghuan Zeng, Master Student, Computer Science, UAB, 2023
 
 ## Experience
 
@@ -141,27 +153,56 @@ Focus: {{ entry.tags | join: ", " }}
 
 ### Journal Reviewer
 
-ACM Computing Surveys; Trends in Food Science & Technology; Knowledge and Information Systems; IEEE TGRS; International Journal of Multimedia Data Engineering and Management; IEEE/ACM TCBB; Computers and Electronics in Agriculture; International Journal of Business Data Communications and Networking; IEEE TMM; IEEE GRSL; IEEE TDSC; Expert Systems with Applications; International Journal of Semantic Computing; Palgrave Communications; PLOS ONE; Knowledge-Based Systems; IET Image Processing; IEEE Sensors Journal; The Journal of Supercomputing; Optics and Laser Technology; Pattern Recognition.
+- Trends in Food Science & Technology [Impact Factor: 17.4]
+- IEEE Transactions on Multimedia [Impact Factor: 9.9]
+- Pattern Recognition [Impact Factor: 9.1]
+- Engineering Applications of Artificial Intelligence [Impact Factor: 9.0]
+- Information Processing and Management [Impact Factor: 8.1]
+- PeerJ [Impact Factor: 2.9]
+- Knowledge-Based Systems [Impact Factor: 8.0]
+- IEEE Transactions on Dependable and Secure Computing [Impact Factor: 6.8]
+- Ad Hoc Networks [Impact Factor: 5.4]
+- Optics and Laser Technology [Impact Factor: 5.2]
+- Scientific Reports (Nature Portfolio) [Impact Factor: 4.9]
+- The Journal of Supercomputing [Impact Factor: 3.5]
+- Symmetry [Impact Factor: 2.2]
+- Science of Remote Sensing [Impact Factor: 7.1]
+- Progress in Disaster Science [Impact Factor: 4.0]
+- International Journal of Data Science and Analytics [Impact Factor: 2.9]
+- Computers and Electronics in Agriculture [Impact Factor: 10.3]
+- Expert Systems with Applications [Impact Factor: 9.4] (Co-Reviewer)
+- Palgrave Communications [Impact Factor: 4.8] (Co-Reviewer)
+- PLOS ONE [Impact Factor: 2.8] (Co-Reviewer)
+- IEEE Transactions on Geoscience and Remote Sensing (TGRS) [Impact Factor: 7.5] (Co-Reviewer)
+- IET Image Processing [Impact Factor: 2.4] (Co-Reviewer)
+- Knowledge and Information Systems [Impact Factor: 3.6] (Co-Reviewer)
+- IEEE/ACM Transactions on Computational Biology and Bioinformatics [Impact Factor: 4.1] (Co-Reviewer)
+- ACM Computing Surveys [Impact Factor: 23.8] (Co-Reviewer)
 
 ### Conference Reviewer
 
-IEEE ICME (2020–2026); ACM MM (2021–2025); IEEE AVSS (2025); ICASSP (2023–2026); PAKDD (2026).
+- IEEE International Conference on Multimedia and Expo (IEEE ICME), 2020–2026
+- ACM International Conference on Multimedia (ACM MM), 2021–2025
+- IEEE International Conference on Deep Learning and Computer Vision (IEEE DLCV), 2025
+- IEEE International Conference on Advanced Visual and Signal-Based Systems (IEEE AVSS), 2025
+- IEEE International Conference on Acoustics, Speech and Signal Processing (IEEE ICASSP), 2023–2026
+- Asian Conference on Machine Learning (ACML), 2026
+- Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD 2026), 2026
+- IEEE International Conference on Information Reuse and Integration (IEEE IRI), 2026
+
+### Invited Talks
+
+- “Foundation Models and AI Agents for Disaster Response,” July 13, 2026. Invited by Meta AI for Good, the NSF AI Institute for Societal Decision Making (AI-SDM), and Carnegie Mellon University.
+- “Visual Prompt Learning of Foundation Models for Post-Disaster Building Damage Evaluation,” Remote Sensing Working Group Session, California Governor’s Office of Emergency Services (Cal OES), May 26, 2026. Invited jointly with Meta AI for Good.
+- “Potential Applications of Foundation Models in Rapid Disaster Response and Emergency Management,” Remote Sensing Working Group Session, California Governor’s Office of Emergency Services (Cal OES), May 26, 2026. Invited jointly with Meta AI for Good.
 
 ### Panels
 
-- Panelist, "Global Awareness: International Student Insights on the Experience of Studying in the United States," UAB, 2023.
-- Panelist, "Orientation for International Graduate Students," UAB, Summer Semester, 2023.
-- Panelist, "Orientation for International Graduate Students," UAB, Fall Semester, 2023.
+- Invited Panelist, “Global Awareness: International Student Insights on the Experience of Studying in the United States,” UAB, 2023.
+- Invited Panelist, “Orientation for International Graduate Students,” UAB, Summer and Fall Semesters, 2023.
 
-### Mentoring
+### Service and Outreach
 
-- Roselyn Zhang, Undergraduate Student, Computer Science, University of Waterloo, 2024–2026
-- Ravi Teja Challa, Master Student, Computer Science, UAB, 2025
-- Yifan Ying, Master Student, Computer Science, UAB, 2024
-- Jasper Shen, Master Student, Computer Science, UAB, 2024
-- Linghuan Zeng, Master Student, Computer Science, UAB, 2023
-
-### Volunteer
-
-- IT Support and Web Development: The World Games (2022), IEEE IRI (2020–2021), Birmingham Chinese Professor Association (2020–present)
-- United States Anti-Doping Agency (2022)
+- Website Development Volunteer, Birmingham Chinese Professor Association, 2020–2026
+- IT Support Volunteer, The World Games (TWG 2022), Birmingham, AL, USA
+- Student Volunteer, IEEE International Conference on Information Reuse and Integration, 2020–2021

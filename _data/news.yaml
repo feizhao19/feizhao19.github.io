@@ -3,13 +3,13 @@ items:
     month: "Jul"
     year: 2026
     text: >-
-      [Invited by **Meta** to share our research on foundation models and AI agents for disaster response with the **NSF AI Institute for Societal Decision Making (AI-SDM)** at Carnegie Mellon University](https://www.linkedin.com/feed/update/urn:li:activity:7482639840853827586/).
+      [Invited by **Meta AI for Good**](https://www.linkedin.com/feed/update/urn:li:activity:7482639840853827586/) to give a talk on foundation models and AI agents for disaster response at the **NSF AI-SDM Institute**, Carnegie Mellon University.
 
   - sort: 20260501
     month: "May"
     year: 2026
     text: >-
-      Paper accepted by **IEEE IRI 2027**!
+      [Paper](/files/Constrained_Multimodal_Fusion.pdf) accepted by **IEEE IRI 2027**!
 
   - sort: 20260402
     month: "Apr"
@@ -27,7 +27,7 @@ items:
     month: "Mar"
     year: 2026
     text: >-
-      **Program Committee Chair**, [IEEE IRI Poster Session (2026)](https://ieee-iri.github.io/2026/committee_organizing.html).
+      **Invited to serve as Program Committee Chair**, [IEEE IRI Poster Session (2026)](https://ieee-iri.github.io/2026/committee_organizing.html).
 
   - sort: 20251201
     month: "Dec"
@@ -39,7 +39,7 @@ items:
     month: "Oct"
     year: 2025
     text: >-
-      [Paper](/files/ICCV_paper.pdf) “**Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective**” accepted at the **TrustFM Workshop @ ICCV 2025** (Hawai'i, Oct 19–23)!
+      [Paper](/files/ICCV_paper.pdf) accepted at the **TrustFM Workshop @ ICCV 2025**, Hawai'i.
 
   - sort: 20250901
     month: "Sep"
@@ -51,7 +51,7 @@ items:
     month: "Jul"
     year: 2025
     text: >-
-      Our work [MarkMatch: Same-Hand Stuffing Detection](/files/MarkMatch.pdf) successfully demonstrated at **IEEE ICME 2025** (Nantes, France, Jun 30–Jul 4).
+      [Paper](/files/MarkMatch.pdf) demonstrated at **IEEE ICME 2025**, Nantes, France.
 
   - sort: 20241001
     month: "Oct"

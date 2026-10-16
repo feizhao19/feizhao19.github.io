@@ -27,6 +27,11 @@ title: Home
   </p> -->
 </div>
 
+<div class="docs-section" id="news">
+  <h4>News</h4>
+  {% include news-list.html %}
+</div>
+
 <div class="docs-section" id="projects">
   <h4>Projects</h4>
   {% for project in site.data.projects.projects %}
@@ -85,11 +90,6 @@ title: Home
   </div>
 </div>
 
-<div class="docs-section" id="news">
-  <h4>News</h4>
-  {% include news-list.html %}
-</div>
-
 <div class="docs-section" id="grants">
   <h4>Grants</h4>
   <div class="numbered-list">
@@ -122,15 +122,24 @@ title: Home
 
 <div class="docs-section" id="teaching">
   <h4>Teaching</h4>
-  <p><strong>Teaching Assistant</strong> <span style="float: right;"><strong>UAB</strong></span><br/></p>
-  <ul style="list-style-position: inside; margin-left: 20px;">
-    <li>CS 410-QL Database App Dev <span style="float: right;">2022 Fall</span><br/></li>
-    <li>CS 665/765-9I Deep Learning <span style="float: right;">2022 Spring</span><br/></li>
-    <li>CS 410-QL/510-QL Database App Dev <span style="float: right;">2021 Fall</span><br/></li>
-    <li>CS 665/765 Deep Learning <span style="float: right;">2021 Spring</span><br/></li>
-    <li>CS 332/532 Systems Programming <span style="float: right;">2020 Fall</span><br/></li>
+  <p><strong>Teaching Assistant</strong> (Led TA teams, taught lab sections, held office hours, and graded assignments) <span style="float: right;"><strong>UAB</strong></span><br/></p>
+  <ul style="list-style-position: inside; margin-left: 20px; clear: both;">
+    <li>CS 510-QL Database Application Development <span style="float: right;">2019 Fall, 2021 Fall, 2022 Fall</span><br/></li>
+    <li>CS 665/765 Deep Learning <span style="float: right;">2021 Spring, 2022 Spring</span><br/></li>
     <li>CS 473/673/773 Computer Vision <span style="float: right;">2020 Spring</span><br/></li>
-    <li>CS 510-QL Database App Dev <span style="float: right;">2019 Fall</span></li>
+    <li>CS 332/532 Systems Programming <span style="float: right;">2020 Fall</span><br/></li>
+    <li>CS 499 Senior BS/BA Capstone <span style="float: right;">2019 Fall</span><br/></li>
+    <li>CS 499/CSA 499 Senior BS Capstone <span style="float: right;">2020 Spring</span></li>
+  </ul>
+
+  <p><strong>Research Mentoring and Project Advising</strong> (Mentored students on thesis/research projects; mentees co-authored 6 peer-reviewed papers.)</p>
+  <ul style="list-style-position: inside; margin-left: 20px;">
+    <li>Roselyn Zhang, Undergraduate Student, Computer Science, University of Waterloo, 2024–2026</li>
+    <li>Ravi Teja Challa, Master Student, Computer Science, UAB, 2025</li>
+    <li>Yifan Ying, Master Student, Computer Science, UAB, 2024</li>
+    <li>Jasper Shen, Master Student, Computer Science, UAB, 2024</li>
+    <li>Jiawen Chen, Undergraduate Student, Beijing University of Technology, 2024</li>
+    <li>Linghuan Zeng, Master Student, Computer Science, UAB, 2023</li>
   </ul>
 </div>
 
@@ -150,66 +159,64 @@ title: Home
 
   <p><strong>Reviewer for Journals</strong></p>
   <div class="numbered-list">
-    <p><span class="paper-number">1.</span> ACM Computing Surveys [Impact Factor: 28]</p>
-    <p><span class="paper-number">1.</span> Trends in Food Science & Technology [Impact Factor: 15.4]</p>
-    <p><span class="paper-number">2.</span> Knowledge and Information Systems</p>
-    <p><span class="paper-number">3.</span> IEEE Transactions on Geoscience and Remote Sensing (TGRS) [Impact Factor: 7.5]</p>
-    <p><span class="paper-number">4.</span> International Journal of Multimedia Data Engineering and Management</p>
-    <p><span class="paper-number">5.</span> IEEE/ACM Transactions on Computational Biology and Bioinformatics [Impact Factor: 3.702]</p>
-    <p><span class="paper-number">6.</span> Computers and Electronics in Agriculture [Impact Factor: 7.7]</p>
-    <p><span class="paper-number">7.</span> International Journal of Business Data Communications and Networking</p>
-    <p><span class="paper-number">8.</span> IEEE Transactions on Multimedia [Impact Factor: 8.4]</p>
-    <p><span class="paper-number">9.</span> IEEE Geoscience and Remote Sensing Letters (GRSL)</p>
-    <p><span class="paper-number">10.</span> IEEE Transactions on Dependable and Secure Computing (TDSC) [Impact Factor: 7.0]</p>
-    <p><span class="paper-number">11.</span> Expert Systems with Applications [Impact Factor: 8.5]</p>
-    <p><span class="paper-number">12.</span> International Journal of Semantic Computing</p>
-    <p><span class="paper-number">13.</span> Palgrave Communications</p>
-    <p><span class="paper-number">14.</span> PLOS ONE</p>
-    <p><span class="paper-number">15.</span> Knowledge-Based Systems [Impact Factor: 8.8]</p>
-    <p><span class="paper-number">16.</span> IET Image Processing</p>
-    <p><span class="paper-number">17.</span> IEEE Sensors Journal [Impact Factor: 4.93]</p>
-    <p><span class="paper-number">18.</span> The Journal of Supercomputing [Impact Factor: 3.3]</p>
-    <p><span class="paper-number">19.</span> Optics and Laser Technology [Impact Factor: 5.69]</p>
-    <p><span class="paper-number">20.</span> Pattern Recognition [Impact Factor: 9.1]</p>
+    <p><span class="paper-number">1.</span> Trends in Food Science & Technology [Impact Factor: 17.4]</p>
+    <p><span class="paper-number">2.</span> IEEE Transactions on Multimedia [Impact Factor: 9.9]</p>
+    <p><span class="paper-number">3.</span> Pattern Recognition [Impact Factor: 9.1]</p>
+    <p><span class="paper-number">4.</span> Engineering Applications of Artificial Intelligence [Impact Factor: 9.0]</p>
+    <p><span class="paper-number">5.</span> Information Processing and Management [Impact Factor: 8.1]</p>
+    <p><span class="paper-number">6.</span> PeerJ [Impact Factor: 2.9]</p>
+    <p><span class="paper-number">7.</span> Knowledge-Based Systems [Impact Factor: 8.0]</p>
+    <p><span class="paper-number">8.</span> IEEE Transactions on Dependable and Secure Computing [Impact Factor: 6.8]</p>
+    <p><span class="paper-number">9.</span> Ad Hoc Networks [Impact Factor: 5.4]</p>
+    <p><span class="paper-number">10.</span> Optics and Laser Technology [Impact Factor: 5.2]</p>
+    <p><span class="paper-number">11.</span> Scientific Reports (Nature Portfolio) [Impact Factor: 4.9]</p>
+    <p><span class="paper-number">12.</span> The Journal of Supercomputing [Impact Factor: 3.5]</p>
+    <p><span class="paper-number">13.</span> Symmetry [Impact Factor: 2.2]</p>
+    <p><span class="paper-number">14.</span> Science of Remote Sensing [Impact Factor: 7.1]</p>
+    <p><span class="paper-number">15.</span> Progress in Disaster Science [Impact Factor: 4.0]</p>
+    <p><span class="paper-number">16.</span> International Journal of Data Science and Analytics [Impact Factor: 2.9]</p>
+    <p><span class="paper-number">17.</span> Computers and Electronics in Agriculture [Impact Factor: 10.3]</p>
+    <p><span class="paper-number">18.</span> Expert Systems with Applications [Impact Factor: 9.4] (Co-Reviewer)</p>
+    <p><span class="paper-number">19.</span> Palgrave Communications [Impact Factor: 4.8] (Co-Reviewer)</p>
+    <p><span class="paper-number">20.</span> PLOS ONE [Impact Factor: 2.8] (Co-Reviewer)</p>
+    <p><span class="paper-number">21.</span> IEEE Transactions on Geoscience and Remote Sensing (TGRS) [Impact Factor: 7.5] (Co-Reviewer)</p>
+    <p><span class="paper-number">22.</span> IET Image Processing [Impact Factor: 2.4] (Co-Reviewer)</p>
+    <p><span class="paper-number">23.</span> Knowledge and Information Systems [Impact Factor: 3.6] (Co-Reviewer)</p>
+    <p><span class="paper-number">24.</span> IEEE/ACM Transactions on Computational Biology and Bioinformatics [Impact Factor: 4.1] (Co-Reviewer)</p>
+    <p><span class="paper-number">25.</span> ACM Computing Surveys [Impact Factor: 23.8] (Co-Reviewer)</p>
   </div>
 
   <p><strong>Reviewer for Conferences</strong></p>
   <div class="numbered-list">
     <p><span class="paper-number">1.</span> IEEE International Conference on Multimedia and Expo (IEEE ICME), 2020–2026</p>
     <p><span class="paper-number">2.</span> ACM International Conference on Multimedia (ACM MM), 2021–2025</p>
-    <p><span class="paper-number">3.</span> IEEE International Conference on Advanced Visual and Signal-Based Systems (IEEE AVSS), 2025</p>
-    <p><span class="paper-number">4.</span> IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 2023–2026</p>
-    <p><span class="paper-number">5.</span> Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD), 2026</p>
-    <p><span class="paper-number">5.</span> The 18th Asian Conference on Machine Learning (ACML 2026), 2026</p>
-
+    <p><span class="paper-number">3.</span> IEEE International Conference on Deep Learning and Computer Vision (IEEE DLCV), 2025</p>
+    <p><span class="paper-number">4.</span> IEEE International Conference on Advanced Visual and Signal-Based Systems (IEEE AVSS), 2025</p>
+    <p><span class="paper-number">5.</span> IEEE International Conference on Acoustics, Speech and Signal Processing (IEEE ICASSP), 2023–2026</p>
+    <p><span class="paper-number">6.</span> Asian Conference on Machine Learning (ACML), 2026</p>
+    <p><span class="paper-number">7.</span> Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD 2026), 2026</p>
+    <p><span class="paper-number">8.</span> IEEE International Conference on Information Reuse and Integration (IEEE IRI), 2026</p>
   </div>
 
 
-  <p><strong>Invited Talks & Panels</strong></p>
+  <p><strong>Invited Talks</strong></p>
   <ul>
-    <li>Invited Talk, "Foundation Models and AI Agents for Disaster Response: RapidDamageAssessment and RapidResponseAgent,"
-      NSF AI-SDM, Carnegie Mellon University & Meta AI for Good, July 13, 2026.</li>
-    <li>Invited Talk, "Visual Prompt Learning of Foundation Models for Post-Disaster Building Damage Evaluation,"
-      CalOES Remote Sensing Working Session, California Governor's Office of Emergency Services (CalOES) & Meta AI for Good, May 26, 2026.</li>
-    <li>Invited Talk, "Potential Applications of Foundation Models in Rapid Disaster Response and Emergency Management,"
-      CalOES Remote Sensing Working Session, California Governor's Office of Emergency Services (CalOES) & Meta AI for Good, May 26, 2026.</li>
-    <li>Panelist, "Global Awareness: International Student Insights on the Experience of Studying in the United States," UAB, 2023.</li>
-    <li>Panelist, "Orientation for International Graduate Students," UAB, Summer Semester, 2023.</li>
-    <li>Panelist, "Orientation for International Graduate Students," UAB, Fall Semester, 2023.</li>
+    <li>“Foundation Models and AI Agents for Disaster Response,” July 13, 2026. Invited by Meta AI for Good, the NSF AI Institute for Societal Decision Making (AI-SDM), and Carnegie Mellon University.</li>
+    <li>“Visual Prompt Learning of Foundation Models for Post-Disaster Building Damage Evaluation,” Remote Sensing Working Group Session, California Governor’s Office of Emergency Services (Cal OES), May 26, 2026. Invited jointly with Meta AI for Good.</li>
+    <li>“Potential Applications of Foundation Models in Rapid Disaster Response and Emergency Management,” Remote Sensing Working Group Session, California Governor’s Office of Emergency Services (Cal OES), May 26, 2026. Invited jointly with Meta AI for Good.</li>
   </ul>
 
-  <p><strong>Mentoring</strong></p>
+  <p><strong>Panels</strong></p>
   <ul>
-    <li>Roselyn Zhang, Undergraduate Student, Computer Science, University of Waterloo, 2024–2026</li>
-    <li>Ravi Teja Challa, Master Student, Computer Science, UAB, 2025</li>
-    <li>Yifan Ying, Master Student, Computer Science, UAB, 2024</li>
-    <li>Jasper Shen, Master Student, Computer Science, UAB, 2024</li>
-    <li>Linghuan Zeng, Master Student, Computer Science, UAB, 2023</li>
+    <li>Invited Panelist, “Global Awareness: International Student Insights on the Experience of Studying in the United States,” UAB, 2023.</li>
+    <li>Invited Panelist, “Orientation for International Graduate Students,” UAB, Summer and Fall Semesters, 2023.</li>
   </ul>
 
-  <p><strong>Volunteer</strong></p>
+
+  <p><strong>Service and Outreach</strong></p>
   <ul>
-    <li>IT Support and Web Development: The World Games (2022), IEEE IRI (2020–2021), Birmingham Chinese Professor Association (2020–present)</li>
-    <li>United States Anti-Doping Agency (2022)</li>
+    <li>Website Development Volunteer, Birmingham Chinese Professor Association, 2020–2026</li>
+    <li>IT Support Volunteer, The World Games (TWG 2022), Birmingham, AL, USA</li>
+    <li>Student Volunteer, IEEE International Conference on Information Reuse and Integration, 2020–2021</li>
   </ul>
 </div>

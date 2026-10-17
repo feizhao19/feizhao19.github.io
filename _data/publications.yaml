@@ -155,7 +155,7 @@ papers:
     number: 2
     title: "Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards"
     authors: "Xi Li, Shu Zhao, Xiaohan Zou, <u>Fei Zhao</u>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang"
-    venue: "ICLR 2026 Workshop on Trustworthy AI (Accepted)"
+    venue: "ICLR 2026 Workshop on Trustworthy AI"
     image: iclr_workshop.png
     link: /files/iclr_Evolving_Safety_Landscape.pdf
 
@@ -167,14 +167,26 @@ papers:
 
   - label: P
     number: 2
-    title: "Multimodal Algal Bloom Severity Evaluation Using Deep Learning: Leveraging Satellite Imagery, Elevation, Temperature, and Geolocation Data"
-    authors: "<u>Fei Zhao</u>, Chengcui Zhang"
-    venue: "Manuscript ready for submission"
-
-  - label: P
-    number: 3
     title: "Neonatal Pain Detection using Deep Learning"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Katherine Dudding"
     venue: "Scientific Reports (Under review)"
     image: neonate.png
     link: /files/neonate.pdf
+
+  - label: P
+    number: 3
+    title: "Multimodal Representation Learning for Harmful Algal Bloom Severity Assessment"
+    authors: "<u>Fei Zhao</u>, Chengcui Zhang"
+    venue: "Multimedia, 2026 (Major Revision)"
+
+  - label: P
+    number: 4
+    title: "BubbleSig: Voter-Agnostic Forensic Detection of Same-Hand Stuffing"
+    authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
+    venue: "IEEE Transactions on Information Forensics and Security (TIFS), 2026 (Under Review)"
+
+  - label: P
+    number: 5
+    title: "The Evolving Safety Landscape of Multimodal Large Language Models: A Survey of Emerging Threats and Safeguards"
+    authors: "Xi Li, Shu Zhao, Xiaohan Zou, Fuxiao Liu, <u>Fei Zhao</u>, et al."
+    venue: "Transactions of the Association for Computational Linguistics (TACL), 2026 (Major Revision)"

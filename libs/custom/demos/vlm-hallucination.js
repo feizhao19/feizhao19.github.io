@@ -1093,7 +1093,7 @@
         if (ok === false || token !== self.runToken) return false;
         self._completeBranchStep('beam-candidates');
         self._activateBranchStep('reward-model');
-        self._status('Iter '+iter+'/'+self.totalIters+' — LLM-as-judge (CLIP Model), SAS + NHP');
+        self._status('Iter '+iter+'/'+self.totalIters+' — LLM-as-a-Judge (CLIP-based Model), SAS + NHP');
         return self._wait(CAND_RM_WIRE_DELAY_MS, token);
       })
       .then(function(ok){

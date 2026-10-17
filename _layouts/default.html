@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{ '/libs/external/skeleton/normalize.css' | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ '/libs/external/skeleton/skeleton.css' | prepend: site.baseurl }}">
-  <link rel="stylesheet" href="{{ '/libs/custom/my_css.css' | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ '/libs/custom/my_css.css' | prepend: site.baseurl }}?v={{ site.time | date: '%s' }}">
 
   <style>
     .navbar-link {
@@ -54,9 +54,9 @@
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#news' | prepend: site.baseurl }}">News</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#projects' | prepend: site.baseurl }}">Projects</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#publications' | prepend: site.baseurl }}">Publications</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#teaching' | prepend: site.baseurl }}">Teaching</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#grants' | prepend: site.baseurl }}">Grants</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#awards' | prepend: site.baseurl }}">Awards</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#teaching' | prepend: site.baseurl }}">Teaching</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#experience' | prepend: site.baseurl }}">Experience</a></li>
           <li class="navbar-item"><a class="navbar-link" href="{{ '/index.html#service' | prepend: site.baseurl }}">Service</a></li>
         </ul>

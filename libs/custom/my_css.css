@@ -12,7 +12,7 @@ h4 {
   margin-bottom: 0.85rem;
 }
 .container {
-  max-width: 800px;
+  max-width: 996px;
   box-sizing: border-box;
 }
 .header {
@@ -2605,6 +2605,10 @@ figure.geo-agent-preview {
   color: rgba(0, 0, 0, 0.44);
   line-height: 1.3;
   text-align: center;
+}
+.vg-step--reward-model .vg-step__sub--clip strong {
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.82);
 }
 .vg-step--reward-model .vg-step__fig {
   margin-top: .14rem;

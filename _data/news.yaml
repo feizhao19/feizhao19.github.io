@@ -9,7 +9,7 @@ items:
     month: "May"
     year: 2026
     text: >-
-      Invited by the **California Governor's Office of Emergency Services (Cal OES)**, jointly with **Meta AI for Good**, to give a talk on visual prompt learning of foundation models for post-disaster building damage evaluation.
+      Invited by the **California Governor's Office of Emergency Services (Cal OES)** to give a talk on visual prompt learning of foundation models for post-disaster building damage evaluation.
 
   - sort: 20260516
     month: "May"
@@ -21,9 +21,9 @@ items:
     month: "Apr"
     year: 2026
     text: >-
-      Invited by the **California Governor's Office of Emergency Services (Cal OES)**, jointly with **Meta AI for Good**, to give a talk on applications of foundation models in rapid disaster response and emergency management.
+      Invited by **Meta AI for Good** to give a talk on applications of foundation models in rapid disaster response and emergency management at the **California Governor's Office of Emergency Services (Cal OES)**.
 
-  - sort: 20260425
+  - sort: 20260403
     month: "Apr"
     year: 2026
     text: >-

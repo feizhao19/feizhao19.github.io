@@ -264,7 +264,7 @@ body.paper-lightbox-open {
   max-width: 100%;
 }
 .news-list {
-  max-height: 21rem;
+  max-height: 16.5rem;
   margin: 0;
   padding: 0.15rem 0.65rem 0.35rem 0;
   overflow-y: auto;
@@ -319,7 +319,7 @@ body.paper-lightbox-open {
   margin: 1rem auto 1.25rem;
   padding: 0;
   width: 80%;
-  max-width: 80%;
+  max-width: 640px; /* original size: 80% of the former 800px column */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -449,6 +449,15 @@ body.paper-lightbox-open {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+/* Keep these demos at their original size (64% of the former 800px column). */
+.viz-project__figure--swipe,
+.viz-project__figure--swipe ~ .viz-project__caption--below,
+.viz-project--geo-agent .viz-project__figure,
+.viz-project--geo-agent .viz-project__caption--below,
+.viz-project--attitude-fusion .viz-project__figure,
+.viz-project--attitude-fusion .viz-project__caption--below {
+  max-width: 512px;
 }
 .viz-project__demo {
   width: 100%;

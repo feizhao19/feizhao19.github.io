@@ -34,7 +34,7 @@ papers:
 
   - label: J
     number: 14
-    title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Assessment"
+    title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Evaluation"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
     venue: "Remote Sensing, 2025 [Impact Factor: 4.2]"
     image: prompt.png
@@ -75,7 +75,7 @@ papers:
   - label: C
     number: 9
     title: "BubbleSig: Same-Hand Ballot Stuffing Detection"
-    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena"
+    authors: "<u>Fei Zhao</u>, Chengcui Zhang, Maya Shah, Nitesh Saxena"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
     image: fruad.png
     link: /files/BubbleSig.pdf

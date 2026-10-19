@@ -190,3 +190,9 @@ papers:
     title: "The Evolving Safety Landscape of Multimodal Large Language Models: A Survey of Emerging Threats and Safeguards"
     authors: "Xi Li, Shu Zhao, Xiaohan Zou, Fuxiao Liu, <u>Fei Zhao</u>, et al."
     venue: "Transactions of the Association for Computational Linguistics (TACL), 2026 (Major Revision)"
+
+  - label: P
+    number: 6
+    title: "Learning from Another Angle: Rotation-Based Test-Time Training for Multimodal Large Language Models"
+    authors: "Changyu Liu, <u>Fei Zhao</u>, Yiyang Liu, Xi Xiao, Tianyang Wang, Cheng Han"
+    venue: "20th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2027), 2026 (Under Review)"

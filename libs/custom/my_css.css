@@ -983,7 +983,7 @@ body.paper-lightbox-open {
 .navbar-list {
   list-style: none;
   display: flex; /* Use flexbox for centering */
-  gap: 35px; /* Space between items */
+  gap: 24px; /* Space between items */
   padding: 0;
   margin: 0;
 }

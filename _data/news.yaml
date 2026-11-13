@@ -1,4 +1,10 @@
 items:
+  - sort: 20261113
+    month: "Nov"
+    year: 2026
+    text: >-
+      Paper accepted by **EACL 2027** (Findings)!
+
   - sort: 20260713
     month: "Jul"
     year: 2026

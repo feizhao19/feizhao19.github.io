@@ -1,4 +1,12 @@
 papers:
+  - label: C
+    number: 4
+    title: "Learning from Another Angle: Rotation-Based Test-Time Training for Multimodal Large Language Models"
+    authors: "Changyu Liu, <u>Fei Zhao</u>, et al."
+    venue: "<b>EACL Findings</b>, 2027"
+    image: eacl.png
+    lightbox_large: true
+
   - label: J
     number: 18
     title: "Deep Multimodal Data Fusion"
@@ -17,7 +25,7 @@ papers:
     link: /files/RL4VLM.pdf
 
   - label: C
-    number: 16
+    number: 3
     title: "On Optimal Modality Compression for Bandwidth Constrained Multimodal Fusion"
     authors: "Mengchen Fan, <u>Fei Zhao</u>, Chengcui Zhang, Shuya Feng, Baocheng Geng"
     venue: "IEEE IRI, 2026"
@@ -25,7 +33,7 @@ papers:
     link: /files/Constrained_Multimodal_Fusion.pdf
 
   - label: C
-    number: 15
+    number: 16
     title: "MarkMatch: Same-Hand Stuffing Detection"
     authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
     venue: "<b>IEEE ICME</b>, 2025"
@@ -33,7 +41,7 @@ papers:
     link: /files/MarkMatch.pdf
 
   - label: J
-    number: 14
+    number: 15
     title: "Visual Prompt Learning of Foundation Models for Post-disaster Damage Evaluation"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
     venue: "Remote Sensing, 2025 [Impact Factor: 4.2]"
@@ -41,7 +49,7 @@ papers:
     link: /files/PEFT_VPL.pdf
 
   - label: C
-    number: 13
+    number: 14
     title: "CheckGuard: Advancing Stolen Check Detection with a Cross-Modal Image-Text Benchmark Dataset"
     authors: "<u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang"
     venue: "<b>ACM CIKM</b>, 2024"
@@ -49,7 +57,7 @@ papers:
     link: /files/CheckGuard.pdf
 
   - label: C
-    number: 12
+    number: 13
     title: "Deep Body Fitness"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Sheikh Abujar"
     venue: "IEEE IRI, 2024 (Poster)"
@@ -57,7 +65,7 @@ papers:
     link: /files/Deep_Body_Fitness.pdf
 
   - label: C
-    number: 11
+    number: 12
     title: "GenCheck: A LoRA-Adapted Multimodal Large Language Model for Check Analysis"
     authors: "<u>Fei Zhao</u>, Jiawen Chen, Bin Huang, Chengcui Zhang, Gary Warner, Rushi Chen, Shaorou Tang, Yuanfei Ma, Zixi Nan"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
@@ -65,7 +73,7 @@ papers:
     link: /files/Gencheck.pdf
 
   - label: C
-    number: 10
+    number: 11
     title: "Parameter-Efficient Adaptation of Vision Foundation Models for Damaged Building Assessment"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Runlin Zhang, Tianyang Wang"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
@@ -73,7 +81,7 @@ papers:
     link: /files/PEFT_Adaptation.pdf
 
   - label: C
-    number: 9
+    number: 10
     title: "BubbleSig: Same-Hand Ballot Stuffing Detection"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Maya Shah, Nitesh Saxena"
     venue: "IEEE MIPR, 2024 (Acceptance Rate: 20%)"
@@ -81,7 +89,7 @@ papers:
     link: /files/BubbleSig.pdf
 
   - label: J
-    number: 8
+    number: 2
     title: "High Research Productivity During Orthopaedic Surgery Residency May Be Predicted by Number of Publications as a Medical Student"
     authors: "Connor Donley, Matthew McCrosson, Sri Prahad, Collier Campbell, <u>Fei Zhao</u>, Narcy Amireddy, Michael Johnson"
     venue: "The Journal of Bone & Joint Surgery, 2024 [Impact Factor: 5.3]"
@@ -89,7 +97,7 @@ papers:
     link: https://pmc.ncbi.nlm.nih.gov/articles/PMC10817159/
 
   - label: C
-    number: 7
+    number: 9
     title: "Deep Learning for HABs Prediction with Multimodal Fusion"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang"
     venue: "<b>ACM SIGSPATIAL</b>, 2023"
@@ -97,7 +105,7 @@ papers:
     link: /files/HAB_SigSpatial.pdf
 
   - label: C
-    number: 6
+    number: 8
     title: "Ballot Tabulation using Deep Learning"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Nitesh Saxena, Dan Wallach, Shahariar Rabby"
     venue: "IEEE IRI, 2023 (Acceptance Rate: 29%)"
@@ -105,22 +113,22 @@ papers:
     link: /files/BT_DL.pdf
 
   - label: C
-    number: 5
+    number: 7
     title: "A Multimodal Approach for Evaluating Algal Bloom Severity using Deep Learning"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang, Sheikh Abujar"
     venue: "<b>IEEE ICME</b>, 2023"
     image: icme.png
     link: /files/HAB_ICME.pdf
 
-  - label: C
-    number: 4
+  - label: W
+    number: 1
     title: "Leveraging Clinical Experiences to Inform Optimal Neonatal Outcomes Through Technology"
     authors: "Katherine Dudding, Allyson Sanders, Peyton Lewis, <u>Fei Zhao</u>, Chengcui Zhang, Jane Carrington"
     venue: "Academy of Neonatal Nursing Conference, 2022 (Poster)"
     image: neonatal_poster.png
 
   - label: C
-    number: 3
+    number: 6
     title: "Building Damage Evaluation from Satellite Imagery using Deep Learning"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang"
     venue: "IEEE IRI, 2020 (Acceptance Rate: 29%)"
@@ -128,7 +136,7 @@ papers:
     link: /files/BDE.pdf
 
   - label: J
-    number: 2
+    number: 5
     title: "Research on MEMS-based Real-Time Measurement System for Motion Information of Vehicles"
     authors: "<u>Fei Zhao</u>, Zhaoying Zhou, Jijun Xiong, Jifeng Zhao, Jiajin Liu"
     venue: "Key Engineering Materials, 2013"
@@ -144,7 +152,7 @@ papers:
     link: /files/MEMS.pdf
 
   - label: W
-    number: 1
+    number: 2
     title: "Rethinking the Safety Landscape for Foundation Models: A Multi-Modal Perspective"
     authors: "Xi Li, Shu Zhao, <u>Fei Zhao</u>, Runlong Yu"
     venue: "ICCV 2025 T2FM Workshop"
@@ -152,7 +160,7 @@ papers:
     link: /files/ICCV_paper.pdf
 
   - label: W
-    number: 2
+    number: 3
     title: "Evolving Safety Landscape of Multi-modal Large Language Models: A Survey of Emerging Threats and Safeguards"
     authors: "Xi Li, Shu Zhao, Xiaohan Zou, <u>Fei Zhao</u>, Fuxiao Liu, Yusen Zhang, Cheng Han, Yushun Dong, Jiaqi Wang"
     venue: "ICLR 2026 Workshop on Trustworthy AI"
@@ -174,13 +182,13 @@ papers:
     link: /files/neonate.pdf
 
   - label: P
-    number: 5
+    number: 4
     title: "Multimodal Representation Learning for Harmful Algal Bloom Severity Assessment"
     authors: "<u>Fei Zhao</u>, Chengcui Zhang"
     venue: "Multimedia, 2026 (Major Revision)"
 
   - label: P
-    number: 6
+    number: 5
     title: "BubbleSig: Voter-Agnostic Forensic Detection of Same-Hand Stuffing"
     authors: "<u>Fei Zhao</u>, Runlin Zhang, Chengcui Zhang, Nitesh Saxena"
     venue: "IEEE Transactions on Information Forensics and Security (TIFS), 2026 (Under Review)"
@@ -190,9 +198,3 @@ papers:
     title: "The Evolving Safety Landscape of Multimodal Large Language Models: A Survey of Emerging Threats and Safeguards"
     authors: "Xi Li, Shu Zhao, Xiaohan Zou, Fuxiao Liu, <u>Fei Zhao</u>, et al."
     venue: "Transactions of the Association for Computational Linguistics (TACL), 2026 (Major Revision)"
-
-  - label: P
-    number: 4
-    title: "Learning from Another Angle: Rotation-Based Test-Time Training for Multimodal Large Language Models"
-    authors: "Changyu Liu, <u>Fei Zhao</u>, Yiyang Liu, Xi Xiao, Tianyang Wang, Cheng Han"
-    venue: "20th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2027), 2026 (Under Review)"

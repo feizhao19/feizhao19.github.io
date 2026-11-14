@@ -2,7 +2,7 @@ papers:
   - label: C
     number: 4
     title: "Learning from Another Angle: Rotation-Based Test-Time Training for Multimodal Large Language Models"
-    authors: "Changyu Liu, <u>Fei Zhao</u>, et al."
+    authors: "Changyu Liu, <u>Fei Zhao</u>, Yiyang Liu, Xi Xiao, Tianyang Wang, Cheng Han"
     venue: "<b>EACL Findings</b>, 2027"
     image: eacl.png
     lightbox_large: true
